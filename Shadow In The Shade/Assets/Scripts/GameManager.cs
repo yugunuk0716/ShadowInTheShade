@@ -4,15 +4,50 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private static GameManager _instance;
+    public static GameManager instance { 
+        get
+        { 
+            return _instance; 
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Transform Player
     {
-        
+        get
+        {
+            if (instance != null)
+                return instance.player;
+            else return null;
+        }
     }
+    public Transform player;
+
+    private float timeScale = 1f;
+
+    public static float TimeScale
+    {
+        get
+        {
+            if (instance != null)
+                return instance.timeScale;
+            return 0;
+        }
+        set
+        {
+            instance.timeScale = Mathf.Clamp(value, 0, 1);
+        }
+    }
+
+
+    private void Awake()
+    {
+        if (_instance != null) 
+        {
+            Debug.LogError("다수의 GameManager가 실행중입니다");
+        }
+        _instance = this;
+
+    }
+
 }
