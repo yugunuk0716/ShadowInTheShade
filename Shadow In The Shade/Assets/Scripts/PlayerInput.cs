@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    public float moveX { get; private set; }
-    public float moveY { get; private set; }
-    public bool isDash { get; private set; }
-    public bool isAction { get; private set; }
-    public bool isShadow { get; private set; }
+    public float _moveX { get; private set; }
+    public float _moveY { get; private set; }
+    public bool _isDash { get; private set; }
+    public bool _isAction { get; private set; }
+    public bool _isShadow { get; private set; }
 
     
 
@@ -23,19 +23,19 @@ public class PlayerInput : MonoBehaviour
     {
         if (GameManager.TimeScale <= 0)
         {
-            moveX = 0;
-            moveY = 0;
-            isDash = false;
-            isAction = false;
+            _moveX = 0;
+            _moveY = 0;
+            _isDash = false;
+            _isAction = false;
             return;
         }
 
         
        
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
-        isAction = Input.GetButtonDown("Fire1");
-        isShadow = Input.GetButtonDown("Switch");
+        _moveX = Input.GetAxisRaw("Horizontal");
+        _moveY = Input.GetAxisRaw("Vertical");
+        _isAction = Input.GetButtonDown("Fire1");
+        _isShadow = Input.GetButtonDown("Switch");
 
        
 

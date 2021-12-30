@@ -4,49 +4,48 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed = 7f;
+    public float _moveSpeed = 7f;
 
 
 
     [Header("대시 관련")]
-    public GameObject afterImagePrefab;
-    public Transform afterImageTrm;
-    public bool canDash = false;// 대쉬아이템 먹었는지 여부
-    public float dashPower = 10f;
-    public float dashTime = 0.2f;
-    public float dashCooltime = 5f;
+    public GameObject _afterImagePrefab;
+    public Transform _afterImageTrm;
+    public float _dashPower = 10f;
+    public float _dashTime = 0.2f;
+    public float _dashCooltime = 5f;
 
-    private Rigidbody2D rigid;
-    private PlayerInput input;
-    private SpriteRenderer spriteRenderer;
+    private Rigidbody2D _rigid;
+    private PlayerInput _input;
+    private SpriteRenderer _spriteRenderer;
 
-    private float curDashCooltime;
-    private bool isDash = false;
-    private bool isHit = false;
+    private float _curDashCooltime;
+    private bool _isDash = false;
+    private bool _isHit = false;
 
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        input = GetComponent<PlayerInput>();
+        _rigid = GetComponent<Rigidbody2D>();
+        _input = GetComponent<PlayerInput>();
     }
 
     private void Update()
     {
-        if (input.isDash && !isDash && canDash && curDashCooltime <= 0)
+        if (_input._isDash && !_isDash && _curDashCooltime <= 0)
         {
-            isDash = true;
-            curDashCooltime = dashCooltime;
+            _isDash = true;
+            _curDashCooltime = _dashCooltime;
             StartCoroutine(Dash());
         }
 
-        if (curDashCooltime > 0) 
+        if (_curDashCooltime > 0) 
         {
-            curDashCooltime -= Time.deltaTime;
-            if (curDashCooltime <= 0) curDashCooltime = 0;
+            _curDashCooltime -= Time.deltaTime;
+            if (_curDashCooltime <= 0) _curDashCooltime = 0;
         }
 
-        if (input.isDash) 
+        if (_input._isDash) 
         {
             print("switch");
         }
@@ -54,15 +53,15 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator Dash()
     {
-        Vector2 dir = spriteRenderer.flipX ? transform.right * -1 : transform.right;
-        rigid.velocity = Vector2.zero;
-        rigid.AddForce(dir * dashPower, ForceMode2D.Impulse);
-        rigid.gravityScale = 0;
+        Vector2 dir = _spriteRenderer.flipX ? transform.right * -1 : transform.right;
+        _rigid.velocity = Vector2.zero;
+        _rigid.AddForce(dir * _dashPower, ForceMode2D.Impulse);
+        _rigid.gravityScale = 0;
 
         float time = 0;
         float afterTime = 0;
         float targetTime = Random.Range(0.02f, 0.06f);
-        while (isDash)
+        while (_isDash)
         {
             time += Time.deltaTime;
             afterTime += Time.deltaTime;
@@ -75,14 +74,14 @@ public class PlayerMove : MonoBehaviour
             //    afterTime = 0;
             //}
 
-            if (time >= dashTime)
+            if (time >= _dashTime)
             {
-                isDash = false;
+                _isDash = false;
             }
             yield return null;
         }
-        rigid.velocity = Vector2.zero;
-        rigid.gravityScale = 1;
+        _rigid.velocity = Vector2.zero;
+        _rigid.gravityScale = 1;
     }
 
 }
