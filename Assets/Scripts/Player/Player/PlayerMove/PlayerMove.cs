@@ -13,7 +13,7 @@ public class PlayerMove : AgentMove
 
     private void FixedUpdate()
     {
-        //OnMove(playerInput.dir, speed);
+        OnMove(playerInput.dir.normalized, speed);
     }
 
     public override void OnMove(Vector2 dir, float speed)
