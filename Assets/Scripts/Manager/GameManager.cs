@@ -19,5 +19,14 @@ public class GameManager : MonoSingleton<GameManager>
     public UnityEvent OnPlayerDash; //플레이어가 대쉬할 때 쓰는 이벤트
     public UnityEvent OnPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
 
+    public void Awake()
+    {
+        init();
+    }
 
+    public void init()
+    {
+        player.GetComponent<SpriteRenderer>().sprite = currentPlayerSO.playerSprite;
+        currentPlayerSO.playerStates = PlayerStates.Human;
+    }
 }

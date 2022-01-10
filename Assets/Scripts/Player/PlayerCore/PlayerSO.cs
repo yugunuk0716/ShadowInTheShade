@@ -39,6 +39,9 @@ public struct PlayerAttackStats
 [CreateAssetMenu(fileName = "ScriptableObject", menuName = "PlayerSO",order = 0)]
 public class PlayerSO : ScriptableObject
 {
+    [Header("플레이어 스프라이트")]
+    public Sprite playerSprite;
+
     [Header("플레이어 현제 상태")]
     public PlayerStates playerStates;
 
