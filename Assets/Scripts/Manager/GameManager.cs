@@ -22,11 +22,13 @@ public class GameManager : MonoSingleton<GameManager>
     public void Awake()
     {
         init();
+        Application.targetFrameRate = 300;
     }
 
     public void init()
     {
         player.GetComponent<SpriteRenderer>().sprite = currentPlayerSO.playerSprite;
         currentPlayerSO.playerStates = PlayerStates.Human;
+        currentPlayerSO.canChangePlayerType = true;
     }
 }

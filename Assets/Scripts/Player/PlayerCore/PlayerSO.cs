@@ -43,6 +43,7 @@ public class PlayerSO : ScriptableObject
     public Sprite playerSprite;
 
     [Header("플레이어 현제 상태")]
+    public bool canChangePlayerType;
     public PlayerStates playerStates;
 
     [Header("플레이어의 이동스탯")]

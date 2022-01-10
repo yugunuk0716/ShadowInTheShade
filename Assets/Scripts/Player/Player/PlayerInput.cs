@@ -10,6 +10,11 @@ public class PlayerInput : MonoBehaviour
     public Vector2 dir;
 
 
+    private void Start()
+    {
+        GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
+    }
+
     private void Update()
     {
         dir.x = Input.GetAxisRaw("Horizontal");
@@ -17,7 +22,13 @@ public class PlayerInput : MonoBehaviour
 
         if(Input.GetButtonDown("ChangePlayerType"))
         {
-            ChangePlayerType();
+            if (GameManager.Instance.currentPlayerSO.canChangePlayerType)
+            {
+                GameManager.Instance.OnPlayerChangeType.Invoke();
+                GameManager.Instance.currentPlayerSO.canChangePlayerType = false;
+            }
+            else
+                print("준비되지 않았습니다");
         }
 
     }
@@ -32,6 +43,5 @@ public class PlayerInput : MonoBehaviour
             player = PlayerStates.Human;
 
         GameManager.Instance.currentPlayerSO.playerStates = player;
-        GameManager.Instance.OnPlayerChangeType.Invoke();
     }
 }

@@ -22,6 +22,6 @@ public class PlayerAnimation : MonoBehaviour
         else
             targetColor = Color.black;
 
-        sr.DOColor(targetColor, .5f);
+        sr.DOColor(targetColor, .5f).OnComplete(() => GameManager.Instance.currentPlayerSO.canChangePlayerType = true);
     }
 }
