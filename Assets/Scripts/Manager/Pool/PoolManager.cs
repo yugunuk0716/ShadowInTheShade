@@ -8,17 +8,18 @@ public class PoolManager : MonoSingleton<PoolManager>
 	const int START_SIZE = 5;
 
 	public List<Pool<Stage>> _stagePrefabList;
-	public List<GameObject> _stagePrefabs;
+	public List<GameObject> _bottomMap;
+	public List<GameObject> _topMap;
+	public List<GameObject> _rightMap;
+	public List<GameObject> _leftMap;
 
-	private int _fastIndex = 0;
-	private int _stageNumber = 0;
+
 
 
 
     public PoolManager()
     {
-        _stagePrefabList = new List<Pool<Stage>>();
-        _stagePrefabs = new List<GameObject>();
+
 
     }
 
