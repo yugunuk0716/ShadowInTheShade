@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMove : AgentMove
 {
@@ -8,7 +9,9 @@ public class PlayerMove : AgentMove
 
     private void Start()
     {
+        GameManager.Instance.OnPlayerDash.AddListener(Dash);
         playerInput = GetComponent<PlayerInput>();
+        speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     }
 
     private void FixedUpdate()
@@ -19,5 +22,10 @@ public class PlayerMove : AgentMove
     public override void OnMove(Vector2 dir, float speed)
     {
         base.OnMove(dir, speed);
+    }
+
+    public void Dash()
+    {
+
     }
 }
