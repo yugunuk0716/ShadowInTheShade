@@ -6,10 +6,11 @@ using DG.Tweening;
 public class PlayerAnimation : MonoBehaviour
 {
     private SpriteRenderer sr;
+    private PlayerSO playerSO;
     public void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-
+        playerSO = GameManager.Instance.currentPlayerSO;
         GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerTypeAnimation);
     }
 
@@ -17,11 +18,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         Color targetColor;
 
-        if (GameManager.Instance.currentPlayerSO.playerStates.Equals(PlayerStates.Human))
-            targetColor = Color.white;
-        else
+        if (playerSO.playerStates.Equals(PlayerStates.Human))
             targetColor = Color.black;
+        else
+            targetColor = Color.white;
 
-        sr.DOColor(targetColor, .5f).OnComplete(() => GameManager.Instance.currentPlayerSO.canChangePlayerType = true);
+        sr.DOColor(targetColor, playerSO.ectStats.TCT).OnComplete(() => 
+        {
+            playerSO.canChangePlayerType = true;
+            GameManager.Instance.currentPlayerSO = playerSO;
+        });
     }
 }

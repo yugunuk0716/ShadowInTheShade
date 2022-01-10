@@ -36,6 +36,14 @@ public struct PlayerAttackStats
     public float SCD;
 }
 
+[System.Serializable]
+public struct PlayerECTStats
+{
+    [Header("타입 변경 시간")]
+    public float TCT;
+}
+
+
 [CreateAssetMenu(fileName = "ScriptableObject", menuName = "PlayerSO",order = 0)]
 public class PlayerSO : ScriptableObject
 {
@@ -52,4 +60,7 @@ public class PlayerSO : ScriptableObject
     
     [Header("플레이어의 공격스탯")]
     public PlayerAttackStats attackStats;
+
+    [Header("플레이어의 기타스탯")]
+    public PlayerECTStats ectStats;
 }
