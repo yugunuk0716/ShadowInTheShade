@@ -12,29 +12,29 @@ public class RoomTemplates : MonoBehaviour
 
 	public GameObject _closedRoom;
 
-    public List<GameObject> rooms;
+    public List<GameObject> _rooms;
 
-    public float waitTime;
-    private bool spawnedBoss;
-    public GameObject boss;
+    //public float _waitTime;
+    //private bool _spawnedBoss;
+    //public GameObject _boss;
 
-    void Update()
-    {
+    //void Update()
+    //{
 
-        if (waitTime <= 0 && spawnedBoss == false)
-        {
-            for (int i = 0; i < rooms.Count; i++)
-            {
-                if (i == rooms.Count - 1)
-                {
-                    Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
-                    spawnedBoss = true;
-                }
-            }
-        }
-        else
-        {
-            waitTime -= Time.deltaTime;
-        }
-    }
+    //    if (_waitTime <= 0 && _spawnedBoss == false)
+    //    {
+    //        for (int i = 0; i < _rooms.Count; i++)
+    //        {
+    //            if (i == _rooms.Count - 1)
+    //            {
+    //                Instantiate(_boss, _rooms[i].transform.position, Quaternion.identity);
+    //                _spawnedBoss = true;
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        _waitTime -= Time.deltaTime;
+    //    }
+    //}
 }
