@@ -5,13 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    [HideInInspector]
+   // [HideInInspector]
     public Vector2 dir;
 
     private void Update()
     {
         dir.x = Input.GetAxisRaw("Horizontal");
         dir.y = Input.GetAxisRaw("Vertical");
+
     }
 
 }
