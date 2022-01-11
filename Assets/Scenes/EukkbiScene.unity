@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 1519834002}
   - component: {fileID: 1519834000}
   - component: {fileID: 1519834001}
+  - component: {fileID: 1519834003}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -519,7 +520,7 @@ Transform:
   m_GameObject: {fileID: 1519833997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_Children: []
   m_Father: {fileID: 1486168167}
   m_RootOrder: 0
@@ -600,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5857d9521b634db49aa3f7a3a8200e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 0
 --- !u!50 &1519834002
 Rigidbody2D:
   serializedVersion: 4
@@ -622,6 +623,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1519834003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519833997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1cc9227882995429efdbf437ecbc57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1576682008
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,6 +644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576682009}
+  - component: {fileID: 1576682010}
   m_Layer: 0
   m_Name: ManagementObject
   m_TagString: Untagged
@@ -652,6 +666,27 @@ Transform:
   m_Father: {fileID: 156806272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576682010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576682008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858527fbcab813d41bc5fa3d6d325052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1519833998}
+  currentPlayerSO: {fileID: 11400000, guid: 5157193c051d4554c9de14a3ba86b093, type: 2}
+  _timeScale: 1
+  OnPlayerDash:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerChangeType:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1627785688
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +713,7 @@ Transform:
   m_GameObject: {fileID: 1627785688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 12, z: 1}
+  m_LocalScale: {x: 17.777779, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 25417630}
   m_RootOrder: 1
