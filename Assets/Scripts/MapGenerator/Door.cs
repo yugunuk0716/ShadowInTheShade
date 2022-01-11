@@ -21,9 +21,8 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Room"))
+        if (other.CompareTag("Room") && _matchedDoor == null)
         {
-            print(_openingDirection);
             Room room = other.GetComponent<Room>();
             if(room != null)
             {
@@ -32,7 +31,6 @@ public class Door : MonoBehaviour
                     if (rsp._door != null)
                     {
                         _matchedDoor = rsp._door;
-                        print(_matchedDoor.name);
                     }
                     else
                     {
@@ -41,15 +39,14 @@ public class Door : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("Player"))
-        {
-            MoveRoom();
-        }
+        
     }
+
+   
 
     public void MoveRoom()
     {
         print("Move!");
-        //GameManager.Instance.player
+        GameManager.Instance.player.position = _matchedDoor.transform.position;
     }
 }
