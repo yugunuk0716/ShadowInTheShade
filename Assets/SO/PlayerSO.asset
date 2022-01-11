@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSO
   playerSprite: {fileID: 21300000, guid: 4e6eac8d299341c4a97632c9698482a3, type: 3}
   canChangePlayerType: 1
-  playerStates: 1
+  playerStates: 0
   moveStats:
     SPD: 10
     DCT: 0
