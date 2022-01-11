@@ -5,14 +5,11 @@ using UnityEngine;
 public class Room : MonoBehaviour {
 
     private RoomTemplates _templates;
-    private SpriteRenderer sr;
 
     public List<int> _movable = new List<int>();
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
-        sr.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         _templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         _templates._rooms.Add(this.gameObject);
     }
@@ -28,10 +25,17 @@ public class Room : MonoBehaviour {
                 return;
             }
 
-            if (!_movable.Contains(rs._openingDirection)) 
+            if (!_movable.Contains(rs._openingDirection) && !this.gameObject.CompareTag("ClosedRoom")) 
             {
                 //print($"파괴 + {collision.gameObject.name}");
-                Destroy(rs._door.gameObject);
+                if (rs._door != null)
+                {
+                    Destroy(rs._door.gameObject);
+                }
+                else
+                {
+                    print($"{this.gameObject.name}에서 도어가 없잖아!");
+                }
             }
         }
     }
