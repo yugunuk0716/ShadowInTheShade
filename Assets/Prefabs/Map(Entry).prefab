@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1643996034217036136}
   - component: {fileID: 8043142009759427972}
   - component: {fileID: 6622394442511563724}
+  - component: {fileID: 4542551400465324461}
   m_Layer: 0
   m_Name: B
   m_TagString: Untagged
@@ -95,6 +96,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316b5f2bbf70e484e917cc7459ee7345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchedDoor: {fileID: 0}
+  _openingDirection: 1
+--- !u!61 &4542551400465324461
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939518833116388306}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -2}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 5}
+  m_EdgeRadius: 0
 --- !u!1 &1354193672737143028
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _openingDirection: 3
-  _templates: {fileID: 0}
   _spawned: 0
   _waitTime: 4
   _door: {fileID: 3421334665043645289}
@@ -203,6 +231,7 @@ GameObject:
   - component: {fileID: 4716171031525601280}
   - component: {fileID: 6418170674447207581}
   - component: {fileID: 1544829739725478517}
+  - component: {fileID: 3354091528212766115}
   m_Layer: 0
   m_Name: T
   m_TagString: Untagged
@@ -287,6 +316,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316b5f2bbf70e484e917cc7459ee7345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchedDoor: {fileID: 0}
+  _openingDirection: 2
+--- !u!61 &3354091528212766115
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058027870085029852}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 5}
+  m_EdgeRadius: 0
 --- !u!1 &5108935986743226644
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +462,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5214696014613580581}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
@@ -435,6 +492,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movable: 01000000020000000300000004000000
+  _spawners:
+  - {fileID: 6630209809925576412}
+  - {fileID: 8128944394735058950}
+  - {fileID: 6896655913039232518}
+  - {fileID: 3622087637598166632}
 --- !u!50 &2028633928629372436
 Rigidbody2D:
   serializedVersion: 4
@@ -493,6 +555,7 @@ GameObject:
   - component: {fileID: 1489116382464741181}
   - component: {fileID: 1942094857741777814}
   - component: {fileID: 6113983737452637763}
+  - component: {fileID: 9028780745802440811}
   m_Layer: 0
   m_Name: L
   m_TagString: Untagged
@@ -577,6 +640,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316b5f2bbf70e484e917cc7459ee7345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchedDoor: {fileID: 0}
+  _openingDirection: 3
+--- !u!61 &9028780745802440811
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5714814252161802772}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -2, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &5841942634257260729
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +679,7 @@ GameObject:
   - component: {fileID: 4793004444575383961}
   - component: {fileID: 8838190776854646671}
   - component: {fileID: 3421334665043645289}
+  - component: {fileID: 7138498804975428296}
   m_Layer: 0
   m_Name: R
   m_TagString: Untagged
@@ -672,6 +764,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316b5f2bbf70e484e917cc7459ee7345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchedDoor: {fileID: 0}
+  _openingDirection: 4
+--- !u!61 &7138498804975428296
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5841942634257260729}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6423347603551797962
 GameObject:
   m_ObjectHideFlags: 0
@@ -11808,7 +11928,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _openingDirection: 1
-  _templates: {fileID: 0}
   _spawned: 0
   _waitTime: 4
   _door: {fileID: 1544829739725478517}
@@ -11905,7 +12024,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _openingDirection: 2
-  _templates: {fileID: 0}
   _spawned: 0
   _waitTime: 4
   _door: {fileID: 6622394442511563724}
@@ -12002,7 +12120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _openingDirection: 4
-  _templates: {fileID: 0}
   _spawned: 0
   _waitTime: 4
   _door: {fileID: 6113983737452637763}

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomSpawner : MonoBehaviour {
+public class RoomSpawner : MonoBehaviour 
+{
 
 	public int _openingDirection;
 	// 1 --> 아래가 뚫린게 필요한놈
@@ -11,7 +12,6 @@ public class RoomSpawner : MonoBehaviour {
 	// 4 --> 오른쪽이 뚫린게 필요한놈
 
 
-	public RoomTemplates _templates;
 	private int _rand;
 	public bool _spawned = false;
 
@@ -21,7 +21,6 @@ public class RoomSpawner : MonoBehaviour {
 
 	void Start(){
 		//Destroy(gameObject, _waitTime);
-		_templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
 		Invoke(nameof(Spawn), 0.1f);
 	}
 
@@ -29,17 +28,17 @@ public class RoomSpawner : MonoBehaviour {
 	void Spawn(){
 		if(_spawned == false){
 			if(_openingDirection == 1){
-				_rand = Random.Range(0, _templates._bottomRooms.Length);
-				Instantiate(_templates._bottomRooms[_rand], transform.position, _templates._bottomRooms[_rand].transform.rotation);
+				_rand = Random.Range(0, RoomTemplates.Instance._bottomRooms.Length);
+				Instantiate(RoomTemplates.Instance._bottomRooms[_rand], transform.position, RoomTemplates.Instance._bottomRooms[_rand].transform.rotation);
 			} else if(_openingDirection == 2){
-				_rand = Random.Range(0, _templates._topRooms.Length);
-				Instantiate(_templates._topRooms[_rand], transform.position, _templates._topRooms[_rand].transform.rotation);
+				_rand = Random.Range(0, RoomTemplates.Instance._topRooms.Length);
+				Instantiate(RoomTemplates.Instance._topRooms[_rand], transform.position, RoomTemplates.Instance._topRooms[_rand].transform.rotation);
 			} else if(_openingDirection == 3){
-				_rand = Random.Range(0, _templates._leftRooms.Length);
-				Instantiate(_templates._leftRooms[_rand], transform.position, _templates._leftRooms[_rand].transform.rotation);
+				_rand = Random.Range(0, RoomTemplates.Instance._leftRooms.Length);
+				Instantiate(RoomTemplates.Instance._leftRooms[_rand], transform.position, RoomTemplates.Instance._leftRooms[_rand].transform.rotation);
 			} else if(_openingDirection == 4){
-				_rand = Random.Range(0, _templates._rightRooms.Length);
-				Instantiate(_templates._rightRooms[_rand], transform.position, _templates._rightRooms[_rand].transform.rotation);
+				_rand = Random.Range(0, RoomTemplates.Instance._rightRooms.Length);
+				Instantiate(RoomTemplates.Instance._rightRooms[_rand], transform.position, RoomTemplates.Instance._rightRooms[_rand].transform.rotation);
 			}
 			_spawned = true;
 		}
@@ -50,13 +49,7 @@ public class RoomSpawner : MonoBehaviour {
 			RoomSpawner rs = other.GetComponent<RoomSpawner>();
 			if (rs._spawned == false && _spawned == false){
 
-				if (_templates == null)
-				{
-					_templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-
-                }
-                
-				Instantiate(_templates._closedRoom, transform.position, Quaternion.identity);
+				Instantiate(RoomTemplates.Instance._closedRoom, transform.position, Quaternion.identity);
 				//Destroy(gameObject);
 			} 
 			_spawned = true;
@@ -64,4 +57,6 @@ public class RoomSpawner : MonoBehaviour {
      
         
     }
+
+
 }
