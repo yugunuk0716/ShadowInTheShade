@@ -19,9 +19,9 @@ public class PlayerAnimation : MonoBehaviour
         Color targetColor;
 
         if (playerSO.playerStates.Equals(PlayerStates.Human))
-            targetColor = Color.white;
-        else
             targetColor = Color.black;
+        else
+            targetColor = Color.white;
 
         sr.DOColor(targetColor, playerSO.ectStats.TCT).OnComplete(() => 
         {
