@@ -11092,7 +11092,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _openingDirection: 1
-  _templates: {fileID: 0}
   _spawned: 0
   _waitTime: 4
   _door: {fileID: 7166118957017003200}
@@ -11198,9 +11197,10 @@ GameObject:
   - component: {fileID: 528511907083742579}
   - component: {fileID: 2876713610720999355}
   - component: {fileID: 7166118957017003200}
+  - component: {fileID: 5653267152640253565}
   m_Layer: 0
   m_Name: T
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11282,6 +11282,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316b5f2bbf70e484e917cc7459ee7345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchedDoor: {fileID: 0}
+  _openingDirection: 2
+--- !u!61 &5653267152640253565
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8790520129781238562}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 5}
+  m_EdgeRadius: 0
 --- !u!1 &8936837449447365963
 GameObject:
   m_ObjectHideFlags: 0
@@ -11331,6 +11359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movable: 02000000
+  _spawners:
+  - {fileID: 2406428241981701543}
 --- !u!61 &8455468573479110414
 BoxCollider2D:
   m_ObjectHideFlags: 0

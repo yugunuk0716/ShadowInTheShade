@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomTemplates : MonoBehaviour 
+public class RoomTemplates : MonoSingleton<RoomTemplates> 
 {
 
     public GameObject[] _bottomRooms;
@@ -12,7 +12,7 @@ public class RoomTemplates : MonoBehaviour
 
     public GameObject _closedRoom;
 
-    public List<GameObject> _rooms;
+    public List<Room> _rooms;
 
     //public float _waitTime;
     //private bool _spawnedBoss;

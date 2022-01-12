@@ -7,7 +7,7 @@ public class GameManager : MonoSingleton<GameManager>
 {
     //플레이어
     [SerializeField]
-    private Transform player;
+    public Transform player;
     public PlayerSO currentPlayerSO;
 
     //오브젝트 관련 타임스케일
