@@ -33,6 +33,11 @@ public class PlayerInput : MonoBehaviour
                 print("준비되지 않았습니다");
         }
 
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameManager.Instance.OnPlayerDash.Invoke();
+        }
     }
 
     private void ChangePlayerType()

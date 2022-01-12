@@ -5,7 +5,7 @@ using UnityEngine;
 public class AgentMove :  MonoBehaviour , IMoveable
 {
 
-    private Rigidbody2D rid;
+    public Rigidbody2D rid;
 
     public float speed;
 

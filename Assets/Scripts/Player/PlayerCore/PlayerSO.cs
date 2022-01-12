@@ -12,11 +12,20 @@ public enum PlayerStates // 플레이어 상태
 [System.Serializable]
 public struct PlayerMoveStats
 {
-    [Header("이동속도")]
+    [Header("이동 속도")]
     public float SPD;
 
-    [Header("대쉬쿨타임")]
+    [Header("대쉬 속도")]
+    public float DPD;
+
+    [Header("대쉬 쿨타임")]
     public float DCT;
+
+    [Header("대쉬 시간")]
+    public float DRT;
+
+    [Header("대쉬 스택")]
+    public int DSS;
 }
 
 
@@ -41,6 +50,9 @@ public struct PlayerECTStats
 {
     [Header("타입 변경 시간")]
     public float TCT;
+
+    [Header("마우스를 보는 시간")]
+    public float LPS;
 }
 
 
