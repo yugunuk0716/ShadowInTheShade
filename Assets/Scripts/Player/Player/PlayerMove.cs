@@ -24,7 +24,7 @@ public class PlayerMove : AgentMove
 
     private void Update()
     {
-        LookMouse();
+       // LookMouse();
     }
 
     public override void OnMove(Vector2 dir, float speed)
