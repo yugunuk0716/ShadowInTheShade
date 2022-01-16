@@ -1,18 +1,36 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour 
+public class Room : MonoBehaviour, IResettable
 {
+
+
 
     public List<int> _movable = new List<int>();
 
     public List<RoomSpawner> _spawners = new List<RoomSpawner>();
 
-    void Start()
+    public event EventHandler Death;
+
+    public void Reset()
     {
 
-        RoomTemplates.Instance._rooms.Add(this);
+    }
+
+
+    
+
+    void Start()
+    {
+        PoolManager.Instance._rooms.Add(this);
+
+        Death += (sender, e) =>
+        {
+            this.gameObject.SetActive(false);
+        };
+
 
     }
 
