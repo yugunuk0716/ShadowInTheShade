@@ -52,6 +52,7 @@ public class Room : MonoBehaviour, IResettable
                 if (rs._door != null)
                 {
                     _spawners.Remove(rs);
+                    print($"{this.gameObject.name}에서 {rs.gameObject.name}의 Door가 부서짐");
                     Destroy(rs._door.gameObject);
                 }
                 else

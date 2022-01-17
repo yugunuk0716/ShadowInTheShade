@@ -50,8 +50,8 @@ public class RoomSpawner : MonoBehaviour
 			RoomSpawner rs = other.GetComponent<RoomSpawner>();
 			if (rs._spawned == false && _spawned == false){
 
-				//Instantiate(RoomTemplates.Instance._closedRoom, transform.position, Quaternion.identity);
-				//Destroy(gameObject);
+				Instantiate(PoolManager.Instance._closedRoom, transform.position, Quaternion.identity);
+				Destroy(gameObject);
 			} 
 			_spawned = true;
 		}

@@ -87,10 +87,10 @@ public class PoolManager : MonoSingleton<PoolManager>
                 };
                 break;
             case 2:
-                room = _rightRoomPool[UnityEngine.Random.Range(0, _rightRoomPool.Count)].Allocate();
+                room = _topRoomPool[UnityEngine.Random.Range(0, _topRoomPool.Count)].Allocate();
                 handler = (sender, e) =>
                 {
-                    _rightRoomPool[index].Release(room);
+                    _topRoomPool[index].Release(room);
                     room.Death -= handler;
                 };
                 break;
