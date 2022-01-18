@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
   _openingDirection: 4
+  _nextCamBound: {fileID: 0}
 --- !u!61 &3353534037914344009
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -318,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
   _openingDirection: 3
+  _nextCamBound: {fileID: 0}
 --- !u!61 &670815488943275100
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -475,6 +477,7 @@ Transform:
   - {fileID: 7072806221530715430}
   - {fileID: 3657077840768829382}
   - {fileID: 2767999862783020388}
+  - {fileID: 8957658378660342710}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -494,6 +497,7 @@ MonoBehaviour:
   _spawners:
   - {fileID: 8558835881323650007}
   - {fileID: 3528487123941190629}
+  _camBound: {fileID: 8809486517254608992}
 --- !u!61 &7373623940582348363
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11631,3 +11635,64 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!1 &9131537807473696493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8957658378660342710}
+  - component: {fileID: 8809486517254608992}
+  m_Layer: 0
+  m_Name: CamBound (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8957658378660342710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131537807473696493}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7771357796217912134}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &8809486517254608992
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131537807473696493}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.2940912, y: 1.5992908}
+      - {x: -1.3063467, y: 0.28302014}
+      - {x: -1.2944614, y: -1.6024684}
+      - {x: 1.3156209, y: -1.6195254}
+      - {x: 1.3091954, y: 1.6000217}

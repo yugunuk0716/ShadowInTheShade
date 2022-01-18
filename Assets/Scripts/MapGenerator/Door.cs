@@ -8,6 +8,8 @@ public class Door : MonoBehaviour
     public int _openingDirection;
 
 
+    public Collider2D _nextCamBound;
+
     void Start()
     {
 
@@ -21,12 +23,13 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Room") && _matchedDoor == null)
+        if (other.CompareTag("Room") && _matchedDoor == null && other.gameObject != this.gameObject)
         {
             Room room = other.GetComponent<Room>();
             if(room != null)
             {
                 RoomSpawner rsp = room._spawners.Find(rs => rs._openingDirection == _openingDirection);
+                _nextCamBound = room._camBound;
                 if (rsp != null)
                     if (rsp._door != null)
                     {
@@ -47,6 +50,7 @@ public class Door : MonoBehaviour
     public void MoveRoom()
     {
         print("Move!");
+        GameManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
         GameManager.Instance.player.position = _matchedDoor.transform.position;
     }
 }

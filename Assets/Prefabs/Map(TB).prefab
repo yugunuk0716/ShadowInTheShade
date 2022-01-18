@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
   _openingDirection: 2
+  _nextCamBound: {fileID: 0}
 --- !u!61 &3107925060224077021
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11205,6 +11206,7 @@ Transform:
   - {fileID: 979659646321728429}
   - {fileID: 3152355513797201969}
   - {fileID: 8419508298361858180}
+  - {fileID: 3866245521476358095}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11224,6 +11226,7 @@ MonoBehaviour:
   _spawners:
   - {fileID: 7006082610413973851}
   - {fileID: 341904652852513029}
+  _camBound: {fileID: 6828898565313740809}
 --- !u!61 &3968097749092283646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11271,6 +11274,67 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &8051519630416541429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3866245521476358095}
+  - component: {fileID: 6828898565313740809}
+  m_Layer: 0
+  m_Name: CamBound (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3866245521476358095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051519630416541429}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2652134219608756065}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &6828898565313740809
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051519630416541429}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.2940912, y: 1.5992908}
+      - {x: -1.3063467, y: 0.28302014}
+      - {x: -1.2944614, y: -1.6024684}
+      - {x: 1.3156209, y: -1.6195254}
+      - {x: 1.3091954, y: 1.6000217}
 --- !u!1 &8126718534459766970
 GameObject:
   m_ObjectHideFlags: 0
@@ -11369,6 +11433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
   _openingDirection: 1
+  _nextCamBound: {fileID: 0}
 --- !u!61 &5459555618229848995
 BoxCollider2D:
   m_ObjectHideFlags: 0

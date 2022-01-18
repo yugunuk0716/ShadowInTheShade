@@ -12,6 +12,8 @@ public class Room : MonoBehaviour, IResettable
 
     public List<RoomSpawner> _spawners = new List<RoomSpawner>();
 
+    public Collider2D _camBound;
+
     public event EventHandler Death;
 
     public void Reset()
