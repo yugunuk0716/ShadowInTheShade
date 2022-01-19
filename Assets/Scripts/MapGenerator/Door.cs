@@ -6,7 +6,7 @@ public class Door : MonoBehaviour
 {
     public Door _matchedDoor;
     public int _openingDirection;
-
+    private float _moveCorrectionValue = 1f;
 
     public Collider2D _nextCamBound;
 
@@ -31,7 +31,7 @@ public class Door : MonoBehaviour
                 RoomSpawner rsp = room._spawners.Find(rs => rs._openingDirection == _openingDirection);
                 _nextCamBound = room._camBound;
                 if (rsp != null)
-                    if (rsp._door != null)
+                    if (rsp._door != null && _matchedDoor == null)
                     {
                         _matchedDoor = rsp._door;
                     }
@@ -50,7 +50,29 @@ public class Door : MonoBehaviour
     public void MoveRoom()
     {
         print("Move!");
+        StartCoroutine(EffectManager.Instance.FadeOut());
         GameManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
-        GameManager.Instance.player.position = _matchedDoor.transform.position;
+        Vector3 movePos = Vector3.zero;
+
+        switch (_matchedDoor._openingDirection)
+        {
+            case 1:
+                movePos = new Vector3(_matchedDoor.transform.position.x, _matchedDoor.transform.position.y - _moveCorrectionValue);
+                break;
+            case 2:
+                movePos = new Vector3(_matchedDoor.transform.position.x, _matchedDoor.transform.position.y + _moveCorrectionValue);
+                break;
+            case 3:
+                movePos = new Vector3(_matchedDoor.transform.position.x - _moveCorrectionValue, _matchedDoor.transform.position.y);
+                break;
+            case 4:
+                movePos = new Vector3(_matchedDoor.transform.position.x + _moveCorrectionValue, _matchedDoor.transform.position.y);
+                break;
+            default:
+                print("?");
+                break;
+        }
+        print($"{movePos} {_matchedDoor.transform.position}");
+        GameManager.Instance.player.position = movePos;
     }
 }

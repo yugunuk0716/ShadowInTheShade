@@ -28,14 +28,20 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void Awake()
     {
-        init();
         Application.targetFrameRate = 300;
         _cinemachineCamConfiner = _cinemachineCamObj.GetComponent<CinemachineConfiner>();
         _cinemachineCam = _cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
+        
+    }
+
+    private void Start()
+    {
+        init();
     }
 
     public void init()
     {
+        _cinemachineCamConfiner.m_BoundingShape2D = PoolManager.Instance._rooms[0]._camBound;
         player.GetComponent<SpriteRenderer>().sprite = currentPlayerSO.playerSprite;
         currentPlayerSO.playerStates = PlayerStates.Human;
         currentPlayerSO.canChangePlayerType = true;
