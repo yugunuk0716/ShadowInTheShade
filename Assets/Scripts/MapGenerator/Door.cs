@@ -60,16 +60,16 @@ public class Door : MonoBehaviour
         switch (_matchedDoor._openingDirection)
         {
             case 1:
-                movePos = new Vector3(_matchedDoor.transform.position.x, _matchedDoor.transform.position.y - _moveCorrectionValue);
-                break;
-            case 2:
                 movePos = new Vector3(_matchedDoor.transform.position.x, _matchedDoor.transform.position.y + _moveCorrectionValue);
                 break;
+            case 2:
+                movePos = new Vector3(_matchedDoor.transform.position.x, _matchedDoor.transform.position.y - _moveCorrectionValue);
+                break;
             case 3:
-                movePos = new Vector3(_matchedDoor.transform.position.x - _moveCorrectionValue, _matchedDoor.transform.position.y);
+                movePos = new Vector3(_matchedDoor.transform.position.x + _moveCorrectionValue, _matchedDoor.transform.position.y);
                 break;
             case 4:
-                movePos = new Vector3(_matchedDoor.transform.position.x + _moveCorrectionValue, _matchedDoor.transform.position.y);
+                movePos = new Vector3(_matchedDoor.transform.position.x - _moveCorrectionValue, _matchedDoor.transform.position.y);
                 break;
             default:
                 print("?");

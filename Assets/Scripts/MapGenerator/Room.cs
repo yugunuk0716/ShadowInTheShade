@@ -23,7 +23,7 @@ public class Room : MonoBehaviour, IResettable
 
     }
 
-    private void OnEnable()
+    private void Awake()
     {
         StageManager.Instance._rooms.Add(this);
 
