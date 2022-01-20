@@ -16,6 +16,8 @@ public class Room : MonoBehaviour, IResettable
 
     public event EventHandler Death;
 
+    public bool _isEntry = false;
+
     public void Reset()
     {
 
