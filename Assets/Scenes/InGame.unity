@@ -4006,7 +4006,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 4.225396, y: -0.18918419, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4075,7 +4075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &587087005
 Transform:
   m_ObjectHideFlags: 0
@@ -4095,6 +4095,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &615409727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5214696014613580581, guid: c117b4ee3062e604d9f3bd5f58427c23, type: 3}
+  m_PrefabInstance: {fileID: 3603923176096088702}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &719296877
 GameObject:
   m_ObjectHideFlags: 0
@@ -4476,6 +4481,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4020bede745741340ad1b8c28ec62690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rooms: []
+  _isTutorial: 0
+  _tutoEntry: {fileID: 587087004}
+  _stageEntry: {fileID: 615409727}
 --- !u!114 &1030475071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4508,8 +4517,7 @@ MonoBehaviour:
   - {fileID: 5354844941641321301, guid: e7304c4f444e9e04fb68b33fb2177db4, type: 3}
   - {fileID: 4147440891033250691, guid: 2215a2c19fec46e48af3787da4974069, type: 3}
   - {fileID: 4655201227564129267, guid: 8c49cd56723f4e14f9d5fd0ee76d3260, type: 3}
-  _closedRoom: {fileID: -8412424041684655540, guid: 049e0a44dc5d5df4ba3fc2a32f4138eb, type: 3}
-  _rooms: []
+  _closedRoom: {fileID: 975612999328744088, guid: 5bdb56d1609c0af4192e2cabea42d914, type: 3}
 --- !u!4 &1030475072
 Transform:
   m_ObjectHideFlags: 0
@@ -11751,7 +11759,7 @@ GameObject:
   - component: {fileID: 1347044017}
   m_Layer: 0
   m_Name: RoomTemplates
-  m_TagString: Rooms
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18831,7 +18839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 1119456507}
+  m_BoundingShape2D: {fileID: 1967791998}
   m_ConfineScreenEdges: 1
   m_Damping: 0
 --- !u!1 &1644429316
@@ -19423,6 +19431,11 @@ MonoBehaviour:
   _movable: 04000000
   _spawners: []
   _camBound: {fileID: 101153350}
+--- !u!60 &1967791998 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3514410469015885651, guid: c117b4ee3062e604d9f3bd5f58427c23, type: 3}
+  m_PrefabInstance: {fileID: 3603923176096088702}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2003502258
 GameObject:
   m_ObjectHideFlags: 0

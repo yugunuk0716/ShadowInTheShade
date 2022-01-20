@@ -18,7 +18,7 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     public Room _closedRoom;
 
-    public List<Room> _rooms;
+   
 
 
 
@@ -26,7 +26,7 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     public PoolManager()
     {
-        _rooms = new List<Room>();
+        
         _bottomRoomPool = new List<Pool<Room>>();
         _topRoomPool = new List<Pool<Room>>();
         _leftRoomPool = new List<Pool<Room>>();

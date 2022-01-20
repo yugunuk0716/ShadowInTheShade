@@ -6,7 +6,7 @@ public class Door : MonoBehaviour
 {
     public Door _matchedDoor;
     public int _openingDirection;
-    private float _moveCorrectionValue = 1f;
+    private float _moveCorrectionValue = 5f;
 
     public Collider2D _nextCamBound;
 
@@ -23,6 +23,8 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
+
         if (other.CompareTag("Room") && _matchedDoor == null && other.gameObject != this.gameObject)
         {
             Room room = other.GetComponent<Room>();
@@ -41,6 +43,7 @@ public class Door : MonoBehaviour
                     }
             }
         }
+
 
         
     }

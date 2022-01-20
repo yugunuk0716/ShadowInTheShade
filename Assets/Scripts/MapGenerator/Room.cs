@@ -21,19 +21,20 @@ public class Room : MonoBehaviour, IResettable
 
     }
 
-
-    
-
-    void Start()
+    private void OnEnable()
     {
-        PoolManager.Instance._rooms.Add(this);
+        StageManager.Instance._rooms.Add(this);
 
         Death += (sender, e) =>
         {
             this.gameObject.SetActive(false);
         };
+    }
 
-
+    private void OnDisable()
+    {
+        StageManager.Instance._rooms.Remove(this);
+      
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,6 +45,7 @@ public class Room : MonoBehaviour, IResettable
             if (this.CompareTag("ClosedRoom"))
             {
                 _spawners.Remove(rs);
+                print($"문짝 부심 {rs}");
                 Destroy(rs._door.gameObject);
                 return;
             }
@@ -54,7 +56,7 @@ public class Room : MonoBehaviour, IResettable
                 if (rs._door != null)
                 {
                     _spawners.Remove(rs);
-                    print($"{this.gameObject.name}에서 {rs.gameObject.name}의 Door가 부서짐");
+                    print($" {rs._openingDirection}와 때문에 {rs.gameObject.name}에서 {this.gameObject.name}의 Door가 부서짐");
                     Destroy(rs._door.gameObject);
                 }
                 else

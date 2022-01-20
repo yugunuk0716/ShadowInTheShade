@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class StageManager : MonoSingleton<StageManager>
 {
+    public List<Room> _rooms;
+    public bool _isTutorial = false;
+    public GameObject _tutoEntry;
+    public GameObject _stageEntry;
 
-
-    void Start()
+    private void Awake()
     {
-        
+        _rooms = new List<Room>();
     }
 
-    void Update()
+    private void Start()
     {
-
+        if (_isTutorial)
+        {
+            _tutoEntry.SetActive(true);
+        }
+        else
+        {
+            _stageEntry.SetActive(true);
+        }
     }
 }
