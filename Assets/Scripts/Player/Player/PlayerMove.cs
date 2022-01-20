@@ -11,7 +11,7 @@ public class PlayerMove : AgentMove
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerDash.AddListener(Dash);
+       // GameManager.Instance.OnPlayerDash.AddListener(Dash);
         playerInput = GetComponent<PlayerInput>();
         speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     }
