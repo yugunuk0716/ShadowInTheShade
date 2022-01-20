@@ -20,8 +20,11 @@ public class RoomSpawner : MonoBehaviour
 	public Door _door;
 
 	void Start(){
-		//Destroy(gameObject, _waitTime);
-		Invoke(nameof(Spawn), 0.1f);
+        //Destroy(gameObject, _waitTime);
+        if (!StageManager.Instance._isTutorial)
+        {
+			Invoke(nameof(Spawn), 0.1f);
+		}
 	}
 
 
