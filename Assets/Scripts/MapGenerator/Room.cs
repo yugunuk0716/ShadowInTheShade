@@ -33,11 +33,7 @@ public class Room : MonoBehaviour, IResettable
         };
     }
 
-    private void OnDisable()
-    {
-        StageManager.Instance._rooms.Remove(this);
-      
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
