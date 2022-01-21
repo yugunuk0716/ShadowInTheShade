@@ -14527,7 +14527,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.902042, y: 0.17442608, z: -10}
+  m_LocalPosition: {x: 19.901487, y: 0.08284044, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1736078561}
@@ -18917,6 +18917,7 @@ GameObject:
   - component: {fileID: 1030475071}
   - component: {fileID: 1030475073}
   - component: {fileID: 1030475074}
+  - component: {fileID: 1030475075}
   m_Layer: 0
   m_Name: ManagerObj
   m_TagString: Untagged
@@ -19006,9 +19007,6 @@ MonoBehaviour:
   OnPlayerChangeType:
     m_PersistentCalls:
       m_Calls: []
-  _cinemachineCamObj: {fileID: 1573434459}
-  _cinemachineCamConfiner: {fileID: 0}
-  _cinemachineCam: {fileID: 0}
 --- !u!114 &1030475074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19022,6 +19020,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1040663253}
+--- !u!114 &1030475075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030475069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028d011fb7346b6409c444ff17ae9c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cinemachineCamObj: {fileID: 1573434459}
+  _cinemachineCamConfiner: {fileID: 0}
+  _cinemachineCam: {fileID: 0}
 --- !u!1 &1040663251
 GameObject:
   m_ObjectHideFlags: 0
@@ -25469,7 +25482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 1644429318}
+  m_BoundingShape2D: {fileID: 2003502260}
   m_ConfineScreenEdges: 1
   m_Damping: 0
 --- !u!1 &1588355248
@@ -29095,7 +29108,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 29cdddd3805f15540aea88382e8aa5d5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0

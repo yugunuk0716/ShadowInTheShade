@@ -20,17 +20,12 @@ public class GameManager : MonoSingleton<GameManager>
     public UnityEvent OnPlayerDash; //플레이어가 대쉬할 때 쓰는 이벤트
     public UnityEvent OnPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
 
-    //Cinemachine Camera
-    public GameObject _cinemachineCamObj;
-
-    public CinemachineConfiner _cinemachineCamConfiner;
-    public CinemachineVirtualCamera _cinemachineCam;
+   
 
     public void Awake()
     {
         Application.targetFrameRate = 300;
-        _cinemachineCamConfiner = _cinemachineCamObj.GetComponent<CinemachineConfiner>();
-        _cinemachineCam = _cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
+       
         
     }
 
@@ -41,7 +36,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void init()
     {
-        _cinemachineCamConfiner.m_BoundingShape2D = StageManager.Instance._rooms.Find((r) =>  r._isEntry)._camBound;
+        
         player.GetComponent<SpriteRenderer>().sprite = currentPlayerSO.playerSprite;
         currentPlayerSO.playerStates = PlayerStates.Human;
         currentPlayerSO.canChangePlayerType = true;
