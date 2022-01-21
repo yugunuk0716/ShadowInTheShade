@@ -41,9 +41,11 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void init()
     {
-        _cinemachineCamConfiner.m_BoundingShape2D = StageManager.Instance._rooms.Find((r) =>  r._isEntry)._camBound;
         player.GetComponent<SpriteRenderer>().sprite = currentPlayerSO.playerSprite;
         currentPlayerSO.playerStates = PlayerStates.Human;
         currentPlayerSO.canChangePlayerType = true;
+        if (StageManager.Instance == null)
+            return;
+        _cinemachineCamConfiner.m_BoundingShape2D = StageManager.Instance._rooms.Find((r) =>  r._isEntry)._camBound;
     }
 }
