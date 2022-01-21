@@ -6,8 +6,8 @@ public class StageManager : MonoSingleton<StageManager>
 {
     public List<Room> _rooms;
     public bool _isTutorial = false;
-    public GameObject _tutoEntry;
-    public GameObject _stageEntry;
+    //public GameObject _tutoEntry;
+    //public GameObject _stageEntry;
 
     private void Awake()
     {
@@ -16,13 +16,13 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Start()
     {
-        if (_isTutorial)
-        {
-            _tutoEntry.SetActive(true);
-        }
-        else
-        {
-            _stageEntry.SetActive(true);
-        }
+        //if (_isTutorial)
+        //{
+        //    _tutoEntry.SetActive(true);
+        //}
+        //else
+        //{
+        //    _stageEntry.SetActive(true);
+        //}
     }
 }
