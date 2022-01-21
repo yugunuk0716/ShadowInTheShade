@@ -11,7 +11,7 @@ public class PlayerMove : AgentMove
 
     private void Start()
     {
-       // GameManager.Instance.OnPlayerDash.AddListener(Dash);
+        GameManager.Instance.OnPlayerDash.AddListener(Dash);
         playerInput = GetComponent<PlayerInput>();
         speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     }
@@ -34,10 +34,7 @@ public class PlayerMove : AgentMove
     public void Dash()
     {
         StopNormalMoving();
-        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 dir = (mouse - transform.position).normalized;
-        dir = new Vector2(Mathf.Clamp(dir.x,-1f,1f), Mathf.Clamp(dir.y, -1f, 1f));
-        OnMove(dir, GameManager.Instance.currentPlayerSO.moveStats.DPD);
+        OnMove(playerInput.dir.normalized, GameManager.Instance.currentPlayerSO.moveStats.DPD);
         StartCoroutine(CheckDashEnd());
     }
 
