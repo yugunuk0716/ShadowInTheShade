@@ -6,7 +6,7 @@ public class Door : MonoBehaviour
 {
     public Door _matchedDoor;
     public int _openingDirection;
-    private float _moveCorrectionValue = 5f;
+    private float _moveCorrectionValue = 2f;
 
     public Collider2D _nextCamBound;
 
