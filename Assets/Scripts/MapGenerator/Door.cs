@@ -54,7 +54,7 @@ public class Door : MonoBehaviour
     {
         print("Move!");
         StartCoroutine(EffectManager.Instance.FadeOut());
-        GameManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
+        CameraManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
         Vector3 movePos = Vector3.zero;
 
         switch (_matchedDoor._openingDirection)
