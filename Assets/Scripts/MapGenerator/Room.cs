@@ -12,6 +12,8 @@ public class Room : MonoBehaviour, IResettable
 
     public List<RoomSpawner> _spawners = new List<RoomSpawner>();
 
+    public GameObject _shadowMap, _normalMap;
+
     public Collider2D _camBound;
 
     public event EventHandler Death;
@@ -33,7 +35,7 @@ public class Room : MonoBehaviour, IResettable
         };
     }
 
-    
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

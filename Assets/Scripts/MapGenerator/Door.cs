@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public Door _matchedDoor;
+    public Room _matchedRoom;
     public int _openingDirection;
     private float _moveCorrectionValue = 2f;
 
@@ -27,11 +28,11 @@ public class Door : MonoBehaviour
 
         if (other.CompareTag("Room") && _matchedDoor == null && other.gameObject != this.gameObject)
         {
-            Room room = other.GetComponent<Room>();
-            if(room != null)
+            _matchedRoom = other.GetComponent<Room>();
+            if(_matchedRoom != null)
             {
-                RoomSpawner rsp = room._spawners.Find(rs => rs._openingDirection == _openingDirection);
-                _nextCamBound = room._camBound;
+                RoomSpawner rsp = _matchedRoom._spawners.Find(rs => rs._openingDirection == _openingDirection);
+                _nextCamBound = _matchedRoom._camBound;
                 if (rsp != null)
                     if (rsp._door != null && _matchedDoor == null)
                     {
