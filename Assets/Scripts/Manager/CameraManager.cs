@@ -7,8 +7,9 @@ public class CameraManager : MonoSingleton<CameraManager>
 {
     //Cinemachine Camera
     public GameObject _cinemachineCamObj;
-
+    [HideInInspector]
     public CinemachineConfiner _cinemachineCamConfiner;
+    [HideInInspector]
     public CinemachineVirtualCamera _cinemachineCam;
 
     // Start is called before the first frame update

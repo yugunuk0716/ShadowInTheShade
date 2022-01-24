@@ -33,7 +33,7 @@ public class EffectManager : MonoSingleton<EffectManager>
 		a = 1f;
 		while (true)
 		{
-			a -= 0.005f;
+			a -= 0.008f;
 			image.color = new Color(0, 0, 0, a);
 			yield return new WaitForSeconds(0.01f);
 			if (a <= 0)

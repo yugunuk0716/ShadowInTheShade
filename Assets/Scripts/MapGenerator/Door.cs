@@ -58,6 +58,7 @@ public class Door : MonoBehaviour
     {
         _closedDoorObj.SetActive(!isOpened);
         _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+        SoundManager.Instance.PlaySFX(SoundManager.Instance._doorOpenSFX);
 
     }
 
@@ -70,7 +71,6 @@ public class Door : MonoBehaviour
 
     public void MoveRoom()
     {
-        print("Move!");
         StartCoroutine(EffectManager.Instance.FadeOut());
         StageManager.Instance._currentRoom = _matchedRoom;
         CameraManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
@@ -94,7 +94,6 @@ public class Door : MonoBehaviour
                 print("?");
                 break;
         }
-        print($"{movePos} {_matchedDoor.transform.position}");
         GameManager.Instance.player.position = movePos;
         StageManager.Instance.StageStart();
     }
