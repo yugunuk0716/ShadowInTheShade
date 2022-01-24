@@ -35,7 +35,17 @@ public class Room : MonoBehaviour, IResettable
         };
     }
 
-   
+
+    public void SwitchMap(bool isShadow = false) 
+    {
+        
+        _normalMap.SetActive(!isShadow);
+        _shadowMap.SetActive(isShadow);
+
+        _spawners.ForEach(rs => rs._door.SwitchDoorObj(isShadow));
+       
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

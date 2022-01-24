@@ -9,6 +9,8 @@ public class Door : MonoBehaviour
     public int _openingDirection;
 
     public GameObject _closedDoorObj;
+    public GameObject _normalDoorObj;
+    public GameObject _shadowDoorObj;
 
     private float _moveCorrectionValue = 2f;
 
@@ -54,7 +56,16 @@ public class Door : MonoBehaviour
 
     public void DoorOpendAndClose(bool isOpened = false)
     {
-        _closedDoorObj.SetActive(!isOpened); 
+        _closedDoorObj.SetActive(!isOpened);
+        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+
+    }
+
+    public void SwitchDoorObj(bool isShadow)
+    {
+        _normalDoorObj.SetActive(!isShadow);
+        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+        
     }
 
     public void MoveRoom()
@@ -85,5 +96,6 @@ public class Door : MonoBehaviour
         }
         print($"{movePos} {_matchedDoor.transform.position}");
         GameManager.Instance.player.position = movePos;
+        StageManager.Instance.StageStart();
     }
 }
