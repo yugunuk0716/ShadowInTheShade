@@ -7,6 +7,9 @@ public class Door : MonoBehaviour
     public Door _matchedDoor;
     public Room _matchedRoom;
     public int _openingDirection;
+
+    public GameObject _closedDoorObj;
+
     private float _moveCorrectionValue = 2f;
 
     public Collider2D _nextCamBound;
@@ -49,12 +52,16 @@ public class Door : MonoBehaviour
         
     }
 
-   
+    public void DoorOpendAndClose(bool isOpened = false)
+    {
+        _closedDoorObj.SetActive(!isOpened); 
+    }
 
     public void MoveRoom()
     {
         print("Move!");
         StartCoroutine(EffectManager.Instance.FadeOut());
+        StageManager.Instance._currentRoom = _matchedRoom;
         CameraManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
         Vector3 movePos = Vector3.zero;
 

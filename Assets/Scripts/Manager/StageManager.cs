@@ -10,6 +10,7 @@ public class StageManager : MonoSingleton<StageManager>
     public Light2D globalLight;
     public Color _shadowLightColor;
     public Color _normalLightColor;
+    public Room _currentRoom;
     //public GameObject _tutoEntry;
     //public GameObject _stageEntry;
 
@@ -20,6 +21,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Start()
     {
+        
         //if (_isTutorial)
         //{
         //    _tutoEntry.SetActive(true);
@@ -40,6 +42,14 @@ public class StageManager : MonoSingleton<StageManager>
         else if(Input.GetKeyDown(KeyCode.N))
         {
             ShadowMap();
+        }
+        else if (Input.GetKeyDown(KeyCode.U))
+        {
+            if(_currentRoom == null)
+            {
+                _currentRoom =  _rooms.Find(r => r._isEntry);
+            }
+            _currentRoom._spawners.ForEach(rs => rs._door.DoorOpendAndClose(true));
         }
     }
     public void ShadowMap(bool isShadow = false)
