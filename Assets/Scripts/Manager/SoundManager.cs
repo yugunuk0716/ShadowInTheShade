@@ -11,6 +11,10 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     [Header("SFX")]
     public AudioClip _doorOpenSFX;
+    public AudioClip _slimeMoveSFX;
+    public AudioClip _slimeHitSFX;
+    public AudioClip _playerDashSFX;
+    public AudioClip _playerAttackSFX;
 
     [Header("BGM")]
     public AudioClip _stage1BGM;
