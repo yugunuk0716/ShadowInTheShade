@@ -32,6 +32,8 @@ public class GameManager : MonoSingleton<GameManager>
         init();
     }
 
+
+
     public void init()
     {
         

@@ -34,40 +34,40 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     }
 
-    private void Awake()
-    {
+    //private void Awake()
+    //{
 
-        for (int i = 0; i < _bottomRooms.Length; i++)
-        {
-            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_bottomRooms[i]), START_SIZE);
+    //    for (int i = 0; i < _bottomRooms.Length; i++)
+    //    {
+    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_bottomRooms[i]), START_SIZE);
 
-            _bottomRoomPool.Add(pool);
-        }
+    //        _bottomRoomPool.Add(pool);
+    //    }
 
-        for (int i = 0; i < _topRooms.Length; i++)
-        {
-            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_topRooms[i]), START_SIZE);
+    //    for (int i = 0; i < _topRooms.Length; i++)
+    //    {
+    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_topRooms[i]), START_SIZE);
 
-            _topRoomPool.Add(pool);
-        }
+    //        _topRoomPool.Add(pool);
+    //    }
 
-        for (int i = 0; i < _leftRooms.Length; i++)
-        {
-            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_leftRooms[i]), START_SIZE);
+    //    for (int i = 0; i < _leftRooms.Length; i++)
+    //    {
+    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_leftRooms[i]), START_SIZE);
 
-            _leftRoomPool.Add(pool);
-        }
+    //        _leftRoomPool.Add(pool);
+    //    }
 
-        for (int i = 0; i < _rightRooms.Length; i++)
-        {
-            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_rightRooms[i]), START_SIZE);
+    //    for (int i = 0; i < _rightRooms.Length; i++)
+    //    {
+    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_rightRooms[i]), START_SIZE);
 
-            _rightRoomPool.Add(pool);
-        }
+    //        _rightRoomPool.Add(pool);
+    //    }
 
 
 
-    }
+    //}
 
     public void CreateStage(int index, Vector3 pos)
     {

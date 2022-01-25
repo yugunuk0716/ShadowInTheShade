@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed4be14373b7448428b72089a84ea503, type: 3}
+  m_Name: Slime SO
+  m_EditorClassIdentifier: 
+  _enemyName: EnemySlime
+  _prefab: {fileID: 7596176103748190812, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+  _normalSprite: {fileID: 4198950494478892377, guid: e142ecd4f5a589940aae40dfafec5ce7, type: 3}
+  _shadowSprite: {fileID: 21300000, guid: 2c15ad815d91bcd4fa9cdd7877c86dda, type: 3}
+  <MaxHealth>k__BackingField: 3
+  <Damage>k__BackingField: 1

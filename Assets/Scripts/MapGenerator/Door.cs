@@ -9,6 +9,8 @@ public class Door : MonoBehaviour
     public int _openingDirection;
 
     public GameObject _closedDoorObj;
+    public GameObject _normalDoorObj;
+    public GameObject _shadowDoorObj;
 
     private float _moveCorrectionValue = 2f;
 
@@ -54,15 +56,26 @@ public class Door : MonoBehaviour
 
     public void DoorOpendAndClose(bool isOpened = false)
     {
-        _closedDoorObj.SetActive(!isOpened); 
+        _closedDoorObj.SetActive(!isOpened);
+        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+        SoundManager.Instance.PlaySFX(SoundManager.Instance._doorOpenSFX);
+
+    }
+
+    public void SwitchDoorObj(bool isShadow)
+    {
+        _normalDoorObj.SetActive(!isShadow);
+        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+        
     }
 
     public void MoveRoom()
     {
-        print("Move!");
-        StartCoroutine(EffectManager.Instance.FadeOut());
+        EffectManager.Instance.StartFadeOut();
+        _matchedRoom.gameObject.SetActive(true);
+        StageManager.Instance._currentRoom.gameObject.SetActive(false);
         StageManager.Instance._currentRoom = _matchedRoom;
-        CameraManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
+        EffectManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
         Vector3 movePos = Vector3.zero;
 
         switch (_matchedDoor._openingDirection)
@@ -83,7 +96,7 @@ public class Door : MonoBehaviour
                 print("?");
                 break;
         }
-        print($"{movePos} {_matchedDoor.transform.position}");
         GameManager.Instance.player.position = movePos;
+        StageManager.Instance.StageStart();
     }
 }
