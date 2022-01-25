@@ -15,5 +15,9 @@ public class TestPlayer : MonoBehaviour
                 door.MoveRoom();
             }
         }
+        else if (collision.CompareTag("ClearTrigger"))
+        {
+            StageManager.Instance.StageClear();
+        }
     }
 }

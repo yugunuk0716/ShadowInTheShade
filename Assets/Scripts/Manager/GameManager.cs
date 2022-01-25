@@ -25,14 +25,11 @@ public class GameManager : MonoSingleton<GameManager>
     public void Awake()
     {
         Application.targetFrameRate = 300;
-       
-        
+        init();
+
     }
 
-    private void Start()
-    {
-        init();
-    }
+
 
     public void init()
     {

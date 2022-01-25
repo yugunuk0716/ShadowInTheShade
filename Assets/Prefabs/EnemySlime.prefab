@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7596176103748190814}
   - component: {fileID: 4691013222684524141}
   m_Layer: 0
-  m_Name: Slime
+  m_Name: EnemySlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7596176103748190812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.372, y: 0.776, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 7596176104154514982}
   m_Father: {fileID: 0}
@@ -112,14 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043edcc93febb04438c6ced4205f831b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: f0b6fede317f12c46acecab3238932e0, type: 2}
   <Health>k__BackingField: 100
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   <OnHit>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <OnReset>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7596176104154514983
@@ -191,8 +189,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 412313991
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 4198950494478892377, guid: e142ecd4f5a589940aae40dfafec5ce7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

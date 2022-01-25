@@ -24,6 +24,7 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     private void Start()
     {
+        //DontDestroyOnLoad(this.gameObject);
         PlayBGM(_stage1BGM);
     }
 

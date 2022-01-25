@@ -28,7 +28,6 @@ public class Room : MonoBehaviour, IResettable
     private void Awake()
     {
         StageManager.Instance._rooms.Add(this);
-
         Death += (sender, e) =>
         {
             this.gameObject.SetActive(false);

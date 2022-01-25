@@ -36,7 +36,9 @@ public class StageManager : MonoSingleton<StageManager>
         //{
         //    _stageEntry.SetActive(true);
         //}
-
+        _currentRoom = _rooms.Find(r => r._isEntry);
+        _currentRoom.gameObject.SetActive(true);
+        StageClear();
         GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowMap);
     }
 
@@ -54,10 +56,7 @@ public class StageManager : MonoSingleton<StageManager>
     {
         _isClear = true;
 
-        if (_currentRoom == null)
-        {
-            _currentRoom = _rooms.Find(r => r._isEntry);
-        }
+        
         _currentRoom._spawners.ForEach(rs => rs._door.DoorOpendAndClose(true));
 
     }

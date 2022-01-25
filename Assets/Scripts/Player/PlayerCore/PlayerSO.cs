@@ -56,7 +56,7 @@ public struct PlayerECTStats
 }
 
 
-[CreateAssetMenu(fileName = "ScriptableObject", menuName = "PlayerSO",order = 0)]
+[CreateAssetMenu(menuName = "SO/Player/PlayerSO")]
 public class PlayerSO : ScriptableObject
 {
     [Header("플레이어 스프라이트")]

@@ -5,8 +5,13 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour, IHittable, IAgent
 {
+    [SerializeField]
+    private EnemySO _enemyData;
+
     [field:SerializeField]
     public int Health { get;  private set; }
+    public SpriteRenderer _sr;
+    public Animator _anim;
 
     private bool _isDead = false;
 
@@ -16,40 +21,50 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     public UnityEvent OnHit { get ; set; }
 
 
-    [field: SerializeField]
-    public UnityEvent OnReset { get; set; }
 
-    public Vector3 _hitPoint { get; private set; }
+    private void Start()
+    {
+        Health = _enemyData.MaxHealth;
+        _sr = GetComponentInChildren<SpriteRenderer>();
+        _anim = GetComponentInChildren<Animator>();
+        GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowSprite);
+    }
 
-    public void GetHit(int damage, GameObject damageDealer)
+    private void Update()
+    {
+        if(PlayerStates.Shadow == GameManager.Instance.currentPlayerSO.playerStates && Input.GetMouseButtonDown(0))
+        {
+            GetHit(1);
+        }
+    }
+
+    private void ShowShadowSprite()
+    {
+        bool isShadow = GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow;
+
+        _anim.SetBool("isShadow", isShadow);
+        _sr.sprite = isShadow ? _enemyData._shadowSprite : _enemyData._normalSprite;
+    }
+
+    public void GetHit(int damage)
     {
         if (_isDead) return;
 
         
 
         Health -= damage;
-        _hitPoint = damageDealer.transform.position; //피격한 녀석의 좌표 저장
-        OnHit?.Invoke(); //구독중이라면 발행
+        OnHit?.Invoke(); 
 
 
         if (Health <= 0)
         {
             _isDead = true;
+            this.gameObject.SetActive(false);
             OnDie?.Invoke();
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 
     
 
