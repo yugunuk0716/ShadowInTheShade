@@ -57,7 +57,7 @@ public class Door : MonoBehaviour
     public void DoorOpendAndClose(bool isOpened = false)
     {
         _closedDoorObj.SetActive(!isOpened);
-        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates.Equals(PlayerStates.Shadow) && StageManager.Instance._isClear);
         SoundManager.Instance.PlaySFX(SoundManager.Instance._doorOpenSFX);
 
     }
@@ -65,7 +65,7 @@ public class Door : MonoBehaviour
     public void SwitchDoorObj(bool isShadow)
     {
         _normalDoorObj.SetActive(!isShadow);
-        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow && StageManager.Instance._isClear);
+        _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates.Equals(PlayerStates.Shadow) && StageManager.Instance._isClear);
         
     }
 

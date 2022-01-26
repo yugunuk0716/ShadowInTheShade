@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
+        //GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
         playerSO = GameManager.Instance.currentPlayerSO;
     }
 
@@ -52,10 +52,15 @@ public class PlayerInput : MonoBehaviour
     {
         PlayerStates ps = playerSO.playerStates;
 
+        print(ps);
+
         if (ps == PlayerStates.Human)
             ps = PlayerStates.Shadow;
         else
             ps = PlayerStates.Human;
+
+        print(ps);
+
 
         playerSO.playerStates = ps;
 

@@ -9,15 +9,14 @@ TagManager:
   - Room
   - Door
   - ClearTrigger
-  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - PLAYER
   - Water
   - UI
-  - 
+  - ENEMY
   - 
   - 
   - 

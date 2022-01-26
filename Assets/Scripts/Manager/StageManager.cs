@@ -76,7 +76,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void ShowShadowMap()
     {
-        bool isShadow = PlayerStates.Shadow == GameManager.Instance.currentPlayerSO.playerStates;
+        bool isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.currentPlayerSO.playerStates);
         _rooms.ForEach(r =>
         {
             r.SwitchMap(isShadow);
