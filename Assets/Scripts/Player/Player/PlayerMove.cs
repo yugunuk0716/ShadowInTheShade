@@ -21,6 +21,12 @@ public class PlayerMove : AgentMove
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.isAttack)
+        {
+            OnMove(transform.position, 0);
+            return;
+        }
+
         if (!isDashing)
             OnMove(playerInput.dir.normalized, speed);
     }
