@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        //GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
+        GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
         playerSO = GameManager.Instance.currentPlayerSO;
     }
 
