@@ -14,7 +14,7 @@ public class PlayerMove : AgentMove
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerDash.AddListener(() => { Dash(); SoundManager.Instance.PlaySFX(SoundManager.Instance._playerDashSFX); });
+        GameManager.Instance.OnPlayerDash.AddListener(() => { Dash(); SoundManager.Instance.PlaySFX(SoundManager.Instance._playerDashSFX, 0.6f); });
         playerInput = GetComponent<PlayerInput>();
         speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     

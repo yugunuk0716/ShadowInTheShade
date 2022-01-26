@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     public SpriteRenderer _sr;
     public Animator _anim;
 
+    public Color _shadowColor;
+    private Color _normalColor;
     private bool _isDead = false;
 
     [field: SerializeField]
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
         _sr = GetComponentInChildren<SpriteRenderer>();
         _anim = GetComponentInChildren<Animator>();
         _anim.SetBool("isShadow", false);
+        _normalColor = new Color(1, 1, 1, 1);
         //GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowSprite);
     }
 
@@ -36,8 +39,10 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     public void ShowShadowSprite()
     {
         bool isShadow = GameManager.Instance.currentPlayerSO.playerStates.Equals(PlayerStates.Shadow);
-        //_anim.SetBool("isShadow", isShadow);
-        _anim.gameObject.SetActive(!isShadow);
+        _anim.SetBool("isShadow", isShadow);
+
+        _sr.color = isShadow ? _shadowColor : _normalColor;
+        //_anim.gameObject.SetActive(!isShadow);
     }
 
     public void GetHit(int damage)

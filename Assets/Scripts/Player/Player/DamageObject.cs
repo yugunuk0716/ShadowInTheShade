@@ -13,17 +13,12 @@ public class DamageObject : MonoBehaviour
     private void Start()
     {
         anim = GetComponentInParent<PlayerAnimation>();
-        GameManager.Instance.OnPlayerAttack.AddListener(() => {
-            if (anim.GetBool("IsAttack"))
-            {
-                SoundManager.Instance.PlaySFX(SoundManager.Instance._playerAttackSFX);
-            } 
-        } );
+      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
+        if (((1 << collision.gameObject.layer & whatIsTarget) > 0 ) && GameManager.Instance.isAttack)
         {
             IHittable hittable = collision.gameObject.GetComponent<IHittable>();
 

@@ -26,6 +26,13 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         //DontDestroyOnLoad(this.gameObject);
         PlayBGM(_stage1BGM);
+        GameManager.Instance.OnPlayerAttack.AddListener(() =>
+        {
+            if (GameManager.Instance.isAttack)
+            {
+                PlaySFX(_playerAttackSFX);
+            }
+        });
     }
 
     public void PlayBGM(AudioClip clip, float volume = 0.3f)
