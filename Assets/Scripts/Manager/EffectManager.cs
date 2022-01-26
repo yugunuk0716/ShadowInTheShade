@@ -44,7 +44,6 @@ public class EffectManager : MonoSingleton<EffectManager>
 		while (true)
 		{
 			a += 0.01f;
-			print(a);
 			image.color = new Color(0, 0, 0, a);
 			yield return new WaitForSeconds(0.01f);
 			if (a >= 1)
@@ -60,7 +59,6 @@ public class EffectManager : MonoSingleton<EffectManager>
 		while (true)
 		{
 			a -= 0.01f;
-			print(a);
 			image.color = new Color(0, 0, 0, a);
 			yield return new WaitForSeconds(0.01f);
 			if (a <= 0)

@@ -96,4 +96,9 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetBool("IsAttack", false);
         GameManager.Instance.isAttack = false;
     }
+
+    public bool GetBool(string propName)
+    {
+        return anim.GetBool(propName);
+    }
 }
