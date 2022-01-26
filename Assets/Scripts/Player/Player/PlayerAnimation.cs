@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private SpriteRenderer sr;
     private PlayerSO playerSO;
     private PlayerInput pi;
+    public Animator effectAnim;
     private Animator anim;
 
     private Vector2 moveVec;
@@ -32,9 +33,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void UpdatePlayerAnimation()
     {
-
-       
-
         moveVec = pi.dir.normalized;
         anim.SetFloat("AnimMoveX", moveVec.x);
         anim.SetFloat("AnimMoveY", moveVec.y);
@@ -59,11 +57,23 @@ public class PlayerAnimation : MonoBehaviour
     public IEnumerator ChangePlayerTypeAnimation()
     {
         yield return null;
-        if (playerSO.playerStates.Equals(PlayerStates.Human))
-            anim.SetBool("IsShadow", false);
-        else
-            anim.SetBool("IsShadow", true);
 
+       
+        if (playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+            effectAnim.SetBool("ShadowToHuman", true);
+            yield return new WaitForSeconds(.2f);
+            anim.SetBool("IsShadow", false);
+        }
+        else
+        {
+            effectAnim.SetBool("HumanToShadow", true);
+            yield return new WaitForSeconds(.1f);
+            anim.SetBool("IsShadow", true);
+        }
+
+        effectAnim.SetBool("ShadowToHuman", false);
+        effectAnim.SetBool("HumanToShadow", false);
 
         yield return new WaitForSeconds(playerSO.ectStats.TCT);
         playerSO.canChangePlayerType = true;
