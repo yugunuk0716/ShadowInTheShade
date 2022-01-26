@@ -1150,7 +1150,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2058648602064333718, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
       propertyPath: m_LightType
-      value: 4
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058648602064333718, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.653
       objectReference: {fileID: 0}
     - target: {fileID: 2058648602064333720, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
       propertyPath: m_IsActive
@@ -7314,6 +7318,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7165077378238907918, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
   m_PrefabInstance: {fileID: 208488042}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2096432579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096432578}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: a183791eace594b4c9c6260b312a1608, type: 2}
 --- !u!95 &2096432586
 Animator:
   serializedVersion: 3
