@@ -36,7 +36,10 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GameManager.Instance.OnPlayerDash.Invoke();
+            if (playerSO.playerStates.Equals(PlayerStates.Human))
+                GameManager.Instance.OnPlayerDash.Invoke();
+            else
+                GameManager.Instance.OnPlayerAttack.Invoke();
         }
     }
 

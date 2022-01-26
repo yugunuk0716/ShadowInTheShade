@@ -13,6 +13,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private Vector2 moveVec;
     private Vector2 moveLastVec;
+    private int attackCount =0;
 
     public void Start()
     {
@@ -21,6 +22,7 @@ public class PlayerAnimation : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         playerSO = GameManager.Instance.currentPlayerSO;
         GameManager.Instance.OnPlayerChangeType.AddListener(() => StartCoroutine(ChangePlayerTypeAnimation()));
+        GameManager.Instance.OnPlayerAttack.AddListener(() => StartCoroutine(PlayerAttack()));
     }
 
     private void Update()
@@ -63,5 +65,18 @@ public class PlayerAnimation : MonoBehaviour
                     playerSO.canChangePlayerType = true;
                     GameManager.Instance.currentPlayerSO = playerSO;
                 });*/
+    }
+
+    public IEnumerator PlayerAttack()
+    {
+        if (attackCount <= 0)
+            attackCount++;
+        else
+            attackCount = 0;
+
+        anim.SetBool("IsAttack",true);  
+        anim.SetInteger("AttackCount", attackCount);
+        yield return new WaitForSeconds(.5f);
+        anim.SetBool("IsAttack", false);
     }
 }
