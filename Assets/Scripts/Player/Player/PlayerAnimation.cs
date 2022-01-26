@@ -24,6 +24,7 @@ public class PlayerAnimation : MonoBehaviour
         playerSO = GameManager.Instance.currentPlayerSO;
         GameManager.Instance.OnPlayerChangeType.AddListener(() => StartCoroutine(ChangePlayerTypeAnimation()));
         GameManager.Instance.OnPlayerAttack.AddListener(() => StartCoroutine(PlayerAttack()));
+        GameManager.Instance.OnPlayerDash.AddListener(() => StartCoroutine(PlayerDash()));
     }
 
     private void Update()
@@ -106,6 +107,14 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetBool("IsAttack", false);
         GameManager.Instance.isAttack = false;
     }
+
+    public IEnumerator PlayerDash()
+    {
+        anim.SetBool("IsDash", true);
+        yield return new WaitForSeconds(GameManager.Instance.currentPlayerSO.moveStats.DRT);
+        anim.SetBool("IsDash", false);
+    }
+
 
     public bool GetBool(string propName)
     {

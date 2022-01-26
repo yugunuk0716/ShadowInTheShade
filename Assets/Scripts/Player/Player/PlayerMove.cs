@@ -59,20 +59,7 @@ public class PlayerMove : AgentMove
 
     public IEnumerator CheckDashEnd()
     {
-        float time = GameManager.Instance.currentPlayerSO.moveStats.DRT;
-        while (true)
-        {
-            if(time <= 0)
-            {
-                RestartNormalMoving();
-                yield break;
-            }
-            else
-            {
-                time -= Time.deltaTime;
-                yield return null;
-            }
-        }
-        
+        yield return new WaitForSeconds(GameManager.Instance.currentPlayerSO.moveStats.DRT);
+        RestartNormalMoving();        
     }
 }
