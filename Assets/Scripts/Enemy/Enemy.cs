@@ -31,13 +31,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
         //GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowSprite);
     }
 
-    private void Update()
-    {
-        if(PlayerStates.Shadow == GameManager.Instance.currentPlayerSO.playerStates && Input.GetMouseButtonDown(0))
-        {
-            GetHit(1);
-        }
-    }
+  
 
     public void ShowShadowSprite()
     {

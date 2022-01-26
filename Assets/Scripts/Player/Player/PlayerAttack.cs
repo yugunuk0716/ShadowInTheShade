@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    PlayerAnimation anim;
+    int damage = 1;
+    
+
     private void Start()
     {
-        GameManager.Instance.OnPlayerAttack.AddListener(Attack);
+        anim = GetComponent<PlayerAnimation>();
+        GameManager.Instance.OnPlayerAttack.AddListener(() => {
+            if (anim.GetBool("IsAttack"))
+            {
+                SoundManager.Instance.PlaySFX(SoundManager.Instance._playerAttackSFX);
+            } 
+        } );
     }
 
-    private void Attack()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        //공격할때 해줄 것 
+        if (collision.gameObject.CompareTag("Enemy") && anim.GetBool("IsAttack"))
+        {
+            IHittable hittable = collision.gameObject.GetComponent<IHittable>();
+
+            hittable?.GetHit(damage);
+        }
     }
 }

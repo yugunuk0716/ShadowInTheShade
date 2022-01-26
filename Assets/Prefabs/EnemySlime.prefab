@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4691013222684524141}
   m_Layer: 0
   m_Name: EnemySlime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
+  canMove: 0
 --- !u!114 &7596176103748190814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData: {fileID: 11400000, guid: f0b6fede317f12c46acecab3238932e0, type: 2}
   <Health>k__BackingField: 100
+  _sr: {fileID: 0}
+  _anim: {fileID: 0}
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls: []

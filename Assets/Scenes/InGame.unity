@@ -21774,7 +21774,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.902042, y: 0.17442608, z: -10}
+  m_LocalPosition: {x: 42.793987, y: 0.1781292, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1736078561}
@@ -34252,6 +34252,9 @@ MonoBehaviour:
   currentPlayerSO: {fileID: 11400000, guid: 5157193c051d4554c9de14a3ba86b093, type: 2}
   _timeScale: 1
   OnPlayerDash:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerAttack:
     m_PersistentCalls:
       m_Calls: []
   OnPlayerChangeType:

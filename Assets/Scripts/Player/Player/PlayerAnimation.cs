@@ -79,4 +79,9 @@ public class PlayerAnimation : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         anim.SetBool("IsAttack", false);
     }
+
+    public bool GetBool(string propName)
+    {
+        return anim.GetBool(propName);
+    }
 }
