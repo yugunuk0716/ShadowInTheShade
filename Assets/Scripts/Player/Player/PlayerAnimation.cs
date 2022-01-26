@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour
         pi = GetComponent<PlayerInput>();
         sr = GetComponent<SpriteRenderer>();
         playerSO = GameManager.Instance.currentPlayerSO;
-        GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerTypeAnimation);
+        GameManager.Instance.OnPlayerChangeType.AddListener(() => StartCoroutine(ChangePlayerTypeAnimation()));
     }
 
     private void Update()
@@ -43,19 +43,25 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetFloat("AnimMoveMagnitude", moveVec.magnitude);
     }
 
-    public void ChangePlayerTypeAnimation()
+    public IEnumerator ChangePlayerTypeAnimation()
     {
-        Color targetColor;
-
+        yield return null;
         if (playerSO.playerStates.Equals(PlayerStates.Human))
-            targetColor = Color.black;
+            anim.SetBool("IsShadow", false);
         else
-            targetColor = Color.white;
+            anim.SetBool("IsShadow", true);
 
-        sr.DOColor(targetColor, playerSO.ectStats.TCT).OnComplete(() => 
-        {
-            playerSO.canChangePlayerType = true;
-            GameManager.Instance.currentPlayerSO = playerSO;
-        });
+
+        yield return new WaitForSeconds(playerSO.ectStats.TCT);
+        playerSO.canChangePlayerType = true;
+        GameManager.Instance.currentPlayerSO = playerSO;
+
+
+        /*
+                sr.DOColor(targetColor, playerSO.ectStats.TCT).OnComplete(() => 
+                {
+                    playerSO.canChangePlayerType = true;
+                    GameManager.Instance.currentPlayerSO = playerSO;
+                });*/
     }
 }
