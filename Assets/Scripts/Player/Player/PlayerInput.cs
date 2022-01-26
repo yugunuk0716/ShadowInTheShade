@@ -19,8 +19,13 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        dir.x = Input.GetAxisRaw("Horizontal");
-        dir.y = Input.GetAxisRaw("Vertical");
+        if(!GameManager.Instance.isAttack)
+        {
+            dir.x = Input.GetAxisRaw("Horizontal");
+            dir.y = Input.GetAxisRaw("Vertical");
+        }
+
+        
 
         if(Input.GetButtonDown("ChangePlayerType"))
         {

@@ -32,18 +32,29 @@ public class PlayerAnimation : MonoBehaviour
 
     private void UpdatePlayerAnimation()
     {
-        if ((pi.dir.x == 0 && pi.dir.y == 0) && moveVec.x != 0 || moveVec.y != 0)
-        {
-            moveLastVec = moveVec;
-            anim.SetFloat("AnimLastMoveX", moveLastVec.x);
-            anim.SetFloat("AnimLastMoveY", moveLastVec.y);
-        }
+
+       
 
         moveVec = pi.dir.normalized;
         anim.SetFloat("AnimMoveX", moveVec.x);
         anim.SetFloat("AnimMoveY", moveVec.y);
         anim.SetFloat("AnimMoveMagnitude", moveVec.magnitude);
+
+        if (pi.dir.x == 0 && pi.dir.y == 0)
+        {
+            return;
+        }
+
+        SetLastMove();
     }
+
+    public void SetLastMove()
+    {
+        moveLastVec = moveVec;
+        anim.SetFloat("AnimLastMoveX", moveLastVec.x);
+        anim.SetFloat("AnimLastMoveY", moveLastVec.y);
+    }
+
 
     public IEnumerator ChangePlayerTypeAnimation()
     {
@@ -69,15 +80,21 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator PlayerAttack()
     {
+        if (anim.GetBool("IsAttack") == true)
+            yield break;
+
         if (attackCount <= 0)
             attackCount++;
         else
             attackCount = 0;
 
-        anim.SetBool("IsAttack",true);  
+        //SetLastMove();
+        anim.SetBool("IsAttack",true);
+        GameManager.Instance.isAttack = true;
         anim.SetInteger("AttackCount", attackCount);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
         anim.SetBool("IsAttack", false);
+        GameManager.Instance.isAttack = false;
     }
 
     public bool GetBool(string propName)
