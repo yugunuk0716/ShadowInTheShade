@@ -27,7 +27,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
         Health = _enemyData.MaxHealth;
         _sr = GetComponentInChildren<SpriteRenderer>();
         _anim = GetComponentInChildren<Animator>();
-        GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowSprite);
+        _anim.SetBool("isShadow", false);
+        //GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowSprite);
     }
 
     private void Update()
@@ -38,12 +39,11 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
         }
     }
 
-    private void ShowShadowSprite()
+    public void ShowShadowSprite()
     {
         bool isShadow = GameManager.Instance.currentPlayerSO.playerStates == PlayerStates.Shadow;
-
-        _anim.SetBool("isShadow", isShadow);
-        _sr.sprite = isShadow ? _enemyData._shadowSprite : _enemyData._normalSprite;
+        //_anim.SetBool("isShadow", isShadow);
+        _anim.gameObject.SetActive(!isShadow);
     }
 
     public void GetHit(int damage)
@@ -53,9 +53,9 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
         
 
         Health -= damage;
-        OnHit?.Invoke(); 
+        OnHit?.Invoke();
 
-
+        SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
         if (Health <= 0)
         {
             _isDead = true;

@@ -72,8 +72,6 @@ public class Door : MonoBehaviour
     public void MoveRoom()
     {
         EffectManager.Instance.StartFadeOut();
-        _matchedRoom.gameObject.SetActive(true);
-        StageManager.Instance._currentRoom.gameObject.SetActive(false);
         StageManager.Instance._currentRoom = _matchedRoom;
         EffectManager.Instance._cinemachineCamConfiner.m_BoundingShape2D = _nextCamBound;
         Vector3 movePos = Vector3.zero;

@@ -38,8 +38,7 @@ public class StageManager : MonoSingleton<StageManager>
         //}
         _currentRoom = _rooms.Find(r => r._isEntry);
         _currentRoom.gameObject.SetActive(true);
-        StageClear();
-        GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowMap);
+        //GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowMap);
     }
 
 
@@ -54,6 +53,9 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void StageClear()
     {
+        if (_isClear)
+            return;
+
         _isClear = true;
 
         
