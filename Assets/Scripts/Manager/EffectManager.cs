@@ -23,7 +23,9 @@ public class EffectManager : MonoSingleton<EffectManager>
 		_cinemachineCam = _cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
 
 		_cinemachineCamConfiner.m_BoundingShape2D = StageManager.Instance._rooms.Find((r) => r._isEntry)._camBound;
-		StartCoroutine(FadeOut());
+
+		
+		StartFadeOut();
 
 	}
 
