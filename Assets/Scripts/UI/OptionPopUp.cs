@@ -3,56 +3,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WindowManager : MonoBehaviour
+public class OptionPopUp : PopUp
 {
 
+    #region Resolution
     private const string RESOLUTION_KEY = "resolution";
+    private const string SCREENMODE_KEY = "screen";
 
     public Text _resolutionText;
-    public Text _windowedText;
+    public Text _screenModeText;
     public Button _previousButton;
     public Button _nextButton;
-    public Button _windowedButton;
+    public Button _previousScreenModeButton;
+    public Button _nextScreenModeScreenButton;
+    public Button _applyChangeButton;
 
-    private bool _isWindowed;
+    private bool _isFullScreen;
+    private int _screenModeNumber;
     private Resolution[] _resolutions;
 
     private int _currentResolution = 0;
 
+    #endregion
+
+
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+
+    }
+
     private void Start()
     {
-        //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
-        _windowedText = _windowedButton.GetComponentInChildren<Text>();
-        _windowedButton.onClick.AddListener(() => 
+        #region ResolutionSetting
+
+        if (PlayerPrefs.GetInt(SCREENMODE_KEY, 0) == 0)
         {
-            _isWindowed = !_isWindowed; 
-            _windowedText.text = $"{_isWindowed}";
-            SetAndApplyResolution(_currentResolution);
+            _isFullScreen = false;
+        }
+        else
+        {
+            _isFullScreen = true;
+        }
+        _screenModeText.text = _isFullScreen ? "전체화면" : "창 모드";
+
+
+        _applyChangeButton.onClick.AddListener(() => 
+        {
+            ApplyChanges();
+            UIManager.Instance.ClosePopup();
         });
 
         _resolutions = Screen.resolutions;
-
         _currentResolution = PlayerPrefs.GetInt(RESOLUTION_KEY, 0);
+
 
         _previousButton.onClick.AddListener(SetPreviousResolution);
         _nextButton.onClick.AddListener(SetNextResolution);
 
-        SetResolutionText(_resolutions[_currentResolution]);
-    }
+        _previousScreenModeButton.onClick.AddListener(SetScreenMode);
+        _nextScreenModeScreenButton.onClick.AddListener(SetScreenMode);
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
+        print($"{Screen.currentResolution.width} x {Screen.currentResolution.height}");
+
+        if (_currentResolution != 0)
         {
+            SetAndApplyResolution(_currentResolution);
+        }
+        else
+        {
+           
             Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
         }
+        SetResolutionText(_resolutions[_currentResolution]);
+        #endregion
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            SetResolutionText(_resolutions[_currentResolution]);
-        }
+
     }
 
+
+
+
+    #region ResolutionMethod
+
+    private void SetScreenMode()
+    {
+        _isFullScreen = !_isFullScreen;
+        _screenModeText.text = _isFullScreen ? "전체화면" : "창 모드";
+        SetAndApplyResolution(_currentResolution);
+    }
 
     private void SetResolutionText(Resolution resolution)
     {
@@ -101,13 +143,18 @@ public class WindowManager : MonoBehaviour
     {
         SetResolutionText(resolution);
 
-        Screen.SetResolution(resolution.width, resolution.height, _isWindowed);
+        Screen.SetResolution(resolution.width, resolution.height, _isFullScreen);
         PlayerPrefs.SetInt(RESOLUTION_KEY, _currentResolution);
+
+        _screenModeNumber = _isFullScreen ? 1 : 0;
+
+        PlayerPrefs.SetInt(SCREENMODE_KEY, _screenModeNumber);
     }
 
     public void ApplyChanges()
     {
         SetAndApplyResolution(_currentResolution);
     }
+    #endregion
 
 }
