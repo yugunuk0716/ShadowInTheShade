@@ -22,7 +22,7 @@ public class DamageObject : MonoBehaviour
         {
             IHittable hittable = collision.gameObject.GetComponent<IHittable>();
 
-            hittable?.GetHit(damage);
+            //hittable?.GetHit(damage);
         }
     }
 }
