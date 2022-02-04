@@ -13,16 +13,13 @@ public class DamageObject : MonoBehaviour
     private void Start()
     {
         anim = GetComponentInParent<PlayerAnimation>();
-      
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (((1 << collision.gameObject.layer & whatIsTarget) > 0 ) && GameManager.Instance.isAttack)
+        if (((1 << collision.gameObject.layer & whatIsTarget) > 0) && GameManager.Instance.isAttack)
         {
             IHittable hittable = collision.gameObject.GetComponent<IHittable>();
-
-            hittable?.GetHit(damage);
         }
     }
 }
