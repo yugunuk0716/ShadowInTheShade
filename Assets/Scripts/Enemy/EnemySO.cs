@@ -7,6 +7,7 @@ public class EnemySO : ScriptableObject
 {
     public string _enemyName;
     public GameObject _prefab;
+
     [field:SerializeField]
     public int MaxHealth { get; set; } = 3;
     [field:SerializeField]
