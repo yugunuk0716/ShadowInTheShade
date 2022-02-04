@@ -39,7 +39,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void init()
     {
-        
         player.GetComponent<SpriteRenderer>().sprite = currentPlayerSO.playerSprite;
         currentPlayerSO.playerStates = PlayerStates.Human;
         currentPlayerSO.canChangePlayerType = true;
