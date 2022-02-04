@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class PoolManager : MonoSingleton<PoolManager>
 {
-	const int START_SIZE = 5;
+    #region Room
+
+    const int START_SIZE = 5;
     public List<Pool<Room>> _bottomRoomPool;
     public List<Pool<Room>> _topRoomPool;
     public List<Pool<Room>> _leftRoomPool;
@@ -17,12 +19,10 @@ public class PoolManager : MonoSingleton<PoolManager>
     public GameObject[] _rightRooms;
 
     public Room _closedRoom;
+    #endregion
 
-   
-
-
-
-
+    public GameObject _damagePopupPrefab;
+    public Pool<DamagePopup> _damagePopupPool;
 
     public PoolManager()
     {
@@ -34,42 +34,57 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     }
 
-    //private void Awake()
-    //{
-
-    //    for (int i = 0; i < _bottomRooms.Length; i++)
-    //    {
-    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_bottomRooms[i]), START_SIZE);
-
-    //        _bottomRoomPool.Add(pool);
-    //    }
-
-    //    for (int i = 0; i < _topRooms.Length; i++)
-    //    {
-    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_topRooms[i]), START_SIZE);
-
-    //        _topRoomPool.Add(pool);
-    //    }
-
-    //    for (int i = 0; i < _leftRooms.Length; i++)
-    //    {
-    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_leftRooms[i]), START_SIZE);
-
-    //        _leftRoomPool.Add(pool);
-    //    }
-
-    //    for (int i = 0; i < _rightRooms.Length; i++)
-    //    {
-    //        Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_rightRooms[i]), START_SIZE);
-
-    //        _rightRoomPool.Add(pool);
-    //    }
 
 
 
-    //}
 
-    public void CreateStage(int index, Vector3 pos)
+    private void Awake()
+    {
+        CreateDamagePopup();
+        CreateStage();
+
+    }
+
+ 
+
+    public void CreateDamagePopup()
+    {
+        _damagePopupPool = new Pool<DamagePopup>(new PrefabFactory<DamagePopup>(_damagePopupPrefab), START_SIZE);
+    }   
+
+    public void CreateStage() 
+    {
+        for (int i = 0; i < _bottomRooms.Length; i++)
+        {
+            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_bottomRooms[i]), START_SIZE);
+
+            _bottomRoomPool.Add(pool);
+        }
+
+        for (int i = 0; i < _topRooms.Length; i++)
+        {
+            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_topRooms[i]), START_SIZE);
+
+            _topRoomPool.Add(pool);
+        }
+
+        for (int i = 0; i < _leftRooms.Length; i++)
+        {
+            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_leftRooms[i]), START_SIZE);
+
+            _leftRoomPool.Add(pool);
+        }
+
+        for (int i = 0; i < _rightRooms.Length; i++)
+        {
+            Pool<Room> pool = new Pool<Room>(new PrefabFactory<Room>(_rightRooms[i]), START_SIZE);
+
+            _rightRoomPool.Add(pool);
+        }
+
+    }
+
+    public void SetStage(int index, Vector3 pos)
     {
 
 

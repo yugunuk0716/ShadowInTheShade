@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionPopUp : PopUp
+public class OptionPopup : Popup
 {
 
     #region Resolution

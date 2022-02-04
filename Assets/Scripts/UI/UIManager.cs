@@ -14,11 +14,11 @@ public class UIManager : MonoSingleton<UIManager>
 
     private CanvasGroup popupCanvasGroup;
 
-    public OptionPopUp optionPopupPrefab;
+    public OptionPopup optionPopupPrefab;
 
 
-    public Dictionary<string, PopUp> popupDic = new Dictionary<string, PopUp>();
-    private Stack<PopUp> popupStack = new Stack<PopUp>();
+    public Dictionary<string, Popup> popupDic = new Dictionary<string, Popup>();
+    private Stack<Popup> popupStack = new Stack<Popup>();
 
     private void Start()
     {

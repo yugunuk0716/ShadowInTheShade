@@ -43,7 +43,7 @@ public class RoomSpawner : MonoBehaviour
 			//	_rand = Random.Range(0, RoomTemplates.Instance._rightRooms.Length);
 			//	Instantiate(RoomTemplates.Instance._rightRooms[_rand], transform.position, RoomTemplates.Instance._rightRooms[_rand].transform.rotation);
 			//}
-			PoolManager.Instance.CreateStage(_openingDirection, this.transform.position);
+			PoolManager.Instance.SetStage(_openingDirection, this.transform.position);
 			_spawned = true;
 		}
 	}

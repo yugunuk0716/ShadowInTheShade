@@ -49,10 +49,20 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     {
         if (_isDead) return;
 
-        
+        float critical = Random.value;
+        bool isCritical = false;
+        if (critical <= GameManager.Instance.currentPlayerSO.attackStats.CTP)
+        {
+            damage *= 2; //2배 데미지
+            isCritical = true;
+        }
 
         Health -= damage;
         OnHit?.Invoke();
+
+        DamagePopup dPopup = PoolManager.Instance._damagePopupPool?.Allocate();
+        dPopup.gameObject.SetActive(true);
+        dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0), isCritical);
 
         SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
         if (Health <= 0)

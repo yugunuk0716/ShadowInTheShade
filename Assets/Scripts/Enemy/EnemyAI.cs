@@ -6,18 +6,32 @@ public class EnemyAI : MonoBehaviour
 {
     public GameObject _target;
 
-    public bool canMove = false;
+    public bool _canMove = false;
+    public float _distance = 12f;
 
     private IEnumerator _moveCoroutine;
     private AgentMove _agentMove;
     private Vector2 _originPos;
+    private float _speed;
 
     private void Start()
     {
         _originPos = this.transform.position;
         _target = GameManager.Instance.player.gameObject;
         _agentMove = transform.GetComponent<AgentMove>();
-        _agentMove.speed = canMove ? _agentMove.speed : 0f;
+        _speed = _agentMove.speed;
+    }
+
+    private void Update()
+    {
+        if(Vector2.Distance(_target.transform.position, this.transform.position)  > _distance)
+        {
+            _speed = 0;
+        }
+        else
+        {
+            _speed = _agentMove.speed;
+        }
     }
 
     private void OnEnable()
@@ -43,7 +57,7 @@ public class EnemyAI : MonoBehaviour
 
                 if (_agentMove != null)
                 {
-                    _agentMove.OnMove(dir.normalized, _agentMove.speed);
+                    _agentMove.OnMove(dir.normalized, _speed);
                 }
             }
 
