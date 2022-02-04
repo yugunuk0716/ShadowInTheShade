@@ -1,52 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class EnemyAI : MonoBehaviour
 {
-    [field: SerializeField]
-    public GameObject target { get; set; }
+    public GameObject _target;
 
-    [field: SerializeField]
-    public AIState currentState { get; private set; }
+    public bool canMove = false;
 
-    public Action<Vector2> OnMovementKeyPressed { get; set; }
-    public Action<Vector2> OnPointerPositionChanged { get; set; }
-    public Action OnFireButtonPress { get; set; }
-    public Action OnFireButtonReleased { get; set; }
+    private IEnumerator _moveCoroutine;
+    private AgentMove _agentMove;
+    private Vector2 _originPos;
 
     private void Start()
     {
-        target = GameManager.Instance.player.gameObject;
+        _originPos = this.transform.position;
+        _target = GameManager.Instance.player.gameObject;
+        _agentMove = transform.GetComponent<AgentMove>();
+        _agentMove.speed = canMove ? _agentMove.speed : 0f;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        //타겟이 없으면 적군은 정지
-        if (target == null)
+        _moveCoroutine = TrackingTarget();
+        StartCoroutine(_moveCoroutine);
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(_moveCoroutine);
+        transform.position = _originPos;
+    }
+
+    IEnumerator TrackingTarget()
+    {
+        while (true)
         {
-            OnMovementKeyPressed?.Invoke(Vector2.zero);
+            
+            if (_target != null)
+            { 
+                Vector2 dir = _target.transform.position - this.gameObject.transform.position;
+
+                if (_agentMove != null)
+                {
+                    _agentMove.OnMove(dir.normalized, _agentMove.speed);
+                }
+            }
+
+
+
+            yield return null;
         }
-        else
-        {
-            currentState.UpdateState(); //현재 상태를 업데이트
-        }
-
-
-    }
-
-    public void Attack()
-    {
-        OnFireButtonPress?.Invoke();
-    }
-    public void Move(Vector2 movementDiraction, Vector2 targetPosition)
-    {
-        OnMovementKeyPressed?.Invoke(movementDiraction);
-        OnPointerPositionChanged?.Invoke(targetPosition);
-    }
-    public void ChangeToState(AIState nextState)
-    {
-        currentState = nextState;
     }
 }
