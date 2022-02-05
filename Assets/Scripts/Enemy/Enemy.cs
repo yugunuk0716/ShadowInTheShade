@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour, IHittable, IAgent
+public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
 {
     [SerializeField]
     private EnemySO _enemyData;
 
     [field:SerializeField]
     public int Health { get;  private set; }
+
+    private AgentMove _enemyMove;
+
+
     public SpriteRenderer _sr;
     public Animator _anim;
 
     public Color _shadowColor;
     private Color _normalColor;
+
+
     private bool _isDead = false;
 
     [field: SerializeField]
@@ -22,6 +28,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
     [field: SerializeField]
     public UnityEvent OnHit { get ; set; }
 
+
+    
 
 
     private void Start()
@@ -31,6 +39,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
         _anim = GetComponentInChildren<Animator>();
         _anim.SetBool("isShadow", false);
         _normalColor = new Color(1, 1, 1, 1);
+        _enemyMove = GetComponent<AgentMove>();
         //GameManager.Instance.OnPlayerChangeType.AddListener(ShowShadowSprite);
     }
 
@@ -75,6 +84,10 @@ public class Enemy : MonoBehaviour, IHittable, IAgent
 
    
 
-    
+    public void KnockBack(Vector2 direction, float power, float duration)
+    {
+        _enemyMove.KnockBack(direction, power, duration);
+        print("≥ÀπÈ Ω√¿€");
+    }
 
 }

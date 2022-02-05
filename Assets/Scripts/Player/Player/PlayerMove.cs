@@ -16,7 +16,7 @@ public class PlayerMove : AgentMove
     {
         GameManager.Instance.OnPlayerDash.AddListener(() => { Dash(); SoundManager.Instance.PlaySFX(SoundManager.Instance._playerDashSFX, 0.6f); });
         playerInput = GetComponent<PlayerInput>();
-        speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
+        _speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     
     }
 
@@ -29,7 +29,7 @@ public class PlayerMove : AgentMove
         }
 
         if (!isDashing)
-            OnMove(playerInput.dir.normalized, speed);
+            OnMove(playerInput.dir.normalized, _speed);
     }
 
     public override void OnMove(Vector2 dir, float speed)

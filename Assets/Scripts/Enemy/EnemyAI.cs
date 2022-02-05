@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour
         _originPos = this.transform.position;
         _target = GameManager.Instance.player.gameObject;
         _agentMove = transform.GetComponent<AgentMove>();
-        _speed = _agentMove.speed;
+        _speed = _agentMove._speed;
     }
 
     private void Update()
@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            _speed = _agentMove.speed;
+            _speed = _agentMove._speed;
         }
     }
 

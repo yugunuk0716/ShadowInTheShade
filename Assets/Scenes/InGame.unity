@@ -21840,8 +21840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5857d9521b634db49aa3f7a3a8200e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rid: {fileID: 0}
-  speed: 0
+  _rigid: {fileID: 0}
+  _speed: 0
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31027,6 +31027,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!50 &951448503 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 7165077378238907912, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+  m_PrefabInstance: {fileID: 2058648602661518783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &954033945
 GameObject:
   m_ObjectHideFlags: 0
@@ -41855,6 +41860,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1421959070 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 7596176103748190819, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+  m_PrefabInstance: {fileID: 7596176105620798593}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1425233664
 GameObject:
   m_ObjectHideFlags: 0
@@ -60415,6 +60425,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 586330508}
     m_Modifications:
+    - target: {fileID: 3504192243291307956, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165077378238907911, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: _rigid
+      value: 
+      objectReference: {fileID: 951448503}
     - target: {fileID: 7165077378238907916, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -60474,7 +60492,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4691013222684524141, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
       propertyPath: <OnDie>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4691013222684524141, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
       propertyPath: <OnHit>k__BackingField.m_PersistentCalls.m_Calls.Array.size
@@ -60559,6 +60577,14 @@ PrefabInstance:
     - target: {fileID: 7596176103748190812, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596176103748190814, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+      propertyPath: _rigid
+      value: 
+      objectReference: {fileID: 1421959070}
+    - target: {fileID: 7596176103748190814, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+      propertyPath: _speed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7596176103748190815, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
       propertyPath: m_RootOrder

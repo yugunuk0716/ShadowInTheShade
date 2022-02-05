@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TestPlayer : MonoBehaviour
 {
+
+   
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Door") && StageManager.Instance._isClear) 
