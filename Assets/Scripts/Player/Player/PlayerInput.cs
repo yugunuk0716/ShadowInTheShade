@@ -13,14 +13,19 @@ public class PlayerInput : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
+        //GameManager.Instance.OnPlayerChangeType.AddListener(ChangePlayerType);
         playerSO = GameManager.Instance.currentPlayerSO;
     }
 
     private void Update()
     {
-        dir.x = Input.GetAxisRaw("Horizontal");
-        dir.y = Input.GetAxisRaw("Vertical");
+        if(!GameManager.Instance.isAttack)
+        {
+            dir.x = Input.GetAxisRaw("Horizontal");
+            dir.y = Input.GetAxisRaw("Vertical");
+        }
+
+        
 
         if(Input.GetButtonDown("ChangePlayerType"))
         {
@@ -36,18 +41,24 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GameManager.Instance.OnPlayerDash.Invoke();
+            if (playerSO.playerStates.Equals(PlayerStates.Human))
+                GameManager.Instance.OnPlayerDash.Invoke();
+            else
+                GameManager.Instance.OnPlayerAttack.Invoke();
         }
     }
 
-    private void ChangePlayerType()
+    public void ChangePlayerType()
     {
         PlayerStates ps = playerSO.playerStates;
+
 
         if (ps == PlayerStates.Human)
             ps = PlayerStates.Shadow;
         else
             ps = PlayerStates.Human;
+
+
 
         playerSO.playerStates = ps;
 

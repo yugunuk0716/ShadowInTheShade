@@ -1,20 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour 
+public class Room : MonoBehaviour, IResettable
 {
+
+
 
     public List<int> _movable = new List<int>();
 
     public List<RoomSpawner> _spawners = new List<RoomSpawner>();
 
-    void Start()
+    public GameObject _shadowMap, _normalMap;
+
+    public Collider2D _camBound;
+
+    public event EventHandler Death;
+
+    public bool _isEntry = false;
+
+    public void Reset()
     {
 
-        RoomTemplates.Instance._rooms.Add(this);
-
     }
+
+    private void Awake()
+    {
+        StageManager.Instance._rooms.Add(this);
+        Death += (sender, e) =>
+        {
+            this.gameObject.SetActive(false);
+        };
+    }
+
+
+    public void SwitchMap(bool isShadow = false) 
+    {
+        
+        _normalMap.SetActive(!isShadow);
+        _shadowMap.SetActive(isShadow);
+
+        _spawners.ForEach(rs => rs._door.SwitchDoorObj(isShadow));
+       
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,6 +54,7 @@ public class Room : MonoBehaviour
             if (this.CompareTag("ClosedRoom"))
             {
                 _spawners.Remove(rs);
+                print($"문짝 부심 {rs}");
                 Destroy(rs._door.gameObject);
                 return;
             }
@@ -34,6 +65,7 @@ public class Room : MonoBehaviour
                 if (rs._door != null)
                 {
                     _spawners.Remove(rs);
+                    print($" {rs._openingDirection}와 때문에 {rs.gameObject.name}에서 {this.gameObject.name}의 Door가 부서짐");
                     Destroy(rs._door.gameObject);
                 }
                 else

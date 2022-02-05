@@ -20,26 +20,30 @@ public class RoomSpawner : MonoBehaviour
 	public Door _door;
 
 	void Start(){
-		//Destroy(gameObject, _waitTime);
-		Invoke(nameof(Spawn), 0.1f);
+        //Destroy(gameObject, _waitTime);
+        if (!StageManager.Instance._isTutorial)
+        {
+			Invoke(nameof(Spawn), 0.1f);
+		}
 	}
 
 
 	void Spawn(){
 		if(_spawned == false){
-			if(_openingDirection == 1){
-				_rand = Random.Range(0, RoomTemplates.Instance._bottomRooms.Length);
-				Instantiate(RoomTemplates.Instance._bottomRooms[_rand], transform.position, RoomTemplates.Instance._bottomRooms[_rand].transform.rotation);
-			} else if(_openingDirection == 2){
-				_rand = Random.Range(0, RoomTemplates.Instance._topRooms.Length);
-				Instantiate(RoomTemplates.Instance._topRooms[_rand], transform.position, RoomTemplates.Instance._topRooms[_rand].transform.rotation);
-			} else if(_openingDirection == 3){
-				_rand = Random.Range(0, RoomTemplates.Instance._leftRooms.Length);
-				Instantiate(RoomTemplates.Instance._leftRooms[_rand], transform.position, RoomTemplates.Instance._leftRooms[_rand].transform.rotation);
-			} else if(_openingDirection == 4){
-				_rand = Random.Range(0, RoomTemplates.Instance._rightRooms.Length);
-				Instantiate(RoomTemplates.Instance._rightRooms[_rand], transform.position, RoomTemplates.Instance._rightRooms[_rand].transform.rotation);
-			}
+			//if(_openingDirection == 1){
+			//	_rand = Random.Range(0, RoomTemplates.Instance._bottomRooms.Length);
+			//	Instantiate(RoomTemplates.Instance._bottomRooms[_rand], transform.position, RoomTemplates.Instance._bottomRooms[_rand].transform.rotation);
+			//} else if(_openingDirection == 2){
+			//	_rand = Random.Range(0, RoomTemplates.Instance._topRooms.Length);
+			//	Instantiate(RoomTemplates.Instance._topRooms[_rand], transform.position, RoomTemplates.Instance._topRooms[_rand].transform.rotation);
+			//} else if(_openingDirection == 3){
+			//	_rand = Random.Range(0, RoomTemplates.Instance._leftRooms.Length);
+			//	Instantiate(RoomTemplates.Instance._leftRooms[_rand], transform.position, RoomTemplates.Instance._leftRooms[_rand].transform.rotation);
+			//} else if(_openingDirection == 4){
+			//	_rand = Random.Range(0, RoomTemplates.Instance._rightRooms.Length);
+			//	Instantiate(RoomTemplates.Instance._rightRooms[_rand], transform.position, RoomTemplates.Instance._rightRooms[_rand].transform.rotation);
+			//}
+			PoolManager.Instance.SetStage(_openingDirection, this.transform.position);
 			_spawned = true;
 		}
 	}
@@ -49,8 +53,8 @@ public class RoomSpawner : MonoBehaviour
 			RoomSpawner rs = other.GetComponent<RoomSpawner>();
 			if (rs._spawned == false && _spawned == false){
 
-				Instantiate(RoomTemplates.Instance._closedRoom, transform.position, Quaternion.identity);
-				//Destroy(gameObject);
+				Instantiate(PoolManager.Instance._closedRoom, transform.position, Quaternion.identity);
+				Destroy(gameObject);
 			} 
 			_spawned = true;
 		}

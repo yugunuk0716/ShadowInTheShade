@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/EukkbiScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 94bd8d6d99dbc7f40862d659c2b89e6d
+  - enabled: 1
+    path: Assets/Scenes/InGame.unity
+    guid: a4d3bdadaf004924b9e4afc202f801a7
+  - enabled: 0
+    path: Assets/Scenes/ResolutionTestScene.unity
+    guid: 5c96177d32af05e4bb3131df37d374d9
   m_configObjects: {}
