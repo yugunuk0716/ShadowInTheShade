@@ -81,7 +81,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
         if (Health <= 0)
         {
             _isDead = true;
-            this.gameObject.SetActive(false);
+            StartCoroutine(Dead());
+            //this.gameObject.SetActive(false);
             OnDie?.Invoke();
         }
 
@@ -99,6 +100,16 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
     void SetHit()
     {
         _isHit = false;
+    }
+
+    IEnumerator Dead()
+    {
+        if(_isDead.Equals(true))
+        {
+            _anim.SetBool("isDead",true);
+            yield return new WaitForSeconds(.5f);
+            this.gameObject.SetActive(false);
+        }
     }
 
 }
