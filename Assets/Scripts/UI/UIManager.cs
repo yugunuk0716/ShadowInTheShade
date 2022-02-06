@@ -7,15 +7,14 @@ using DG.Tweening;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+
     public Button clearPanel;
-
-
     public Transform popupParent;
-
-    private CanvasGroup popupCanvasGroup;
-
     public OptionPopup optionPopupPrefab;
 
+    public bool _isPopuped = false;
+
+    private CanvasGroup popupCanvasGroup;
 
     public Dictionary<string, Popup> popupDic = new Dictionary<string, Popup>();
     private Stack<Popup> popupStack = new Stack<Popup>();
@@ -47,14 +46,18 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenPopup("option");
+            if (_isPopuped)
+            {
+                ClosePopup();
+            }
+            else
+            {
+                OpenPopup("option");
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.M))
-        {
-            ClosePopup();
-        }
+       
     }
 
     public void OpenPopup(string name, object data = null, int closeCount = 1)
@@ -66,21 +69,27 @@ public class UIManager : MonoSingleton<UIManager>
                 popupCanvasGroup.interactable = true;
                 popupCanvasGroup.blocksRaycasts = true;
             });
+            GameManager.Instance._timeScale = 0f;
+            _isPopuped = true;
         }
         popupStack.Push(popupDic[name]);
         popupDic[name].Open(data, closeCount);
     }
     public void ClosePopup()
     {
-        popupStack.Pop().Close();
-
-        if (popupStack.Count == 0)
+        if(popupStack.Count > 0)
         {
-            DOTween.To(() => popupCanvasGroup.alpha, value => popupCanvasGroup.alpha = value, 0, 0.8f).OnComplete(() =>
+            popupStack.Pop().Close();
+            if (popupStack.Count == 0)
             {
-                popupCanvasGroup.interactable = false;
-                popupCanvasGroup.blocksRaycasts = false;
-            });
+                DOTween.To(() => popupCanvasGroup.alpha, value => popupCanvasGroup.alpha = value, 0, 0.8f).OnComplete(() =>
+                {
+                    popupCanvasGroup.interactable = false;
+                    popupCanvasGroup.blocksRaycasts = false;
+                    _isPopuped = false;
+                GameManager.Instance._timeScale = 1f;
+                });
+            }
         }
     }
 

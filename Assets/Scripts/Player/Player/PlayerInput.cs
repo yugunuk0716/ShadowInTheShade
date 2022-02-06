@@ -19,6 +19,10 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        if (UIManager.Instance._isPopuped)
+            return;
+
+
         if(!GameManager.Instance.isAttack)
         {
             dir.x = Input.GetAxisRaw("Horizontal");

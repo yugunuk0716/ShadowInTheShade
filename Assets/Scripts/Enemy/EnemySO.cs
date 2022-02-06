@@ -13,5 +13,5 @@ public class EnemySO : ScriptableObject
     [field:SerializeField]
     public int Damage { get; set; } = 1;
     [field:SerializeField]
-    public int HitDelay { get; set; } = 1;
+    public float HitDelay { get; set; } = 0.1f;
 }

@@ -34737,6 +34737,7 @@ MonoBehaviour:
   clearPanel: {fileID: 19207813}
   popupParent: {fileID: 136163648}
   optionPopupPrefab: {fileID: 7465974559394415681, guid: daeba4bcce9c83043ac39dbf1653878c, type: 3}
+  _isPopuped: 0
 --- !u!1 &1040663251
 GameObject:
   m_ObjectHideFlags: 0
@@ -61281,6 +61282,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 740603414}
     m_Modifications:
+    - target: {fileID: 2917182829439932416, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+      propertyPath: m_Size.x
+      value: 0.40882492
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917182829439932416, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3452273
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917182829439932416, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.020597458
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917182829439932416, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.00087475777
+      objectReference: {fileID: 0}
     - target: {fileID: 7596176103748190812, guid: 743ceb72c791b644289d1a785b101dbb, type: 3}
       propertyPath: m_Name
       value: Slime
