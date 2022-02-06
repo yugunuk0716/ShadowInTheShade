@@ -40,6 +40,9 @@ public struct PlayerAttackStats
 
     [Header("크리티컬 확률")]
     public float CTP;
+    
+    [Header("크리티컬 데미지")]
+    public float CTD;
 
     [Header("스킬 쿨타임")]
     public float SCD;
@@ -51,8 +54,9 @@ public struct PlayerECTStats
     [Header("타입 변경 시간")]
     public float TCT;
 
-    [Header("마우스를 보는 시간")]
-    public float LPS;
+    [Header("플레이어 체력")]
+    public int PHP;
+
 }
 
 

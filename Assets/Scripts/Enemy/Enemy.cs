@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
 
 
     private bool _isDead = false;
+    private bool _isHit = false;
 
     [field: SerializeField]
     public UnityEvent OnDie { get ; set; }
@@ -56,7 +57,10 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
 
     public void GetHit(int damage)
     {
-        if (_isDead) return;
+        print(_isHit);
+        if (_isDead || _isHit) return;
+
+        _isHit = true;
 
         float critical = Random.value;
         bool isCritical = false;
@@ -80,6 +84,8 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
             this.gameObject.SetActive(false);
             OnDie?.Invoke();
         }
+
+        Invoke(nameof(SetHit), _enemyData.HitDelay);
     }
 
    
@@ -88,6 +94,11 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
     {
         _enemyMove.KnockBack(direction, power, duration);
         print("≥ÀπÈ Ω√¿€");
+    }
+
+    void SetHit()
+    {
+        _isHit = false;
     }
 
 }

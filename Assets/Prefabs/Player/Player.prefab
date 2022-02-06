@@ -247,6 +247,7 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 64
+  damageObjectSO: {fileID: 11400000, guid: 2dd63a7192747684bbc20471825ba149, type: 2}
 --- !u!1 &7165077378238907918
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +262,7 @@ GameObject:
   - component: {fileID: 7165077378238907915}
   - component: {fileID: 7165077378238907911}
   - component: {fileID: 6760627753079687335}
+  - component: {fileID: 5394072051443630421}
   - component: {fileID: 8229288750871404742}
   - component: {fileID: 7165077378238907912}
   - component: {fileID: 7165077378238907913}
@@ -355,7 +357,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigid: {fileID: 0}
   _speed: 0
-  _currentVelocity: 3
 --- !u!114 &7165077378238907915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,7 +382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea82cf336ed390439720193ebbe87f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigid: {fileID: 0}
 --- !u!114 &6760627753079687335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +395,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectAnim: {fileID: 2030129527877208251}
+--- !u!114 &5394072051443630421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7165077378238907918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ed79897badd854d90adb16a191d7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  <PlayerHud>k__BackingField: {fileID: 0}
+  <OnDie>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHit>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8229288750871404742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +430,7 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 0
+  damageObjectSO: {fileID: 0}
 --- !u!50 &7165077378238907912
 Rigidbody2D:
   serializedVersion: 4

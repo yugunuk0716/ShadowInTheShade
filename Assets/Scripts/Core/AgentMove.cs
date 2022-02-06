@@ -19,23 +19,14 @@ public class AgentMove :  MonoBehaviour , IMoveable
         _rigid = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            KnockBack(transform.right,6f,0.1f);
-        }
-    }
+   
     public virtual void OnMove(Vector2 dir, float speed)
     {
         if (!_isKnockBack)
         {
             _rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
         }
-        else
-        {
-            print("?");
-        }
+        
     }
 
    

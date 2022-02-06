@@ -12,4 +12,6 @@ public class EnemySO : ScriptableObject
     public int MaxHealth { get; set; } = 3;
     [field:SerializeField]
     public int Damage { get; set; } = 1;
+    [field:SerializeField]
+    public int HitDelay { get; set; } = 1;
 }
