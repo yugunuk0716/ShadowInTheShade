@@ -14,7 +14,7 @@ public class GameManager : MonoSingleton<GameManager>
     //오브젝트 관련 타임스케일
     [Range(0,1)]
     [SerializeField]
-    private float _timeScale = 1f;
+    public float _timeScale = 1f;
 
     //각종 인게임 이벤트들
     public UnityEvent OnPlayerDash; //플레이어가 대쉬할 때 쓰는 이벤트

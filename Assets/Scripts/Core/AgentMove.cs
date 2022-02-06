@@ -24,7 +24,7 @@ public class AgentMove :  MonoBehaviour , IMoveable
     {
         if (!_isKnockBack)
         {
-            _rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
+            _rigid.velocity = new Vector2(dir.x * speed * GameManager.Instance._timeScale, dir.y * speed * GameManager.Instance._timeScale);
         }
         
     }
