@@ -32,7 +32,7 @@ public class Popup : MonoBehaviour
 
     public virtual void SetAlpha(bool on) 
     {
-        DG.Tweening.Core.Debugger.LogSafeModeReport(this);
+        //DG.Tweening.Core.Debugger.LogSafeModeReport(this);
         DOTween.To(() => canvasGroup.alpha, value => canvasGroup.alpha = value, on ? 1f : 0f, 0.8f).OnComplete(() => {
             canvasGroup.interactable = on;
             canvasGroup.blocksRaycasts = on;
