@@ -15,6 +15,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     public AudioClip _slimeHitSFX;
     public AudioClip _playerDashSFX;
     public AudioClip _playerAttackSFX;
+    public AudioClip _playerHitSFX;
 
     [Header("BGM")]
     public AudioClip _stage1BGM;
