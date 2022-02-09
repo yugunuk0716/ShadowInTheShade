@@ -61222,6 +61222,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 586330508}
     m_Modifications:
+    - target: {fileID: 2058648602064333718, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2584905
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058648602064333718, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.80188674
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058648602064333718, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316755859517182723, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.67824733
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316755859517182723, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Size.y
+      value: 1.3554385
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316755859517182723, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.046762064
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316755859517182723, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.056869507
+      objectReference: {fileID: 0}
     - target: {fileID: 3504192243291307956, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
       propertyPath: m_Size.x
       value: 0.03989028
@@ -61245,6 +61273,10 @@ PrefabInstance:
     - target: {fileID: 4401079662819570102, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394072051443630421, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
+      propertyPath: _hitDelay
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5394072051443630421, guid: 2e842fcfcb57d98498a4c5938692d63f, type: 3}
       propertyPath: <PlayerHud>k__BackingField
