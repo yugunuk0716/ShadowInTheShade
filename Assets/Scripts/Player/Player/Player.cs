@@ -20,6 +20,8 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
         }
     }
 
+    public float _hitDelay = 0.1f;
+
     [field: SerializeField]
     public PlayerHudUI PlayerHud { get; set; }
 
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
 
 
     private bool _isDead = false;
+    public bool _isHit = false;
     private AgentMove playerMove;
 
 
@@ -50,7 +53,9 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
 
     public void GetHit(int damage)
     {
-        if (_isDead) return;
+        if (_isDead || _isHit) return;
+
+        _isHit = true;
 
         Health -= damage;
         OnHit?.Invoke();
@@ -59,6 +64,8 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
             OnDie?.Invoke();
             _isDead = true;
         }
+
+        Invoke(nameof(SetHit), _hitDelay);
     }
 
     public void KnockBack(Vector2 direction, float power, float duration)
@@ -66,5 +73,11 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
         playerMove.KnockBack(direction, power, duration);
     }
 
-    
+    void SetHit()
+    {
+        _isHit = false;
+    }
+
+
+
 }

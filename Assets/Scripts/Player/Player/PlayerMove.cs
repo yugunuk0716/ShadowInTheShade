@@ -7,6 +7,7 @@ using DG.Tweening;
 public class PlayerMove : AgentMove
 {
     private PlayerInput playerInput;
+    private Player player;
     private bool isDashing = false;
     private Vector2 mousePos;
     private Vector2 playerMousePos;
@@ -16,12 +17,16 @@ public class PlayerMove : AgentMove
     {
         GameManager.Instance.OnPlayerDash.AddListener(() => { Dash(); SoundManager.Instance.PlaySFX(SoundManager.Instance._playerDashSFX, 0.6f); });
         playerInput = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
         _speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     
     }
 
     private void FixedUpdate()
     {
+        if (player._isHit)
+            return;
+
         if (GameManager.Instance.isAttack)
         {
             OnMove(transform.position, 0);
