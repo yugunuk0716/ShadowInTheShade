@@ -8,12 +8,13 @@ public class DamagePopup : MonoBehaviour, IResettable
 {
     [SerializeField]
     private TextMeshPro _tmp;
-    private int _normalTextSize = 7;
-    private int _criticalTextSize = 10;
+    public int _normalTextSize = 5;
+    public int _criticalTextSize = 7;
 
     private void Start()
     {
         _tmp = GetComponent<TextMeshPro>();
+        _tmp.fontSize = _normalTextSize;
     }
 
     public void SetText(int damageAmount, Vector3 pos, bool isCritical)

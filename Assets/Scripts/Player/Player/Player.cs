@@ -39,6 +39,10 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
         _maxHealth = GameManager.Instance.currentPlayerSO.ectStats.PHP;
         Health = _maxHealth;
         playerMove = GetComponent<AgentMove>();
+        OnHit.AddListener(() =>
+        {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance._playerHitSFX, 1f);
+        });
     }
 
     

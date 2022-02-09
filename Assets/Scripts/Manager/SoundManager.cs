@@ -15,6 +15,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     public AudioClip _slimeHitSFX;
     public AudioClip _playerDashSFX;
     public AudioClip _playerAttackSFX;
+    public AudioClip _playerHitSFX;
 
     [Header("BGM")]
     public AudioClip _stage1BGM;
@@ -26,13 +27,13 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         //DontDestroyOnLoad(this.gameObject);
         PlayBGM(_stage1BGM);
-        GameManager.Instance.OnPlayerAttack.AddListener(() =>
-        {
-            if (GameManager.Instance.isAttack)
-            {
-                PlaySFX(_playerAttackSFX);
-            }
-        });
+        //GameManager.Instance.OnPlayerAttack.AddListener(() =>
+        //{
+        //    if (GameManager.Instance.isAttack)
+        //    {
+        //        PlaySFX(_playerAttackSFX);
+        //    }
+        //});
     }
 
     public void PlayBGM(AudioClip clip, float volume = 0.3f)

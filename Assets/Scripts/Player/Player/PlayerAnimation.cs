@@ -103,6 +103,7 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetBool("IsAttack",true);
         GameManager.Instance.isAttack = true;
         anim.SetInteger("AttackCount", attackCount);
+        SoundManager.Instance.PlaySFX(SoundManager.Instance._playerAttackSFX);
         yield return new WaitForSeconds(.3f);
         anim.SetBool("IsAttack", false);
         GameManager.Instance.isAttack = false;
