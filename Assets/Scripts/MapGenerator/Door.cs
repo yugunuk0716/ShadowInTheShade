@@ -9,6 +9,7 @@ public class Door : MonoBehaviour
     public int _openingDirection;
 
     public GameObject _closedDoorObj;
+    public GameObject _openedDoorObj;
     public GameObject _normalDoorObj;
     public GameObject _shadowDoorObj;
 
@@ -18,15 +19,11 @@ public class Door : MonoBehaviour
 
     void Start()
     {
-
-
-    }
-
-    void Update()
-    {
+        _openedDoorObj.SetActive(false);
 
     }
 
+   
     private void OnTriggerEnter2D(Collider2D other)
     {
 
@@ -57,6 +54,7 @@ public class Door : MonoBehaviour
     public void DoorOpendAndClose(bool isOpened = false)
     {
         _closedDoorObj.SetActive(!isOpened);
+        _openedDoorObj.SetActive(isOpened);
         _shadowDoorObj.SetActive(GameManager.Instance.currentPlayerSO.playerStates.Equals(PlayerStates.Shadow) && StageManager.Instance._isClear);
         SoundManager.Instance.PlaySFX(SoundManager.Instance._doorOpenSFX, 0.2f);
 

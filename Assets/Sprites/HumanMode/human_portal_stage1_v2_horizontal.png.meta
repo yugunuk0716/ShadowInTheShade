@@ -20,6 +20,24 @@ TextureImporter:
   - first:
       213: -7751214880490339000
     second: human_portal_stage1_v2_horizontal_5
+  - first:
+      213: 8443575042429857261
+    second: human_portal_stage1_v2_horizontal_6
+  - first:
+      213: 7196618481125182599
+    second: human_portal_stage1_v2_horizontal_7
+  - first:
+      213: 2522344425088490550
+    second: human_portal_stage1_v2_horizontal_8
+  - first:
+      213: 74474915170747228
+    second: human_portal_stage1_v2_horizontal_9
+  - first:
+      213: 767279384174148529
+    second: human_portal_stage1_v2_horizontal_10
+  - first:
+      213: -3755128002889199055
+    second: human_portal_stage1_v2_horizontal_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -137,7 +155,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 64
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -158,7 +176,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 64
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -179,7 +197,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -200,7 +218,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 32
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -221,7 +239,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -242,7 +260,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 0
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -254,6 +272,132 @@ TextureImporter:
       bones: []
       spriteID: 845c6a642272e6490800000000000000
       internalID: -7751214880490339000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_portal_stage1_v2_horizontal_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deda26ed3ca9d2570800000000000000
+      internalID: 8443575042429857261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_portal_stage1_v2_horizontal_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78c4a7711668fd360800000000000000
+      internalID: 7196618481125182599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_portal_stage1_v2_horizontal_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c169204ea210320800000000000000
+      internalID: 2522344425088490550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_portal_stage1_v2_horizontal_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c530e6f6a86980100800000000000000
+      internalID: 74474915170747228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_portal_stage1_v2_horizontal_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb3e21e88ce5aa00800000000000000
+      internalID: 767279384174148529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_portal_stage1_v2_horizontal_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 132daa51afa13ebc0800000000000000
+      internalID: -3755128002889199055
       vertices: []
       indices: 
       edges: []
