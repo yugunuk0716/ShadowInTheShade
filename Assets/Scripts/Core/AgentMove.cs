@@ -35,7 +35,6 @@ public class AgentMove :  MonoBehaviour , IMoveable
     {
         if (!_isKnockBack)
         {
-            print("넉백 중간");
             _isKnockBack = true;
             _knockBackCo = StartCoroutine(KnockBackCoroutine(direction, power, duration));
         }
@@ -45,7 +44,6 @@ public class AgentMove :  MonoBehaviour , IMoveable
 
     IEnumerator KnockBackCoroutine(Vector2 direction, float power, float duration)
     {
-        print($"넉백 코루틴 {_rigid.velocity}");
         _rigid.velocity = direction.normalized * power;
         yield return new WaitForSeconds(duration);
         ResetKnockBackParam();
@@ -53,7 +51,6 @@ public class AgentMove :  MonoBehaviour , IMoveable
 
     private void ResetKnockBackParam()
     {
-        print("넉백 파라미터 초기화");
         _rigid.velocity = Vector2.zero;
         _isKnockBack = false;
     }

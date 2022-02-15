@@ -45,7 +45,10 @@ public class Player : MonoBehaviour, IAgent, IKnockBack, IHittable
         OnHit.AddListener(() =>
         {
             SoundManager.Instance.PlaySFX(SoundManager.Instance._playerHitSFX, 1f);
+            EffectManager.Instance.BloodEffect(1f, 1f);
         });
+
+
     }
 
     
