@@ -10,6 +10,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField]
     public Transform player;
     public PlayerSO currentPlayerSO;
+    public Vector2 _dir;
 
     //오브젝트 관련 타임스케일
     [Range(0,1)]

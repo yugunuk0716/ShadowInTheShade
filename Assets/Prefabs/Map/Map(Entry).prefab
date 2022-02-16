@@ -97,7 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
+  _matchedRoom: {fileID: 0}
   _openingDirection: 1
+  _closedDoorObj: {fileID: 0}
+  _openedDoorObj: {fileID: 0}
+  _normalDoorObj: {fileID: 0}
+  _shadowDoorObj: {fileID: 0}
   _nextCamBound: {fileID: 0}
 --- !u!61 &4542551400465324461
 BoxCollider2D:
@@ -318,7 +323,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
+  _matchedRoom: {fileID: 0}
   _openingDirection: 2
+  _closedDoorObj: {fileID: 0}
+  _openedDoorObj: {fileID: 0}
+  _normalDoorObj: {fileID: 0}
+  _shadowDoorObj: {fileID: 0}
   _nextCamBound: {fileID: 0}
 --- !u!61 &3354091528212766115
 BoxCollider2D:
@@ -456,7 +466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &983941015581022747
 Transform:
   m_ObjectHideFlags: 0
@@ -500,6 +510,8 @@ MonoBehaviour:
   - {fileID: 8128944394735058950}
   - {fileID: 6896655913039232518}
   - {fileID: 3622087637598166632}
+  _shadowMap: {fileID: 0}
+  _normalMap: {fileID: 0}
   _camBound: {fileID: 3514410469015885651}
   _isEntry: 1
 --- !u!50 &2028633928629372436
@@ -646,7 +658,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
+  _matchedRoom: {fileID: 0}
   _openingDirection: 3
+  _closedDoorObj: {fileID: 0}
+  _openedDoorObj: {fileID: 0}
+  _normalDoorObj: {fileID: 0}
+  _shadowDoorObj: {fileID: 0}
   _nextCamBound: {fileID: 0}
 --- !u!61 &9028780745802440811
 BoxCollider2D:
@@ -771,7 +788,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _matchedDoor: {fileID: 0}
+  _matchedRoom: {fileID: 0}
   _openingDirection: 4
+  _closedDoorObj: {fileID: 0}
+  _openedDoorObj: {fileID: 0}
+  _normalDoorObj: {fileID: 0}
+  _shadowDoorObj: {fileID: 0}
   _nextCamBound: {fileID: 0}
 --- !u!61 &7138498804975428296
 BoxCollider2D:

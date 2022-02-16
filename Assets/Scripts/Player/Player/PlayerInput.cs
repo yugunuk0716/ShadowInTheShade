@@ -27,6 +27,7 @@ public class PlayerInput : MonoBehaviour
         {
             dir.x = Input.GetAxisRaw("Horizontal");
             dir.y = Input.GetAxisRaw("Vertical");
+            GameManager.Instance._dir = dir;
         }
 
         

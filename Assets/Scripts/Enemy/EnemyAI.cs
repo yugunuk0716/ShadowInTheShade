@@ -7,30 +7,46 @@ public class EnemyAI : MonoBehaviour
     public GameObject _target;
 
     public bool _canMove = false;
-    public float _distance = 12f;
+    [Range(0.1f, 15f)]
+    public float _distance;
+    [Range(0.1f, 15f)]
+    public float _attackDistance;
 
     private IEnumerator _moveCoroutine;
     private AgentMove _agentMove;
+    private Enemy _enemy;
     private Vector2 _originPos;
     private float _speed;
 
-    private void Start()
+    public virtual void Start()
     {
         _originPos = this.transform.position;
         _target = GameManager.Instance.player.gameObject;
         _agentMove = transform.GetComponent<AgentMove>();
+        _enemy = GetComponent<Enemy>();
         _speed = _agentMove._speed;
     }
 
-    private void Update()
+    public void Update()
     {
-        if(Vector2.Distance(_target.transform.position, this.transform.position)  > _distance)
+        AI();
+    }
+
+    public virtual void AI()
+    {
+        float dist = Vector2.Distance(_target.transform.position, this.transform.position);
+        if (dist > _attackDistance && dist < _distance)
+        {
+            _speed = _agentMove._speed;
+        }
+        else if (_attackDistance > dist)
         {
             _speed = 0;
+            Attack();
         }
         else
         {
-            _speed = _agentMove._speed;
+            _speed = 0;
         }
     }
 
@@ -44,6 +60,11 @@ public class EnemyAI : MonoBehaviour
     {
         StopCoroutine(_moveCoroutine);
         transform.position = _originPos;
+    }
+
+    public virtual void Attack()
+    {
+        //_enemy._anim.SetTrigger("attack");
     }
 
     IEnumerator TrackingTarget()
@@ -66,4 +87,17 @@ public class EnemyAI : MonoBehaviour
             yield return null;
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (UnityEditor.Selection.activeObject == gameObject)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, _attackDistance);
+            Gizmos.color = Color.white;
+        }
+    }
+#endif
+
 }

@@ -55,7 +55,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3497674471859076902}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 7596176103748190815}
   - component: {fileID: 7596176103748190819}
   - component: {fileID: 7596176103748190816}
-  - component: {fileID: 7596176103748190817}
+  - component: {fileID: 8280748729760818047}
   - component: {fileID: 7596176103748190814}
   - component: {fileID: 4691013222684524141}
   m_Layer: 6
@@ -148,7 +148,7 @@ CircleCollider2D:
   m_Offset: {x: -0.0014694333, y: -0.01016587}
   serializedVersion: 2
   m_Radius: 0.2208814
---- !u!114 &7596176103748190817
+--- !u!114 &8280748729760818047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,12 +157,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7596176103748190812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 456229fb3bf735646a93a0ee756b0cf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 68cead8fd65d7514d903511d9eb5d6fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _canMove: 0
-  _distance: 12
+  _distance: 7
+  _attackDistance: 1
+  _slowAmount: 3
+  isAttacked: 0
 --- !u!114 &7596176103748190814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +214,7 @@ GameObject:
   - component: {fileID: 7596176104154514982}
   - component: {fileID: 7596176104154514984}
   - component: {fileID: 7596176104154514985}
+  - component: {fileID: 7313855493106313516}
   m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
@@ -269,8 +273,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 412313991
-  m_SortingLayer: 2
+  m_SortingLayerID: 1530794237
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2497390158178042390, guid: 86634659416c71d4fa7157149cd6c008, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -302,3 +306,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7313855493106313516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7596176104154514983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dc4ee972a05ef49b4b53c889a56153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
