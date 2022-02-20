@@ -23,6 +23,9 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     public GameObject _damagePopupPrefab;
     public Pool<DamagePopup> _damagePopupPool;
+    public GameObject _afterImagePrefab;
+    public Pool<AfterImage> _afterImagePool;
+
 
     public PoolManager()
     {
@@ -41,6 +44,7 @@ public class PoolManager : MonoSingleton<PoolManager>
     private void Awake()
     {
         CreateDamagePopup();
+        CreateAfterImage();
         CreateStage();
 
     }
@@ -50,6 +54,10 @@ public class PoolManager : MonoSingleton<PoolManager>
     public void CreateDamagePopup()
     {
         _damagePopupPool = new Pool<DamagePopup>(new PrefabFactory<DamagePopup>(_damagePopupPrefab), START_SIZE);
+    }   
+    public void CreateAfterImage()
+    {
+        _afterImagePool = new Pool<AfterImage>(new PrefabFactory<AfterImage>(_afterImagePrefab), START_SIZE);
     }   
 
     public void CreateStage() 
@@ -84,9 +92,13 @@ public class PoolManager : MonoSingleton<PoolManager>
 
     }
 
+    public AfterImage GetAfterImage()
+    {
+        return _afterImagePool.Allocate();
+    }
+
     public void SetStage(int index, Vector3 pos)
     {
-
 
         EventHandler handler = null;
         Room room = null;

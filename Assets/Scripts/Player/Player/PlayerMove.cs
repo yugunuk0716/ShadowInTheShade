@@ -8,16 +8,24 @@ public class PlayerMove : AgentMove
 {
     private PlayerInput playerInput;
     private Player player;
-    private bool isDashing = false;
+    private SpriteRenderer _sr;
+    private bool isDash = false;
     private Vector2 mousePos;
     private Vector2 playerMousePos;
     private float dashAngle;
+    private float dashTime = 0.3f;
+    private float dashPower = 5f;
 
     private void Start()
     {
-        GameManager.Instance.OnPlayerDash.AddListener(() => { Dash(); SoundManager.Instance.PlaySFX(SoundManager.Instance._playerDashSFX, 0.6f); });
+        GameManager.Instance.OnPlayerDash.AddListener(() => 
+        {
+            StartCoroutine(DashCoroutine());
+            SoundManager.Instance.PlaySFX(SoundManager.Instance._playerDashSFX, 0.6f);
+        });
         playerInput = GetComponent<PlayerInput>();
         player = GetComponent<Player>();
+        _sr = GetComponent<SpriteRenderer>();
         _speed = GameManager.Instance.currentPlayerSO.moveStats.SPD;
     
     }
@@ -33,7 +41,7 @@ public class PlayerMove : AgentMove
             return;
         }
 
-        if (!isDashing)
+        if (!isDash)
             OnMove(playerInput.dir.normalized, _speed);
     }
 
@@ -41,25 +49,59 @@ public class PlayerMove : AgentMove
     {
         base.OnMove(dir, speed);
     }
-    public void Dash()
+
+    IEnumerator DashCoroutine()
     {
         StopNormalMoving();
-     /*   mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        playerMousePos = (mousePos - (Vector2)transform.position).normalized;
-        dashAngle = Vector2.Angle((Vector2)transform.position + Vector2.up, playerMousePos);
-        Debug.Log(dashAngle);*/
-        OnMove(playerInput.dir.normalized, GameManager.Instance.currentPlayerSO.moveStats.DPD);
+        print("코루틴 진입");
+        _rigid.AddForce(playerInput.dir * dashPower, ForceMode2D.Impulse);
+
+        float time = 0;
+        float afterTime = 0;
+        float targetTime = Random.Range(0.02f, 0.06f);
+        while (isDash)
+        {
+            print("와일문 진입");
+            time += Time.deltaTime;
+            afterTime += Time.deltaTime;
+
+            if (afterTime >= targetTime)
+            {
+                AfterImage ai = PoolManager.Instance.GetAfterImage();
+                ai.SetSprite(_sr.sprite, transform.position);
+                targetTime = Random.Range(0.02f, 0.06f);
+                afterTime = 0;
+            }
+
+            if (time >= dashTime)
+            {
+                isDash = false;
+            }
+            yield return null;
+        }
+        _rigid.velocity = Vector2.zero;
         StartCoroutine(CheckDashEnd());
     }
 
+    //public void Dash()
+    //{
+    //    StopNormalMoving();
+    // /*   mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    playerMousePos = (mousePos - (Vector2)transform.position).normalized;
+    //    dashAngle = Vector2.Angle((Vector2)transform.position + Vector2.up, playerMousePos);
+    //    Debug.Log(dashAngle);*/
+    //    OnMove(playerInput.dir.normalized, GameManager.Instance.currentPlayerSO.moveStats.DPD);
+    //    StartCoroutine(CheckDashEnd());
+    //}
+
     public void StopNormalMoving()
     {
-        isDashing = true;
+        isDash = true;
     }
 
     public void RestartNormalMoving()
     {
-        isDashing = false;
+        isDash = false;
     }
 
     public IEnumerator CheckDashEnd()

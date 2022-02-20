@@ -46,9 +46,9 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (playerSO.playerStates.Equals(PlayerStates.Human))
+            if (playerSO.playerStates.Equals(PlayerStates.Human) && dir != Vector2.zero)
                 GameManager.Instance.OnPlayerDash.Invoke();
-            else
+            else if(playerSO.playerStates.Equals(PlayerStates.Shadow))
                 GameManager.Instance.OnPlayerAttack.Invoke();
         }
     }
