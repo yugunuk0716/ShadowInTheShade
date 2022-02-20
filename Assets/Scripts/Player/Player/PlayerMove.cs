@@ -13,8 +13,8 @@ public class PlayerMove : AgentMove
     private Vector2 mousePos;
     private Vector2 playerMousePos;
     private float dashAngle;
-    private float dashTime = 0.3f;
-    private float dashPower = 5f;
+    private float dashTime = 0.15f;
+    private float dashPower = 12f;
 
     private void Start()
     {
@@ -53,7 +53,7 @@ public class PlayerMove : AgentMove
     IEnumerator DashCoroutine()
     {
         StopNormalMoving();
-        print("코루틴 진입");
+        print("?????? ????");
         _rigid.AddForce(playerInput.dir * dashPower, ForceMode2D.Impulse);
 
         float time = 0;
@@ -61,7 +61,7 @@ public class PlayerMove : AgentMove
         float targetTime = Random.Range(0.02f, 0.06f);
         while (isDash)
         {
-            print("와일문 진입");
+            print("?????? ????");
             time += Time.deltaTime;
             afterTime += Time.deltaTime;
 
