@@ -49,7 +49,22 @@ public class Enemy : MonoBehaviour, IHittable, IAgent, IKnockBack
     public void ShowShadowSprite()
     {
         bool isShadow = GameManager.Instance.currentPlayerSO.playerStates.Equals(PlayerStates.Shadow);
+        if (_anim == null)
+        {
+            print("애니메이터 이슈");
+            return;
+        }
+        else
+        {
+            print(isShadow);
+        }
         _anim.SetBool("isShadow", isShadow);
+
+        if (_sr == null)
+        {
+            print("스프라이트 랜더러 이슈");
+            return;
+        }
 
         _sr.color = isShadow ? _shadowColor : _normalColor;
         //_anim.gameObject.SetActive(!isShadow);

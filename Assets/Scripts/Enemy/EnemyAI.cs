@@ -16,7 +16,8 @@ public class EnemyAI : MonoBehaviour
     private AgentMove _agentMove;
     private Enemy _enemy;
     private Vector2 _originPos;
-    private float _speed;
+    public float _correction = 1;
+    public float _speed;
 
     public virtual void Start()
     {
@@ -41,7 +42,6 @@ public class EnemyAI : MonoBehaviour
         }
         else if (_attackDistance > dist)
         {
-            _speed = 0;
             Attack();
         }
         else
@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
 
                 if (_agentMove != null)
                 {
-                    _agentMove.OnMove(dir.normalized, _speed);
+                    _agentMove.OnMove(dir.normalized * _correction, _speed);
                 }
             }
 

@@ -30,6 +30,7 @@ public class JyomaekAI : EnemyAI
 
     public override void Attack()
     {
+        _speed = 0;
         base.Attack();
         if (!_isAttacked)
         {
