@@ -11,7 +11,7 @@ public class DamageManager : MonoBehaviour
         {
             if (instance == null)
             {
-                GameObject obj = new GameObject("GameManager");
+                GameObject obj = new GameObject("DamageManager");
                 obj.AddComponent<DamageManager>();
                 instance = obj.GetComponent<DamageManager>();
             }
@@ -21,35 +21,42 @@ public class DamageManager : MonoBehaviour
     }
 
     public GameObject _damagePrefab;
-    private Pool<DamagePopup> _damagePool = null;
-    private bool isDeleted = false;
     private bool isCreated = false;
+    private Pool<DamagePopup> _damagePool = null;
     public Pool<DamagePopup> DamagePool
     {
         get 
         {
-            if(!isCreated)
+
+            print(_damagePool + "asdasd" );
+            if(_damagePool == null)
             {
+                print("?");
                 isCreated = true;
                 _damagePool = PoolManager.Instance.CreatePool<DamagePopup>(_damagePrefab);
+                print(_damagePool);
             }
 
             return _damagePool;
         }
     }
 
+    private void Awake()
+    {
+        _damagePrefab = Resources.Load<GameObject>("Prefabs/DamagePopup");
+        instance = this;
+    }
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isDeleted)
-                return;
-            isDeleted = true;
+            
             DamagePopup dPopup = DamagePool?.Allocate();
 
             dPopup?.gameObject.SetActive(true);
             dPopup?.SetText(10, transform.position + new Vector3(0, 0.5f, 0), false);
-            isDeleted = false;
         }
     }
 

@@ -57,14 +57,16 @@ public class Pool<T> : IEnumerable where T : IResettable
     /// <param name="member">돌려놓을 풀의 멤버</param>
     public void Release(T member)
     {
+        DamageManager.Instance.Log("포함1");
         member.Reset();
         if (unavailable.Contains(member))
         {
-            DamageManager.Instance.Log("포함");
+            DamageManager.Instance.Log("포함2");
             unavailable.Remove(member);
         }
         else
         {
+            DamageManager.Instance.Log("포함3");
             members.Add(member);
         }
     }

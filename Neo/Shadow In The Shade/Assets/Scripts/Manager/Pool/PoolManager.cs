@@ -27,6 +27,11 @@ public class PoolManager : MonoBehaviour
 
     public Pool<T> CreatePool<T>(GameObject poolablePrefab, int poolSize = START_SIZE) where T : MonoBehaviour, IResettable
     {
+        if(poolablePrefab == null)
+        {
+            print("ºö");
+            return null;
+        }
         return new Pool<T>(new PrefabFactory<T>(poolablePrefab), poolSize);
     }
 

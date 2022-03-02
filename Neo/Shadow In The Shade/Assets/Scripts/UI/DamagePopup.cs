@@ -42,7 +42,7 @@ public class DamagePopup : MonoBehaviour, IResettable
         seq.AppendCallback(() =>
         {
             print("∏±∏Æ¡Ó");
-            DamageManager.Instance.DamagePool.Release(this);
+            DamageManager.Instance.DamagePool?.Release(this);
         });
     }
 
