@@ -3,19 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : MonoSingleton<PoolManager>
+public class PoolManager : MonoBehaviour
 {
+    private static PoolManager instance;
+    public static PoolManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject obj = new GameObject("PoolManager");
+                obj.AddComponent<PoolManager>();
+                instance = obj.GetComponent<PoolManager>();
+            }
+
+            return instance;
+        }
+    }
     const int START_SIZE = 5;
-    public GameObject _damagePopupPrefab;
-    public Pool<DamagePopup> _damagePopupPool;
+    
 
-    private void Awake()
+    
+
+    public Pool<T> CreatePool<T>(GameObject poolablePrefab, int poolSize = START_SIZE) where T : MonoBehaviour, IResettable
     {
-        CreateDamagePopup();
+        return new Pool<T>(new PrefabFactory<T>(poolablePrefab), poolSize);
     }
 
-    public void CreateDamagePopup()
-    {
-        _damagePopupPool = new Pool<DamagePopup>(new PrefabFactory<DamagePopup>(_damagePopupPrefab), START_SIZE);
-    }
+   
 }

@@ -20,11 +20,11 @@ public class DamagePopup : MonoBehaviour, IResettable
     public void SetText(int damageAmount, Vector3 pos, bool isCritical)
     {
 
-        if(_tmp == null)
-        {
-            print("왜 비는데?");
-            _tmp = GetComponent<TextMeshPro>();
-        }
+        //if(_tmp == null)
+        //{
+        //    print("왜 비는데?");
+        //    _tmp = GetComponent<TextMeshPro>();
+        //}
 
         transform.position = new Vector3(pos.x, pos.y, 0);
 
@@ -41,7 +41,8 @@ public class DamagePopup : MonoBehaviour, IResettable
         seq.Join(_tmp.DOFade(0, 1f));
         seq.AppendCallback(() =>
         {
-            PoolManager.Instance._damagePopupPool.Release(this);
+            print("릴리즈");
+            DamageManager.Instance.DamagePool.Release(this);
         });
     }
 

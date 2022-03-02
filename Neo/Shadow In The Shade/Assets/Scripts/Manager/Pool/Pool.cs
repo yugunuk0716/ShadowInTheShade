@@ -60,6 +60,7 @@ public class Pool<T> : IEnumerable where T : IResettable
         member.Reset();
         if (unavailable.Contains(member))
         {
+            DamageManager.Instance.Log("Æ÷ÇÔ");
             unavailable.Remove(member);
         }
         else
