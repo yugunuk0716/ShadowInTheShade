@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public float xMove;
+    public Vector2 xMove;
     public bool isDash;
     public bool isAttack;
     public bool isUse;
+    public bool isChangePlayerType; 
 
 
     private void Update()
@@ -15,7 +16,7 @@ public class PlayerInput : MonoBehaviour
 
         if(GameManager.Instance.timeScale <= 0)
         {
-            xMove = 0;
+            xMove = Vector2.zero;
             isDash = false;
             isAttack = false;
             isUse = false;
@@ -34,7 +35,8 @@ public class PlayerInput : MonoBehaviour
                         isUse = Input.GetButtonDown("Use");
                         break;
                     case PlayerInputState.Move:
-                        xMove = Input.GetAxisRaw("Horizontal");
+                        xMove.x = Input.GetAxisRaw("Horizontal");
+                        xMove.y = Input.GetAxisRaw("Vertical");
                         break;
                 }
                 break;
@@ -42,11 +44,12 @@ public class PlayerInput : MonoBehaviour
                 switch (GameManager.Instance.playerSO.playerInputState) // 플레이어 입력 체크
                 {
                     case PlayerInputState.Attack:
-                        xMove = 0;
+                        xMove = Vector2.zero;
                         isAttack = Input.GetButtonDown("Fire1");
                         break;
                     case PlayerInputState.Move:
-                        xMove = Input.GetAxisRaw("Horizontal");
+                        xMove.x = Input.GetAxisRaw("Horizontal");
+                        xMove.y = Input.GetAxisRaw("Vertical");
                         break;
                 }
                 break;

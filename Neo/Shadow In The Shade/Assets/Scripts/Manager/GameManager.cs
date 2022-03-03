@@ -5,21 +5,20 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance  
-    {
-        get
-        {
-            if (instance == null)
-            {
-                GameObject obj = new GameObject("GameManager");
-                obj.AddComponent<GameManager>();
-                instance = obj.GetComponent<GameManager>();
-            }
+    public static GameManager Instance;
 
-            return instance;
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
+
 
     public Transform player;
 
@@ -34,7 +33,7 @@ public class GameManager : MonoBehaviour
     public PlayerSO playerSO;
 
 
-    private void Awake()
+    private void Start()
     {
         init();
     }
