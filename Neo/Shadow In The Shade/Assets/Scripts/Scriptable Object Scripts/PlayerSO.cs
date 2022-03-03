@@ -9,6 +9,14 @@ public enum PlayerStates // 플레이어 상태
     Shadow
 }
 
+public enum PlayerInputState // 플레이어 인풋 상태
+{
+    Move,
+    Dash,
+    Attack,
+    Use
+}
+
 [System.Serializable]
 public struct PlayerMoveStats
 {
@@ -69,6 +77,7 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어 현제 상태")]
     public bool canChangePlayerType;
     public PlayerStates playerStates;
+    public PlayerInputState playerInputState;
 
     [Header("플레이어의 이동스탯")]
     public PlayerMoveStats moveStats;
