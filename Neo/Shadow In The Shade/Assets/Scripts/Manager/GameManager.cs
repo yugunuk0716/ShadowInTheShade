@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public void init()
     {
-        player.GetComponent<SpriteRenderer>().sprite = playerSO.playerSprite;
+        player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Human;
         playerSO.canChangePlayerType = true;
     }
