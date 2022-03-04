@@ -26,8 +26,8 @@ public class State
 
     protected State nextState;
 
-    float detectDistance = 10.0f;
-    float attackDistance = 7.0f;
+    float detectDistance = 5.0f;
+    float attackDistance = 3.0f;
 
     public State(GameObject obj, Rigidbody2D rigid , Animator anim, Transform targetTransform)
     {
@@ -69,29 +69,15 @@ public class State
 
     public bool CanFindPlayer()
     {
-        Vector3 dir = playerTrm.position - myObj.transform.position;
-        float angle = Vector3.Angle(dir, myObj.transform.forward);
-
-        return dir.magnitude < detectDistance;
+        return Vector2.Distance(playerTrm.position, myObj.transform.position) < detectDistance;
     }
 
     public bool CanAttackPlayer()
     {
-        Vector3 dir = playerTrm.position - myObj.transform.position;
-        return (dir.magnitude < attackDistance);
+        return Vector2.Distance(playerTrm.position, myObj.transform.position) < attackDistance;
     }
 
-    public bool IsPlayerBehind()
-    {
-        Vector3 dir = myObj.transform.position - playerTrm.position;
-        float angle = Vector3.Angle(dir, myObj.transform.forward);
-
-        if (dir.magnitude < 3.0f)
-        {
-            return true;
-        }
-        return false;
-    }
+  
 
 }
 
@@ -100,6 +86,7 @@ public class Idle : State
     public Idle(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid, anim, targetTransform)
     {
         stateName = eState.IDLE;
+        rigid.velocity = Vector2.zero;
         DamageManager.Instance.Log("아이들");
     }
 
@@ -113,11 +100,7 @@ public class Idle : State
         if (CanFindPlayer())
         {
             nextState = new Pursue(myObj, myRigid, myAnim, playerTrm);
-            curEvent = eEvent.EXIT;
-        }
-        else if (Random.Range(0, 5000) < 10)
-        {
-            nextState = new Patrol(myObj, myRigid, myAnim, playerTrm);
+            DamageManager.Instance.Log("추격");
             curEvent = eEvent.EXIT;
         }
         else
@@ -133,55 +116,13 @@ public class Idle : State
     }
 
 }
-public class Patrol : State
-{
-    public Patrol(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid ,anim, targetTransform)
-    {
-        stateName = eState.PARTROL;
-        DamageManager.Instance.Log("패트롤");
-    }
-
-    public override void Enter()
-    {
-        myAnim.SetTrigger("isPatrol");
-        base.Enter();
-    }
-
-    public override void Update()
-    {
-        // 추적
-        //myAgent.SetDestination(playerTrm.position);
-        //if (myAgent.hasPath)
-        //{
-        //    if (CanAttackPlayer())
-        //    {
-        //        // nextState = new Attack(myObj, myAgent, myAnim, playerTrm);
-        //        curEvent = eEvent.EXIT;
-        //    }
-        //    else if (!CanSeePlayer())
-        //    {
-        //        nextState = new Patrol(myObj, myAgent, myAnim, playerTrm);
-        //        curEvent = eEvent.EXIT;
-        //    }
-        //}
-
-    }
-
-    public override void Exit()
-    {
-        myAnim.ResetTrigger("isPatrol");
-        base.Exit();
-    }
-
-}
-
 
 public class Pursue : State
 {
     public Pursue(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid, anim, targetTransform)
     {
         stateName = eState.PURSUE;
-        rigid.velocity = (myObj.transform.position - playerTrm.position).normalized * 5f;
+        rigid.velocity = (playerTrm.position - myObj.transform.position ).normalized * 10f;
         DamageManager.Instance.Log("추격");
     }
 
@@ -202,7 +143,7 @@ public class Pursue : State
         }
         else if (!CanAttackPlayer())
         {
-            nextState = new Patrol(myObj, myRigid, myAnim, playerTrm);
+            nextState = new Idle(myObj, myRigid, myAnim, playerTrm);
             curEvent = eEvent.EXIT;
         }
 
@@ -252,7 +193,7 @@ public class Attack : State
 
         if (!CanAttackPlayer())
         {
-            nextState = new Patrol(myObj, myRigid, myAnim, playerTrm);
+            nextState = new Idle(myObj, myRigid, myAnim, playerTrm);
             curEvent = eEvent.EXIT;
         }
 
