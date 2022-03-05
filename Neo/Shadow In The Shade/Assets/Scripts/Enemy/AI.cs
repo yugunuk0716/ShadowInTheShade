@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 public class AI : MonoBehaviour
 {
@@ -9,6 +9,7 @@ public class AI : MonoBehaviour
     Animator myAnim;
 
     public Transform playerTrm;
+    public UnityEvent onStateEnter;
 
     State curState;
 
@@ -17,7 +18,7 @@ public class AI : MonoBehaviour
         myRigid = this.GetComponent<Rigidbody2D>();
         myAnim = this.GetComponent<Animator>();
         playerTrm = GameManager.Instance.player;
-        curState = new Idle(this.gameObject, myRigid, myAnim, playerTrm);
+        curState = new Idle(this.gameObject, myRigid, myAnim, playerTrm, onStateEnter);
     }
 
     private void Update()

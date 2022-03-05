@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class State
@@ -23,13 +24,14 @@ public class State
     protected Animator myAnim;
     protected Rigidbody2D myRigid;
     protected Transform playerTrm;
+    protected UnityEvent onStateEnter;
 
     protected State nextState;
 
     float detectDistance = 5.0f;
     float attackDistance = 3.0f;
 
-    public State(GameObject obj, Rigidbody2D rigid , Animator anim, Transform targetTransform)
+    public State(GameObject obj, Rigidbody2D rigid , Animator anim, Transform targetTransform, UnityEvent unityEvent)
     {
         this.myObj = obj;
         this.myAnim = anim;
@@ -42,6 +44,7 @@ public class State
     public virtual void Enter()
     {
         curEvent = eEvent.UPDATE;
+        onStateEnter?.Invoke();
     }
 
     public virtual void Update()
@@ -51,6 +54,7 @@ public class State
 
     public virtual void Exit()
     {
+        onStateEnter = null;
         curEvent = eEvent.EXIT;
     }
 
@@ -83,7 +87,7 @@ public class State
 
 public class Idle : State
 {
-    public Idle(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid, anim, targetTransform)
+    public Idle(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
     {
         stateName = eState.IDLE;
         rigid.velocity = Vector2.zero;
@@ -99,7 +103,7 @@ public class Idle : State
     {
         if (CanFindPlayer())
         {
-            nextState = new Pursue(myObj, myRigid, myAnim, playerTrm);
+            nextState = new Pursue(myObj, myRigid, myAnim, playerTrm, onStateEnter);
             DamageManager.Instance.Log("추격");
             curEvent = eEvent.EXIT;
         }
@@ -119,7 +123,7 @@ public class Idle : State
 
 public class Pursue : State
 {
-    public Pursue(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid, anim, targetTransform)
+    public Pursue(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
     {
         stateName = eState.PURSUE;
         rigid.velocity = (playerTrm.position - myObj.transform.position ).normalized * 10f;
@@ -138,12 +142,12 @@ public class Pursue : State
 
         if (CanAttackPlayer())
         {
-             nextState = new Attack(myObj, myRigid, myAnim, playerTrm);
+             nextState = new Attack(myObj, myRigid, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
         else if (!CanAttackPlayer())
         {
-            nextState = new Idle(myObj, myRigid, myAnim, playerTrm);
+            nextState = new Idle(myObj, myRigid, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
 
@@ -161,13 +165,15 @@ public class Pursue : State
 public class Attack : State
 {
     float rotationSpeed = 2.0f;
+    bool isAttacked = false;
 
     AudioSource shootEffect;
 
-    public Attack(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid, anim, targetTransform)
+    public Attack(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
     {
         stateName = eState.ATTACK;
-        //shootEffect = obj.GetComponent<AudioSource>();
+        shootEffect = obj.GetComponent<AudioSource>();
+        isAttacked = true;
         DamageManager.Instance.Log("공격");
     }
 
@@ -175,7 +181,7 @@ public class Attack : State
     {
         myAnim.SetTrigger("isShooting");
         //myAgent.isStopped = true;
-        //shootEffect.Play();
+        shootEffect.Play();
 
         base.Enter();
     }
@@ -193,7 +199,7 @@ public class Attack : State
 
         if (!CanAttackPlayer())
         {
-            nextState = new Idle(myObj, myRigid, myAnim, playerTrm);
+            nextState = new Idle(myObj, myRigid, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
 
@@ -210,7 +216,7 @@ public class RunAway : State
 {
     GameObject safeBox;
 
-    public RunAway(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform) : base(obj, rigid, anim, targetTransform)
+    public RunAway(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
     {
         stateName = eState.RUNAWAY;
         //safeBox = GameObject.FindGameObjectWithTag("SafeBox");
