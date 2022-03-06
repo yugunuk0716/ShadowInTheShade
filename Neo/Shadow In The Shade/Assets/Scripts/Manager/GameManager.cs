@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public PlayerSO playerSO;
 
 
-    private void Start()
+    private void AWake()
     {
         init();
     }
