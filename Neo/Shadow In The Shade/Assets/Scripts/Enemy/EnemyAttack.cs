@@ -19,7 +19,6 @@ public class EnemyAttack : MonoBehaviour
     {
         enemyAI.onStateEnter.AddListener(Attack);
         target = GameManager.Instance.player;
-        //rigid = enemyAI.myRigid;
     }
 
     protected virtual void Attack()

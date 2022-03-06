@@ -22,7 +22,7 @@ public class State
 
     protected GameObject myObj;
     protected Animator myAnim;
-    protected EnemyAttack myRigid;
+    protected EnemyAttack myAttack;
     protected Transform playerTrm;
     protected UnityEvent onStateEnter;
 
@@ -35,7 +35,7 @@ public class State
     {
         this.myObj = obj;
         this.myAnim = anim;
-        this.myRigid = attack;
+        this.myAttack = attack;
         this.playerTrm = targetTransform;
 
         this.curEvent = eEvent.ENTER;
@@ -109,7 +109,7 @@ public class Idle : State
     {
         if (CanFindPlayer())
         {
-            nextState = new Pursue(myObj, myRigid, myAnim, playerTrm, onStateEnter);
+            nextState = new Pursue(myObj, myAttack, myAnim, playerTrm, onStateEnter);
             DamageManager.Instance.Log("Ãß°Ý");
             curEvent = eEvent.EXIT;
         }
@@ -148,12 +148,12 @@ public class Pursue : State
 
         if (CanAttackPlayer())
         {
-             nextState = new Attack(myObj, myRigid, myAnim, playerTrm, onStateEnter);
+             nextState = new Attack(myObj, myAttack, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
         else if (!CanAttackPlayer())
         {
-            nextState = new Idle(myObj, myRigid, myAnim, playerTrm, onStateEnter);
+            nextState = new Idle(myObj, myAttack, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
 
@@ -175,7 +175,7 @@ public class Attack : State
 
     AudioSource shootEffect;
 
-    public Attack(GameObject obj, EnemyAttack rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
+    public Attack(GameObject obj, EnemyAttack attack, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, attack, anim, targetTransform, unityEvent)
     {
         stateName = eState.ATTACK;
         shootEffect = obj.GetComponent<AudioSource>();
@@ -205,7 +205,7 @@ public class Attack : State
 
         if (!CanAttackPlayer())
         {
-            nextState = new Idle(myObj, myRigid, myAnim, playerTrm, onStateEnter);
+            nextState = new Idle(myObj, myAttack, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
 
