@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public Vector2 xMove;
+    public Vector2 moveDir;
     public bool isDash;
     public bool isAttack;
     public bool isUse;
@@ -16,7 +16,7 @@ public class PlayerInput : MonoBehaviour
 
         if(GameManager.Instance.timeScale <= 0)
         {
-            xMove = Vector2.zero;
+            moveDir = Vector2.zero;
             isDash = false;
             isAttack = false;
             isUse = false;
@@ -29,14 +29,17 @@ public class PlayerInput : MonoBehaviour
                 switch (GameManager.Instance.playerSO.playerInputState) // 플레이어 입력 체크
                 {
                     case PlayerInputState.Dash:
-                        isDash = Input.GetButtonDown("Dash"); 
+                        isDash = Input.GetButtonDown("Fire1");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Use:
                         isUse = Input.GetButtonDown("Use");
                         break;
                     case PlayerInputState.Move:
-                        xMove.x = Input.GetAxisRaw("Horizontal");
-                        xMove.y = Input.GetAxisRaw("Vertical");
+                    case PlayerInputState.Change:
+                        moveDir.x = Input.GetAxisRaw("Horizontal");
+                        moveDir.y = Input.GetAxisRaw("Vertical");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                 }
                 break;
@@ -44,12 +47,14 @@ public class PlayerInput : MonoBehaviour
                 switch (GameManager.Instance.playerSO.playerInputState) // 플레이어 입력 체크
                 {
                     case PlayerInputState.Attack:
-                        xMove = Vector2.zero;
+                        moveDir = Vector2.zero;
                         isAttack = Input.GetButtonDown("Fire1");
                         break;
                     case PlayerInputState.Move:
-                        xMove.x = Input.GetAxisRaw("Horizontal");
-                        xMove.y = Input.GetAxisRaw("Vertical");
+                    case PlayerInputState.Change:
+                        moveDir.x = Input.GetAxisRaw("Horizontal");
+                        moveDir.y = Input.GetAxisRaw("Vertical");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                 }
                 break;

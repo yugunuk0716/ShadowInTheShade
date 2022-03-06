@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
 
     public void Update()
     {
+        playerAxis = playerinput.moveDir.normalized;
         OnMove(playerAxis, GameManager.Instance.playerSO.moveStats.SPD);
     }
 
