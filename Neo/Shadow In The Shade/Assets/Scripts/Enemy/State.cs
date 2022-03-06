@@ -22,7 +22,7 @@ public class State
 
     protected GameObject myObj;
     protected Animator myAnim;
-    protected Rigidbody2D myRigid;
+    protected EnemyAttack myRigid;
     protected Transform playerTrm;
     protected UnityEvent onStateEnter;
 
@@ -31,11 +31,11 @@ public class State
     float detectDistance = 5.0f;
     float attackDistance = 3.0f;
 
-    public State(GameObject obj, Rigidbody2D rigid , Animator anim, Transform targetTransform, UnityEvent unityEvent)
+    public State(GameObject obj, EnemyAttack attack , Animator anim, Transform targetTransform, UnityEvent unityEvent)
     {
         this.myObj = obj;
         this.myAnim = anim;
-        this.myRigid = rigid;
+        this.myRigid = attack;
         this.playerTrm = targetTransform;
 
         this.curEvent = eEvent.ENTER;
@@ -78,6 +78,12 @@ public class State
 
     public bool CanAttackPlayer()
     {
+        float dist = Vector2.Distance(playerTrm.position, myObj.transform.position);
+        DamageManager.Instance.Log($"{dist}");
+        if (dist <= 0.5f)
+        {
+            return false;
+        }
         return Vector2.Distance(playerTrm.position, myObj.transform.position) < attackDistance;
     }
 
@@ -87,10 +93,10 @@ public class State
 
 public class Idle : State
 {
-    public Idle(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
+    public Idle(GameObject obj, EnemyAttack attack, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, attack, anim, targetTransform, unityEvent)
     {
         stateName = eState.IDLE;
-        rigid.velocity = Vector2.zero;
+        attack.rigid.velocity = Vector2.zero;
         DamageManager.Instance.Log("아이들");
     }
 
@@ -123,10 +129,10 @@ public class Idle : State
 
 public class Pursue : State
 {
-    public Pursue(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
+    public Pursue(GameObject obj, EnemyAttack attack, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, attack, anim, targetTransform, unityEvent)
     {
         stateName = eState.PURSUE;
-        rigid.velocity = (playerTrm.position - myObj.transform.position ).normalized * 10f;
+        attack.rigid.velocity = (playerTrm.position - myObj.transform.position ).normalized * 10f;
         DamageManager.Instance.Log("추격");
     }
 
@@ -169,7 +175,7 @@ public class Attack : State
 
     AudioSource shootEffect;
 
-    public Attack(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
+    public Attack(GameObject obj, EnemyAttack rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
     {
         stateName = eState.ATTACK;
         shootEffect = obj.GetComponent<AudioSource>();
@@ -181,7 +187,7 @@ public class Attack : State
     {
         myAnim.SetTrigger("isShooting");
         //myAgent.isStopped = true;
-        shootEffect.Play();
+        //shootEffect.Play();
 
         base.Enter();
     }
@@ -190,11 +196,11 @@ public class Attack : State
     {
 
         Vector3 dir = playerTrm.position - myObj.transform.position;
-        float angle = Vector3.Angle(dir, myObj.transform.position);
+        //float angle = Vector3.Angle(dir, myObj.transform.position);
 
         dir.y = 0;
 
-        myObj.transform.rotation = Quaternion.Slerp(myObj.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
+        //myObj.transform.rotation = Quaternion.Slerp(myObj.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotationSpeed);
 
 
         if (!CanAttackPlayer())
@@ -216,7 +222,7 @@ public class RunAway : State
 {
     GameObject safeBox;
 
-    public RunAway(GameObject obj, Rigidbody2D rigid, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, rigid, anim, targetTransform, unityEvent)
+    public RunAway(GameObject obj, EnemyAttack attack, Animator anim, Transform targetTransform, UnityEvent unityEvent) : base(obj, attack, anim, targetTransform, unityEvent)
     {
         stateName = eState.RUNAWAY;
         //safeBox = GameObject.FindGameObjectWithTag("SafeBox");

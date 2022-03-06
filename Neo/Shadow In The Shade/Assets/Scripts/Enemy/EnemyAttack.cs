@@ -5,25 +5,27 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public AI enemyAI;
+    public Transform target;
+    public Rigidbody2D rigid;
+    public bool isAttacking = false;
     protected float attackDelay;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         enemyAI = GetComponent<AI>();
     }
 
-    private void Start()
+    protected virtual void Start()            
     {
         enemyAI.onStateEnter.AddListener(Attack);
+        target = GameManager.Instance.player;
+        //rigid = enemyAI.myRigid;
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
-        StartCoroutine(AttackCoroutine());
+
     }
 
-    public virtual IEnumerator AttackCoroutine()
-    {
-        yield return new WaitForSeconds(attackDelay);
-    }
+  
 }
