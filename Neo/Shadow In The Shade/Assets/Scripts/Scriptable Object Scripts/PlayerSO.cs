@@ -13,6 +13,7 @@ public enum PlayerInputState // 플레이어 인풋 상태
 {
     Move,
     Dash,
+    Change,
     Attack,
     Use
 }

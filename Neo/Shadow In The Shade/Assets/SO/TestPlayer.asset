@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ff3ae571d65c946bf9a2eacdc2650d, type: 3}
   m_Name: TestPlayer
   m_EditorClassIdentifier: 
-  playerSprite: {fileID: 0}
-  canChangePlayerType: 0
-  playerStates: 0
+  playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
+  canChangePlayerType: 1
+  playerStates: 1
   playerInputState: 0
   moveStats:
-    SPD: 0
+    SPD: 10
     DPD: 0
     DCT: 0
     DRT: 0
