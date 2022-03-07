@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
   canChangePlayerType: 1
-  playerStates: 1
+  playerStates: 0
   playerInputState: 0
   moveStats:
     SPD: 10
@@ -29,5 +29,5 @@ MonoBehaviour:
     CTD: 0
     SCD: 0
   ectStats:
-    TCT: 0
+    TCT: 1
     PHP: 0
