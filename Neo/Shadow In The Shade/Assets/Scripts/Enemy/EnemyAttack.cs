@@ -23,7 +23,7 @@ public class EnemyAttack : MonoBehaviour
 
     protected virtual void Attack()
     {
-
+        print("Attack");
     }
 
   

@@ -44,7 +44,7 @@ public class State
     public virtual void Enter()
     {
         curEvent = eEvent.UPDATE;
-        onStateEnter?.Invoke();
+        //onStateEnter?.Invoke();
     }
 
     public virtual void Update()
@@ -54,7 +54,7 @@ public class State
 
     public virtual void Exit()
     {
-        onStateEnter = null;
+        //onStateEnter = null;
         curEvent = eEvent.EXIT;
     }
 
@@ -73,17 +73,16 @@ public class State
 
     public bool CanFindPlayer()
     {
+        float dist = Vector2.Distance(playerTrm.position, myObj.transform.position);
+        if (dist <= 0.5f)
+        {
+            return false;
+        }
         return Vector2.Distance(playerTrm.position, myObj.transform.position) < detectDistance;
     }
 
     public bool CanAttackPlayer()
     {
-        float dist = Vector2.Distance(playerTrm.position, myObj.transform.position);
-        DamageManager.Instance.Log($"{dist}");
-        if (dist <= 0.5f)
-        {
-            return false;
-        }
         return Vector2.Distance(playerTrm.position, myObj.transform.position) < attackDistance;
     }
 
@@ -110,7 +109,6 @@ public class Idle : State
         if (CanFindPlayer())
         {
             nextState = new Pursue(myObj, myAttack, myAnim, playerTrm, onStateEnter);
-            DamageManager.Instance.Log("추격");
             curEvent = eEvent.EXIT;
         }
         else
@@ -144,14 +142,19 @@ public class Pursue : State
 
     public override void Update()
     {
-        // 추적
+        if (CanFindPlayer() && !CanAttackPlayer())
+        {
+            myAttack.rigid.velocity = (playerTrm.position - myObj.transform.position).normalized * 10f;
+            DamageManager.Instance.Log("경로 재설정");
+        }
 
         if (CanAttackPlayer())
         {
-             nextState = new Attack(myObj, myAttack, myAnim, playerTrm, onStateEnter);
+
+            nextState = new Attack(myObj, myAttack, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
         }
-        else if (!CanAttackPlayer())
+        else if (!CanAttackPlayer() && !CanFindPlayer())
         {
             nextState = new Idle(myObj, myAttack, myAnim, playerTrm, onStateEnter);
             curEvent = eEvent.EXIT;
@@ -180,6 +183,7 @@ public class Attack : State
         stateName = eState.ATTACK;
         shootEffect = obj.GetComponent<AudioSource>();
         isAttacked = true;
+        onStateEnter?.Invoke();
         DamageManager.Instance.Log("공격");
     }
 
