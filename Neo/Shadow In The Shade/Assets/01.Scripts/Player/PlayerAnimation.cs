@@ -8,12 +8,15 @@ public class PlayerAnimation : MonoBehaviour
     private Vector2 moveDir;
     private Vector2 lastMoveDir;
     private Animator playerAnimator;
+    private Animator playerTypeChangeEffcetAnimator;
 
     private void Start()
     {
         lastMoveDir = Vector2.zero;
         playerAnimator = GetComponent<Animator>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
+        playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
+        GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
     }
 
     private void Update()
@@ -41,6 +44,33 @@ public class PlayerAnimation : MonoBehaviour
         lastMoveDir = moveDir;
         playerAnimator.SetFloat("AnimLastMoveX", lastMoveDir.x);
         playerAnimator.SetFloat("AnimLastMoveY", lastMoveDir.y);
+    }
+
+    public IEnumerator ChangePlayerTypeAnimation()
+    {
+        PlayerSO so = GameManager.Instance.playerSO;
+        yield return null;
+
+
+        if (so.playerStates.Equals(PlayerStates.Human))
+        {
+            playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", true);
+            yield return new WaitForSeconds(.2f);
+            playerAnimator.SetBool("IsShadow", false);
+        }
+        else
+        {
+            playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", true);
+            yield return new WaitForSeconds(.1f);
+            playerAnimator.SetBool("IsShadow", true);
+        }
+
+        playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", false);
+        playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", false);
+
+        yield return new WaitForSeconds(so.ectStats.TCT);
+        so.canChangePlayerType = true;
+        GameManager.Instance.playerSO = so;
     }
 
 }

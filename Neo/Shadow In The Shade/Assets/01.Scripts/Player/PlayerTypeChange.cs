@@ -26,6 +26,8 @@ public class PlayerTypeChange : MonoBehaviour
 
 
             GameManager.Instance.playerSO.playerStates = _ps;
+            GameManager.Instance.onPlayerChangeType.Invoke();
+            playerInput.isChangePlayerType = false;
         }
     }
 }
