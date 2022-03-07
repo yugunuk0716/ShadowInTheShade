@@ -25,7 +25,6 @@ public class PlayerTypeChange : MonoBehaviour
                 _ps = PlayerStates.Human;
 
 
-
             GameManager.Instance.playerSO.playerStates = _ps;
         }
     }
