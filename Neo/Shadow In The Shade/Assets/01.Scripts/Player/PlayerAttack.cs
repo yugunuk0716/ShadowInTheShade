@@ -15,8 +15,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if(playerInput.isAttack)
+        if(playerInput.isAttack && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
         {
+            GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
             Attack();
             playerInput.isAttack = false;
         }

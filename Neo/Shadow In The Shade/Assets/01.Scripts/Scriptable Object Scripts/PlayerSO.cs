@@ -11,6 +11,7 @@ public enum PlayerStates // 플레이어 상태
 
 public enum PlayerInputState // 플레이어 인풋 상태
 {
+    Idle,
     Move,
     Dash,
     Change,

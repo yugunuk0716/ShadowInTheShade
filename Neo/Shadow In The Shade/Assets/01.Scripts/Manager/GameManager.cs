@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Human;
+        playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 
         foreach (PoolableMono p in _poollingList.list)

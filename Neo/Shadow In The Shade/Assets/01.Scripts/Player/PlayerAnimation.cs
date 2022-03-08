@@ -19,7 +19,7 @@ public class PlayerAnimation : MonoBehaviour
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         playerSprite = this.gameObject;
-        GameManager.Instance.onPlayerAttack.AddListener(playerAttackAnimation);
+        GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(playerAttackAnimation(stack)); });
     }
 
     private void Update()
@@ -77,9 +77,13 @@ public class PlayerAnimation : MonoBehaviour
     }
 
 
-    public void playerAttackAnimation(int attackStack)
+    public IEnumerator playerAttackAnimation(int attackStack)
     {
-
+        playerAnimator.SetBool("IsAttack", true);
+        playerAnimator.SetInteger("AttackCount", attackStack);
+        yield return new WaitForSeconds(.3f);
+        playerAnimator.SetBool("IsAttack", false);
+        GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
     }
 
 
