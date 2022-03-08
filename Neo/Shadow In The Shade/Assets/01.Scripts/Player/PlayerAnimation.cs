@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private Vector2 lastMoveDir;
     private Animator playerAnimator;
     private Animator playerTypeChangeEffcetAnimator;
+    private GameObject playerSprite;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class PlayerAnimation : MonoBehaviour
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
+        playerSprite = this.gameObject;
+        GameManager.Instance.onPlayerAttack.AddListener(playerAttackAnimation);
     }
 
     private void Update()
@@ -72,5 +75,12 @@ public class PlayerAnimation : MonoBehaviour
         so.canChangePlayerType = true;
         GameManager.Instance.playerSO = so;
     }
+
+
+    public void playerAttackAnimation(int attackStack)
+    {
+
+    }
+
 
 }
