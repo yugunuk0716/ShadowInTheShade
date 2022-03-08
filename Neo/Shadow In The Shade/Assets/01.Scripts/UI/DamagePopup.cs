@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class DamagePopup : MonoBehaviour, IResettable
+public class DamagePopup : PoolableMono
 {
     [SerializeField]
     private TextMeshPro _tmp;
@@ -19,12 +19,6 @@ public class DamagePopup : MonoBehaviour, IResettable
 
     public void SetText(int damageAmount, Vector3 pos, bool isCritical)
     {
-
-        //if(_tmp == null)
-        //{
-        //    print("왜 비는데?");
-        //    _tmp = GetComponent<TextMeshPro>();
-        //}
 
         transform.position = new Vector3(pos.x, pos.y, 0);
 
@@ -42,12 +36,15 @@ public class DamagePopup : MonoBehaviour, IResettable
         seq.AppendCallback(() =>
         {
             print("릴리즈");
-            DamageManager.Instance.DamagePool?.Release(this);
+            PoolManager.Instance.Push(this);
         });
     }
 
-    public void Reset()
+  
+
+    public override void Reset()
     {
+
         _tmp.color = Color.white;
         _tmp.fontSize = _normalTextSize;
         this.gameObject.SetActive(false);

@@ -1,83 +1,47 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Pool<T> : IEnumerable where T : IResettable
+class Pool<T> where T : PoolableMono
 {
-    public Pool(IFactory<T> factory) : this(factory, 5) { }
+    private Stack<T> _pool = new Stack<T>();
+    private T _prefab; //오리지날 저장
+    private Transform _parent;
 
-    public Pool(IFactory<T> factory, int poolSize)
+    public Pool(T prefab, Transform parent, int count = 10)
     {
-        this.factory = factory;
-        for (int i = 0; i < poolSize; i++)
+        _prefab = prefab;
+        _parent = parent;
+
+        for (int i = 0; i < count; i++)
         {
-            Create();
+            T obj = GameObject.Instantiate(prefab, parent);
+            obj.gameObject.name = obj.gameObject.name.Replace("(Clone)", "");  //클론이라는 이름 제거해줘야 다시 쓸 수 있음.
+            obj.gameObject.SetActive(false);
+            _pool.Push(obj);
         }
     }
 
-    ///<summary>members : 풀 안에 생성된 모든 멤버들</summary>        
-    public List<T> members = new List<T>();
-
-    ///<summary>unavailable : 이미 사용중인 멤버들</summary>        
-    public HashSet<T> unavailable = new HashSet<T>();
-
-    ///<summary>factory : 새 멤버를 생성하기 위한 인터페이스</summary> 
-    IFactory<T> factory;
-
-    /// <summary>새 멤버 생성</summary>
-    /// <returns>T</returns>
-    T Create()
+    public T Pop()
     {
-        T member = factory.Create();
-        members.Add(member);
-        return member;
-    }
-
-    /// <summary>멤버를 꺼내거나 혹은 새로 생성.</summary>
-    /// <returns>T</returns>        
-    public T Allocate()
-    {
-        for (int i = 0; i < members.Count; i++)
+        T obj = null;
+        if (_pool.Count <= 0)
         {
-            if (!unavailable.Contains(members[i]))
-            {
-                unavailable.Add(members[i]);
-                return members[i];
-            }
-        }
+            obj = GameObject.Instantiate(_prefab, _parent);
+            obj.gameObject.name = obj.gameObject.name.Replace("(Clone)", "");
 
-        T newMembers = Create();
-        unavailable.Add(newMembers);
-        return newMembers;
-    }
-
-    /// <summary>
-    /// 멤버를 다시 사용 가능하도록 풀로 돌려놓는다. 멤버에 없을 경우 멤버로 추가.
-    /// </summary>
-    /// <param name="member">돌려놓을 풀의 멤버</param>
-    public void Release(T member)
-    {
-        DamageManager.Instance.Log("포함1");
-        member.Reset();
-        if (unavailable.Contains(member))
-        {
-            DamageManager.Instance.Log("포함2");
-            unavailable.Remove(member);
         }
         else
         {
-            DamageManager.Instance.Log("포함3");
-            members.Add(member);
+            obj = _pool.Pop();
+            obj.gameObject.SetActive(true);
         }
+        return obj;
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    public void Push(T obj)
     {
-        return (IEnumerator<T>)members.GetEnumerator();
-    }
-
-    public int GetUsedCount()
-    {
-        return unavailable.Count;
+        obj.gameObject.SetActive(false);
+        _pool.Push(obj);
     }
 }

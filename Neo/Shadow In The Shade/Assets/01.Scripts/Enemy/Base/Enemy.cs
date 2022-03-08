@@ -10,7 +10,7 @@ public class PhaseInfo
     public float hp;
 }
 
-public class Enemy : MonoBehaviour,IAgent,IDamagable
+public class Enemy : PoolableMono, IAgent, IDamagable
 {
     protected enum State
     {
@@ -20,7 +20,8 @@ public class Enemy : MonoBehaviour,IAgent,IDamagable
         Die         // Á×À» ¶§
     }
 
-    public float maxHp = 3f;
+    public EnemyDataSO enemyData;
+
     protected float currHp = 0f;
     public bool isDie = false;
 
@@ -46,6 +47,8 @@ public class Enemy : MonoBehaviour,IAgent,IDamagable
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
     public UnityEvent OnHit { get; set; }
+    [field: SerializeField]
+    public UnityEvent OnReset { get; set; }
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
@@ -57,7 +60,7 @@ public class Enemy : MonoBehaviour,IAgent,IDamagable
 
     protected void OnEnable()
     {
-        currHp = maxHp;
+        currHp = enemyData.maxHealth;
         MyRend.color = Color.white;
         isDie = false;
 
@@ -149,12 +152,17 @@ public class Enemy : MonoBehaviour,IAgent,IDamagable
 
     public void GetHit(int damage)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        throw new System.NotImplementedException();
+
     }
 
+    public override void Reset()
+    {
+        OnReset?.Invoke();
+        currHp = enemyData.maxHealth;
+    }
 }

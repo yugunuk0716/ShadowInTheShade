@@ -119,9 +119,23 @@ public class Mucus : Enemy
         base.SetDisable();
     }
 
+    public override void Reset()
+    {
+
+        base.Reset();
+    }
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0.5f, 0.4f, 0.3f);
-        Gizmos.DrawSphere(transform.position, attackDistance * 2);
+        if (UnityEditor.Selection.activeObject == gameObject)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, attackDistance);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
+            Gizmos.color = Color.white;
+        }
     }
+#endif
 }

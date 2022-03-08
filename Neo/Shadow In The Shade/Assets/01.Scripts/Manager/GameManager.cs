@@ -32,7 +32,16 @@ public class GameManager : MonoBehaviour
     public UnityEvent<int> onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
     public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
 
+    public UnityEvent onStateEnter;
+    public UnityEvent onStateEnd;
+
     public PlayerSO playerSO;
+
+
+    [SerializeField] private PoolingListSO _poollingList;
+    
+
+    [SerializeField] private EnemyListSO _enemyList;
 
 
     public void init()
@@ -40,6 +49,16 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Human;
         playerSO.canChangePlayerType = true;
+
+        foreach (PoolableMono p in _poollingList.list)
+        {
+            PoolManager.Instance.CreatePool(p);
+        }
+
+        foreach (EnemyDataSO so in _enemyList.enemyList)
+        {
+            PoolManager.Instance.CreatePool(so.poolPrefab, so.type.ToString()); //풀용 프리팹
+        }
     }
 
 }
