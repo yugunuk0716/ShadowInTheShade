@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Mucus,
+    Moss,
+}
+
+
 public class PoolManager : MonoBehaviour
 {
     private static PoolManager instance;
@@ -20,20 +27,43 @@ public class PoolManager : MonoBehaviour
             return instance;
         }
     }
+
+    private Dictionary<string, Pool<PoolableMono>> pools = new Dictionary<string, Pool<PoolableMono>>();
+    private Dictionary<EnemyType, Pool<PoolableMono>> enemyPools = new Dictionary<EnemyType, Pool<PoolableMono>>();
+
+
     const int START_SIZE = 5;
-    
 
-    
 
-    public Pool<T> CreatePool<T>(GameObject poolablePrefab, int poolSize = START_SIZE) where T : MonoBehaviour, IResettable
+    public void CreatePool(PoolableMono prefab, string name = null)
     {
-        if(poolablePrefab == null)
-        {
-            print("ºö");
-            return null;
-        }
-        return new Pool<T>(new PrefabFactory<T>(poolablePrefab), poolSize);
+        if (name == null)
+            name = prefab.gameObject.name;
+        Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, transform);
+        pools.Add(name, pool);
     }
 
-   
+    
+
+    public PoolableMono Pop(string prefabName)
+    {
+        if (!pools.ContainsKey(prefabName))
+        {
+            Debug.LogError("Prefab doesnt exist on pool");
+            return null;
+        }
+
+        PoolableMono item = pools[prefabName].Pop();
+        item.Reset();
+        return item;
+    }
+
+    public void Push(PoolableMono obj)
+    {
+        pools[obj.name].Push(obj);
+    }
+
+
+
+
 }

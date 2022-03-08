@@ -22,25 +22,7 @@ public class DamageManager : MonoBehaviour
 
     public GameObject _damagePrefab;
     private bool isCreated = false;
-    private Pool<DamagePopup> _damagePool = null;
-    public Pool<DamagePopup> DamagePool
-    {
-        get 
-        {
-
-            print(_damagePool + "asdasd" );
-            if(_damagePool == null)
-            {
-                print("?");
-                isCreated = true;
-                _damagePool = PoolManager.Instance.CreatePool<DamagePopup>(_damagePrefab);
-                print(_damagePool);
-            }
-
-            return _damagePool;
-        }
-    }
-
+    
     private void Awake()
     {
         _damagePrefab = Resources.Load<GameObject>("Prefabs/DamagePopup");
@@ -53,10 +35,10 @@ public class DamageManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             
-            DamagePopup dPopup = DamagePool?.Allocate();
+            //DamagePopup dPopup = DamagePool?.Allocate();
 
-            dPopup?.gameObject.SetActive(true);
-            dPopup?.SetText(10, transform.position + new Vector3(0, 0.5f, 0), false);
+            //dPopup?.gameObject.SetActive(true);
+            //dPopup?.SetText(10, transform.position + new Vector3(0, 0.5f, 0), false);
         }
     }
 
