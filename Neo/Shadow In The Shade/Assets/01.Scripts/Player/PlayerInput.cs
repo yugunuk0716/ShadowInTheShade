@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
             moveDir = Vector2.zero;
             isDash = false;
             isAttack = false;
+            isChangePlayerType = false;
             isUse = false;
             return;
         }

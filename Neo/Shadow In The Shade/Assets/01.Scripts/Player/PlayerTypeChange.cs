@@ -16,18 +16,22 @@ public class PlayerTypeChange : MonoBehaviour
     {
         if(playerInput.isChangePlayerType)
         {
-            PlayerStates _ps = GameManager.Instance.playerSO.playerStates;
+            if (GameManager.Instance.playerSO.canChangePlayerType)
+            {
+                PlayerStates _ps = GameManager.Instance.playerSO.playerStates;
 
 
-            if (_ps == PlayerStates.Human)
-                _ps = PlayerStates.Shadow;
-            else
-                _ps = PlayerStates.Human;
+                if (_ps == PlayerStates.Human)
+                    _ps = PlayerStates.Shadow;
+                else
+                    _ps = PlayerStates.Human;
 
 
-            GameManager.Instance.playerSO.playerStates = _ps;
-            GameManager.Instance.onPlayerChangeType.Invoke();
-            playerInput.isChangePlayerType = false;
+                GameManager.Instance.playerSO.playerStates = _ps;
+                GameManager.Instance.onPlayerChangeType.Invoke();
+                GameManager.Instance.playerSO.canChangePlayerType = false;
+                playerInput.isChangePlayerType = false;
+            }
         }
     }
 }
