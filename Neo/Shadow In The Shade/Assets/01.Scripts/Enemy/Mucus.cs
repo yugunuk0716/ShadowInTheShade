@@ -10,13 +10,17 @@ public class Mucus : Enemy
     private bool isPhaseEnd = false;
     private bool isInvincible = false;
 
+    private bool isAttack = false;
+
     private int currentWaitTime = 0;
+    private float attackDistance = 1f;
+    private float chaseDistance = 5f;
 
     private Coroutine phaseRoutine = null;
     private Coroutine attackRoutine = null;
 
-    private State_Chase chase = null;
-    private State_Attack attack = null;
+    private Move_Chase chase = null;
+    private Attack_Mucus attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -29,19 +33,19 @@ public class Mucus : Enemy
 
 
         // 이동
-        chase = GetComponent<State_Chase>();
+        chase = GetComponent<Move_Chase>();
         chase.speed = 2f;
 
 
         dicState[State.Move] = chase;
 
         // 공격
-        attack = gameObject.AddComponent<State_Attack>();
+        attack = gameObject.AddComponent<Attack_Mucus>();
 
         dicState[State.Attack] = attack;
 
         // 죽음
-        dicState[State.Die] = gameObject.AddComponent<State_Die>();
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
         currentPhase = 0;
     }
@@ -66,8 +70,35 @@ public class Mucus : Enemy
         yield return null;
         while (true)
         {
+            float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
+            if (dist < chaseDistance && dist > attackDistance)
+            {
+                dicState[State.Move].OnEnter();
+                print("?");
+            }
+            else
+            {
+                dicState[State.Move].OnEnd();
+            }
+            if(dist < attackDistance && !isAttack)
+            {
+                GameManager.Instance.onStateEnter.AddListener(() => 
+                {
+                    if (isAttack)
+                        return;
+                    isAttack = true; 
+                });
+                GameManager.Instance.onStateEnd.AddListener(() =>
+                {
+                    if (!isAttack)
+                        return;
+                    isAttack = false;
+                });
+                
+                dicState[State.Attack].OnEnter();
+                
+            }
             
-
             yield return base.LifeTime();
         }
     }
@@ -84,6 +115,13 @@ public class Mucus : Enemy
 
     public override void SetDisable()
     {
+        StopCoroutine(lifeTime);
         base.SetDisable();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0.5f, 0.4f, 0.3f);
+        Gizmos.DrawSphere(transform.position, attackDistance * 2);
     }
 }

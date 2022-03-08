@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State_Attack : MonoBehaviour, IState
+public class Die_Default : MonoBehaviour, IState
 {
-
     public void OnEnter()
     {
 
@@ -16,4 +15,5 @@ public class State_Attack : MonoBehaviour, IState
     }
 
 
+   
 }
