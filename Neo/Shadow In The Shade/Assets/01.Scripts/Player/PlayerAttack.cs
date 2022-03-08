@@ -29,6 +29,6 @@ public class PlayerAttack : MonoBehaviour
         else
             attackStack = 0;
 
-
+        GameManager.Instance.onPlayerAttack.Invoke(attackStack);
     }
 }

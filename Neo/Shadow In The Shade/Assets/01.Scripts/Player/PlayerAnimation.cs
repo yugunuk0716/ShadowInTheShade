@@ -19,6 +19,7 @@ public class PlayerAnimation : MonoBehaviour
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         playerSprite = this.gameObject;
+        GameManager.Instance.onPlayerAttack.AddListener(playerAttackAnimation);
     }
 
     private void Update()
@@ -75,6 +76,11 @@ public class PlayerAnimation : MonoBehaviour
         GameManager.Instance.playerSO = so;
     }
 
+
+    public void playerAttackAnimation(int attackStack)
+    {
+
+    }
 
 
 }

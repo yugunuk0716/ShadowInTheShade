@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public float timeScale = 1f;
 
     public UnityEvent onPlayerDash; //플레이어가 대쉬할 때 쓰는 이벤트
-    public UnityEvent onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
+    public UnityEvent<int> onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
     public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
 
     public PlayerSO playerSO;
