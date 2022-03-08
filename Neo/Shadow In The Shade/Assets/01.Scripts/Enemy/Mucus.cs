@@ -74,7 +74,7 @@ public class Mucus : Enemy
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
-                print("?");
+                //print("?");
             }
             else
             {

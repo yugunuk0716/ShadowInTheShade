@@ -29,7 +29,7 @@ public class Move_Chase : MonoBehaviour, IState
         }
         else
         {
-            print("asda");
+            //print("asda");
         }
     }
 

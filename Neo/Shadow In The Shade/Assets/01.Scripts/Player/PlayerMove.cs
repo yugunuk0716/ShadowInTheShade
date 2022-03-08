@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour
 
     public void Update()
     {
-        if(GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Move) && 
+        if(GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Move) &&  //움직이고 있는데 상태가 Move가 아니면서 Attack일때도 아닐때 
             !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
         {
             playerAxis = playerinput.moveDir.normalized;
@@ -28,7 +28,7 @@ public class PlayerMove : MonoBehaviour
                 playerAxis = Vector2.zero;
             }
         }
-        else if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+        else if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack)) //움직이고 있는데 상태가 Attack이 아닐때 그냥 무시
         {
             if (playerinput.moveDir != Vector2.zero)
             {
@@ -36,7 +36,7 @@ public class PlayerMove : MonoBehaviour
                 playerAxis = playerinput.moveDir.normalized;
             }
         }
-        else
+        else//움직이고 있는데 상태가 Attack일때 움직이는거 중지
         {
             playerAxis = Vector2.zero;
         }

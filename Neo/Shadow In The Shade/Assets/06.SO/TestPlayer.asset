@@ -18,9 +18,9 @@ MonoBehaviour:
   playerInputState: 0
   moveStats:
     SPD: 5
-    DPD: 0
-    DCT: 0
-    DRT: 0
+    DPD: 15
+    DCT: 1
+    DST: 15
     DSS: 0
   attackStats:
     ATK: 0

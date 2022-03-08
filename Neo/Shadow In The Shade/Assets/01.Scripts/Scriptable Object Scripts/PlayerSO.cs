@@ -31,8 +31,8 @@ public struct PlayerMoveStats
     [Header("대쉬 쿨타임")]
     public float DCT;
 
-    [Header("대쉬 시간")]
-    public float DRT;
+    [Header("대쉬 스택 추가 시간")]
+    public float DST;
 
     [Header("대쉬 스택")]
     public int DSS;
