@@ -13,7 +13,6 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-
         if(GameManager.Instance.timeScale <= 0)
         {
             moveDir = Vector2.zero;
@@ -36,6 +35,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Use:
                         isUse = Input.GetButtonDown("Use");
                         break;
+                    case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
                         moveDir.x = Input.GetAxisRaw("Horizontal");
@@ -51,11 +51,13 @@ public class PlayerInput : MonoBehaviour
                         moveDir = Vector2.zero;
                         isAttack = Input.GetButtonDown("Fire1");
                         break;
+                    case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
                         isChangePlayerType = Input.GetButtonDown("Change");
+                        isAttack = Input.GetButtonDown("Fire1");
                         break;
                 }
                 break;
