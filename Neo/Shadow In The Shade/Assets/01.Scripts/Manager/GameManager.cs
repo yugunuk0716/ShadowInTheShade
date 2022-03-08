@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
 
 
     public Transform player;
-
+    public bool isInvincible = false;
+    private float playerSpeed = 7f;
 
     [Range(0f, 1f)]
     public float timeScale = 1f;
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
     {
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Human;
+        playerSO.moveStats.SPD = playerSpeed;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 

@@ -80,18 +80,20 @@ public class Mucus : Enemy
             {
                 dicState[State.Move].OnEnd();
             }
-            if(dist < attackDistance && !isAttack)
+            if(dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
             {
                 GameManager.Instance.onStateEnter.AddListener(() => 
                 {
                     if (isAttack)
                         return;
+                    GameManager.Instance.isInvincible = true;
                     isAttack = true; 
                 });
                 GameManager.Instance.onStateEnd.AddListener(() =>
                 {
                     if (!isAttack)
                         return;
+                    GameManager.Instance.isInvincible = false;
                     isAttack = false;
                 });
                 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack_Mucus : MonoBehaviour, IState
 {
-    public float slowAmount = 5f;
+    public float slowAmount = 3f;
     public float attachTime = 2f;
     private bool isStateEnter = false;
 
@@ -29,8 +29,16 @@ public class Attack_Mucus : MonoBehaviour, IState
 
     IEnumerator AttackRoutine()
     {
+        //if (GameManager.Instance.isInvincible)
+        //{
+        //    isStateEnter = false;
+        //    GameManager.Instance.onStateEnd?.Invoke();
+        //    yield break;
+        //} 
+        GameManager.Instance.isInvincible = true;
         transform.SetParent(GameManager.Instance.player);
-        GameManager.Instance.playerSO.moveStats.SPD -= slowAmount;
+        float spd = GameManager.Instance.playerSO.moveStats.SPD;
+        GameManager.Instance.playerSO.moveStats.SPD = Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD - slowAmount, 0, spd);
         print(GameManager.Instance.playerSO.moveStats.SPD);
         yield return new WaitForSeconds(attachTime);
         GameManager.Instance.playerSO.moveStats.SPD += slowAmount;
@@ -45,7 +53,15 @@ public class Attack_Mucus : MonoBehaviour, IState
         transform.position = transform.position + randDir;
         GameManager.Instance.onStateEnd?.Invoke();
         isStateEnter = false;
+
+        //Invoke(nameof(InvincibleFalse), 1f);
+
     }
 
+
+    //private void InvincibleFalse()
+    //{
+    //    GameManager.Instance.isInvincible = false;
+    //}
 
 }
