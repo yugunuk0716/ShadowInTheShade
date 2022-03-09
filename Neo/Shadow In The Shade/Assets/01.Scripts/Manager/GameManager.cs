@@ -36,8 +36,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onStateEnd;
     
 
-    public UnityEvent onStateEnter;
-    public UnityEvent onStateEnd;
+   
 
     public PlayerSO playerSO;
 

@@ -34,11 +34,11 @@ public class DamageManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
-            //DamagePopup dPopup = DamagePool?.Allocate();
 
-            //dPopup?.gameObject.SetActive(true);
-            //dPopup?.SetText(10, transform.position + new Vector3(0, 0.5f, 0), false);
+            DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
+
+            dPopup?.gameObject.SetActive(true);
+            dPopup?.SetText(10, transform.position + new Vector3(0.5f, 0.5f, 0), false);
         }
     }
 
