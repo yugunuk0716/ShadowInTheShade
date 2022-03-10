@@ -29,10 +29,8 @@ public class PoolManager : MonoBehaviour
     }
 
     private Dictionary<string, Pool<PoolableMono>> pools = new Dictionary<string, Pool<PoolableMono>>();
-    private Dictionary<EnemyType, Pool<PoolableMono>> enemyPools = new Dictionary<EnemyType, Pool<PoolableMono>>();
+    //private Dictionary<EnemyType, Pool<PoolableMono>> enemyPools = new Dictionary<EnemyType, Pool<PoolableMono>>();
 
-
-    const int START_SIZE = 5;
 
 
     public void CreatePool(PoolableMono prefab, string name = null)
@@ -58,6 +56,8 @@ public class PoolManager : MonoBehaviour
         item.Reset();
         return item;
     }
+
+
 
     public void Push(PoolableMono obj)
     {
