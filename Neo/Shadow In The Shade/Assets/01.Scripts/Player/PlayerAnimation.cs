@@ -17,9 +17,10 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
-        GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         playerSprite = this.gameObject;
-        GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(playerAttackAnimation(stack)); });
+        GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
+        GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
+        GameManager.Instance.onPlayerDash.AddListener(() => { StartCoroutine(PlayerDashAnimation()); });
     }
 
     private void Update()
@@ -77,13 +78,20 @@ public class PlayerAnimation : MonoBehaviour
     }
 
 
-    public IEnumerator playerAttackAnimation(int attackStack)
+    public IEnumerator PlayerAttackAnimation(int attackStack)
     {
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
         yield return new WaitForSeconds(.3f);
         playerAnimator.SetBool("IsAttack", false);
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
+    }
+
+    public IEnumerator PlayerDashAnimation()
+    {
+        playerAnimator.SetBool("IsDash", true);
+        yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
+        playerAnimator.SetBool("IsDash", false);
     }
 
 

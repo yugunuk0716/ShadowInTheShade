@@ -26,10 +26,10 @@ public struct PlayerMoveStats
     public float SPD;
 
     [Header("대쉬 속도")]
-    public float DPD;
+    public float DSP;
 
-    [Header("대쉬 쿨타임")]
-    public float DCT;
+    [Header("대쉬 지속 시간")]
+    public float DRT;
 
     [Header("대쉬 스택 추가 시간")]
     public float DST;

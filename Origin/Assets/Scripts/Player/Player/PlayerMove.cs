@@ -53,15 +53,15 @@ public class PlayerMove : AgentMove
     IEnumerator DashCoroutine()
     {
         StopNormalMoving();
-        print("?????? ????");
+        print($"{playerInput.dir * dashPower}");
         _rigid.AddForce(playerInput.dir * dashPower, ForceMode2D.Impulse);
 
         float time = 0;
         float afterTime = 0;
         float targetTime = Random.Range(0.02f, 0.06f);
         while (isDash)
-        {
-            print("?????? ????");
+        {/*
+            print("?????? ????");*/
             time += Time.deltaTime;
             afterTime += Time.deltaTime;
 

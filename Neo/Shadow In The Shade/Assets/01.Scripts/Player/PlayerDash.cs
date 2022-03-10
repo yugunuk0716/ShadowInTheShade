@@ -5,20 +5,20 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     private PlayerInput playerinput;
-    private Rigidbody2D rigd;
-    private int dashStack;
+    private Rigidbody2D rigid;
 
     private void Start()
     {
-        dashStack = 0;
-        rigd = GetComponent<Rigidbody2D>();
+        GameManager.Instance.playerSO.moveStats.DSS = 0;
+        rigid = GetComponent<Rigidbody2D>();
         playerinput = GetComponent<PlayerInput>();
         StartCoroutine(StackPlus());
     }
 
     private void Update()
     {
-        if (playerinput.isDash && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash) && dashStack !=0)
+        if (playerinput.isDash && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash) 
+            && GameManager.Instance.playerSO.moveStats.DSS != 0)
         {
             print(playerinput.isDash);
             GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
@@ -31,21 +31,24 @@ public class PlayerDash : MonoBehaviour
     {
         while(true)
         {
-            dashStack++;
+            GameManager.Instance.playerSO.moveStats.DSS++;
             yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DST);
         }
     }
 
     IEnumerator DashCoroutine()
     {
-        if(dashStack <= 0)
+        yield return null;
+        if (GameManager.Instance.playerSO.moveStats.DSS <= 0)
         {
             yield break;
         }
-
-        rigd.AddForce(playerinput.moveDir * GameManager.Instance.playerSO.moveStats.DPD, ForceMode2D.Impulse);
-        dashStack--;
+        rigid.AddForce(playerinput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
+        GameManager.Instance.playerSO.moveStats.DSS--;
+        GameManager.Instance.onPlayerDash.Invoke();
+        yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
+        rigid.velocity = Vector2.zero;
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
-        yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DCT);
+        
     }
 }
