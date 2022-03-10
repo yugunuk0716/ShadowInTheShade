@@ -33,7 +33,7 @@ public class UIManager : MonoSingleton<UIManager>
         popupCanvasGroup.blocksRaycasts = false;
 
 
-        popupDic.Add("option", Instantiate(optionPopupPrefab, popupParent));
+       // popupDic.Add("option", Instantiate(optionPopupPrefab, popupParent));
 
 
         clearPanel.onClick.AddListener(() => 
