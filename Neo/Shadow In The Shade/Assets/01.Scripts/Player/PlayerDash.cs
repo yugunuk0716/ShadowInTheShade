@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
@@ -39,7 +38,7 @@ public class PlayerDash : MonoBehaviour
     IEnumerator DashCoroutine()
     {
         yield return null;
-        if (GameManager.Instance.playerSO.moveStats.DSS <= 0)
+        if (GameManager.Instance.playerSO.moveStats.DSS <= 0 || playerinput.moveDir.normalized == Vector2.zero)
         {
             yield break;
         }
