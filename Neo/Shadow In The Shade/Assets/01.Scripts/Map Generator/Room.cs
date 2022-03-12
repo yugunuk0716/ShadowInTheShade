@@ -16,11 +16,13 @@ public class Room : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(RoomManager.Instance == null)
+        if (RoomManager.Instance == null)
         {
-            print("룸메니져 없음");
+            Debug.Log("You pressed play in the wrong scene!");
             return;
         }
+
+        RoomManager.Instance.RegisterRoom(this);
 
     }
 

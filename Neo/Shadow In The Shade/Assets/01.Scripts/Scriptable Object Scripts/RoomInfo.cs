@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SO/Map/RoomSO")]
-public class RoomDataSO : ScriptableObject
+public class RoomInfo 
 {
     [field:SerializeField]
     public string Name { get; set; }
