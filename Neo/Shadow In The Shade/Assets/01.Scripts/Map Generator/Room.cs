@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room : MonoBehaviour
+public class Room : PoolableMono
 {
     [field:SerializeField]
     public int Width { get; set; }
@@ -35,5 +35,11 @@ public class Room : MonoBehaviour
     public Vector3 GetCenterRoom()
     {
         return new Vector3(X * Width, Y * Height);
+    }
+
+    public override void Reset()
+    {
+        print("Reset");
+        //throw new System.NotImplementedException();
     }
 }

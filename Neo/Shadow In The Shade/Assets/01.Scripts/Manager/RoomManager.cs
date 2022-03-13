@@ -48,7 +48,6 @@ public class RoomManager : MonoBehaviour
         LoadRoom("Empty", 1, 0);
         LoadRoom("Empty", -1, 0);
         LoadRoom("Empty", 0, 1);
-        LoadRoom("Empty", 1, 0);
     }
 
     private void Update()
@@ -86,8 +85,8 @@ public class RoomManager : MonoBehaviour
 
     public void LoadInResourcesRoom(RoomInfo info)
     {
-        Room room = Resources.Load<Room>($"{currentWorldName} {info.Name}");
-        Instantiate(room);
+        Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.Name}") as Room;//Resources.Load<Room>($"{currentWorldName} {info.Name}");
+        //Instantiate(room);
     }
 
     IEnumerator LoadRoomRoutine(RoomInfo info)
