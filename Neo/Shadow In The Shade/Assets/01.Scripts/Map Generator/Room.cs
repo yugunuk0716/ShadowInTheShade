@@ -8,34 +8,26 @@ public class Room : PoolableMono
     public int Width { get; set; }
     [field:SerializeField]
     public int Height { get; set; }
-    [field:SerializeField]
-    public int X { get; set; }
-    [field:SerializeField]
-    public int Y { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
+
+    public List<Room> childrenList = new List<Room>();
+    public List<int> spawnablePoint = new List<int>();
+    //문을 생성할 수 있는 방향
+
+    // 1 -> 위쪽으로 가는 문
+    // 2 -> 아래쪽으로 가는 문
+    // 3 -> 오른쪽으로 가는 문
+    // 4 -> 왼쪽으로 가는 문
+
+    public Room(int width, int height)
     {
-        if (RoomManager.Instance == null)
-        {
-            Debug.Log("You pressed play in the wrong scene!");
-            return;
-        }
-
-        RoomManager.Instance.RegisterRoom(this);
-
+        Width = width;
+        Height = height;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector2(Width, Height));
-    }
 
-    public Vector3 GetCenterRoom()
-    {
-        return new Vector3(X * Width, Y * Height);
-    }
+
+    
 
     public override void Reset()
     {

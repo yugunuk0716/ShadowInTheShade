@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviour
 {
+    [SerializeField]
+    private const int MIN_MAP_SIZE_INCLUSIVE = 1;
+    [SerializeField]
+    private const int MAX_MAP_SIZE_EXCLUSIVE = 3;
+
     private static RoomManager instance;
     public static RoomManager Instance
     {
@@ -21,111 +26,65 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public int maxMapCount = 5;
+    public int currentMapCount = 0;
 
-    string currentWorldName = "Dungeon";
+    public Room root;
 
-    RoomInfo currentLoadRoomData;
+    private readonly Hashtable roomTable = new Hashtable();
 
-    public Room currRoom;
 
-    Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
-
-    public List<Room> loadedRooms = new List<Room>();
-
-    bool isLoadingRoom = false;
-    bool spawnedBossRoom = false;
-    bool updatedRooms = false;
-
-    private void Awake()
+    public void AddRoom(Vector2Int key, Room val)
     {
-        //이거 임시
-        instance = this;
+        roomTable.Add(key, val);
     }
 
-    private void Start()
+    public bool CheckRoom(Vector2Int key)
     {
-        LoadRoom("Start", 0, 0);
-        LoadRoom("Empty", 1, 0);
-        LoadRoom("Empty", -1, 0);
-        LoadRoom("Empty", 0, 1);
+        return roomTable.Contains(key);
     }
 
-    private void Update()
+    public Room FindRooom(Vector2Int key)
     {
-        UpdateRoomQueue();
-    }
-
-    public void UpdateRoomQueue()
-    {
-        if (isLoadingRoom || loadRoomQueue.Count  == 0)
-            return;
-
-        currentLoadRoomData = loadRoomQueue.Dequeue();
-        isLoadingRoom = true;
-        //StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
-        LoadInResourcesRoom(currentLoadRoomData);
-    }
-
-
-    public void LoadRoom(string name, int x, int y)
-    {
-        if (DoesRoomExited(x,y))
+        if (CheckRoom(key))
         {
-            print("존재");
-            return;
+            return roomTable[key] as Room;
         }
 
-        RoomInfo roomInfo = new RoomInfo();
-        roomInfo.Name = name;
-        roomInfo.X = x;
-        roomInfo.Y = y;
-
-        loadRoomQueue.Enqueue(roomInfo);
+        return null;
     }
 
-    public void LoadInResourcesRoom(RoomInfo info)
+    public void GenerateMap()
     {
-        Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.Name}") as Room;//Resources.Load<Room>($"{currentWorldName} {info.Name}");
-        //Instantiate(room);
-    }
-
-    IEnumerator LoadRoomRoutine(RoomInfo info)
-    {
-        string roomName = $"{currentWorldName} {info.Name}";
-
-        AsyncOperation loadRoom = SceneManager.LoadSceneAsync(roomName, LoadSceneMode.Additive);
-        while (!loadRoom.isDone)
+        int doorCount = Random.Range(0, maxMapCount / currentMapCount % 3);
+        //여기서 전체 맵 Data를 만듬
+        for (int i = 0; i < maxMapCount; i++)
         {
-            yield return null;
+            int x = Random.Range(MIN_MAP_SIZE_INCLUSIVE, MAX_MAP_SIZE_EXCLUSIVE);
+            int y = Random.Range(MIN_MAP_SIZE_INCLUSIVE, MAX_MAP_SIZE_EXCLUSIVE);
+
+            if (root == null)
+            {
+                root = new Room(x, y);
+                AddRoom(Vector2Int.zero, root);
+                continue;
+            }
+
+            //if()
+            
         }
-
-
     }
 
-    public void RegisterRoom(Room room)
+    public void DrawMap()
     {
-        if (currentLoadRoomData == null)
-        {
-            print("커렌트 룸 빔");       
-            return;
-        }
-        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
-        room.X = currentLoadRoomData.X;
-        room.Y = currentLoadRoomData.Y;
-        room.name = $"{currentLoadRoomData} - {currentLoadRoomData.Name} {room.X} {room.Y}";
-        room.transform.parent = transform;
-
-        isLoadingRoom = false;
-
-        loadedRooms.Add(room);
+        // 이동시 이동 한 맵을 그림
 
     }
 
-
-    public bool DoesRoomExited(int x, int y)
+    public void EraseMap()
     {
-        return loadedRooms.Find(room => room.X == x && room.Y == y) != null;
-    }
+        // 이동시 원래 있던 맵을 지움
 
+    }
 
 }
