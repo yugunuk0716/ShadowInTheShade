@@ -7,6 +7,7 @@ public class RoomGenerator : MonoBehaviour
     public RoomGenerationData dungeonGenerationData;
     private List<Vector2Int> dungeonRooms;
 
+    
     private void Start()
     {
         dungeonRooms = RoomCrawlerController.GenerateDungeon(dungeonGenerationData);

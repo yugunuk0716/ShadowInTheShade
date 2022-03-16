@@ -14,10 +14,12 @@ public class Room : PoolableMono
     public int Y { get; set; }
 
 
-    public List<Room> childrenList = new List<Room>();
     public List<Door> doorList = new List<Door>();
 
-    private bool isChecked = false;
+    public Vector2 leftSpawnPoint;
+    public Vector2 rightSpawnPoint;
+    public Vector2 topSpawnPoint;
+    public Vector2 bottomSpawnPoint;
 
     private Door leftDoor;
     private Door rightDoor;
@@ -30,8 +32,8 @@ public class Room : PoolableMono
         Height = height;
     }
 
-
-    private void Start()
+   
+    private void OnEnable()
     {
         RoomManager.Instance.RegisterRoom(this);
         Door[] doors = GetComponentsInChildren<Door>();
@@ -40,52 +42,100 @@ public class Room : PoolableMono
             doorList.Add(door);
             switch (door.doorType)
             {
-                case DoorType.Left:
+                case DirType.Left:
                     leftDoor = door;
                     break;
-                case DoorType.Right:
+                case DirType.Right:
                     rightDoor = door;
                     break;
-                case DoorType.Top:
+                case DirType.Top:
                     topDoor = door;
                     break;
-                case DoorType.Bottom:
+                case DirType.Bottom:
                     bottomDoor = door;
                     break;
                
             }
         }
+
         
+        
+    }
+
+    public Vector2 GetSpawnPoint(DirType dir)
+    {
+        switch (dir)
+        {
+            case DirType.Left:
+                return leftSpawnPoint;
+            case DirType.Right:
+                return rightSpawnPoint;
+            case DirType.Top:
+                return topSpawnPoint;
+            case DirType.Bottom:
+                return bottomSpawnPoint;
+            default:
+                break;
+        }
+
+        return Vector2.zero;
     }
 
     public void RemoveUnconnectedDoors()
     {
-        if (isChecked)
-            return;
         Debug.Log("removing doors");
         foreach (Door door in doorList)
         {
             switch (door.doorType)
             {
-                case DoorType.Right:
+                case DirType.Right:
                     if (GetRight() == null)
                         door.gameObject.SetActive(false);
                     break;
-                case DoorType.Left:
+                case DirType.Left:
                     if (GetLeft() == null)
                         door.gameObject.SetActive(false);
                     break;
-                case DoorType.Top:
+                case DirType.Top:
                     if (GetTop() == null)
                         door.gameObject.SetActive(false);
                     break;
-                case DoorType.Bottom:
+                case DirType.Bottom:
                     if (GetBottom() == null)
                         door.gameObject.SetActive(false);
                     break;
             }
         }
-        isChecked = true;
+    }
+
+    public void ConnectRoom()
+    {
+        foreach (Door door in doorList)
+        {
+            switch (door.doorType)
+            {
+                case DirType.Right:
+                    Room adjacentRightRoom = GetRight();
+                    if (adjacentRightRoom != null)
+                        door.adjacentRoom = adjacentRightRoom;
+                    break;
+                case DirType.Left:
+                    Room adjacentLeftRoom = GetLeft();
+                    if (adjacentLeftRoom != null)
+                        door.adjacentRoom = adjacentLeftRoom;
+                    break;
+                case DirType.Top:
+                    Room adjacentTopRoom = GetTop();
+                    if (adjacentTopRoom != null)
+                        door.adjacentRoom = adjacentTopRoom;
+                    break;
+                case DirType.Bottom:
+                    Room adjacentBottomRoom = GetBottom();
+                    if (adjacentBottomRoom != null)
+                        door.adjacentRoom = adjacentBottomRoom;
+                    break;
+            }
+        }
     }
 
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DoorType
+public enum DirType
 {
     Left,
     Right,
@@ -12,7 +12,20 @@ public enum DoorType
 
 public class Door : MonoBehaviour
 {
-    public Vector2Int pairRoomPos;
+    public Room adjacentRoom;
 
-    public DoorType doorType;
+    public DirType doorType;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (adjacentRoom == null)
+                return;
+            print(adjacentRoom.GetSpawnPoint(doorType));
+            collision.transform.SetParent(adjacentRoom.transform);
+            collision.transform.localPosition = adjacentRoom.GetSpawnPoint(doorType);
+            print(collision.transform.localPosition);
+        }
+    }
 }

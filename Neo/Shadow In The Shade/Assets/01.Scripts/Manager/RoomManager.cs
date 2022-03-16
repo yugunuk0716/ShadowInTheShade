@@ -13,6 +13,8 @@ public class RoomInfo
 
 public class RoomManager : MonoBehaviour
 {
+    string currentWorldName = "Dungeon";
+
     private static RoomManager instance;
     public static RoomManager Instance
     {
@@ -22,6 +24,8 @@ public class RoomManager : MonoBehaviour
             {
                 GameObject obj = new GameObject("RoomManager");
                 obj.AddComponent<RoomManager>();
+                obj.AddComponent<RoomGenerator>();
+                obj.GetComponent<RoomGenerator>().dungeonGenerationData = Resources.Load<RoomGenerationData>("DungeonGenerationData");
                 instance = obj.GetComponent<RoomManager>();
             }
 
@@ -29,11 +33,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    string currentWorldName = "Dungeon";
 
     RoomInfo currentLoadRoomData;
 
-    Room currRoom;
 
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
 
@@ -43,18 +45,6 @@ public class RoomManager : MonoBehaviour
     bool spawnedBossRoom = false;
     bool updatedRooms = false;
 
-    void Awake()
-    {
-        instance = this;
-    }
-
-    private void Start()
-    {
-        LoadRoom("Start", 0, 0);
-        LoadRoom("Empty", 1, 0);
-        LoadRoom("Empty", -1, 0);
-        LoadRoom("Empty", 0, 1);
-    }
 
     private void Update()
     {
@@ -66,9 +56,10 @@ public class RoomManager : MonoBehaviour
         if (isLoadingRoom)
             return;
 
+
         if (loadRoomQueue.Count == 0)
         {
-            if (!spawnedBossRoom)
+            if (!spawnedBossRoom && loadedRooms.Count > 0)
             {
                 StartCoroutine(SpawnBossRoom());
             }
@@ -78,22 +69,29 @@ public class RoomManager : MonoBehaviour
                 {
                     room.RemoveUnconnectedDoors();
                 }
+                foreach (Room room in loadedRooms)
+                {
+                    room.ConnectRoom();
+                }
+                updatedRooms = true;
             }
             return;
         }
 
         currentLoadRoomData = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
-        //StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
         LoadInResourcesRoom(currentLoadRoomData);
     }
 
     IEnumerator SpawnBossRoom()
     {
         spawnedBossRoom = true;
+
         yield return new WaitForSeconds(0.5f);
         if (loadRoomQueue.Count == 0)
         {
+            print(loadedRooms.Count - 1);
+
             Room bossRoom = loadedRooms[loadedRooms.Count - 1];
             Room tempRoom = PoolManager.Instance.Pop($"{currentWorldName} End") as Room;
             tempRoom.X = bossRoom.X;
@@ -119,35 +117,21 @@ public class RoomManager : MonoBehaviour
         roomInfo.X = x;
         roomInfo.Y = y;
 
-        print($"{roomInfo.X} {roomInfo.Y} {roomInfo.name}");
         loadRoomQueue.Enqueue(roomInfo);
     }
 
     public void LoadInResourcesRoom(RoomInfo info)
     {
-        print($"{currentWorldName} {info.name}");
         Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.name}") as Room;
         
     }
 
-    IEnumerator LoadRoomRoutine(RoomInfo info)
-    {
-        string roomName = $"{currentWorldName} {info.name}";
 
-        AsyncOperation loadRoom = SceneManager.LoadSceneAsync(roomName, LoadSceneMode.Additive);
-        while (!loadRoom.isDone)
-        {
-            yield return null;
-        }
-
-
-    }
 
     public void RegisterRoom(Room room)
     {
         if (currentLoadRoomData == null)
         {
-            print("방 데이터 빔");
             return;
         }
         room.transform.position = new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
@@ -183,13 +167,7 @@ public class RoomManager : MonoBehaviour
         return possibleRooms[Random.Range(0, possibleRooms.Length)];
     }
 
-    //public void OnPlayerEnterRoom(Room room)
-    //{
-    //    CameraController.instance.currRoom = room;
-    //    currRoom = room;
-
-    //    StartCoroutine(RoomCoroutine());
-    //}
+  
 
     
 
