@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     private PlayerInput playerinput;
-    private Rigidbody2D rigd;
+    private Rigidbody2D rigid;
     public Vector2 playerAxis;
 
     public void Start()
     {
-        rigd = GameManager.Instance.player.GetComponent<Rigidbody2D>();
+        rigid = GameManager.Instance.player.GetComponent<Rigidbody2D>();
         playerinput = GameManager.Instance.player.GetComponent<PlayerInput>();
     }
 
@@ -48,6 +48,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnMove(Vector2 dir,float speed)
     {
-        rigd.velocity = new Vector2(dir.x * speed, dir.y * speed);
+        rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
+        print(rigid.velocity);
     }
 }

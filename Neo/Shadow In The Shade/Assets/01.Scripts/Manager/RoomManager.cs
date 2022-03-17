@@ -50,6 +50,45 @@ public class RoomManager : MonoBehaviour
     {
         UpdateRoomQueue();
     }
+    //private void Awake()
+    //{
+    //    Init();
+    //}
+    //public void Init()
+    //{
+    //    while (true)
+    //    {
+    //        print("들어옴");
+    //        if (isLoadingRoom)
+    //            break;
+    //        if (loadRoomQueue.Count == 0)
+    //        {
+    //            print("큐가 0개임");
+    //            if (!spawnedBossRoom && loadedRooms.Count > 0)
+    //            {
+    //                print("보스 스폰");
+    //                StartCoroutine(SpawnBossRoom());
+    //            }
+    //            else if (spawnedBossRoom && !updatedRooms)
+    //            {
+    //                foreach (Room room in loadedRooms)
+    //                {
+    //                    room.RemoveUnconnectedDoors();
+    //                }
+    //                foreach (Room room in loadedRooms)
+    //                {
+    //                    room.ConnectRoom();
+    //                }
+    //                updatedRooms = true;
+    //            }
+    //            return;
+    //        }
+
+    //        currentLoadRoomData = loadRoomQueue.Dequeue();
+    //        isLoadingRoom = true;
+    //        LoadInResourcesRoom(currentLoadRoomData);
+    //    }
+    //}
 
     public void UpdateRoomQueue()
     {
@@ -59,6 +98,7 @@ public class RoomManager : MonoBehaviour
 
         if (loadRoomQueue.Count == 0)
         {
+            print("큐가 0임");
             if (!spawnedBossRoom && loadedRooms.Count > 0)
             {
                 StartCoroutine(SpawnBossRoom());
@@ -80,6 +120,7 @@ public class RoomManager : MonoBehaviour
 
         currentLoadRoomData = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
+        print(isLoadingRoom);
         LoadInResourcesRoom(currentLoadRoomData);
     }
 

@@ -96,7 +96,7 @@ public class Idle : State
     {
         stateName = eState.IDLE;
         attack.rigid.velocity = Vector2.zero;
-        DamageManager.Instance.Log("아이들");
+        Debug.Log("아이들");
     }
 
     public override void Enter()
@@ -131,7 +131,7 @@ public class Pursue : State
     {
         stateName = eState.PURSUE;
         attack.rigid.velocity = (playerTrm.position - myObj.transform.position ).normalized * 10f;
-        DamageManager.Instance.Log("추격");
+        Debug.Log("추격");
     }
 
     public override void Enter()
@@ -145,7 +145,7 @@ public class Pursue : State
         if (CanFindPlayer() && !CanAttackPlayer())
         {
             myAttack.rigid.velocity = (playerTrm.position - myObj.transform.position).normalized * 10f;
-            DamageManager.Instance.Log("경로 재설정");
+            Debug.Log("경로 재설정");
         }
 
         if (CanAttackPlayer())
@@ -184,7 +184,7 @@ public class Attack : State
         shootEffect = obj.GetComponent<AudioSource>();
         isAttacked = true;
         onStateEnter?.Invoke();
-        DamageManager.Instance.Log("공격");
+        Debug.Log("공격");
     }
 
     public override void Enter()
@@ -231,7 +231,7 @@ public class RunAway : State
         stateName = eState.RUNAWAY;
         //safeBox = GameObject.FindGameObjectWithTag("SafeBox");
         //myAgent.isStopped = false;
-        DamageManager.Instance.Log("도망");
+        Debug.Log("도망");
     }
 
     public override void Enter()

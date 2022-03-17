@@ -8904,10 +8904,10 @@ MonoBehaviour:
   <X>k__BackingField: 0
   <Y>k__BackingField: 0
   doorList: []
-  leftSpawnPoint: {x: 0.8, y: 0}
-  rightSpawnPoint: {x: -0.8, y: 0}
-  topSpawnPoint: {x: 0, y: -0.3}
-  bottomSpawnPoint: {x: 0, y: 0.3}
+  leftSpawnPoint: {x: 0.95, y: 0}
+  rightSpawnPoint: {x: -0.95, y: 0}
+  topSpawnPoint: {x: 0, y: -0.48}
+  bottomSpawnPoint: {x: 0, y: 0.48}
 --- !u!1 &5218829967250206804
 GameObject:
   m_ObjectHideFlags: 0

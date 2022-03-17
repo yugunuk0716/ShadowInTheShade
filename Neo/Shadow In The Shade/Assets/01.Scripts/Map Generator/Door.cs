@@ -20,12 +20,22 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (adjacentRoom == null)
-                return;
-            print(adjacentRoom.GetSpawnPoint(doorType));
-            collision.transform.SetParent(adjacentRoom.transform);
-            collision.transform.localPosition = adjacentRoom.GetSpawnPoint(doorType);
-            print(collision.transform.localPosition);
+            StartCoroutine(MoveRoomCoroutine(collision));
+            
         }
+    }
+
+    IEnumerator MoveRoomCoroutine(Collider2D collision)
+    {
+        if (adjacentRoom == null)
+            yield break;
+        GameManager.Instance.timeScale = 0f;
+        print(adjacentRoom.GetSpawnPoint(doorType));
+        collision.transform.SetParent(adjacentRoom.transform);
+        collision.transform.localPosition = adjacentRoom.GetSpawnPoint(doorType);
+        print(collision.transform.localPosition);
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.timeScale = 1f;
+
     }
 }
