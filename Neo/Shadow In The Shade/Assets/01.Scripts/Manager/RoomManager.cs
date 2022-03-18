@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class RoomInfo
@@ -35,9 +36,7 @@ public class RoomManager : MonoBehaviour
 
 
     RoomInfo currentLoadRoomData;
-
-
-    Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
+    readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
 
     public List<Room> loadedRooms = new List<Room>();
 
@@ -45,50 +44,15 @@ public class RoomManager : MonoBehaviour
     bool spawnedBossRoom = false;
     bool updatedRooms = false;
 
+    public bool isMoving = false;
+
+    public UnityEvent OnMoveRoomEvent;
+
 
     private void Update()
     {
         UpdateRoomQueue();
     }
-    //private void Awake()
-    //{
-    //    Init();
-    //}
-    //public void Init()
-    //{
-    //    while (true)
-    //    {
-    //        print("들어옴");
-    //        if (isLoadingRoom)
-    //            break;
-    //        if (loadRoomQueue.Count == 0)
-    //        {
-    //            print("큐가 0개임");
-    //            if (!spawnedBossRoom && loadedRooms.Count > 0)
-    //            {
-    //                print("보스 스폰");
-    //                StartCoroutine(SpawnBossRoom());
-    //            }
-    //            else if (spawnedBossRoom && !updatedRooms)
-    //            {
-    //                foreach (Room room in loadedRooms)
-    //                {
-    //                    room.RemoveUnconnectedDoors();
-    //                }
-    //                foreach (Room room in loadedRooms)
-    //                {
-    //                    room.ConnectRoom();
-    //                }
-    //                updatedRooms = true;
-    //            }
-    //            return;
-    //        }
-
-    //        currentLoadRoomData = loadRoomQueue.Dequeue();
-    //        isLoadingRoom = true;
-    //        LoadInResourcesRoom(currentLoadRoomData);
-    //    }
-    //}
 
     public void UpdateRoomQueue()
     {
@@ -98,7 +62,6 @@ public class RoomManager : MonoBehaviour
 
         if (loadRoomQueue.Count == 0)
         {
-            print("큐가 0임");
             if (!spawnedBossRoom && loadedRooms.Count > 0)
             {
                 StartCoroutine(SpawnBossRoom());
@@ -120,27 +83,53 @@ public class RoomManager : MonoBehaviour
 
         currentLoadRoomData = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
-        print(isLoadingRoom);
         LoadInResourcesRoom(currentLoadRoomData);
     }
 
     IEnumerator SpawnBossRoom()
     {
+        #region annotation
+        //spawnedBossRoom = true;
+        //yield return new WaitForSeconds(0.5f);
+        //if (loadRoomQueue.Count == 0)
+        //{
+        //    Room bossRoom = loadedRooms[loadedRooms.Count - 1];
+        //    print(bossRoom.name);
+        //    GameObject newObj = new GameObject();
+        //    newObj.AddComponent<Room>();
+        //    Room tempRoom = newObj.GetComponent<Room>();
+        //    tempRoom.X = bossRoom.X;
+        //    tempRoom.Y = bossRoom.Y;
+        //    print($"{tempRoom.X} {tempRoom.Y}");
+        //    Destroy(bossRoom.gameObject);
+        //    Destroy(newObj);
+        //    var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
+        //    loadedRooms.Remove(roomToRemove);
+        //    LoadRoom("End", tempRoom.X, tempRoom.Y);
+        //    isLoadingRoom = false;
+
+        //    new WaitForSeconds(1f);
+
+        //}
+        #endregion
         spawnedBossRoom = true;
 
         yield return new WaitForSeconds(0.5f);
         if (loadRoomQueue.Count == 0)
         {
-            print(loadedRooms.Count - 1);
 
             Room bossRoom = loadedRooms[loadedRooms.Count - 1];
-            Room tempRoom = PoolManager.Instance.Pop($"{currentWorldName} End") as Room;
+            GameObject newObj = new GameObject();
+            newObj.AddComponent<Room>();
+            Room tempRoom = newObj.GetComponent<Room>();
             tempRoom.X = bossRoom.X;
             tempRoom.Y = bossRoom.Y;
-            bossRoom.gameObject.SetActive(false);
-            //PoolManager.Instance.Push(bossRoom);
-            //Room roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
-            //loadedRooms.Remove(roomToRemove);
+            Destroy(newObj);
+            bossRoom.name = "Dungeon Empty";
+            PoolManager.Instance.Push(bossRoom);
+            Room roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
+            loadedRooms.Remove(roomToRemove);
+            //PoolManager.Instance.Push(roomToRemove);
             LoadRoom("End", tempRoom.X, tempRoom.Y);
         }
     }
@@ -153,6 +142,7 @@ public class RoomManager : MonoBehaviour
             return;
         }
 
+       
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.name = name;
         roomInfo.X = x;
@@ -163,8 +153,18 @@ public class RoomManager : MonoBehaviour
 
     public void LoadInResourcesRoom(RoomInfo info)
     {
-        Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.name}") as Room;
         
+        Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.name}") as Room;
+        if (room.name.Contains("End"))
+        {
+            room.RemoveUnconnectedDoors();
+        }
+        else if (room.name.Equals($"{currentWorldName} Empty"))
+        {
+            room.gameObject.SetActive(false);
+            PoolManager.Instance.Push(room);
+        }
+
     }
 
 
@@ -175,9 +175,18 @@ public class RoomManager : MonoBehaviour
         {
             return;
         }
+        if (DoesRoomExited(currentLoadRoomData.X, currentLoadRoomData.Y))
+        {
+            isLoadingRoom = false;
+            return;
+        }
         room.transform.position = new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
         room.X = currentLoadRoomData.X;
         room.Y = currentLoadRoomData.Y;
+        if (room.name.Contains("Start"))
+        {
+            EffectManager.Instance.SetCamBound(room.camBound);
+        }
         room.name = $"{currentLoadRoomData} - {currentLoadRoomData.name} {room.X} {room.Y}";
         room.transform.parent = transform;
 

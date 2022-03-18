@@ -573,7 +573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2440353974778467906
 Transform:
   m_ObjectHideFlags: 0
@@ -875,7 +875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2440353975106585408
 Transform:
   m_ObjectHideFlags: 0
@@ -1391,7 +1391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5218829965611350014
 Transform:
   m_ObjectHideFlags: 0
@@ -1681,7 +1681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5218829965985083010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.28, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5218829966259443443}
@@ -3676,7 +3676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5218829966218894270
 Transform:
   m_ObjectHideFlags: 0
@@ -8373,7 +8373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5218829966843302998}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20.870775}
+  m_LocalPosition: {x: 0, y: -0.045, z: -20.870775}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5218829967202562035}
@@ -8405,10 +8405,10 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -1.1285518, y: 0.8001372}
-      - {x: -1.1323725, y: 0.09425807}
+      - {x: -1.1295227, y: 0.09425807}
       - {x: -1.1273445, y: -0.7001306}
-      - {x: 1.1289442, y: -0.6992684}
-      - {x: 1.1307013, y: 0.8006858}
+      - {x: 1.1262171, y: -0.6992684}
+      - {x: 1.125163, y: 0.79795873}
 --- !u!1 &5218829966856390552
 GameObject:
   m_ObjectHideFlags: 0
@@ -8435,7 +8435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5218829966856390552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.28, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5218829966600217781}
@@ -8777,6 +8777,7 @@ MonoBehaviour:
   rightSpawnPoint: {x: -0.95, y: 0}
   topSpawnPoint: {x: 0, y: -0.48}
   bottomSpawnPoint: {x: 0, y: 0.48}
+  camBound: {fileID: 5218829966843302992}
 --- !u!1 &5218829967250206804
 GameObject:
   m_ObjectHideFlags: 0

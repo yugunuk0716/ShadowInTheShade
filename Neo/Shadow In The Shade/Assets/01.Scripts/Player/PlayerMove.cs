@@ -49,6 +49,5 @@ public class PlayerMove : MonoBehaviour
     public void OnMove(Vector2 dir,float speed)
     {
         rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
-        print(rigid.velocity);
     }
 }

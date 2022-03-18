@@ -21,6 +21,8 @@ public class Room : PoolableMono
     public Vector2 topSpawnPoint;
     public Vector2 bottomSpawnPoint;
 
+    public Collider2D camBound;
+
     private Door leftDoor;
     private Door rightDoor;
     private Door topDoor;
@@ -39,6 +41,8 @@ public class Room : PoolableMono
         Door[] doors = GetComponentsInChildren<Door>();
         foreach (Door door in doors)
         {
+            if (doorList.Count > 3)
+                break;
             doorList.Add(door);
             switch (door.doorType)
             {
@@ -83,7 +87,6 @@ public class Room : PoolableMono
 
     public void RemoveUnconnectedDoors()
     {
-        Debug.Log("removing doors");
         foreach (Door door in doorList)
         {
             switch (door.doorType)
