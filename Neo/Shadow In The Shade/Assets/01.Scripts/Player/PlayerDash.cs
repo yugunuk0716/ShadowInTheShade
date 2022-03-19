@@ -6,11 +6,16 @@ public class PlayerDash : MonoBehaviour
     private PlayerInput playerinput;
     private Rigidbody2D rigid;
 
+    private bool isDash;
+    private float dashTime = 0.15f;
+    private SpriteRenderer sr;
+
     private void Start()
     {
         GameManager.Instance.playerSO.moveStats.DSS = 0;
         rigid = GetComponent<Rigidbody2D>();
         playerinput = GetComponent<PlayerInput>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         StartCoroutine(StackPlus());
     }
 
@@ -23,6 +28,10 @@ public class PlayerDash : MonoBehaviour
             GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
             StartCoroutine(DashCoroutine());
             playerinput.isDash = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            StartCoroutine(StackPlus());
         }
     }
 
@@ -37,12 +46,50 @@ public class PlayerDash : MonoBehaviour
 
     IEnumerator DashCoroutine()
     {
+        isDash = true;
         yield return null;
         if (GameManager.Instance.playerSO.moveStats.DSS <= 0 || playerinput.moveDir.normalized == Vector2.zero)
         {
             yield break;
         }
         rigid.AddForce(playerinput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
+        float time = 0;
+        float afterTime = 0;
+        float targetTime = Random.Range(0.02f, 0.06f);
+
+
+        while (isDash)
+        {
+            time += Time.deltaTime;
+            afterTime += Time.deltaTime;
+            print($"{afterTime} {targetTime}");
+
+            if (afterTime >= targetTime)
+            {
+                AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
+                print("¾ÛÈéÇãÀÓÀÌÁæ");
+                if(ai != null && sr != null)
+                {
+                    ai.SetSprite(sr.sprite, transform.position);
+                }
+                else
+                {
+                    print("ºö");
+                }
+                targetTime = Random.Range(0.02f, 0.06f);
+                afterTime = 0;
+            }
+            else
+            {
+                print("¾ÛÈéÇãÀÓÀÌÁæ ¾È³ª¿Í½á¿ä");
+            }
+
+            if (time >= dashTime)
+            {
+                isDash = false;
+            }
+            yield return null;
+        }
         GameManager.Instance.playerSO.moveStats.DSS--;
         GameManager.Instance.onPlayerDash.Invoke();
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);

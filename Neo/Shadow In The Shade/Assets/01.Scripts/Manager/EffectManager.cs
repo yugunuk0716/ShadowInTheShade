@@ -29,20 +29,22 @@ public class EffectManager : MonoBehaviour
     public GameObject bloodEffectObj;
 
     //Cinemachine Camera
-    public CinemachineVirtualCamera _cinemachineCamObj;
+    public CinemachineVirtualCamera cinemachineCamObj;
     [HideInInspector]
-    public CinemachineConfiner _cinemachineCamConfiner;
+    public CinemachineConfiner cinemachineCamConfiner;
     [HideInInspector]
-    public CinemachineVirtualCamera _cinemachineCam;
+    public CinemachineVirtualCamera cinemachineCam;
 
     CinemachineBasicMultiChannelPerlin cmPerlin;
     Tween camTween = null;
 
     private void Awake()
     {
-        _cinemachineCamConfiner = _cinemachineCamObj.GetComponent<CinemachineConfiner>();
-        _cinemachineCam = _cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
-        cmPerlin = _cinemachineCamObj.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        cinemachineCamObj = FindObjectOfType<CinemachineVirtualCamera>();
+
+        cinemachineCamConfiner = cinemachineCamObj.GetComponent<CinemachineConfiner>();
+        cinemachineCam = cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
+        cmPerlin = cinemachineCamObj.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     void Start()
@@ -51,7 +53,7 @@ public class EffectManager : MonoBehaviour
         //_cinemachineCamConfiner.m_BoundingShape2D = StageManager.Instance._rooms.Find((r) => r._isEntry)._camBound;
 
 
-        StartFadeOut();
+        //StartFadeOut();
 
     }
 
@@ -118,6 +120,11 @@ public class EffectManager : MonoBehaviour
     public void SetObjectFalse()
     {
         bloodEffectObj.SetActive(false);
+    }
+
+    public void SetCamBound(Collider2D col)
+    {
+        cinemachineCamConfiner.m_BoundingShape2D = col;
     }
 
 }

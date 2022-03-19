@@ -42,8 +42,5 @@ public class DamageManager : MonoBehaviour
         }
     }
 
-    public void Log(string text)
-    {
-        print(text);
-    }
+    
 }

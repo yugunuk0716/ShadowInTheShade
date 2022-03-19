@@ -37,7 +37,6 @@ public class PoolManager : MonoBehaviour
     {
         if (name == null)
             name = prefab.gameObject.name;
-        print(name);
         Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, transform);
         pools.Add(name, pool);
     }
@@ -62,6 +61,7 @@ public class PoolManager : MonoBehaviour
     public void Push(PoolableMono obj)
     {
         pools[obj.name].Push(obj);
+        obj.transform.SetParent(this.transform);
     }
 
 
