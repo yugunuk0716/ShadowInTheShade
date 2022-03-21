@@ -5,6 +5,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+public  enum EffectType
+{
+    SLIME,
+    BLOOD,
+}
+
+
 public class EffectManager : MonoBehaviour
 {
 
@@ -25,10 +32,13 @@ public class EffectManager : MonoBehaviour
     }
 
     float a = 1;
-    public Image image;
-    public GameObject bloodEffectObj;
+    public Image fadeImage;
+    public Image bloodImage;
+    public CanvasGroup bloodImageCanvasGroup;
 
-    //Cinemachine Camera
+    private Sprite slimeBlood;
+    private Sprite defaultBlood;
+
     public CinemachineVirtualCamera cinemachineCamObj;
     [HideInInspector]
     public CinemachineConfiner cinemachineCamConfiner;
@@ -37,14 +47,22 @@ public class EffectManager : MonoBehaviour
 
     CinemachineBasicMultiChannelPerlin cmPerlin;
     Tween camTween = null;
+    Tween imageTween = null;
 
     private void Awake()
     {
         cinemachineCamObj = FindObjectOfType<CinemachineVirtualCamera>();
-
+        bloodImageCanvasGroup = GameObject.Find("BloodEffectObj").GetComponent<CanvasGroup>();
+        bloodImage = bloodImageCanvasGroup.GetComponent<Image>();
+        slimeBlood = Resources.Load<Sprite>("slime");
+        defaultBlood = Resources.Load<Sprite>("blood");
+        fadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
         cinemachineCamConfiner = cinemachineCamObj.GetComponent<CinemachineConfiner>();
         cinemachineCam = cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
         cmPerlin = cinemachineCamObj.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+        CameraPerlinInit();
+
     }
 
     void Start()
@@ -55,6 +73,13 @@ public class EffectManager : MonoBehaviour
 
         //StartFadeOut();
 
+    }
+
+    private void CameraPerlinInit()
+    {
+        if (cmPerlin == null)
+            return;
+        cmPerlin.m_AmplitudeGain = 0f;
     }
 
     public void StartFadeIn()
@@ -73,7 +98,7 @@ public class EffectManager : MonoBehaviour
         while (true)
         {
             a += 0.01f;
-            image.color = new Color(0, 0, 0, a);
+            fadeImage.color = new Color(0, 0, 0, a);
             yield return new WaitForSeconds(0.01f);
             if (a >= 1)
                 break;
@@ -88,7 +113,7 @@ public class EffectManager : MonoBehaviour
         while (true)
         {
             a -= 0.01f;
-            image.color = new Color(0, 0, 0, a);
+            fadeImage.color = new Color(0, 0, 0, a);
             yield return new WaitForSeconds(0.01f);
             if (a <= 0)
                 break;
@@ -96,7 +121,52 @@ public class EffectManager : MonoBehaviour
 
     }
 
-    public void BloodEffect(float shakeDuration = 1f, float shakePower = 0.5f, float bloodEffectDuration = 1.5f)
+    public void BloodEffect(EffectType effectType = EffectType.BLOOD, float shakeDuration = 1f, float shakePower = 0.5f, float bloodEffectDuration = 1.5f)
+    {
+        Sprite sprite = null;
+
+        switch (effectType)
+        {
+            case EffectType.SLIME:
+                sprite = slimeBlood;
+                break;
+            case EffectType.BLOOD:
+                sprite = defaultBlood;
+                break;
+          
+        }
+
+        if(sprite != null)
+        {
+            bloodImage.sprite = sprite;
+        }
+
+        CameraShake(shakeDuration, shakePower);
+        if (imageTween != null && imageTween.IsActive())
+        {
+            imageTween.Kill();
+        }
+        
+        if (bloodImageCanvasGroup != null)
+        {
+            bloodImageCanvasGroup.alpha = 1f;
+        }
+        else
+        {
+            print("블러드 이미지 없음");
+        }
+
+        imageTween = DOTween.To(() => bloodImageCanvasGroup.alpha, value => bloodImageCanvasGroup.alpha = value, 0f, bloodEffectDuration);
+    }
+
+   
+
+    public void SetCamBound(Collider2D col)
+    {
+        cinemachineCamConfiner.m_BoundingShape2D = col;
+    }
+
+    public void CameraShake(float shakeDuration = 1f, float shakePower = 0.5f)
     {
         if (camTween != null && camTween.IsActive())
         {
@@ -112,19 +182,7 @@ public class EffectManager : MonoBehaviour
             print("펄린 없음");
         }
         camTween = DOTween.To(() => cmPerlin.m_AmplitudeGain, value => cmPerlin.m_AmplitudeGain = value, 0, shakeDuration);
-        bloodEffectObj.SetActive(true);
-
-        Invoke(nameof(SetObjectFalse), bloodEffectDuration);
     }
-
-    public void SetObjectFalse()
-    {
-        bloodEffectObj.SetActive(false);
-    }
-
-    public void SetCamBound(Collider2D col)
-    {
-        cinemachineCamConfiner.m_BoundingShape2D = col;
-    }
+   
 
 }

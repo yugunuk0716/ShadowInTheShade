@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,26 @@ public class Mucus : Enemy
 {
 
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
+
+    private SpriteRenderer sr;
+
     private int currentPhase = 0;
     private bool isPhaseEnd = false;
     private bool isInvincible = false;
 
-    private bool isAttack = false;
-
+    
     private int currentWaitTime = 0;
     private float attackDistance = 1f;
     private float chaseDistance = 5f;
 
     private Coroutine phaseRoutine = null;
     private Coroutine attackRoutine = null;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float spriteAlpha;
+    private Color originColor;
+    private Color attachedColor;
 
     private Move_Chase chase = null;
     private Attack_Mucus attack = null;
@@ -30,7 +39,7 @@ public class Mucus : Enemy
     {
         dicState[State.Default] = gameObject.AddComponent<State_Default>();
 
-
+        sr = GetComponentInChildren<SpriteRenderer>();
 
         // ¿Ãµø
         chase = GetComponent<Move_Chase>();
@@ -48,6 +57,30 @@ public class Mucus : Enemy
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
         currentPhase = 0;
+
+        originColor = sr.color;
+        attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.onStateEnter.AddListener(() =>
+        {
+            if (isAttack)
+                return;
+
+            GameManager.Instance.isInvincible = true;
+            sr.color = attachedColor;
+            isAttack = true;
+        });
+        GameManager.Instance.onStateEnd.AddListener(() =>
+        {
+            if (!isAttack)
+                return;
+            GameManager.Instance.isInvincible = false;
+            sr.color = originColor;
+            isAttack = false;
+        });
     }
 
     protected override void SetDefaultState(State state)
@@ -82,20 +115,7 @@ public class Mucus : Enemy
             }
             if(dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
             {
-                GameManager.Instance.onStateEnter.AddListener(() => 
-                {
-                    if (isAttack)
-                        return;
-                    GameManager.Instance.isInvincible = true;
-                    isAttack = true; 
-                });
-                GameManager.Instance.onStateEnd.AddListener(() =>
-                {
-                    if (!isAttack)
-                        return;
-                    GameManager.Instance.isInvincible = false;
-                    isAttack = false;
-                });
+               
                 
                 dicState[State.Attack].OnEnter();
                 
@@ -115,11 +135,11 @@ public class Mucus : Enemy
         base.CheckHp();
     }
 
-    public override void SetDisable()
-    {
-        StopCoroutine(lifeTime);
-        base.SetDisable();
-    }
+    //public override void SetDisable()
+    //{
+    //    StopCoroutine(lifeTime);
+    //    base.SetDisable();
+    //}
 
     public override void Reset()
     {

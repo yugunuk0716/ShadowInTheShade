@@ -37,8 +37,6 @@ public class AgentMove : MonoBehaviour
         }
     }
 
-
-
     IEnumerator KnockBackCoroutine(Vector2 direction, float power, float duration)
     {
         rigid.velocity = direction.normalized * power;
