@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
-    private PlayerInput playerinput;
+    private PlayerInput playerInput;
     private Rigidbody2D rigid;
 
     private bool isDash;
@@ -14,25 +14,27 @@ public class PlayerDash : MonoBehaviour
     {
         GameManager.Instance.playerSO.moveStats.DSS = 0;
         rigid = GetComponent<Rigidbody2D>();
-        playerinput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
         sr = GetComponentInChildren<SpriteRenderer>();
         StartCoroutine(StackPlus());
     }
 
     private void Update()
     {
-        if (playerinput.isDash && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash) 
-            && GameManager.Instance.playerSO.moveStats.DSS != 0)
+
+        if (playerInput.isDash && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash)
+        && GameManager.Instance.playerSO.moveStats.DSS != 0 && playerInput.moveDir != Vector2.zero)
         {
-            print(playerinput.isDash);
             GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
             StartCoroutine(DashCoroutine());
-            playerinput.isDash = false;
+            playerInput.isDash = false;
         }
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            StartCoroutine(StackPlus());
+            GameManager.Instance.playerSO.moveStats.DSS++;
         }
+#endif
     }
 
     IEnumerator StackPlus()
@@ -48,11 +50,11 @@ public class PlayerDash : MonoBehaviour
     {
         isDash = true;
         yield return null;
-        if (GameManager.Instance.playerSO.moveStats.DSS <= 0 || playerinput.moveDir.normalized == Vector2.zero)
+        if (GameManager.Instance.playerSO.moveStats.DSS <= 0 || playerInput.moveDir.normalized == Vector2.zero)
         {
             yield break;
         }
-        rigid.AddForce(playerinput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
+        rigid.AddForce(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
         float time = 0;
         float afterTime = 0;
         float targetTime = Random.Range(0.02f, 0.06f);
@@ -62,12 +64,10 @@ public class PlayerDash : MonoBehaviour
         {
             time += Time.deltaTime;
             afterTime += Time.deltaTime;
-            print($"{afterTime} {targetTime}");
 
             if (afterTime >= targetTime)
             {
                 AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
-                print("¾ÛÈéÇãÀÓÀÌÁæ");
                 if(ai != null && sr != null)
                 {
                     ai.SetSprite(sr.sprite, transform.position);
@@ -79,10 +79,7 @@ public class PlayerDash : MonoBehaviour
                 targetTime = Random.Range(0.02f, 0.06f);
                 afterTime = 0;
             }
-            else
-            {
-                print("¾ÛÈéÇãÀÓÀÌÁæ ¾È³ª¿Í½á¿ä");
-            }
+            
 
             if (time >= dashTime)
             {

@@ -23,7 +23,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     public EnemyDataSO enemyData;
 
     protected float currHp = 0f;
+
+    public bool isAttack = false;
     public bool isDie = false;
+    public bool isHit = false;
 
     private SpriteRenderer myRend;
     protected SpriteRenderer MyRend
@@ -50,6 +53,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [field: SerializeField]
     public UnityEvent OnReset { get; set; }
 
+    public AgentMove move;
+
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
@@ -57,6 +62,14 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected Dictionary<State, IState> dicState = new Dictionary<State, IState>();
 
     protected Coroutine lifeTime = null;
+
+    private void Start()
+    {
+        Health = enemyData.maxHealth;
+        move = GetComponent<AgentMove>();
+        if (move == null)
+            print("?");
+    }
 
     protected void OnEnable()
     {
@@ -111,7 +124,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             SetState(State.Die);
             StopCoroutine(lifeTime);
             isDie = true;
-            SetDisable();
+            //SetDisable();
         }
     }
 
@@ -138,28 +151,60 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         //}
     }
 
-    public virtual void SetDisable()
-    {
-        isDie = true;
-
-        if (PoolManager.Instance != null)
-        {
-            //PoolManager.Instance.enemies.Remove(this);
-        }
-
-        gameObject.SetActive(false);
-    }
-
+   
     public void GetHit(int damage)
     {
+        if (isDie || isHit) return;
 
+        isHit = true;
+
+        float critical = Random.value;
+        bool isCritical = false;
+        if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
+        {
+            damage *= 2; //2배 데미지
+            isCritical = true;
+        }
+
+        Health -= damage;
+        OnHit?.Invoke();
+
+        DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
+        dPopup.gameObject.SetActive(true);
+        dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0), isCritical);
+
+        //SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
+        if (Health <= 0)
+        {
+            isDie = true;
+            StartCoroutine(Dead());
+            //this.gameObject.SetActive(false);
+            OnDie?.Invoke();
+        }
+
+        CheckHp();
     }
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-
+        if(move == null)
+        {
+            print("왜 없음?");
+            return;
+        }    
+        move.KnockBack(direction, power, duration);
     }
 
+   
+    IEnumerator Dead()
+    {
+        if (isDie.Equals(true))
+        {
+            //_anim.SetBool("isDead", true);
+            yield return new WaitForSeconds(.5f);
+            this.gameObject.SetActive(false);
+        }
+    }
     public override void Reset()
     {
         OnReset?.Invoke();

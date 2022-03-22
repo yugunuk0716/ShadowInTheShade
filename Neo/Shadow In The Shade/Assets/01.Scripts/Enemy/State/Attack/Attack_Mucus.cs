@@ -12,6 +12,7 @@ public class Attack_Mucus : MonoBehaviour, IState
     {
         GameManager.Instance.onStateEnter?.Invoke();
         StartCoroutine(AttackRoutine());
+        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);
         isStateEnter = true;
     }
 
@@ -29,13 +30,7 @@ public class Attack_Mucus : MonoBehaviour, IState
 
     IEnumerator AttackRoutine()
     {
-        //if (GameManager.Instance.isInvincible)
-        //{
-        //    isStateEnter = false;
-        //    GameManager.Instance.onStateEnd?.Invoke();
-        //    yield break;
-        //} 
-        GameManager.Instance.isInvincible = true;
+       
         transform.SetParent(GameManager.Instance.player);
         float spd = GameManager.Instance.playerSO.moveStats.SPD;
         GameManager.Instance.playerSO.moveStats.SPD = Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD - slowAmount, 0, spd);
@@ -54,14 +49,10 @@ public class Attack_Mucus : MonoBehaviour, IState
         GameManager.Instance.onStateEnd?.Invoke();
         isStateEnter = false;
 
-        //Invoke(nameof(InvincibleFalse), 1f);
 
     }
 
 
-    //private void InvincibleFalse()
-    //{
-    //    GameManager.Instance.isInvincible = false;
-    //}
+ 
 
 }
