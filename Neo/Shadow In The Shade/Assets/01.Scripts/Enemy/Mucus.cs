@@ -130,6 +130,11 @@ public class Mucus : Enemy
         base.GetDamage(damage);
     }
 
+    public override void GetHit(int damage)
+    {
+        base.GetHit(damage);
+    }
+
     protected override void CheckHp()
     {
         base.CheckHp();
@@ -141,9 +146,14 @@ public class Mucus : Enemy
     //    base.SetDisable();
     //}
 
+    public override IEnumerator Dead()
+    {
+        chase.speed = 0f;
+        return base.Dead();
+    }
+
     public override void Reset()
     {
-
         base.Reset();
     }
 

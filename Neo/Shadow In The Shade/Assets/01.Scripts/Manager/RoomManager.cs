@@ -37,6 +37,8 @@ public class RoomManager : MonoBehaviour
 
     RoomInfo currentLoadRoomData;
     readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
+    private Vector2Int pastArea;
+    //readonly L<Vector2Int> positionHash = new HashSet<Vector2Int>();
 
     public List<Room> loadedRooms = new List<Room>();
 
@@ -131,6 +133,7 @@ public class RoomManager : MonoBehaviour
             loadedRooms.Remove(roomToRemove);
             //PoolManager.Instance.Push(roomToRemove);
             LoadRoom("End", tempRoom.X, tempRoom.Y);
+
         }
     }
 
@@ -149,21 +152,31 @@ public class RoomManager : MonoBehaviour
         roomInfo.Y = y;
 
         loadRoomQueue.Enqueue(roomInfo);
+
+        if(loadRoomQueue.Count <= 0)
+        {
+            //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
+            //Room room = list[0];
+            //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
+            EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
+        }
     }
 
     public void LoadInResourcesRoom(RoomInfo info)
     {
-        
+        print($"{currentWorldName} {info.name}");
         Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.name}") as Room;
         if (room.name.Contains("End"))
         {
             room.RemoveUnconnectedDoors();
         }
-        else if (room.name.Equals($"{currentWorldName} Empty"))
+        else if (room.name.Equals($"{currentWorldName} Empty") )//|| room.name.Equals($"{currentWorldName} Basic1"))
         {
+            print($"{room.name}");
             room.gameObject.SetActive(false);
             PoolManager.Instance.Push(room);
         }
+        
 
     }
 
@@ -180,12 +193,35 @@ public class RoomManager : MonoBehaviour
             isLoadingRoom = false;
             return;
         }
-        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
+
+        if (currentLoadRoomData.name.Contains("Basic1"))
+        {
+            room.Width = 46;
+            room.Height = 30;
+        }
+
+        //float w = 1f;
+        //float h = 1f;
+
+        //if(pastArea.x == 23)
+        //{
+        //    w = 1.5f;
+        //}
+        //else if (pastArea.y == 15)
+        //{
+        //    h = 1.5f;
+        //}
+
         room.X = currentLoadRoomData.X;
         room.Y = currentLoadRoomData.Y;
+
+        pastArea = new Vector2Int(room.Width, room.Height);
+
+        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width  , currentLoadRoomData.Y * room.Height );
         if (room.name.Contains("Start"))
         {
             EffectManager.Instance.SetCamBound(room.camBound);
+         
         }
         room.name = $"{currentLoadRoomData} - {currentLoadRoomData.name} {room.X} {room.Y}";
         room.transform.parent = transform;

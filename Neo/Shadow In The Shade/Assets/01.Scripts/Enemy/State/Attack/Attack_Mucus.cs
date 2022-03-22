@@ -8,6 +8,8 @@ public class Attack_Mucus : MonoBehaviour, IState
     public float attachTime = 2f;
     private bool isStateEnter = false;
 
+    private Vector2 attachPosition = new Vector2(0f, -0.45f);
+
     public void OnEnter()
     {
         GameManager.Instance.onStateEnter?.Invoke();
@@ -25,7 +27,7 @@ public class Attack_Mucus : MonoBehaviour, IState
     {
         if (!isStateEnter)
             return;
-        transform.localPosition = Vector2.zero;
+        transform.localPosition = attachPosition;
     }
 
     IEnumerator AttackRoutine()

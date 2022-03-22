@@ -39,6 +39,7 @@ public class EffectManager : MonoBehaviour
     private Sprite slimeBlood;
     private Sprite defaultBlood;
 
+    public GameObject minimapCamObj;
     public CinemachineVirtualCamera cinemachineCamObj;
     [HideInInspector]
     public CinemachineConfiner cinemachineCamConfiner;
@@ -56,6 +57,7 @@ public class EffectManager : MonoBehaviour
         bloodImage = bloodImageCanvasGroup.GetComponent<Image>();
         slimeBlood = Resources.Load<Sprite>("slime");
         defaultBlood = Resources.Load<Sprite>("blood");
+        minimapCamObj = GameObject.Find("MiniMapCamera");
         fadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
         cinemachineCamConfiner = cinemachineCamObj.GetComponent<CinemachineConfiner>();
         cinemachineCam = cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
@@ -121,7 +123,7 @@ public class EffectManager : MonoBehaviour
 
     }
 
-    public void BloodEffect(EffectType effectType = EffectType.BLOOD, float shakeDuration = 1f, float shakePower = 0.5f, float bloodEffectDuration = 1.5f)
+    public void BloodEffect(EffectType effectType = EffectType.BLOOD, float shakeDuration = 1f, float shakePower = 0.5f, float bloodEffectDuration = 1.5f, bool doShake = false)
     {
         Sprite sprite = null;
 
@@ -141,7 +143,11 @@ public class EffectManager : MonoBehaviour
             bloodImage.sprite = sprite;
         }
 
-        CameraShake(shakeDuration, shakePower);
+        if (doShake)
+        {
+            CameraShake(shakeDuration, shakePower);
+        }
+
         if (imageTween != null && imageTween.IsActive())
         {
             imageTween.Kill();
