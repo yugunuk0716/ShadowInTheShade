@@ -158,7 +158,7 @@ public class RoomManager : MonoBehaviour
             //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
             //Room room = list[0];
             //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
-            EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
+            //EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
         }
     }
 
