@@ -46,6 +46,9 @@ public class RoomManager : MonoBehaviour
     bool spawnedBossRoom = false;
     bool updatedRooms = false;
 
+    private int higherX;
+    private int higherY;
+
     public bool isMoving = false;
 
     public UnityEvent OnMoveRoomEvent;
@@ -74,10 +77,7 @@ public class RoomManager : MonoBehaviour
                 {
                     room.RemoveUnconnectedDoors();
                 }
-                foreach (Room room in loadedRooms)
-                {
-                    room.ConnectRoom();
-                }
+              
                 updatedRooms = true;
             }
             return;
@@ -127,8 +127,9 @@ public class RoomManager : MonoBehaviour
             tempRoom.X = bossRoom.X;
             tempRoom.Y = bossRoom.Y;
             Destroy(newObj);
-            bossRoom.name = "Dungeon Empty";
-            PoolManager.Instance.Push(bossRoom);
+            Destroy(bossRoom);
+            //bossRoom.name = "Dungeon Empty";
+            //PoolManager.Instance.Push(bossRoom);
             Room roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
             loadedRooms.Remove(roomToRemove);
             //PoolManager.Instance.Push(roomToRemove);
@@ -153,13 +154,30 @@ public class RoomManager : MonoBehaviour
 
         loadRoomQueue.Enqueue(roomInfo);
 
-        if(loadRoomQueue.Count <= 0)
-        {
-            //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
-            //Room room = list[0];
-            //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
-            //EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
-        }
+        //if(loadRoomQueue.Count <= 1)
+        //{
+        //    //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
+        //    //Room room = list[0];
+        //    //list = (List<Room>)loadedRooms.OrderByDescending(x => x.Y);
+        //    //room.Y = list[0].Y;
+        //    Vector3 movePos = Vector3.zero;
+        //    int xIdx = higherX / 2;
+        //    int yIdx = higherY / 2;
+        //    Room room = FindRoom(xIdx, yIdx);
+
+        //    if (room != null)
+        //    {
+        //        movePos = new Vector3(room.X * room.Width, room.Y * room.Height, -10f);
+        //    }
+        //    else
+        //    {
+        //        movePos = new Vector3(xIdx * 23, yIdx * 15, -10f);
+        //    }
+
+        //    EffectManager.Instance.minimapCamObj.transform.position = movePos; //= new Vector3(room.X * room.Width, room.Y * room.Height);
+        //    //EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
+        //}
+        
     }
 
     public void LoadInResourcesRoom(RoomInfo info)
@@ -169,6 +187,10 @@ public class RoomManager : MonoBehaviour
         if (room.name.Contains("End"))
         {
             room.RemoveUnconnectedDoors();
+            foreach (Room r in loadedRooms)
+            {
+                r.ConnectRoom();
+            }
         }
         else if (room.name.Equals($"{currentWorldName} Empty") )//|| room.name.Equals($"{currentWorldName} Basic1"))
         {
@@ -214,6 +236,17 @@ public class RoomManager : MonoBehaviour
 
         room.X = currentLoadRoomData.X;
         room.Y = currentLoadRoomData.Y;
+
+
+        if (Mathf.Abs(room.X) > Mathf.Abs(higherX))
+        {
+            higherX = room.X;
+        }
+
+        if (Mathf.Abs(room.Y) > Mathf.Abs(higherY))
+        {
+            higherY = room.Y;
+        }
 
         pastArea = new Vector2Int(room.Width, room.Height);
 
