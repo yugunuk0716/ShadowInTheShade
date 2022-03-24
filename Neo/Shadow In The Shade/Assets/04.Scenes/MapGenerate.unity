@@ -350,6 +350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3081107059394197388, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3081107059394197499, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -741,6 +745,10 @@ PrefabInstance:
     - target: {fileID: 3081107059394197388, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081107059394197388, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3081107059394197499, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
       propertyPath: m_RootOrder
