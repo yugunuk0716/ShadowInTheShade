@@ -6,7 +6,7 @@ public class PlayerDash : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody2D rigid;
 
-    private bool isDash;
+    internal bool isDash;
     private float dashTime = 0.15f;
     private SpriteRenderer sr;
 
@@ -46,7 +46,7 @@ public class PlayerDash : MonoBehaviour
         }
     }
 
-    IEnumerator DashCoroutine()
+    internal IEnumerator DashCoroutine()
     {
         isDash = true;
         yield return null;

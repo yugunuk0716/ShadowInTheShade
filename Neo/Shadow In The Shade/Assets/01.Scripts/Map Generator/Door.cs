@@ -23,7 +23,7 @@ public class Door : MonoBehaviour
         {
             
             StartCoroutine(MoveRoomCoroutine(collision));
-            
+            collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
     }
     
@@ -31,25 +31,56 @@ public class Door : MonoBehaviour
     {
         if (adjacentRoom == null)
             yield break;
+
+        Rigidbody2D rigd = collision.GetComponent<Rigidbody2D>();
+
+        if (rigd.velocity.x > 10f || rigd.velocity.x < -10f || 
+            rigd.velocity.y > 10f || rigd.velocity.x < -10f || 
+            collision.GetComponent<PlayerDash>().isDash)
+            yield break;
+
         RoomManager.Instance.OnMoveRoomEvent?.Invoke();
         RoomManager.Instance.isMoving = true;
         GameManager.Instance.timeScale = 0f;
         print(adjacentRoom.GetSpawnPoint(doorType));
         collision.transform.SetParent(adjacentRoom.transform);
         PlayerMove agentMove = collision.GetComponent<PlayerMove>();
-        Vector2 velocity = agentMove.rigid.velocity;
         agentMove.rigid.velocity = Vector2.zero;
-        print(agentMove.rigid.velocity);
-        collision.transform.DOLocalMove(adjacentRoom.GetSpawnPoint(doorType), 2f);
+        SpriteRenderer playerSprite = collision.gameObject.GetComponentInChildren<PlayerAnimation>().gameObject.GetComponent<SpriteRenderer>();
+        playerSprite.color = Color.black;
+        playerSprite.color += new Color(0, 0, 0, -1f);
+
+        //
+
+        Vector2 offset = Vector2.zero;
+        switch(doorType)
+        {
+            case DirType.Left:
+                offset = new Vector2(.1f, 0);
+                break;
+            case DirType.Right:
+                offset = new Vector2(-.1f, 0);
+                break;
+            case DirType.Top:
+                offset = new Vector2(0,-.1f);
+                break;
+            case DirType.Bottom:
+                offset = new Vector2(0, .1f);
+                break;
+        }
+
+        collision.gameObject.transform.localPosition = adjacentRoom.GetSpawnPoint(doorType) + offset;
+        Sequence playerMove = DOTween.Sequence();
+
+        playerMove.Append(playerSprite.DOColor(Color.white, 1.5f)).OnComplete(() => { agentMove.rigid.velocity = Vector2.zero; collision.GetComponent<Rigidbody2D>().velocity = agentMove.rigid.velocity; });
+        playerMove.Join(collision.transform.DOLocalMove(adjacentRoom.GetSpawnPoint(doorType), .5f));
+        playerMove.Insert(1f, playerSprite.DOFade(1, 1f));
+
         EffectManager.Instance.minimapCamObj.transform.position = adjacentRoom.transform.position + new Vector3(0f, 0f, -10f);
-        //Vector2 dir = adjacentRoom.GetSpawnPoint(doorType);
-        //collision.GetComponent<PlayerMove>().OnMove(dir, 2f);
         EffectManager.Instance.SetCamBound(adjacentRoom.camBound);
-        print(collision.transform.localPosition);
         yield return new WaitForSeconds(2f);
-        agentMove.rigid.velocity = velocity;
         RoomManager.Instance.isMoving = false;
         GameManager.Instance.timeScale = 1f;
-
+        print("hi");
     }
 }
