@@ -12,6 +12,18 @@ public class RoomInfo
     public int Y;
 }
 
+public enum DiagonalDir
+{
+    N = 0,
+    NE,
+    E,
+    ES,
+    S,
+    SW,
+    W,
+    WN
+}
+
 public class RoomManager : MonoBehaviour
 {
     string currentWorldName = "Dungeon";
@@ -34,11 +46,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-
     RoomInfo currentLoadRoomData;
     readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
-    private Vector2Int pastArea;
-    //readonly L<Vector2Int> positionHash = new HashSet<Vector2Int>();
+    readonly List<Room> adjacentRoomList = new List<Room>();
 
     public List<Room> loadedRooms = new List<Room>();
 
@@ -53,7 +63,6 @@ public class RoomManager : MonoBehaviour
 
     public UnityEvent OnMoveRoomEvent;
 
-
     private void Update()
     {
         UpdateRoomQueue();
@@ -64,11 +73,11 @@ public class RoomManager : MonoBehaviour
         if (isLoadingRoom)
             return;
 
-
         if (loadRoomQueue.Count == 0)
         {
             if (!spawnedBossRoom && loadedRooms.Count > 0)
             {
+                StartCoroutine(SpawnOtherSizeRoom());
                 StartCoroutine(SpawnBossRoom());
             }
             else if (spawnedBossRoom && !updatedRooms)
@@ -121,21 +130,157 @@ public class RoomManager : MonoBehaviour
         {
 
             Room bossRoom = loadedRooms[loadedRooms.Count - 1];
-            GameObject newObj = new GameObject();
-            newObj.AddComponent<Room>();
-            Room tempRoom = newObj.GetComponent<Room>();
-            tempRoom.X = bossRoom.X;
-            tempRoom.Y = bossRoom.Y;
-            Destroy(newObj);
-            Destroy(bossRoom);
+            int x = bossRoom.X;
+            int y = bossRoom.Y;
+            Destroy(bossRoom.gameObject);
             //bossRoom.name = "Dungeon Empty";
             //PoolManager.Instance.Push(bossRoom);
-            Room roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
+            Room roomToRemove = loadedRooms.Single(r => r.X == x && r.Y == y);
             loadedRooms.Remove(roomToRemove);
             //PoolManager.Instance.Push(roomToRemove);
-            LoadRoom("End", tempRoom.X, tempRoom.Y);
+            LoadRoom("End", x, y);
 
         }
+    }
+
+    private void CreateBigRoom(Room mainRoom)
+    {
+        //int adjacentIdx = 0;
+        print(mainRoom.name);
+        Room topRoom = mainRoom.GetTop();
+        Room bottomRoom = mainRoom.GetBottom();
+        Room rightRoom = mainRoom.GetRight();
+        Room leftRoom = mainRoom.GetLeft();
+        if (topRoom != null)
+        {
+            adjacentRoomList.Add(topRoom);
+        }
+
+        if(bottomRoom != null)
+        {
+            adjacentRoomList.Add(mainRoom.GetBottom());
+        }
+
+        if(rightRoom != null)
+        {
+            adjacentRoomList.Add(mainRoom.GetRight());
+        }
+
+        if(leftRoom != null)
+        {
+            adjacentRoomList.Add(mainRoom.GetLeft());
+        }
+
+        #region 사선 체크
+        //for (int i = 0; i < 4; i ++)
+        //{
+        //    Room r = adjacentRoomList[i];
+
+        //    if(r == null)
+        //    {
+        //        continue;
+        //    }
+
+        //    if(i % 2 == 0)
+        //    {
+        //        Room tRoom = r.GetTop();
+        //        Room bRoom = r.GetBottom();
+        //        if (tRoom != null )//&& adjacentRoomDataDic[(DiagonalDir)i + 1] == null)
+        //        {
+        //            if (!adjacentRoomList.Contains(tRoom))
+        //            {
+        //                print("T");
+        //                adjacentRoomList.Add(tRoom);
+        //            }
+        //            //adjacentIdx++;
+        //        }
+
+        //        if (bRoom != null)// && adjacentRoomDataDic[(DiagonalDir)i - 1] == null)
+        //        {
+        //            if (!adjacentRoomList.Contains(bRoom))
+        //            {
+        //                print("B");
+        //                adjacentRoomList.Add(bRoom);
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Room rRoom = r.GetRight();
+        //        Room lRoom = r.GetLeft();
+        //        if (rRoom != null)// && adjacentRoomDataDic[(DiagonalDir)i + 1] == null)
+        //        {
+        //            if (!adjacentRoomList.Contains(rRoom))
+        //            {
+        //                print("R");
+        //                adjacentRoomList.Add(rRoom);
+        //            }
+        //            //adjacentIdx++;
+        //        }
+
+        //        if (lRoom != null)// && adjacentRoomDataDic[(DiagonalDir)8] == null)
+        //        {
+        //            if (!adjacentRoomList.Contains(lRoom))
+        //            {
+        //                print("L");
+        //                adjacentRoomList.Add(lRoom);
+        //            }
+        //            //adjacentIdx++;
+        //        }
+        //    }
+        //}
+
+
+        #endregion
+        print(adjacentRoomList.Count);
+        Room tempR = adjacentRoomList[Random.Range(0, adjacentRoomList.Count)];
+        int basicIdx = 1;
+        if (tempR.X > mainRoom.X)
+        {
+            basicIdx = 3;
+        }
+        else if (tempR.X < mainRoom.X )
+        {
+            basicIdx = 4;
+        }
+        else if (tempR.Y > mainRoom.Y)
+        {
+            basicIdx = 2;
+        }
+        else if(tempR.Y < mainRoom.Y)
+        {
+            basicIdx = 1;
+        }
+        basicIdx = 3;
+
+        Destroy(mainRoom.gameObject);
+        Room roomToRemove = loadedRooms.Single(r => r.X == mainRoom.X && r.Y == mainRoom.Y);
+        loadedRooms.Remove(roomToRemove);
+        Destroy(tempR.gameObject);
+        roomToRemove = loadedRooms.Single(r => r.X == tempR.X && r.Y == tempR.Y);
+        loadedRooms.Remove(roomToRemove);
+
+
+        LoadRoom($"Basic{basicIdx}", mainRoom.X, mainRoom.Y);
+    }
+
+    IEnumerator SpawnOtherSizeRoom()
+    {
+        //spawnedBossRoom = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (loadRoomQueue.Count == 0)
+        {
+            adjacentRoomList.Clear();
+
+            int roomIdx = Random.Range(3, loadedRooms.Count - 3);
+
+            print(roomIdx);
+            Room mainRoom = loadedRooms[roomIdx];
+            CreateBigRoom(mainRoom);
+        }
+
     }
 
     public void LoadRoom(string name, int x, int y)
@@ -146,7 +291,6 @@ public class RoomManager : MonoBehaviour
             return;
         }
 
-       
         RoomInfo roomInfo = new RoomInfo();
         roomInfo.name = name;
         roomInfo.X = x;
@@ -154,6 +298,7 @@ public class RoomManager : MonoBehaviour
 
         loadRoomQueue.Enqueue(roomInfo);
 
+#region 미니맵 중앙방에 중점을 두게하는 코드
         //if(loadRoomQueue.Count <= 1)
         //{
         //    //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
@@ -177,7 +322,8 @@ public class RoomManager : MonoBehaviour
         //    EffectManager.Instance.minimapCamObj.transform.position = movePos; //= new Vector3(room.X * room.Width, room.Y * room.Height);
         //    //EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
         //}
-        
+        #endregion
+
     }
 
     public void LoadInResourcesRoom(RoomInfo info)
@@ -192,17 +338,16 @@ public class RoomManager : MonoBehaviour
                 r.ConnectRoom();
             }
         }
-        else if (room.name.Equals($"{currentWorldName} Empty") )//|| room.name.Equals($"{currentWorldName} Basic1"))
+        else if (room.name.Equals($"{currentWorldName} Empty") || room.name.Equals($"{currentWorldName} Basic1"))
         {
             print($"{room.name}");
             room.gameObject.SetActive(false);
             PoolManager.Instance.Push(room);
         }
+       
         
 
     }
-
-
 
     public void RegisterRoom(Room room)
     {
@@ -216,27 +361,8 @@ public class RoomManager : MonoBehaviour
             return;
         }
 
-        if (currentLoadRoomData.name.Contains("Basic1"))
-        {
-            room.Width = 46;
-            room.Height = 30;
-        }
-
-        //float w = 1f;
-        //float h = 1f;
-
-        //if(pastArea.x == 23)
-        //{
-        //    w = 1.5f;
-        //}
-        //else if (pastArea.y == 15)
-        //{
-        //    h = 1.5f;
-        //}
-
         room.X = currentLoadRoomData.X;
         room.Y = currentLoadRoomData.Y;
-
 
         if (Mathf.Abs(room.X) > Mathf.Abs(higherX))
         {
@@ -248,23 +374,46 @@ public class RoomManager : MonoBehaviour
             higherY = room.Y;
         }
 
-        pastArea = new Vector2Int(room.Width, room.Height);
-
-        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width  , currentLoadRoomData.Y * room.Height );
+        if (!room.name.Contains("Basic"))
+        {
+            room.transform.position =
+            new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
+        }
         if (room.name.Contains("Start"))
         {
             EffectManager.Instance.SetCamBound(room.camBound);
          
         }
+        //생각 해보니까 이게 x가 0보다 크다면이랑 0보다 작다면을 나눠야 될 듯
+        if (room.name.Contains("Basic1"))
+        {
+            print(room.transform.position);
+            room.transform.position = new Vector3(currentLoadRoomData.X * room.Width , 7.5f + currentLoadRoomData.Y * room.Height, 0f);
+        }
+        if (room.name.Contains("Basic2"))
+        {
+            print(room.transform.position);
+            room.transform.position = new Vector3(-currentLoadRoomData.X * room.Width, -currentLoadRoomData.Y * room.Height/3, 0f);
+        }
+        if (room.name.Contains("Basic3"))
+        {
+            print(room.transform.position);
+            room.transform.position = new Vector3(-12f + currentLoadRoomData.X * room.Width , currentLoadRoomData.Y * room.Height, 0f);
+        }
+        if (room.name.Contains("Basic4"))
+        {
+            print(room.transform.position);
+            room.transform.position = new Vector3(-currentLoadRoomData.X * room.Width / 2 - room.Width / 2, -currentLoadRoomData.Y * room.Height, 0f);
+        }
+
+
         room.name = $"{currentLoadRoomData} - {currentLoadRoomData.name} {room.X} {room.Y}";
         room.transform.parent = transform;
-
         isLoadingRoom = false;
 
         loadedRooms.Add(room);
 
     }
-
 
     public bool DoesRoomExited(int x, int y)
     {
@@ -285,9 +434,4 @@ public class RoomManager : MonoBehaviour
 
         return possibleRooms[Random.Range(0, possibleRooms.Length)];
     }
-
-  
-
-    
-
 }
