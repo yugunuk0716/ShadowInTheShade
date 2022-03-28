@@ -26,7 +26,7 @@ public enum DiagonalDir
 
 public class RoomManager : MonoBehaviour
 {
-    string currentWorldName = "Dungeon";
+    readonly string currentWorldName = "Dungeon";
 
     private static RoomManager instance;
     public static RoomManager Instance
@@ -63,6 +63,14 @@ public class RoomManager : MonoBehaviour
 
     public UnityEvent OnMoveRoomEvent;
 
+    private void Awake()
+    {
+        if(OnMoveRoomEvent == null)
+        {
+            OnMoveRoomEvent = new UnityEvent();
+        }
+    }
+
     private void Update()
     {
         UpdateRoomQueue();
@@ -77,7 +85,6 @@ public class RoomManager : MonoBehaviour
         {
             if (!spawnedBossRoom && loadedRooms.Count > 0)
             {
-                StartCoroutine(SpawnOtherSizeRoom());
                 StartCoroutine(SpawnBossRoom());
             }
             else if (spawnedBossRoom && !updatedRooms)
@@ -143,145 +150,145 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void CreateBigRoom(Room mainRoom)
-    {
-        //int adjacentIdx = 0;
-        print(mainRoom.name);
-        Room topRoom = mainRoom.GetTop();
-        Room bottomRoom = mainRoom.GetBottom();
-        Room rightRoom = mainRoom.GetRight();
-        Room leftRoom = mainRoom.GetLeft();
-        if (topRoom != null)
-        {
-            adjacentRoomList.Add(topRoom);
-        }
+    //private void CreateBigRoom(Room mainRoom)
+    //{
+    //    //int adjacentIdx = 0;
+    //    print(mainRoom.name);
+    //    Room topRoom = mainRoom.GetTop();
+    //    Room bottomRoom = mainRoom.GetBottom();
+    //    Room rightRoom = mainRoom.GetRight();
+    //    Room leftRoom = mainRoom.GetLeft();
+    //    if (topRoom != null)
+    //    {
+    //        adjacentRoomList.Add(topRoom);
+    //    }
 
-        if(bottomRoom != null)
-        {
-            adjacentRoomList.Add(mainRoom.GetBottom());
-        }
+    //    if(bottomRoom != null)
+    //    {
+    //        adjacentRoomList.Add(mainRoom.GetBottom());
+    //    }
 
-        if(rightRoom != null)
-        {
-            adjacentRoomList.Add(mainRoom.GetRight());
-        }
+    //    if(rightRoom != null)
+    //    {
+    //        adjacentRoomList.Add(mainRoom.GetRight());
+    //    }
 
-        if(leftRoom != null)
-        {
-            adjacentRoomList.Add(mainRoom.GetLeft());
-        }
+    //    if(leftRoom != null)
+    //    {
+    //        adjacentRoomList.Add(mainRoom.GetLeft());
+    //    }
 
-        #region 사선 체크
-        //for (int i = 0; i < 4; i ++)
-        //{
-        //    Room r = adjacentRoomList[i];
+    //    #region 사선 체크
+    //    //for (int i = 0; i < 4; i ++)
+    //    //{
+    //    //    Room r = adjacentRoomList[i];
 
-        //    if(r == null)
-        //    {
-        //        continue;
-        //    }
+    //    //    if(r == null)
+    //    //    {
+    //    //        continue;
+    //    //    }
 
-        //    if(i % 2 == 0)
-        //    {
-        //        Room tRoom = r.GetTop();
-        //        Room bRoom = r.GetBottom();
-        //        if (tRoom != null )//&& adjacentRoomDataDic[(DiagonalDir)i + 1] == null)
-        //        {
-        //            if (!adjacentRoomList.Contains(tRoom))
-        //            {
-        //                print("T");
-        //                adjacentRoomList.Add(tRoom);
-        //            }
-        //            //adjacentIdx++;
-        //        }
+    //    //    if(i % 2 == 0)
+    //    //    {
+    //    //        Room tRoom = r.GetTop();
+    //    //        Room bRoom = r.GetBottom();
+    //    //        if (tRoom != null )//&& adjacentRoomDataDic[(DiagonalDir)i + 1] == null)
+    //    //        {
+    //    //            if (!adjacentRoomList.Contains(tRoom))
+    //    //            {
+    //    //                print("T");
+    //    //                adjacentRoomList.Add(tRoom);
+    //    //            }
+    //    //            //adjacentIdx++;
+    //    //        }
 
-        //        if (bRoom != null)// && adjacentRoomDataDic[(DiagonalDir)i - 1] == null)
-        //        {
-        //            if (!adjacentRoomList.Contains(bRoom))
-        //            {
-        //                print("B");
-        //                adjacentRoomList.Add(bRoom);
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Room rRoom = r.GetRight();
-        //        Room lRoom = r.GetLeft();
-        //        if (rRoom != null)// && adjacentRoomDataDic[(DiagonalDir)i + 1] == null)
-        //        {
-        //            if (!adjacentRoomList.Contains(rRoom))
-        //            {
-        //                print("R");
-        //                adjacentRoomList.Add(rRoom);
-        //            }
-        //            //adjacentIdx++;
-        //        }
+    //    //        if (bRoom != null)// && adjacentRoomDataDic[(DiagonalDir)i - 1] == null)
+    //    //        {
+    //    //            if (!adjacentRoomList.Contains(bRoom))
+    //    //            {
+    //    //                print("B");
+    //    //                adjacentRoomList.Add(bRoom);
+    //    //            }
+    //    //        }
+    //    //    }
+    //    //    else
+    //    //    {
+    //    //        Room rRoom = r.GetRight();
+    //    //        Room lRoom = r.GetLeft();
+    //    //        if (rRoom != null)// && adjacentRoomDataDic[(DiagonalDir)i + 1] == null)
+    //    //        {
+    //    //            if (!adjacentRoomList.Contains(rRoom))
+    //    //            {
+    //    //                print("R");
+    //    //                adjacentRoomList.Add(rRoom);
+    //    //            }
+    //    //            //adjacentIdx++;
+    //    //        }
 
-        //        if (lRoom != null)// && adjacentRoomDataDic[(DiagonalDir)8] == null)
-        //        {
-        //            if (!adjacentRoomList.Contains(lRoom))
-        //            {
-        //                print("L");
-        //                adjacentRoomList.Add(lRoom);
-        //            }
-        //            //adjacentIdx++;
-        //        }
-        //    }
-        //}
-
-
-        #endregion
-        print(adjacentRoomList.Count);
-        Room tempR = adjacentRoomList[Random.Range(0, adjacentRoomList.Count)];
-        int basicIdx = 1;
-        if (tempR.X > mainRoom.X)
-        {
-            basicIdx = 3;
-        }
-        else if (tempR.X < mainRoom.X )
-        {
-            basicIdx = 4;
-        }
-        else if (tempR.Y > mainRoom.Y)
-        {
-            basicIdx = 2;
-        }
-        else if(tempR.Y < mainRoom.Y)
-        {
-            basicIdx = 1;
-        }
-        basicIdx = 3;
-
-        Destroy(mainRoom.gameObject);
-        Room roomToRemove = loadedRooms.Single(r => r.X == mainRoom.X && r.Y == mainRoom.Y);
-        loadedRooms.Remove(roomToRemove);
-        Destroy(tempR.gameObject);
-        roomToRemove = loadedRooms.Single(r => r.X == tempR.X && r.Y == tempR.Y);
-        loadedRooms.Remove(roomToRemove);
+    //    //        if (lRoom != null)// && adjacentRoomDataDic[(DiagonalDir)8] == null)
+    //    //        {
+    //    //            if (!adjacentRoomList.Contains(lRoom))
+    //    //            {
+    //    //                print("L");
+    //    //                adjacentRoomList.Add(lRoom);
+    //    //            }
+    //    //            //adjacentIdx++;
+    //    //        }
+    //    //    }
+    //    //}
 
 
-        LoadRoom($"Basic{basicIdx}", mainRoom.X, mainRoom.Y);
-    }
+    //    #endregion
+    //    print(adjacentRoomList.Count);
+    //    Room tempR = adjacentRoomList[Random.Range(0, adjacentRoomList.Count)];
+    //    int basicIdx = 1;
+    //    if (tempR.X > mainRoom.X)
+    //    {
+    //        basicIdx = 3;
+    //    }
+    //    else if (tempR.X < mainRoom.X )
+    //    {
+    //        basicIdx = 4;
+    //    }
+    //    else if (tempR.Y > mainRoom.Y)
+    //    {
+    //        basicIdx = 2;
+    //    }
+    //    else if(tempR.Y < mainRoom.Y)
+    //    {
+    //        basicIdx = 1;
+    //    }
+    //    basicIdx = 3;
 
-    IEnumerator SpawnOtherSizeRoom()
-    {
-        //spawnedBossRoom = true;
+    //    Destroy(mainRoom.gameObject);
+    //    Room roomToRemove = loadedRooms.Single(r => r.X == mainRoom.X && r.Y == mainRoom.Y);
+    //    loadedRooms.Remove(roomToRemove);
+    //    Destroy(tempR.gameObject);
+    //    roomToRemove = loadedRooms.Single(r => r.X == tempR.X && r.Y == tempR.Y);
+    //    loadedRooms.Remove(roomToRemove);
 
-        yield return new WaitForSeconds(0.5f);
 
-        if (loadRoomQueue.Count == 0)
-        {
-            adjacentRoomList.Clear();
+    //    LoadRoom($"Basic{basicIdx}", mainRoom.X, mainRoom.Y);
+    //}
 
-            int roomIdx = Random.Range(3, loadedRooms.Count - 3);
+    //IEnumerator SpawnOtherSizeRoom()
+    //{
+    //    //spawnedBossRoom = true;
 
-            print(roomIdx);
-            Room mainRoom = loadedRooms[roomIdx];
-            CreateBigRoom(mainRoom);
-        }
+    //    yield return new WaitForSeconds(0.5f);
 
-    }
+    //    if (loadRoomQueue.Count == 0)
+    //    {
+    //        adjacentRoomList.Clear();
+
+    //        int roomIdx = Random.Range(3, loadedRooms.Count - 3);
+
+    //        print(roomIdx);
+    //        Room mainRoom = loadedRooms[roomIdx];
+    //        CreateBigRoom(mainRoom);
+    //    }
+
+    //}
 
     public void LoadRoom(string name, int x, int y)
     {
@@ -345,8 +352,6 @@ public class RoomManager : MonoBehaviour
             PoolManager.Instance.Push(room);
         }
        
-        
-
     }
 
     public void RegisterRoom(Room room)
@@ -374,37 +379,41 @@ public class RoomManager : MonoBehaviour
             higherY = room.Y;
         }
 
-        if (!room.name.Contains("Basic"))
-        {
-            room.transform.position =
-            new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
-        }
+        //if (!room.name.Contains("Basic"))
+        //{
+        //    room.transform.position =
+        //    new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
+        //}'
+
         if (room.name.Contains("Start"))
         {
             EffectManager.Instance.SetCamBound(room.camBound);
-         
         }
-        //생각 해보니까 이게 x가 0보다 크다면이랑 0보다 작다면을 나눠야 될 듯
-        if (room.name.Contains("Basic1"))
-        {
-            print(room.transform.position);
-            room.transform.position = new Vector3(currentLoadRoomData.X * room.Width , 7.5f + currentLoadRoomData.Y * room.Height, 0f);
-        }
-        if (room.name.Contains("Basic2"))
-        {
-            print(room.transform.position);
-            room.transform.position = new Vector3(-currentLoadRoomData.X * room.Width, -currentLoadRoomData.Y * room.Height/3, 0f);
-        }
-        if (room.name.Contains("Basic3"))
-        {
-            print(room.transform.position);
-            room.transform.position = new Vector3(-12f + currentLoadRoomData.X * room.Width , currentLoadRoomData.Y * room.Height, 0f);
-        }
-        if (room.name.Contains("Basic4"))
-        {
-            print(room.transform.position);
-            room.transform.position = new Vector3(-currentLoadRoomData.X * room.Width / 2 - room.Width / 2, -currentLoadRoomData.Y * room.Height, 0f);
-        }
+
+        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width,  currentLoadRoomData.Y * room.Height, 0f);
+        #region 주석
+        ////생각 해보니까 이게 x가 0보다 크다면이랑 0보다 작다면을 나눠야 될 듯 혹은 Y가 양수인지 음수인지
+        //if (room.name.Contains("Basic1"))
+        //{
+        //    print(room.transform.position);
+        //    room.transform.position = new Vector3(currentLoadRoomData.X * room.Width , 7.5f + currentLoadRoomData.Y * room.Height, 0f);
+        //}
+        //if (room.name.Contains("Basic2"))
+        //{
+        //    print(room.transform.position);
+        //    room.transform.position = new Vector3(-currentLoadRoomData.X * room.Width, -currentLoadRoomData.Y * room.Height/3, 0f);
+        //}
+        //if (room.name.Contains("Basic3"))
+        //{
+        //    print(room.transform.position);
+        //    room.transform.position = new Vector3(11.5f + currentLoadRoomData.X * room.Width , currentLoadRoomData.Y * room.Height, 0f);
+        //}
+        //if (room.name.Contains("Basic4"))
+        //{
+        //    print(room.transform.position);
+        //    room.transform.position = new Vector3(-currentLoadRoomData.X * room.Width / 2 - room.Width / 2, -currentLoadRoomData.Y * room.Height, 0f);
+        //}
+        #endregion
 
 
         room.name = $"{currentLoadRoomData} - {currentLoadRoomData.name} {room.X} {room.Y}";

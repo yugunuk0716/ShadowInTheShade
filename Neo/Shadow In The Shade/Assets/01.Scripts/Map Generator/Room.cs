@@ -34,7 +34,7 @@ public class Room : PoolableMono
         Height = height;
     }
 
-   
+
     private void OnEnable()
     {
         RoomManager.Instance.RegisterRoom(this);
@@ -58,12 +58,11 @@ public class Room : PoolableMono
                 case DirType.Bottom:
                     bottomDoor = door;
                     break;
-               
+
             }
+
         }
 
-        
-        
     }
 
     public Vector2 GetSpawnPoint(DirType dir)

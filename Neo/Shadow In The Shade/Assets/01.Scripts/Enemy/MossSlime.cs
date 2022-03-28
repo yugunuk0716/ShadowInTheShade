@@ -1,11 +1,9 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mucus : Enemy
+public class MossSlime : Enemy
 {
-
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
     private SpriteRenderer sr;
@@ -23,7 +21,7 @@ public class Mucus : Enemy
     private Color attachedColor;
 
     private Move_Chase chase = null;
-    private Attack_Mucus attack = null;
+    private Attack_Moss attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -43,7 +41,7 @@ public class Mucus : Enemy
         dicState[State.Move] = chase;
 
         // АјАн
-        attack = gameObject.AddComponent<Attack_Mucus>();
+        attack = gameObject.AddComponent<Attack_Moss>();
 
         dicState[State.Attack] = attack;
 
@@ -60,9 +58,7 @@ public class Mucus : Enemy
         {
             if (isAttack)
                 return;
-
             GameManager.Instance.isInvincible = true;
-            sr.color = attachedColor;
             isAttack = true;
         });
         GameManager.Instance.onStateEnd.AddListener(() =>
@@ -93,6 +89,7 @@ public class Mucus : Enemy
     protected override IEnumerator LifeTime()
     {
         yield return null;
+        dicState[State.Attack].OnEnter();
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
@@ -105,14 +102,14 @@ public class Mucus : Enemy
             {
                 dicState[State.Move].OnEnd();
             }
-            if(dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
-            {
-               
+            //if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
+            //{
+
+
                 
-                dicState[State.Attack].OnEnter();
-                
-            }
-            
+
+            //}
+
             yield return base.LifeTime();
         }
     }
@@ -131,12 +128,6 @@ public class Mucus : Enemy
     {
         base.CheckHp();
     }
-
-    //public override void SetDisable()
-    //{
-    //    StopCoroutine(lifeTime);
-    //    base.SetDisable();
-    //}
 
     public override IEnumerator Dead()
     {
@@ -162,4 +153,5 @@ public class Mucus : Enemy
         }
     }
 #endif
+
 }

@@ -1452,6 +1452,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacentRoom: {fileID: 0}
   doorType: 2
+  openedDoor: {fileID: 2440353975106585409}
+  closedDoor: {fileID: 2440353973975880979}
 --- !u!1 &2440353975920365816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacentRoom: {fileID: 0}
   doorType: 3
+  openedDoor: {fileID: 2440353974778467907}
+  closedDoor: {fileID: 2440353974774641454}
 --- !u!1 &2440353976062048068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,8 +1990,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 412313991
-  m_SortingLayer: 0
+  m_SortingLayerID: -96285203
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -2267,8 +2271,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 412313991
-  m_SortingLayer: 0
+  m_SortingLayerID: -96285203
+  m_SortingLayer: 2
   m_SortingOrder: 39
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -4271,8 +4275,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 412313991
-  m_SortingLayer: 0
+  m_SortingLayerID: -96285203
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -5409,6 +5413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacentRoom: {fileID: 0}
   doorType: 1
+  openedDoor: {fileID: 5218829966218894269}
+  closedDoor: {fileID: 5218829966856390552}
 --- !u!1 &5218829966340507789
 GameObject:
   m_ObjectHideFlags: 0
@@ -8771,6 +8777,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacentRoom: {fileID: 0}
   doorType: 0
+  openedDoor: {fileID: 5218829965611350013}
+  closedDoor: {fileID: 5218829965985083010}
 --- !u!1 &5218829966843302998
 GameObject:
   m_ObjectHideFlags: 0
@@ -9023,8 +9031,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 412313991
-  m_SortingLayer: 0
+  m_SortingLayerID: -96285203
+  m_SortingLayer: 2
   m_SortingOrder: 39
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

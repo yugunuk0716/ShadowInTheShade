@@ -34,9 +34,6 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
     public UnityEvent onStateEnter;
     public UnityEvent onStateEnd;
-    
-
-   
 
     public PlayerSO playerSO;
 
@@ -49,6 +46,12 @@ public class GameManager : MonoBehaviour
 
     public void init()
     {
+        onPlayerDash = new UnityEvent();
+        onPlayerAttack = new UnityEvent<int>();
+        onPlayerChangeType = new UnityEvent();
+        onStateEnter = new UnityEvent();
+        onStateEnd = new UnityEvent();
+
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Human;
         playerSO.moveStats.SPD = playerSpeed;
