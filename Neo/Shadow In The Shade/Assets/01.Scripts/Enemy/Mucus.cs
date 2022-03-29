@@ -54,25 +54,12 @@ public class Mucus : Enemy
         attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
     }
 
-    private void Start()
-    {
-        GameManager.Instance.onStateEnter.AddListener(() =>
-        {
-            if (isAttack)
-                return;
 
-            GameManager.Instance.isInvincible = true;
-            sr.color = attachedColor;
-            isAttack = true;
-        });
-        GameManager.Instance.onStateEnd.AddListener(() =>
-        {
-            if (!isAttack)
-                return;
-            GameManager.Instance.isInvincible = false;
-            sr.color = originColor;
-            isAttack = false;
-        });
+    public void SetMucus(bool on)
+    {
+        GameManager.Instance.isInvincible = on;
+        sr.color = on ? attachedColor : originColor;
+        isAttack = on;
     }
 
     protected override void SetDefaultState(State state)
@@ -99,7 +86,6 @@ public class Mucus : Enemy
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
-                //print("?");
             }
             else
             {
@@ -124,6 +110,8 @@ public class Mucus : Enemy
 
     public override void GetHit(int damage)
     {
+        if (isAttack)
+            return;
         base.GetHit(damage);
     }
 

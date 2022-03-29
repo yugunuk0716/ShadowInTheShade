@@ -27,10 +27,6 @@ public class Move_Chase : MonoBehaviour, IState
             speed = 0f;
             StopCoroutine(chaseCoroutine);
         }
-        else
-        {
-            //print("asda");
-        }
     }
 
     IEnumerator TrackingPlayer()
@@ -46,7 +42,6 @@ public class Move_Chase : MonoBehaviour, IState
                 {
                     agentMove.OnMove(dir.normalized , speed);
                 }
-                //print($"{agentMove.rigid.velocity}");
             }
 
 

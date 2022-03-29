@@ -335,7 +335,6 @@ public class RoomManager : MonoBehaviour
 
     public void LoadInResourcesRoom(RoomInfo info)
     {
-        print($"{currentWorldName} {info.name}");
         Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.name}") as Room;
         if (room.name.Contains("End"))
         {

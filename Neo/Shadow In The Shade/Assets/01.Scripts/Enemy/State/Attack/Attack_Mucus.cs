@@ -10,12 +10,16 @@ public class Attack_Mucus : MonoBehaviour, IState
 
     private Vector2 attachPosition = new Vector2(0f, -0.45f);
 
+    Mucus mucus;
+
     public void OnEnter()
     {
-        GameManager.Instance.onStateEnter?.Invoke();
-        StartCoroutine(AttackRoutine());
+        if (mucus == null)
+            mucus = GetComponent<Mucus>();
+        mucus.SetMucus(true);
+        StartCoroutine(LerpRoutine());
         EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);
-        isStateEnter = true;
+       
     }
 
     public void OnEnd()
@@ -36,10 +40,8 @@ public class Attack_Mucus : MonoBehaviour, IState
         transform.SetParent(GameManager.Instance.player);
         float spd = GameManager.Instance.playerSO.moveStats.SPD;
         GameManager.Instance.playerSO.moveStats.SPD = Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD - slowAmount, 0, spd);
-        print(GameManager.Instance.playerSO.moveStats.SPD);
         yield return new WaitForSeconds(attachTime);
         GameManager.Instance.playerSO.moveStats.SPD += slowAmount;
-        print(GameManager.Instance.playerSO.moveStats.SPD);
         transform.SetParent(null);
         Vector3 randDir = new Vector3(Random.Range(1f, 2f), Random.Range(1f, 2f));
         int idx = Random.Range(0, 2);
@@ -48,13 +50,28 @@ public class Attack_Mucus : MonoBehaviour, IState
             randDir *= -1f;
         }
         transform.position = transform.position + randDir;
-        GameManager.Instance.onStateEnd?.Invoke();
+        mucus.SetMucus(false);
         isStateEnter = false;
-
 
     }
 
+    IEnumerator LerpRoutine()
+    {
+        float t = 0f;
+        while (true)
+        {
+            t += Time.deltaTime;
+            if(t >= 0.9f)
+            {
+                StartCoroutine(AttackRoutine());
+                isStateEnter = true;
+                yield break;
+            }
+            transform.position = Vector3.Lerp(transform.position, GameManager.Instance.player.position + (Vector3)attachPosition, t);
 
- 
-
+            yield return null;
+        }
+    }
 }
+
+

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MossSlime : Enemy
+public class SmongSlime : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
@@ -19,7 +19,7 @@ public class MossSlime : Enemy
     private float spriteAlpha;
 
     private Move_Chase chase = null;
-    private Attack_Moss attack = null;
+    private Attack_Tackle attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -31,23 +31,37 @@ public class MossSlime : Enemy
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        // 이동
         chase = GetComponent<Move_Chase>();
         chase.speed = 2f;
 
-
         dicState[State.Move] = chase;
 
-        // 공격
-        attack = gameObject.AddComponent<Attack_Moss>();
+        attack = gameObject.AddComponent<Attack_Tackle>();
 
         dicState[State.Attack] = attack;
 
-        // 죽음
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
     }
 
+    public void SetTackle(bool on)
+    {
+        isAttack = on;
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GetHit(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            currHP++;
+            CheckHp();
+        }
+    }
     protected override void SetDefaultState(State state)
     {
         base.SetDefaultState(state);
@@ -66,26 +80,22 @@ public class MossSlime : Enemy
     protected override IEnumerator LifeTime()
     {
         yield return null;
-        dicState[State.Attack].OnEnter();
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
-                //print("?");
             }
             else
             {
                 dicState[State.Move].OnEnd();
             }
-            //if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
-            //{
-
-
-                
-
-            //}
+            if (dist < attackDistance && !isAttack)
+            {
+                dicState[State.Move].OnEnd();
+                dicState[State.Attack].OnEnter();
+            }
 
             yield return base.LifeTime();
         }
@@ -112,9 +122,12 @@ public class MossSlime : Enemy
         return base.Dead();
     }
 
+
+
     public override void Reset()
     {
         base.Reset();
+
     }
 
 #if UNITY_EDITOR
@@ -130,5 +143,4 @@ public class MossSlime : Enemy
         }
     }
 #endif
-
 }
