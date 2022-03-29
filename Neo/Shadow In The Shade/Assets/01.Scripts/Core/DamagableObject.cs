@@ -8,11 +8,16 @@ public class DamagableObject : MonoBehaviour
 
     public DamagableObjectSO dObjData;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
         {
             IDamagable damagable = collision.GetComponent<IDamagable>();
+
+            if(damagable == null)
+            {
+                print("??");
+            }
 
             damagable?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
             damagable?.GetHit(dObjData.damage);

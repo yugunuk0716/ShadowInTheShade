@@ -10,12 +10,6 @@ public class Mucus : Enemy
 
     private SpriteRenderer sr;
 
-    private int currentPhase = 0;
-    private bool isPhaseEnd = false;
-    private bool isInvincible = false;
-
-    
-    private int currentWaitTime = 0;
     private float attackDistance = 1f;
     private float chaseDistance = 5f;
 
@@ -55,8 +49,6 @@ public class Mucus : Enemy
 
         // Á×À½
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
-
-        currentPhase = 0;
 
         originColor = sr.color;
         attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
@@ -130,6 +122,11 @@ public class Mucus : Enemy
         base.GetDamage(damage);
     }
 
+    public override void GetHit(int damage)
+    {
+        base.GetHit(damage);
+    }
+
     protected override void CheckHp()
     {
         base.CheckHp();
@@ -141,9 +138,14 @@ public class Mucus : Enemy
     //    base.SetDisable();
     //}
 
+    public override IEnumerator Dead()
+    {
+        chase.speed = 0f;
+        return base.Dead();
+    }
+
     public override void Reset()
     {
-
         base.Reset();
     }
 

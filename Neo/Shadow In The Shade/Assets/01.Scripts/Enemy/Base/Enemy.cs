@@ -43,8 +43,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     }
 
 
-    [field: SerializeField]
-    public int Health { get; private set; }
 
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
@@ -65,7 +63,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     private void Start()
     {
-        Health = enemyData.maxHealth;
+        //currHp = enemyData.maxHealth;
         move = GetComponent<AgentMove>();
         if (move == null)
             print("?");
@@ -121,11 +119,15 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (currHp <= 0f)
         {
-            SetState(State.Die);
+            print("사망 처리중");
             StopCoroutine(lifeTime);
+            SetState(State.Die);
             isDie = true;
+            StartCoroutine(Dead());
+            OnDie?.Invoke();
             //SetDisable();
         }
+        isHit = false;
     }
 
     protected IEnumerator Blinking()
@@ -140,21 +142,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         currHp = hp;
     }
 
-    protected void OnTriggerEnter2D(Collider2D coll)
+  
+    public virtual void GetHit(int damage)
     {
-        //Bullet bullet = coll.GetComponent<Bullet>();
-
-        //if (bullet != null)
-        //{
-        //    GetDamage(bullet.Damage);
-        //    bullet.SetDisable();
-        //}
-    }
-
-   
-    public void GetHit(int damage)
-    {
-        if (isDie || isHit) return;
+        if (isDie || isHit)
+            return;
 
         isHit = true;
 
@@ -166,27 +158,31 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isCritical = true;
         }
 
-        Health -= damage;
+        currHp -= damage;
+        CheckHp();
+        print($"{currHp}, {damage}");
         OnHit?.Invoke();
 
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
-        dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0), isCritical);
+        dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
+        print(dPopup.transform.position);
 
         //SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
-        if (Health <= 0)
-        {
-            isDie = true;
-            StartCoroutine(Dead());
-            //this.gameObject.SetActive(false);
-            OnDie?.Invoke();
-        }
+        //if (currHp <= 0)
+        //{
+        //    isDie = true;
+        //    StartCoroutine(Dead());
+        //    //this.gameObject.SetActive(false);
+        //    OnDie?.Invoke();
+        //}
 
-        CheckHp();
     }
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
+        if (isHit || isDie)
+            return;
         if(move == null)
         {
             print("왜 없음?");
@@ -196,10 +192,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     }
 
    
-    IEnumerator Dead()
+    public virtual IEnumerator Dead()
     {
         if (isDie.Equals(true))
         {
+            print("데드 코루틴");
             //_anim.SetBool("isDead", true);
             yield return new WaitForSeconds(.5f);
             this.gameObject.SetActive(false);

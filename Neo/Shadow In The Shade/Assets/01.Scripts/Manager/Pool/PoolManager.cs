@@ -29,9 +29,6 @@ public class PoolManager : MonoBehaviour
     }
 
     private Dictionary<string, Pool<PoolableMono>> pools = new Dictionary<string, Pool<PoolableMono>>();
-    //private Dictionary<EnemyType, Pool<PoolableMono>> enemyPools = new Dictionary<EnemyType, Pool<PoolableMono>>();
-
-
 
     public void CreatePool(PoolableMono prefab, string name = null)
     {
