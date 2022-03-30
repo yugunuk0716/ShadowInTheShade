@@ -22,11 +22,25 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public EnemyDataSO enemyData;
 
-    protected float currHp = 0f;
+    protected float currHP = 0f;
 
     public bool isAttack = false;
     public bool isDie = false;
     public bool isHit = false;
+
+    private Animator anim;
+    public Animator Anim
+    {
+        get
+        {
+            if (anim == null)
+            {
+                anim = GetComponent<Animator>();
+            }
+
+            return anim;
+        }
+    }
 
     private SpriteRenderer myRend;
     protected SpriteRenderer MyRend
@@ -71,7 +85,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected void OnEnable()
     {
-        currHp = enemyData.maxHealth;
+        currHP = enemyData.maxHealth;
         MyRend.color = Color.white;
         isDie = false;
 
@@ -108,7 +122,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (currentState.Equals(State.Die)) return;
 
-        currHp -= damage;
+        currHP -= damage;
 
         StartCoroutine(Blinking());
 
@@ -117,9 +131,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void CheckHp()
     {
-        if (currHp <= 0f)
+        if (currHP <= 0f)
         {
-            print("荤噶 贸府吝");
             StopCoroutine(lifeTime);
             SetState(State.Die);
             isDie = true;
@@ -139,7 +152,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public void SetHp(float hp)
     {
-        currHp = hp;
+        currHP = hp;
     }
 
   
@@ -158,15 +171,13 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isCritical = true;
         }
 
-        currHp -= damage;
+        GetDamage(damage);
         CheckHp();
-        print($"{currHp}, {damage}");
         OnHit?.Invoke();
 
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
-        print(dPopup.transform.position);
 
         //SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
         //if (currHp <= 0)
@@ -191,20 +202,26 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         move.KnockBack(direction, power, duration);
     }
 
-   
     public virtual IEnumerator Dead()
     {
         if (isDie.Equals(true))
         {
-            print("单靛 内风凭");
-            //_anim.SetBool("isDead", true);
-            yield return new WaitForSeconds(.5f);
-            this.gameObject.SetActive(false);
+            Anim.SetTrigger("isDie");
+            yield return null;
+            //this.gameObject.SetActive(false);
         }
     }
+
+    public void PutInPool()
+    {
+        gameObject.SetActive(false);
+    }
+
+
     public override void Reset()
     {
         OnReset?.Invoke();
-        currHp = enemyData.maxHealth;
+        currHP = enemyData.maxHealth;
+        Anim.ResetTrigger("isDie");
     }
 }

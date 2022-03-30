@@ -17,8 +17,6 @@ public class MossSlime : Enemy
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
-    private Color originColor;
-    private Color attachedColor;
 
     private Move_Chase chase = null;
     private Attack_Moss attack = null;
@@ -48,27 +46,6 @@ public class MossSlime : Enemy
         // Á×À½
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
-        originColor = sr.color;
-        attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
-    }
-
-    private void Start()
-    {
-        GameManager.Instance.onStateEnter.AddListener(() =>
-        {
-            if (isAttack)
-                return;
-            GameManager.Instance.isInvincible = true;
-            isAttack = true;
-        });
-        GameManager.Instance.onStateEnd.AddListener(() =>
-        {
-            if (!isAttack)
-                return;
-            GameManager.Instance.isInvincible = false;
-            sr.color = originColor;
-            isAttack = false;
-        });
     }
 
     protected override void SetDefaultState(State state)
