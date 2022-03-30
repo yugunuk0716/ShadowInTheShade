@@ -8,7 +8,6 @@ public class MossSlime : Enemy
 
     private SpriteRenderer sr;
 
-    private float attackDistance = 1f;
     private float chaseDistance = 5f;
 
     private Coroutine phaseRoutine = null;
@@ -70,22 +69,16 @@ public class MossSlime : Enemy
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-            if (dist < chaseDistance && dist > attackDistance)
+            if (dist < chaseDistance)
             {
                 dicState[State.Move].OnEnter();
                 //print("?");
             }
-            else
+            else 
             {
                 dicState[State.Move].OnEnd();
             }
-            //if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
-            //{
-
-
-                
-
-            //}
+           
 
             yield return base.LifeTime();
         }
@@ -123,8 +116,6 @@ public class MossSlime : Enemy
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, attackDistance);
-            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
             Gizmos.color = Color.white;
         }

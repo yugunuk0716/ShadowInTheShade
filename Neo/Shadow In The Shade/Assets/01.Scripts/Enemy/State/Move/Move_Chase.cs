@@ -13,10 +13,11 @@ public class Move_Chase : MonoBehaviour, IState
 
     public void OnEnter()
     {
-        //transform.DOMove(GameManager.Instance.player.position, speed);
-        target = GameManager.Instance.player;
+        if(target == null)
+            target = GameManager.Instance.player;
+        if(agentMove == null)
+            agentMove = GetComponent<AgentMove>();
         chaseCoroutine = StartCoroutine(TrackingPlayer());
-        agentMove = GetComponent<AgentMove>();
         speed = 3f;
     }
 
@@ -40,6 +41,7 @@ public class Move_Chase : MonoBehaviour, IState
 
                 if (agentMove != null)
                 {
+                    print(dir.normalized);
                     agentMove.OnMove(dir.normalized , speed);
                 }
             }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mucus : Enemy
+public class MucusSlime : Enemy
 {
 
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
@@ -85,18 +85,12 @@ public class Mucus : Enemy
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (dist < chaseDistance && dist > attackDistance)
             {
-                dicState[State.Move].OnEnter();
+                SetState(State.Move);
             }
-            else
-            {
-                dicState[State.Move].OnEnd();
-            }
+           
             if(dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
             {
-               
-                
-                dicState[State.Attack].OnEnter();
-                
+                SetState(State.Move);
             }
             
             yield return base.LifeTime();

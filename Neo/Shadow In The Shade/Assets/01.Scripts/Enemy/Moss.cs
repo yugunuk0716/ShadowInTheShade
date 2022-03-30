@@ -7,7 +7,7 @@ public class Moss : DamagableObject
     public Animator _ainm;
     public bool _isAttacked;
 
-    private void Start()
+    private void Awake()
     {
         _ainm = GetComponent<Animator>();
     }
