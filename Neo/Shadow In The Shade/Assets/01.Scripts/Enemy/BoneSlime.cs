@@ -10,9 +10,11 @@ public class BoneSlime : Enemy, ITacklable
 
     private float attackDistance = 1f;
     private float chaseDistance = 5f;
+    private int hitCount = 0;
 
     private Coroutine phaseRoutine = null;
     private Coroutine attackRoutine = null;
+
 
     [Range(0f, 1f)]
     [SerializeField]
@@ -107,24 +109,21 @@ public class BoneSlime : Enemy, ITacklable
         }
     }
 
-    public override void GetDamage(float damage)
-    {
-        base.GetDamage(damage);
-    }
 
     public override void GetHit(int damage)
     {
+        hitCount++;
         base.GetHit(damage);
     }
 
     protected override void CheckHp()
     {
 
-        if (currHP <= enemyData.maxHealth / 3f)
+        if (hitCount > 3)
         {
             Anim.SetTrigger("FinalArmored");
         }
-        else if(currHP <= enemyData.maxHealth / 2f)
+        else if(hitCount > 1)
         {
             Anim.SetTrigger("Armored");
         }

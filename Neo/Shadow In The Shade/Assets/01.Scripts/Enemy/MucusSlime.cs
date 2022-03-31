@@ -85,21 +85,20 @@ public class MucusSlime : Enemy
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (dist < chaseDistance && dist > attackDistance)
             {
-                SetState(State.Move);
+                dicState[State.Move].OnEnter();
             }
-           
-            if(dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
+            else
             {
-                SetState(State.Move);
+                dicState[State.Move].OnEnd();
             }
-            
+
+            if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
+            {
+                dicState[State.Attack].OnEnter();
+            }
+
             yield return base.LifeTime();
         }
-    }
-
-    public override void GetDamage(float damage)
-    {
-        base.GetDamage(damage);
     }
 
     public override void GetHit(int damage)

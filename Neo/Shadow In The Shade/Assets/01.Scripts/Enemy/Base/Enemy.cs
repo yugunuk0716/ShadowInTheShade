@@ -118,16 +118,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         yield return null;
     }
 
-    public virtual void GetDamage(float damage)
-    {
-        if (currentState.Equals(State.Die)) return;
-
-        currHP -= damage;
-
-        StartCoroutine(Blinking());
-
-        CheckHp();
-    }
 
     protected virtual void CheckHp()
     {
@@ -171,8 +161,14 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isCritical = true;
         }
 
-        GetDamage(damage);
+        if (currentState.Equals(State.Die)) return;
+
+        currHP -= damage;
+
+        StartCoroutine(Blinking());
+
         CheckHp();
+
         OnHit?.Invoke();
 
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;

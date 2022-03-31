@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : AgentMove
 {
     private PlayerInput playerinput;
-    public Rigidbody2D rigid;
     public Vector2 playerAxis;
 
     public void Start()
@@ -46,8 +45,8 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void OnMove(Vector2 dir,float speed)
+    public override void OnMove(Vector2 dir, float speed)
     {
-        rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
+        base.OnMove(dir, speed);
     }
 }

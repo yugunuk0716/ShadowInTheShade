@@ -40,7 +40,7 @@ public class SmongSlime : Enemy, ITacklable
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[State.Die] = gameObject.AddComponent<Die_Smong>();
 
     }
 
@@ -101,11 +101,7 @@ public class SmongSlime : Enemy, ITacklable
         }
     }
 
-    public override void GetDamage(float damage)
-    {
-        base.GetDamage(damage);
-    }
-
+   
     public override void GetHit(int damage)
     {
         base.GetHit(damage);
@@ -127,7 +123,6 @@ public class SmongSlime : Enemy, ITacklable
     public override void Reset()
     {
         base.Reset();
-
     }
 
 #if UNITY_EDITOR

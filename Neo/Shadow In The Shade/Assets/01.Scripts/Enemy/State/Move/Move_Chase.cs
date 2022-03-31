@@ -41,7 +41,6 @@ public class Move_Chase : MonoBehaviour, IState
 
                 if (agentMove != null)
                 {
-                    print(dir.normalized);
                     agentMove.OnMove(dir.normalized , speed);
                 }
             }

@@ -84,11 +84,6 @@ public class MossSlime : Enemy
         }
     }
 
-    public override void GetDamage(float damage)
-    {
-        base.GetDamage(damage);
-    }
-
     public override void GetHit(int damage)
     {
         base.GetHit(damage);

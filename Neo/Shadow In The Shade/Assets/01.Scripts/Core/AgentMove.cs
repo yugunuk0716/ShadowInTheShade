@@ -17,7 +17,7 @@ public class AgentMove : MonoBehaviour
     }
 
 
-    public void OnMove(Vector2 dir, float speed)
+    public virtual void OnMove(Vector2 dir, float speed)
     {
         if (!_isKnockBack)
         {
