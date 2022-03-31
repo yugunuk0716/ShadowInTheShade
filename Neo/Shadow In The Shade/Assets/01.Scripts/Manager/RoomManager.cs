@@ -346,7 +346,6 @@ public class RoomManager : MonoBehaviour
         }
         else if (room.name.Equals($"{currentWorldName} Empty") || room.name.Equals($"{currentWorldName} Basic1"))
         {
-            print($"{room.name}");
             room.gameObject.SetActive(false);
             PoolManager.Instance.Push(room);
         }

@@ -9,7 +9,8 @@ public class Attack_Moss : MonoBehaviour, IState
 
     public void OnEnter()
     {
-        mossPrefab = Resources.Load<GameObject>("Moss");
+        if(mossPrefab == null)
+            mossPrefab = Resources.Load<GameObject>("Moss");
         StartCoroutine(AttackRoutine());
     }
 

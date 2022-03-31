@@ -21,6 +21,8 @@ public class AgentMove : MonoBehaviour
     {
         if (!_isKnockBack)
         {
+            if (rigid == null)
+                print("?");
             rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
 
         }
