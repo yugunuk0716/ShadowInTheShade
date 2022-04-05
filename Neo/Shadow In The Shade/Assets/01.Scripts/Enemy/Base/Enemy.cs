@@ -26,7 +26,19 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public bool isAttack = false;
     public bool isDie = false;
-    public bool isHit = false;
+
+    private bool isHit = false;
+    public bool IsHit
+    {
+        get
+        {
+            return isHit;
+        }
+        set
+        {
+
+        }
+    }
 
     private Animator anim;
     public Animator Anim

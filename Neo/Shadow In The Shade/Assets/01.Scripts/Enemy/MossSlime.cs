@@ -10,9 +10,6 @@ public class MossSlime : Enemy
 
     private float chaseDistance = 5f;
 
-    private Coroutine phaseRoutine = null;
-    private Coroutine attackRoutine = null;
-
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;

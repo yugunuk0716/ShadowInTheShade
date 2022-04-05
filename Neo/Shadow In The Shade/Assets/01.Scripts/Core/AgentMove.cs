@@ -23,7 +23,7 @@ public class AgentMove : MonoBehaviour
         {
             if (rigid == null)
                 print("?");
-            rigid.velocity = new Vector2(dir.x * speed, dir.y * speed);
+            rigid.velocity = dir * speed;
 
         }
     }

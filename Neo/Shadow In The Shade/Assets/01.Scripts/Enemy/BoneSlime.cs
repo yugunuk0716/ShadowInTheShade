@@ -12,10 +12,6 @@ public class BoneSlime : Enemy, ITacklable
     private float chaseDistance = 5f;
     private int hitCount = 0;
 
-    private Coroutine phaseRoutine = null;
-    private Coroutine attackRoutine = null;
-
-
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
@@ -29,7 +25,7 @@ public class BoneSlime : Enemy, ITacklable
 
     private void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<State_Default>();
+        dicState[State.Default] = gameObject.GetComponent<State_Default>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
@@ -38,11 +34,11 @@ public class BoneSlime : Enemy, ITacklable
 
         dicState[State.Move] = chase;
 
-        attack = gameObject.AddComponent<Attack_Tackle>();
+        attack = gameObject.GetComponentInChildren<Attack_Tackle>();
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[State.Die] = gameObject.GetComponent<Die_Default>();
 
     }
 
@@ -51,6 +47,11 @@ public class BoneSlime : Enemy, ITacklable
         isAttack = on;
     }
 
+    public void SetAttack()
+    {
+
+        attack.TackleEnd();
+    }
 
     private void Update()
     {
@@ -86,7 +87,7 @@ public class BoneSlime : Enemy, ITacklable
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
-            if (isHit)
+            if (IsHit)
             {
                 dicState[State.Attack].OnEnd();
             }

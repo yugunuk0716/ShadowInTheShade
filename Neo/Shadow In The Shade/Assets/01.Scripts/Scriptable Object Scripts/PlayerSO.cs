@@ -16,7 +16,8 @@ public enum PlayerInputState // 플레이어 인풋 상태
     Dash,
     Change,
     Attack,
-    Use
+    Use,
+    Hit
 }
 
 [System.Serializable]

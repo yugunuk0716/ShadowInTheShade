@@ -15,7 +15,19 @@ public class Player : MonoBehaviour, IDamagable
     public UnityEvent OnHit { get; set; }
 
 
-    public bool isHit = false;
+    private bool isHit = false;
+    public bool IsHit
+    {
+        get
+        {
+            return isHit;
+        }
+        set
+        {
+
+        }
+    }
+
     public bool isDie = false;
 
     public float maxHP = 0f;
@@ -78,6 +90,11 @@ public class Player : MonoBehaviour, IDamagable
         {
             DoorOpen();
         }
+
+        if(currentT - lastHitT >= hitCool)
+        {
+            isHit = false;
+        }
     }
 
     public void DoorOpen()
@@ -87,32 +104,36 @@ public class Player : MonoBehaviour, IDamagable
 
     public void GetHit(int damage)
     {
-        if (isDie || isHit || lastHitT + hitCool > currentT)
+
+        if (isDie || isHit )
             return;
         lastHitT = currentT;
 
         isHit = true;
-
-        //float critical = Random.value;
-        //bool isCritical = false;
-        //if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
-        //{
-        //    damage *= 2; //2배 데미지
-        //    isCritical = true;
-        //}
-
+       
 
         currHP -= damage;
 
         StartCoroutine(Blinking());
+        StartCoroutine(StateRoutine());
+        //move.rigid.velocity = Vector2.zero;
 
         CheckHp();
 
         OnHit?.Invoke();
 
-        //DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
-        //dPopup.gameObject.SetActive(true);
-        //dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
+    }
+
+    private IEnumerator StateRoutine()
+    {
+        //PlayerInputState oldState = GameManager.Instance.playerSO.playerInputState;
+        //GameManager.Instance.playerSO.playerInputState = PlayerInputState.Hit;
+        GameManager.Instance.timeScale = 0;
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.timeScale = 1;
+
+        //GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
+ 
     }
 
     public void KnockBack(Vector2 direction, float power, float duration)
@@ -134,7 +155,7 @@ public class Player : MonoBehaviour, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void CheckHp()
+    public void CheckHp()
     {
         if (currHP <= 0f)
         {
@@ -142,7 +163,7 @@ public class Player : MonoBehaviour, IDamagable
             StartCoroutine(Dead());
             OnDie?.Invoke();
         }
-        isHit = false;
+        
     }
 
     public IEnumerator Dead()
@@ -151,14 +172,16 @@ public class Player : MonoBehaviour, IDamagable
         {
             Anim.SetTrigger("isDie");
             yield return null;
-            this.gameObject.SetActive(false);
+            
             //나중에 여기서 게임오버 패널 띄우는 함수 실행하면 될 듯
         }
     }
 
+    
+
     private void OnParticleCollision(GameObject other)
     {
-        if ((1 << other.gameObject.layer & whatIsHittable) > 0)
+        if ((1 << other.layer & whatIsHittable) > 0)
         {
             GetHit(1);
             KnockBack(this.transform.position - other.transform.position, 2f, 0.3f);

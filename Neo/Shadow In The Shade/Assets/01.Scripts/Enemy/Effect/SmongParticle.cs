@@ -6,12 +6,13 @@ public class SmongParticle : MonoBehaviour
 {
     float timer = 0f;
 
+    [System.Obsolete]
     public void FadeOutParticle()
     {
         StartCoroutine(Fade());
     }
 
-
+    [System.Obsolete]
     IEnumerator Fade()
     {
         ParticleSystem ps = GetComponent<ParticleSystem>();

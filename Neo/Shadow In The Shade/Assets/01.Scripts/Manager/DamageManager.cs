@@ -20,12 +20,9 @@ public class DamageManager : MonoBehaviour
         }
     }
 
-    public GameObject _damagePrefab;
-    private bool isCreated = false;
     
     private void Awake()
     {
-        _damagePrefab = Resources.Load<GameObject>("Prefabs/DamagePopup");
         instance = this;
     }
 

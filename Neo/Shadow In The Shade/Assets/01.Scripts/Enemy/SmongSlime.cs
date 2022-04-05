@@ -6,13 +6,9 @@ public class SmongSlime : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    private SpriteRenderer sr;
 
-    private float attackDistance = 1f;
+    private float attackDistance = 2f;
     private float chaseDistance = 5f;
-
-    private Coroutine phaseRoutine = null;
-    private Coroutine attackRoutine = null;
 
     [Range(0f, 1f)]
     [SerializeField]
@@ -25,22 +21,22 @@ public class SmongSlime : Enemy, ITacklable
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
+
     private void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<State_Default>();
+        dicState[State.Default] = gameObject.GetComponent<State_Default>();
 
-        sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = GetComponent<Move_Chase>();
         chase.speed = 2f;
 
         dicState[State.Move] = chase;
 
-        attack = gameObject.AddComponent<Attack_Tackle>();
+        attack = gameObject.GetComponentInChildren<Attack_Tackle>();
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Smong>();
+        dicState[State.Die] = gameObject.GetComponent<Die_Smong>();
 
     }
 
@@ -49,19 +45,13 @@ public class SmongSlime : Enemy, ITacklable
         isAttack = on;
     }
 
-
-    private void Update()
+    public void SetAttack() 
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GetHit(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            currHP++;
-            CheckHp();
-        }
+       
+       attack.TackleEnd();
     }
+    
+  
     protected override void SetDefaultState(State state)
     {
         base.SetDefaultState(state);
@@ -91,7 +81,7 @@ public class SmongSlime : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
-            if (dist < attackDistance && !isAttack)
+            if (dist < attackDistance && !isAttack )
             {
                 dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
