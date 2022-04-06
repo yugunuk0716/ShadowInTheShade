@@ -12,16 +12,15 @@ GameObject:
   - component: {fileID: 1755863238491838198}
   - component: {fileID: 1755863238491838080}
   - component: {fileID: 1755863238491838081}
-  - component: {fileID: 1755863238491838083}
-  - component: {fileID: 1755863238491838194}
   - component: {fileID: 1755863238491838192}
   - component: {fileID: 1755863238491838088}
   - component: {fileID: 1755863238491838082}
   - component: {fileID: 1755863238491838199}
   - component: {fileID: 1755863238491838196}
   - component: {fileID: 8074549841812672619}
+  - component: {fileID: 1356249384196056541}
   m_Layer: 6
-  m_Name: MossSlime
+  m_Name: Moss Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +107,6 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 43597817dbf19724b90c4f224e66205c, type: 2}
   isAttack: 0
   isDie: 0
-  isHit: 0
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -119,6 +117,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   move: {fileID: 0}
+  currentState: 0
   spriteAlpha: 0
 --- !u!114 &1755863238491838081
 MonoBehaviour:
@@ -133,31 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDelay: 3
---- !u!114 &1755863238491838083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755863238491838206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24def1c6bcf610a45b357298dacd7e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
---- !u!114 &1755863238491838194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755863238491838206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eedfe24c5db16943b1adfed6cbb51eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1755863238491838192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ef3c565623a2a44ba197d1bb19b108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
+  rigid: {fileID: 1755863238491838199}
 --- !u!114 &1755863238491838082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +235,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.71216583, y: 0.5100695}
   m_EdgeRadius: 0
+--- !u!114 &1356249384196056541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755863238491838206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d33ce3c7f5c8a46891e8e59c0ddd3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1.5
 --- !u!1 &7346860138393771219
 GameObject:
   m_ObjectHideFlags: 0

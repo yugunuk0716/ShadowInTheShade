@@ -11,7 +11,6 @@ public class Die_Smong : MonoBehaviour, IState
     [System.Obsolete]
     public void OnEnter()
     {
-        //모스 프리펩은 임시고 나중에 서노가 그려주던 파티클을 만들던 해야됨 
         if (dieParticle == null)
             dieParticle = Resources.Load<GameObject>("Smong Die Effect");
 

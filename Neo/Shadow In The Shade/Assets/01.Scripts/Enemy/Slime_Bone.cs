@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmongSlime : Enemy, ITacklable
+public class Slime_Bone : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
+    private SpriteRenderer sr;
 
-    private float attackDistance = 2f;
-    private float chaseDistance = 5f;
+    private readonly float attackDistance = 1f;
+    private readonly float chaseDistance = 5f;
+    private int hitCount = 0;
 
     [Range(0f, 1f)]
     [SerializeField]
@@ -21,11 +23,11 @@ public class SmongSlime : Enemy, ITacklable
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
-
     private void Awake()
     {
-        dicState[State.Default] = gameObject.GetComponent<State_Default>();
+        dicState[State.Default] = gameObject.GetComponent<Idle_Patrol>();
 
+        sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = GetComponent<Move_Chase>();
         chase.speed = 2f;
@@ -36,7 +38,7 @@ public class SmongSlime : Enemy, ITacklable
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.GetComponent<Die_Smong>();
+        dicState[State.Die] = gameObject.GetComponent<Die_Default>();
 
     }
 
@@ -45,13 +47,13 @@ public class SmongSlime : Enemy, ITacklable
         isAttack = on;
     }
 
-    public void SetAttack() 
+    public void SetAttack()
     {
-       
-       attack.TackleEnd();
+
+        attack.TackleEnd();
     }
-    
-  
+
+   
     protected override void SetDefaultState(State state)
     {
         base.SetDefaultState(state);
@@ -73,6 +75,12 @@ public class SmongSlime : Enemy, ITacklable
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
+
+            if (IsHit)
+            {
+                dicState[State.Attack].OnEnd();
+            }
+
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
@@ -81,25 +89,36 @@ public class SmongSlime : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
-            if (dist < attackDistance && !isAttack )
+            if(dist < attackDistance && !isAttack)
             {
                 dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
             }
-
+            
             yield return base.LifeTime();
         }
     }
 
-   
+
     public override void GetHit(int damage)
     {
+        hitCount++;
         base.GetHit(damage);
     }
 
-    protected override void CheckHp()
+    protected override void CheckHP()
     {
-        base.CheckHp();
+
+        if (hitCount > 3)
+        {
+            Anim.SetTrigger("FinalArmored");
+        }
+        else if(hitCount > 1)
+        {
+            Anim.SetTrigger("Armored");
+        }
+
+        base.CheckHP();
     }
 
     public override IEnumerator Dead()
@@ -108,11 +127,12 @@ public class SmongSlime : Enemy, ITacklable
         return base.Dead();
     }
 
-
+   
 
     public override void Reset()
     {
         base.Reset();
+
     }
 
 #if UNITY_EDITOR

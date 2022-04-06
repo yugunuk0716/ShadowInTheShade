@@ -17,8 +17,6 @@ public class SmongParticle : MonoBehaviour
     {
         ParticleSystem ps = GetComponent<ParticleSystem>();
         Color origin = ps.startColor;
-        //ParticleSystemRenderer psr = obj.GetComponent<ParticleSystemRenderer>();
-        //Color origin = psr.material.color;
         timer = Time.time;
         float a = 1f;
         while (true)

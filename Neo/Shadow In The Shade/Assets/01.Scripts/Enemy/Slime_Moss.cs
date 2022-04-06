@@ -2,53 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireSlime : Enemy, IDamagable
+public class Slime_Moss : Enemy
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    private float chaseDistance = 5f;
+    private SpriteRenderer sr;
+
+    private readonly float chaseDistance = 5f;
 
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
 
-    private Move_Chase chase = null;
-    private Attack_Tackle attack = null;
+    private Attack_Moss attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
-
     private void Awake()
     {
-        dicState[State.Default] = gameObject.GetComponent<State_Default>();
+        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+
+        sr = GetComponentInChildren<SpriteRenderer>();
 
 
-        chase = GetComponent<Move_Chase>();
-        chase.speed = 2f;
-
-        dicState[State.Move] = chase;
-
-        attack = gameObject.GetComponentInChildren<Attack_Tackle>();
+        // °ø°Ý
+        attack = gameObject.AddComponent<Attack_Moss>();
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.GetComponent<Die_Smong>();
+        // Á×À½
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
     }
-
-    public void SetTackle(bool on)
-    {
-        isAttack = on;
-    }
-
-    public void SetAttack()
-    {
-
-        attack.TackleEnd();
-    }
-
 
     protected override void SetDefaultState(State state)
     {
@@ -68,32 +55,25 @@ public class FireSlime : Enemy, IDamagable
     protected override IEnumerator LifeTime()
     {
         yield return null;
-        while (true)
-        {
-            
-
-            yield return base.LifeTime();
-        }
+        dicState[State.Attack].OnEnter();
+        dicState[State.Default].OnEnter();
+      
     }
-
 
     public override void GetHit(int damage)
     {
         base.GetHit(damage);
     }
 
-    protected override void CheckHp()
+    protected override void CheckHP()
     {
-        base.CheckHp();
+        base.CheckHP();
     }
 
     public override IEnumerator Dead()
     {
-        chase.speed = 0f;
         return base.Dead();
     }
-
-
 
     public override void Reset()
     {
@@ -111,4 +91,5 @@ public class FireSlime : Enemy, IDamagable
         }
     }
 #endif
+
 }

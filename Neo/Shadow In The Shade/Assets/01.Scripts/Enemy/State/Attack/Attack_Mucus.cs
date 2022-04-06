@@ -10,12 +10,12 @@ public class Attack_Mucus : MonoBehaviour, IState
 
     private Vector2 attachPosition = new Vector2(0f, -0.45f);
 
-    MucusSlime mucus;
+    Slime_Mucus mucus;
 
     public void OnEnter()
     {
         if (mucus == null)
-            mucus = GetComponent<MucusSlime>();
+            mucus = GetComponent<Slime_Mucus>();
         mucus.SetMucus(true);
         StartCoroutine(LerpRoutine());
         EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);

@@ -19,7 +19,9 @@ public class AgentMove : MonoBehaviour
 
     public virtual void OnMove(Vector2 dir, float speed)
     {
-        if (!_isKnockBack)
+        if (rigid == null)
+            print($"{gameObject.name}에서 리짓바디가 안들어옴");
+        if (!_isKnockBack && rigid != null)
         {
             if (rigid == null)
                 print("?");

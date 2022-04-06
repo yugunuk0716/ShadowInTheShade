@@ -1,65 +1,44 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MucusSlime : Enemy
+public class Slime_Fire : Enemy, IDamagable
 {
-
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    private SpriteRenderer sr;
-
-    private float attackDistance = 1f;
-    private float chaseDistance = 5f;
-
-
+    private readonly float attackDistance = 1f;
+    private readonly float chaseDistance = 5f;
 
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
-    private Color originColor;
-    private Color attachedColor;
 
     private Move_Chase chase = null;
-    private Attack_Mucus attack = null;
+    private Attack_Fire attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
+
     private void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<State_Default>();
+        dicState[State.Default] = gameObject.GetComponent<Idle_Patrol>();
 
-        sr = GetComponentInChildren<SpriteRenderer>();
 
-        // 이동
         chase = GetComponent<Move_Chase>();
         chase.speed = 2f;
 
-
         dicState[State.Move] = chase;
 
-        // 공격
-        attack = gameObject.AddComponent<Attack_Mucus>();
+        attack = gameObject.GetComponent<Attack_Fire>();
 
         dicState[State.Attack] = attack;
 
-        // 죽음
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[State.Die] = gameObject.GetComponent<Die_Default>();
 
-        originColor = sr.color;
-        attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
     }
 
-
-    public void SetMucus(bool on)
-    {
-        GameManager.Instance.isInvincible = on;
-        sr.color = on ? attachedColor : originColor;
-        isAttack = on;
-    }
 
     protected override void SetDefaultState(State state)
     {
@@ -91,38 +70,41 @@ public class MucusSlime : Enemy
                 dicState[State.Move].OnEnd();
             }
 
-            if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
+
+            if (dist < attackDistance && !isAttack)
             {
+                dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
+                
             }
 
             yield return base.LifeTime();
         }
     }
 
+
     public override void GetHit(int damage)
     {
-        if (isAttack)
-            return;
         base.GetHit(damage);
     }
 
-    protected override void CheckHp()
+    protected override void CheckHP()
     {
-        base.CheckHp();
+        base.CheckHP();
     }
-
-    //public override void SetDisable()
-    //{
-    //    StopCoroutine(lifeTime);
-    //    base.SetDisable();
-    //}
 
     public override IEnumerator Dead()
     {
-        chase.speed = 0f;
-        return base.Dead();
+        if (isDie.Equals(true))
+        {
+            Anim.SetTrigger("isDie");
+            yield return null;
+            this.gameObject.SetActive(false);
+            chase.speed = 0f;
+        }
     }
+
+
 
     public override void Reset()
     {
@@ -135,8 +117,6 @@ public class MucusSlime : Enemy
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, attackDistance);
-            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
             Gizmos.color = Color.white;
         }

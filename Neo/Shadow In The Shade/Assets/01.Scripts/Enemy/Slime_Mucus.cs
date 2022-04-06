@@ -1,23 +1,28 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoneSlime : Enemy, ITacklable
+public class Slime_Mucus : Enemy
 {
+
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
     private SpriteRenderer sr;
 
-    private float attackDistance = 1f;
-    private float chaseDistance = 5f;
-    private int hitCount = 0;
+    private readonly float attackDistance = 1f;
+    private readonly float chaseDistance = 5f;
+
+
 
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
+    private Color originColor;
+    private Color attachedColor;
 
     private Move_Chase chase = null;
-    private Attack_Tackle attack = null;
+    private Attack_Mucus attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -25,46 +30,37 @@ public class BoneSlime : Enemy, ITacklable
 
     private void Awake()
     {
-        dicState[State.Default] = gameObject.GetComponent<State_Default>();
+        dicState[State.Default] = gameObject.GetComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
+        // 이동
         chase = GetComponent<Move_Chase>();
         chase.speed = 2f;
 
+
         dicState[State.Move] = chase;
 
-        attack = gameObject.GetComponentInChildren<Attack_Tackle>();
+        // 공격
+        attack = gameObject.GetComponent<Attack_Mucus>();
 
         dicState[State.Attack] = attack;
 
+        // 죽음
         dicState[State.Die] = gameObject.GetComponent<Die_Default>();
 
+        originColor = sr.color;
+        attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
     }
 
-    public void SetTackle(bool on)
+
+    public void SetMucus(bool on)
     {
+        GameManager.Instance.isInvincible = on;
+        sr.color = on ? attachedColor : originColor;
         isAttack = on;
     }
 
-    public void SetAttack()
-    {
-
-        attack.TackleEnd();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GetHit(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            currHP++;
-            CheckHp();
-        }
-    }
     protected override void SetDefaultState(State state)
     {
         base.SetDefaultState(state);
@@ -86,12 +82,6 @@ public class BoneSlime : Enemy, ITacklable
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-
-            if (IsHit)
-            {
-                dicState[State.Attack].OnEnd();
-            }
-
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
@@ -100,37 +90,33 @@ public class BoneSlime : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
-            if(dist < attackDistance && !isAttack)
+
+            if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
             {
-                dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
             }
-            
+
             yield return base.LifeTime();
         }
     }
 
-
     public override void GetHit(int damage)
     {
-        hitCount++;
+        if (isAttack)
+            return;
         base.GetHit(damage);
     }
 
-    protected override void CheckHp()
+    protected override void CheckHP()
     {
-
-        if (hitCount > 3)
-        {
-            Anim.SetTrigger("FinalArmored");
-        }
-        else if(hitCount > 1)
-        {
-            Anim.SetTrigger("Armored");
-        }
-
-        base.CheckHp();
+        base.CheckHP();
     }
+
+    //public override void SetDisable()
+    //{
+    //    StopCoroutine(lifeTime);
+    //    base.SetDisable();
+    //}
 
     public override IEnumerator Dead()
     {
@@ -138,12 +124,9 @@ public class BoneSlime : Enemy, ITacklable
         return base.Dead();
     }
 
-   
-
     public override void Reset()
     {
         base.Reset();
-
     }
 
 #if UNITY_EDITOR
