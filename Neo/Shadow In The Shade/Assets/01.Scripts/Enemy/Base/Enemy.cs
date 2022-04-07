@@ -22,11 +22,35 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public EnemyDataSO enemyData;
 
-    protected float currHP = 0f;
+    protected int currHP = 0;
+    public int CurrHP
+    {
+        get
+        {
+            return currHP;
+        }
+
+        set
+        {
+            currHP = value;
+        }
+    }
 
     public bool isAttack = false;
     public bool isDie = false;
-    public bool isHit = false;
+
+    private bool isHit = false;
+    public bool IsHit
+    {
+        get
+        {
+            return isHit;
+        }
+        set
+        {
+
+        }
+    }
 
     private Animator anim;
     public Animator Anim
@@ -70,6 +94,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
+    [SerializeField]
     protected State currentState = State.Default;
     protected Dictionary<State, IState> dicState = new Dictionary<State, IState>();
 
@@ -118,18 +143,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         yield return null;
     }
 
-    public virtual void GetDamage(float damage)
-    {
-        if (currentState.Equals(State.Die)) return;
 
-        currHP -= damage;
-
-        StartCoroutine(Blinking());
-
-        CheckHp();
-    }
-
-    protected virtual void CheckHp()
+    protected virtual void CheckHP()
     {
         if (currHP <= 0f)
         {
@@ -150,12 +165,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         MyRend.color = Color.white;
     }
 
-    public void SetHp(float hp)
-    {
-        currHP = hp;
-    }
-
-  
     public virtual void GetHit(int damage)
     {
         if (isDie || isHit)
@@ -171,8 +180,14 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isCritical = true;
         }
 
-        GetDamage(damage);
-        CheckHp();
+        if (currentState.Equals(State.Die)) return;
+
+        currHP -= damage;
+
+        StartCoroutine(Blinking());
+
+        CheckHP();
+
         OnHit?.Invoke();
 
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;

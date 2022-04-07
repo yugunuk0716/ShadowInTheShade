@@ -23,4 +23,5 @@ public class DamagableObject : MonoBehaviour
             damagable?.GetHit(dObjData.damage);
         }
     }
+   
 }

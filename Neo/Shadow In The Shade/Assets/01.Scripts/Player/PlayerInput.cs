@@ -8,7 +8,8 @@ public class PlayerInput : MonoBehaviour
     public bool isDash;
     public bool isAttack;
     public bool isUse;
-    public bool isChangePlayerType; 
+    public bool isChangePlayerType;
+    public bool isHit;
 
 
     private void Update()
@@ -28,6 +29,9 @@ public class PlayerInput : MonoBehaviour
             case PlayerStates.Human: // 사람 형태 일때 가능한걸 체크
                 switch (GameManager.Instance.playerSO.playerInputState) // 플레이어 입력 체크
                 {
+                    //case PlayerInputState.Hit:
+                    //    isHit = true;
+                    //    break;
                     case PlayerInputState.Dash:
                         isDash = Input.GetButtonDown("Fire1");
                         isChangePlayerType = Input.GetButtonDown("Change");
@@ -49,6 +53,9 @@ public class PlayerInput : MonoBehaviour
             case PlayerStates.Shadow:// 그림자 형태 일때 가능한걸 체크
                 switch (GameManager.Instance.playerSO.playerInputState) // 플레이어 입력 체크
                 {
+                    //case PlayerInputState.Hit:
+                    //    isHit = true;
+                    //    break;
                     case PlayerInputState.Attack:
                         moveDir = Vector2.zero;
                         isAttack = Input.GetButtonDown("Fire1");

@@ -24,11 +24,11 @@ public class Attack_Moss : MonoBehaviour, IState
     {
         while (true)
         {
+            yield return new WaitForSeconds(attackDelay);
             //풀매니저에서 이끼 생성
             //임시 인스턴시에이트
             GameObject obj = Instantiate(mossPrefab);
             obj.transform.position = this.transform.position;
-            yield return new WaitForSeconds(attackDelay);
         }
     }
 }

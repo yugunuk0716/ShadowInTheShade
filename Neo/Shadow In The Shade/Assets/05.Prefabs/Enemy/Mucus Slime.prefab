@@ -13,13 +13,12 @@ GameObject:
   - component: {fileID: 3081107059394197381}
   - component: {fileID: 3081107059394197382}
   - component: {fileID: 3081107059394197383}
-  - component: {fileID: 3081107059394197376}
   - component: {fileID: 3081107059394197377}
-  - component: {fileID: 3081107059394197378}
   - component: {fileID: 3081107059394197379}
   - component: {fileID: 3081107059394197498}
   - component: {fileID: 4852111015835320877}
   - component: {fileID: 4797123640107004185}
+  - component: {fileID: 5133916304477952403}
   m_Layer: 6
   m_Name: Mucus Slime
   m_TagString: Untagged
@@ -148,7 +147,6 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 43597817dbf19724b90c4f224e66205c, type: 2}
   isAttack: 0
   isDie: 0
-  isHit: 0
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -159,19 +157,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   move: {fileID: 3081107059394197498}
+  currentState: 0
   spriteAlpha: 0.43
---- !u!114 &3081107059394197376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3081107059394197388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eedfe24c5db16943b1adfed6cbb51eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3081107059394197377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,18 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
---- !u!114 &3081107059394197378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3081107059394197388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f7a5559e00ca14bafea931d78f443d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3081107059394197379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ef3c565623a2a44ba197d1bb19b108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid: {fileID: 0}
+  rigid: {fileID: 3081107059394197381}
 --- !u!114 &4852111015835320877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +237,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.71216583, y: 0.5100695}
   m_EdgeRadius: 0
+--- !u!114 &5133916304477952403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081107059394197388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d33ce3c7f5c8a46891e8e59c0ddd3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1.5
 --- !u!1 &3207012577748249568
 GameObject:
   m_ObjectHideFlags: 0

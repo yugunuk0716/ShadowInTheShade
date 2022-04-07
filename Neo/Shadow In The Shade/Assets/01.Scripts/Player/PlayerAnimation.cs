@@ -94,5 +94,10 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("IsDash", false);
     }
 
+    public void SetFalse()
+    {
+        GameManager.Instance.player.gameObject.SetActive(false);
+    }
+
 
 }

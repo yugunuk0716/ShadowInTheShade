@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TestSlime : Enemy
 {
-    private Idle_Move idle;
+    private Idle_Patrol idle;
 
     private void Awake()
     {
-        idle = GetComponent<Idle_Move>();
+        idle = GetComponent<Idle_Patrol>();
         dicState[State.Default] = idle;
 
     }
