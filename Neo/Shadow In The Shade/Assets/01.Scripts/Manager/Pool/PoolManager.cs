@@ -3,13 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType
-{
-    Mucus,
-    Moss,
-}
-
-
 public class PoolManager : MonoBehaviour
 {
     private static PoolManager instance;
@@ -30,6 +23,8 @@ public class PoolManager : MonoBehaviour
 
     private Dictionary<string, Pool<PoolableMono>> pools = new Dictionary<string, Pool<PoolableMono>>();
 
+
+
     public void CreatePool(PoolableMono prefab, string name = null)
     {
         if (name == null)
@@ -44,6 +39,7 @@ public class PoolManager : MonoBehaviour
     {
         if (!pools.ContainsKey(prefabName))
         {
+            print(prefabName);
             Debug.LogError("Prefab doesnt exist on pool");
             return null;
         }

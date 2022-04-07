@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack_Tackle : DamagableObject, IState
+public class Attack_Tackle : MonoBehaviour, IState
 {
     Enemy enemy;
     ITacklable tacklable;
@@ -48,29 +48,6 @@ public class Attack_Tackle : DamagableObject, IState
     void AttackReset()
     {
         tacklable.SetTackle(false);
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (enemy != null)
-        {
-            if (enemy.isAttack)
-            {
-               
-                if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
-                {
-                    IDamagable d = collision.GetComponent<IDamagable>();
-                    if (d.IsHit)
-                        return;
-                    base.OnTriggerEnter2D(collision);
-                    EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
-
-
-                }
-            }
-        }
-     
-      
     }
 
 

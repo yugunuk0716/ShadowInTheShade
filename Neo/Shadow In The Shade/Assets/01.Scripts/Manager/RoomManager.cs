@@ -305,32 +305,6 @@ public class RoomManager : MonoBehaviour
 
         loadRoomQueue.Enqueue(roomInfo);
 
-#region 미니맵 중앙방에 중점을 두게하는 코드
-        //if(loadRoomQueue.Count <= 1)
-        //{
-        //    //List<Room> list = (List<Room>)loadedRooms.OrderByDescending(x => x.X);
-        //    //Room room = list[0];
-        //    //list = (List<Room>)loadedRooms.OrderByDescending(x => x.Y);
-        //    //room.Y = list[0].Y;
-        //    Vector3 movePos = Vector3.zero;
-        //    int xIdx = higherX / 2;
-        //    int yIdx = higherY / 2;
-        //    Room room = FindRoom(xIdx, yIdx);
-
-        //    if (room != null)
-        //    {
-        //        movePos = new Vector3(room.X * room.Width, room.Y * room.Height, -10f);
-        //    }
-        //    else
-        //    {
-        //        movePos = new Vector3(xIdx * 23, yIdx * 15, -10f);
-        //    }
-
-        //    EffectManager.Instance.minimapCamObj.transform.position = movePos; //= new Vector3(room.X * room.Width, room.Y * room.Height);
-        //    //EffectManager.Instance.minimapCamObj.transform.position = room.transform.position + new Vector3(0f, 0f, -10f);
-        //}
-        #endregion
-
     }
 
     public void LoadInResourcesRoom(RoomInfo info)

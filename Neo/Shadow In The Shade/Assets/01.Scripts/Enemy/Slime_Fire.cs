@@ -23,19 +23,19 @@ public class Slime_Fire : Enemy, IDamagable
 
     private void Awake()
     {
-        dicState[State.Default] = gameObject.GetComponent<Idle_Patrol>();
+        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
 
-        chase = GetComponent<Move_Chase>();
+        chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
 
         dicState[State.Move] = chase;
 
-        attack = gameObject.GetComponent<Attack_Fire>();
+        attack = gameObject.AddComponent<Attack_Fire>();
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.GetComponent<Die_Default>();
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
     }
 

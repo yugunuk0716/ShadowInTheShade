@@ -14,6 +14,10 @@ public class Room : PoolableMono
     public int Y { get; set; }
 
 
+    public int phaseCount = 0;
+
+    private bool isCleared = false;
+
     public List<Door> doorList = new List<Door>();
 
     public Vector2 leftSpawnPoint;

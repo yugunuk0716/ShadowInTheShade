@@ -45,7 +45,6 @@ public class Move_Chase : MonoBehaviour, IState
             {
                 if (canTrace)
                 {
-                    print("Ãß°Ý");
                     Vector2 dir = target.transform.position - this.gameObject.transform.position;
 
                     if (agentMove != null)

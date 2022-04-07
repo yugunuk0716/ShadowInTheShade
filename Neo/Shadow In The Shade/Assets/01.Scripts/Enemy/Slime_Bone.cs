@@ -25,11 +25,11 @@ public class Slime_Bone : Enemy, ITacklable
 
     private void Awake()
     {
-        dicState[State.Default] = gameObject.GetComponent<Idle_Patrol>();
+        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        chase = GetComponent<Move_Chase>();
+        chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
 
         dicState[State.Move] = chase;
@@ -38,7 +38,7 @@ public class Slime_Bone : Enemy, ITacklable
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.GetComponent<Die_Default>();
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
     }
 
@@ -89,8 +89,9 @@ public class Slime_Bone : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
-            if(dist < attackDistance && !isAttack)
+            if(dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
             {
+                lastAttackTime = Time.time;
                 dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
             }

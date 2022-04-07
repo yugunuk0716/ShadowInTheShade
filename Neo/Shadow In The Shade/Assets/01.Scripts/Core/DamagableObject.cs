@@ -12,6 +12,7 @@ public class DamagableObject : MonoBehaviour
     {
         if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
         {
+            Time.timeScale = 0.8f;
             IDamagable damagable = collision.GetComponent<IDamagable>();
 
             if(damagable == null)
@@ -21,7 +22,13 @@ public class DamagableObject : MonoBehaviour
 
             damagable?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
             damagable?.GetHit(dObjData.damage);
+            Invoke(nameof(SetTimeScale), 0.5f);
         }
     }
-   
+
+    void SetTimeScale()
+    {
+        Time.timeScale = 1f;
+    }
+
 }

@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
        
         foreach (EnemyDataSO so in _enemyList.enemyList)
         {
-            PoolManager.Instance.CreatePool(so.poolPrefab, so.type.ToString()); //Ç®¿ë ÇÁ¸®ÆÕ
+            PoolManager.Instance.CreatePool(so.poolPrefab, so.enemyName); //Ç®¿ë ÇÁ¸®ÆÕ
         }
 
 

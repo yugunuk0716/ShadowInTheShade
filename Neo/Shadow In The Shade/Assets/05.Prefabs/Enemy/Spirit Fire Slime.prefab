@@ -68,15 +68,11 @@ GameObject:
   - component: {fileID: 58532375646333952}
   - component: {fileID: 58532375646333955}
   - component: {fileID: 58532375646334016}
-  - component: {fileID: 58532375646334017}
-  - component: {fileID: 58532375646333956}
   - component: {fileID: 58532375646334009}
-  - component: {fileID: 58532375646334019}
   - component: {fileID: 58532375646333953}
   - component: {fileID: 58532375646334008}
   - component: {fileID: 58532375646334011}
   - component: {fileID: 58532375646334018}
-  - component: {fileID: 8467803053694616710}
   m_Layer: 6
   m_Name: Spirit Fire Slime
   m_TagString: Untagged
@@ -178,31 +174,6 @@ MonoBehaviour:
   move: {fileID: 0}
   currentState: 0
   spriteAlpha: 0
---- !u!114 &58532375646334017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58532375646334013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc9e41a7bf508c42a2e9b86497754a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &58532375646333956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58532375646334013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24def1c6bcf610a45b357298dacd7e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
 --- !u!114 &58532375646334009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,18 +187,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 58532375646334008}
---- !u!114 &58532375646334019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58532375646334013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f7a5559e00ca14bafea931d78f443d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &58532375646333953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,19 +265,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8467803053694616710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58532375646334013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d33ce3c7f5c8a46891e8e59c0ddd3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
 --- !u!1 &7336864884719013304
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,10 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693da07960c3db34eb45063c6b6971d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsTarget:
-    serializedVersion: 2
-    m_Bits: 8
-  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
 --- !u!61 &8602530262240798288
 BoxCollider2D:
   m_ObjectHideFlags: 0

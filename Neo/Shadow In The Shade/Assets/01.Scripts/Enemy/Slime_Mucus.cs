@@ -30,24 +30,24 @@ public class Slime_Mucus : Enemy
 
     private void Awake()
     {
-        dicState[State.Default] = gameObject.GetComponent<Idle_Patrol>();
+        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
         // 이동
-        chase = GetComponent<Move_Chase>();
+        chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
 
 
         dicState[State.Move] = chase;
 
         // 공격
-        attack = gameObject.GetComponent<Attack_Mucus>();
+        attack = gameObject.AddComponent<Attack_Mucus>();
 
         dicState[State.Attack] = attack;
 
         // 죽음
-        dicState[State.Die] = gameObject.GetComponent<Die_Default>();
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
         originColor = sr.color;
         attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);

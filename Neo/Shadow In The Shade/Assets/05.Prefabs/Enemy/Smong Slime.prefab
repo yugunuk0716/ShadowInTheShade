@@ -11,14 +11,11 @@ GameObject:
   - component: {fileID: 3636983364782968665}
   - component: {fileID: 3636983364782968666}
   - component: {fileID: 3636983364782968675}
-  - component: {fileID: 3636983364782968669}
-  - component: {fileID: 3636983364782968702}
   - component: {fileID: 3636983364782968672}
   - component: {fileID: 3636983364782968664}
   - component: {fileID: 3636983364782968673}
   - component: {fileID: 3636983364782968674}
   - component: {fileID: 3636983364782968677}
-  - component: {fileID: 6034091508340969480}
   m_Layer: 6
   m_Name: Smong Slime
   m_TagString: Untagged
@@ -120,31 +117,6 @@ MonoBehaviour:
   move: {fileID: 0}
   currentState: 0
   spriteAlpha: 0
---- !u!114 &3636983364782968669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3636983364782968676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24def1c6bcf610a45b357298dacd7e79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
---- !u!114 &3636983364782968702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3636983364782968676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8616c4d3f02adc7459d809d1a75ca945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3636983364782968672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,19 +208,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6034091508340969480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3636983364782968676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d33ce3c7f5c8a46891e8e59c0ddd3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
 --- !u!1 &3636983365700218010
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +276,7 @@ GameObject:
   - component: {fileID: 9202221460835774624}
   - component: {fileID: 9202221460835774625}
   - component: {fileID: 9202221460835774654}
+  - component: {fileID: 5063844955494912939}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -350,10 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693da07960c3db34eb45063c6b6971d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsTarget:
-    serializedVersion: 2
-    m_Bits: 8
-  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
 --- !u!61 &9202221460835774654
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -380,3 +336,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5063844955494912939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9202221460835774627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0ec059143ce8c498966cad1b232c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
+  enemy: {fileID: 3636983364782968675}

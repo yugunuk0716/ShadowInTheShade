@@ -39,6 +39,9 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     public bool isAttack = false;
     public bool isDie = false;
 
+    protected float lastAttackTime = 0f;
+    protected float attackCool = 1f;
+
     private bool isHit = false;
     public bool IsHit
     {
@@ -113,6 +116,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         currHP = enemyData.maxHealth;
         MyRend.color = Color.white;
         isDie = false;
+
+        EnemyManager.Instance.enemyList.Add(this);
 
         SetDefaultState(State.Default);
         lifeTime = StartCoroutine(LifeTime());
@@ -227,9 +232,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
-    public void PutInPool()
+    public void PushInPool()
     {
-        gameObject.SetActive(false);
+        PoolManager.Instance.Push(this);
+        //gameObject.SetActive(false);
     }
 
 
@@ -238,5 +244,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         OnReset?.Invoke();
         currHP = enemyData.maxHealth;
         Anim.ResetTrigger("isDie");
+        EnemyManager.Instance.enemyList.Remove(this);
+        currentState = State.Default;
+        isDie = false;
+        isAttack = false;
+
     }
 }

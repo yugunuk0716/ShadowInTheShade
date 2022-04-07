@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyDataSO : ScriptableObject
 {
     public string enemyName;
-    public EnemyType type;
     public GameObject prefab;
     public PoolableMono poolPrefab;
     [field: SerializeField]

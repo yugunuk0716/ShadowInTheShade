@@ -5,15 +5,15 @@ using UnityEngine;
 public class Attack_Fire : MonoBehaviour, IState
 {
     Enemy enemy;
-    private GameObject dieParticle;
-    GameObject obj;
+    //private GameObject dieParticle;
+    FireParticle obj;
 
     public void OnEnter()
     {
-        if (dieParticle == null)
-        {
-            dieParticle = Resources.Load<GameObject>("Fire Die Effect");
-        }
+        //if (dieParticle == null)
+        //{
+        //    dieParticle = Resources.Load<GameObject>("Fire Die Effect");
+        //}
 
         if (enemy == null)
         {
@@ -30,13 +30,15 @@ public class Attack_Fire : MonoBehaviour, IState
         if (enemy != null)
         {
             enemy.Anim.SetBool("isAttack", false);
-            obj = Instantiate(dieParticle);
+            obj = PoolManager.Instance.Pop("Fire Die Effect") as FireParticle;
             print(this.transform.position);
             obj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 1f, -5f);
             enemy.CurrHP = 0;
             enemy.GetHit(enemy.CurrHP);
         }
     }
+
+    
 
     public void OnEnd()
     {

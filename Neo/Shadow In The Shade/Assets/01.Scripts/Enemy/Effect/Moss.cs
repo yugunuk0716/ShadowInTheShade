@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Moss : DamagableObject
+public class Moss : PoolableMono
 {
     public Animator _ainm;
     public bool _isAttacked;
@@ -29,17 +29,22 @@ public class Moss : DamagableObject
 
     public void SetFalse()
     {
-        this.gameObject.SetActive(false);
+        PoolManager.Instance.Push(this);
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    public override void Reset()
     {
-        base.OnTriggerEnter2D(collision);
-        if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
-        {
-            IDamagable d = collision.GetComponent<IDamagable>();
-            d.KnockBack(transform.position - collision.transform.position, 1f, 0.1f);
-            EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
-        }
+
     }
+
+    //protected override void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    base.OnTriggerEnter2D(collision);
+    //    if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
+    //    {
+    //        IDamagable d = collision.GetComponent<IDamagable>();
+    //        d.KnockBack(transform.position - collision.transform.position, 1f, 0.1f);
+    //        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+    //    }
+    //}
 }

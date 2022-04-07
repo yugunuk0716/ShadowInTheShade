@@ -14,4 +14,8 @@ public class PlayerWeapon : DamagableObject
         //Time.timeScale = 0.8;
         base.OnTriggerEnter2D(collision);
     }
+
+
+   
+
 }

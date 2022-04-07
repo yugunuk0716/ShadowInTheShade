@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1371835642235869622}
   - component: {fileID: 5106736288726610519}
   - component: {fileID: 67298727180860398}
+  - component: {fileID: 3355988984437723860}
   m_Layer: 0
   m_Name: Moss
   m_TagString: Untagged
@@ -116,10 +117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f63dfc573c0f04f8bce1aa86cef803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsTarget:
-    serializedVersion: 2
-    m_Bits: 8
-  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
   _ainm: {fileID: 0}
   _isAttacked: 0
 --- !u!61 &67298727180860398
@@ -148,3 +145,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.74471223, y: 0.39472067}
   m_EdgeRadius: 0
+--- !u!114 &3355988984437723860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371835642235869577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28cc527ab85732f40b5f9cc82a9d3e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
