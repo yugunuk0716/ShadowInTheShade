@@ -27,6 +27,8 @@ public class Room : PoolableMono
 
     public Collider2D camBound;
 
+    public GameObject miniPlayerSprite;
+
     private Door leftDoor;
     private Door rightDoor;
     private Door topDoor;

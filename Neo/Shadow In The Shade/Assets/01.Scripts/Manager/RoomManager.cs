@@ -52,6 +52,8 @@ public class RoomManager : MonoBehaviour
 
     public List<Room> loadedRooms = new List<Room>();
 
+    public Room startRoom;
+
     bool isLoadingRoom = false;
     bool spawnedBossRoom = false;
     bool updatedRooms = false;
@@ -360,6 +362,9 @@ public class RoomManager : MonoBehaviour
         if (room.name.Contains("Start"))
         {
             EffectManager.Instance.SetCamBound(room.camBound);
+            room.miniPlayerSprite.SetActive(true);
+            GameManager.Instance.player.GetComponent<Player>().currentRoom = room;
+
         }
 
         room.transform.position = new Vector3(currentLoadRoomData.X * room.Width,  currentLoadRoomData.Y * room.Height, 0f);

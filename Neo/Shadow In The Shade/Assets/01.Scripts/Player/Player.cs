@@ -14,28 +14,48 @@ public class Player : MonoBehaviour, IDamagable
     [field: SerializeField]
     public UnityEvent OnHit { get; set; }
 
+    private PlayerInput playerInput;
+    public PlayerInput PlayerInput
+    {
+        get
+        {
+            if (playerInput == null)
+                playerInput = GetComponent<PlayerInput>();
+            return playerInput;
+        }
+    }
 
-    private bool isHit = false;
+
     public bool IsHit
     {
         get
         {
-            return isHit;
+            return PlayerInput.isHit;
         }
         set
         {
-
+            PlayerInput.isHit = value;
         }
     }
 
-    public bool isDie = false;
+    public bool IsDie
+    {
+        get
+        {
+            return PlayerInput.isDie;
+        }
+        set
+        {
+            PlayerInput.isDie = value;
+        }
+    }
 
     public float maxHP = 0f;
     private float currHP = 0f;
 
     private float currentT = 0f;
     private float lastHitT = 0f;
-    private float hitCool = 1f;
+    private readonly float hitCool = .5f;
 
 
     public PlayerMove move;
@@ -79,6 +99,11 @@ public class Player : MonoBehaviour, IDamagable
             currentRoom.doorList.ForEach(d => d.IsOpen = false);
         });
 
+        //currentRoom = RoomManager.Instance.startRoom;
+        //if(currentRoom != null)
+        //{
+        //    currentRoom.miniPlayerSprite.SetActive(true);
+        //}
     }
 
 
@@ -93,7 +118,7 @@ public class Player : MonoBehaviour, IDamagable
 
         if(currentT - lastHitT >= hitCool)
         {
-            isHit = false;
+            IsHit = false;
         }
     }
 
@@ -105,11 +130,11 @@ public class Player : MonoBehaviour, IDamagable
     public void GetHit(int damage)
     {
 
-        if (isDie || isHit )
+        if (IsDie || IsHit)
             return;
         lastHitT = currentT;
 
-        isHit = true;
+        IsHit = true;
        
 
         currHP -= damage;
@@ -138,7 +163,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (isHit || isDie)
+        if (IsHit || IsDie)
             return;
         if (move == null)
         {
@@ -159,7 +184,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         if (currHP <= 0f)
         {
-            isDie = true;
+            IsDie = true;
             StartCoroutine(Dead());
             OnDie?.Invoke();
         }
@@ -168,7 +193,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public IEnumerator Dead()
     {
-        if (isDie.Equals(true))
+        if (IsDie.Equals(true))
         {
             Anim.SetTrigger("isDie");
             yield return null;

@@ -33,6 +33,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set
         {
             currHP = value;
+            CheckHP();
         }
     }
 

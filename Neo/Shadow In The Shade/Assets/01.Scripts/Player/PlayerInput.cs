@@ -10,11 +10,12 @@ public class PlayerInput : MonoBehaviour
     public bool isUse;
     public bool isChangePlayerType;
     public bool isHit;
+    public bool isDie;
 
 
     private void Update()
     {
-        if(GameManager.Instance.timeScale <= 0)
+        if(GameManager.Instance.timeScale <= 0 || isDie)
         {
             moveDir = Vector2.zero;
             isDash = false;

@@ -45,7 +45,10 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !RoomManager.Instance.isMoving && isOpen)
         {
-            collision.GetComponent<Player>().currentRoom = adjacentRoom;
+            Player player = collision.GetComponent<Player>();
+            player.currentRoom.miniPlayerSprite.SetActive(false);
+            player.currentRoom = adjacentRoom;
+            player.currentRoom.miniPlayerSprite.SetActive(true);
             StartCoroutine(MoveRoomCoroutine(collision));
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }

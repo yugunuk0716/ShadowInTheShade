@@ -35,7 +35,6 @@ public class DamagePopup : PoolableMono
         seq.Join(_tmp.DOFade(0, 1f));
         seq.AppendCallback(() =>
         {
-            print("∏±∏Æ¡Ó");
             PoolManager.Instance.Push(this);
         });
     }

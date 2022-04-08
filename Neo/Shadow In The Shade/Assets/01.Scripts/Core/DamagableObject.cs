@@ -12,13 +12,8 @@ public class DamagableObject : MonoBehaviour
     {
         if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
         {
-            Time.timeScale = 0.8f;
+            Time.timeScale = 0.9f;
             IDamagable damagable = collision.GetComponent<IDamagable>();
-
-            if(damagable == null)
-            {
-                print("??");
-            }
 
             damagable?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
             damagable?.GetHit(dObjData.damage);

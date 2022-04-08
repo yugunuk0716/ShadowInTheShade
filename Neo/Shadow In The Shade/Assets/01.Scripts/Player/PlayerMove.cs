@@ -15,7 +15,13 @@ public class PlayerMove : AgentMove
 
     public void Update()
     {
-        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash) && !playerInput.isHit)
+        if (playerInput.isHit)
+        {
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+
+        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash))
         {
             if (GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Move) &&  //움직이고 있는데 상태가 Move가 아니면서 Attack일때도 아니고 Dashㄷ 아닐때
             !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack ) )

@@ -34,7 +34,6 @@ public class Attack_Fire : MonoBehaviour, IState
             print(this.transform.position);
             obj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 1f, -5f);
             enemy.CurrHP = 0;
-            enemy.GetHit(enemy.CurrHP);
         }
     }
 
