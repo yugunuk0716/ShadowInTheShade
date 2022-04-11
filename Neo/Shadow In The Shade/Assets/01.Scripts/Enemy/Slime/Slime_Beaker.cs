@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime_Fire : Enemy, IDamagable
+public class Slime_Beaker : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    private readonly float attackDistance = 1f;
+
+    private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
-    [Range(0f, 1f)]
-    [SerializeField]
-    private float spriteAlpha;
-
     private Move_Chase chase = null;
-    private Attack_Fire attack = null;
+    private Attack_Tackle attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -31,12 +28,22 @@ public class Slime_Fire : Enemy, IDamagable
 
         dicState[State.Move] = chase;
 
-        attack = gameObject.AddComponent<Attack_Fire>();
+        attack = gameObject.GetComponentInChildren<Attack_Tackle>();
 
         dicState[State.Attack] = attack;
 
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
+    }
+
+    public void SetTackle(bool on)
+    {
+        isAttack = on;
+    }
+
+    public void SetAttack()
+    {
+        attack.TackleEnd();
     }
 
 
@@ -69,13 +76,11 @@ public class Slime_Fire : Enemy, IDamagable
             {
                 dicState[State.Move].OnEnd();
             }
-
-
-            if (dist < attackDistance && !isAttack)
+            if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
             {
+                lastAttackTime = Time.time;
                 dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
-                
             }
 
             yield return base.LifeTime();
@@ -95,13 +100,8 @@ public class Slime_Fire : Enemy, IDamagable
 
     public override IEnumerator Dead()
     {
-        if (isDie.Equals(true))
-        {
-            Anim.SetTrigger("isDie");
-            yield return null;
-            this.gameObject.SetActive(false);
-            chase.speed = 0f;
-        }
+        chase.speed = 0f;
+        return base.Dead();
     }
 
 
@@ -117,6 +117,8 @@ public class Slime_Fire : Enemy, IDamagable
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, attackDistance);
+            Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
             Gizmos.color = Color.white;
         }

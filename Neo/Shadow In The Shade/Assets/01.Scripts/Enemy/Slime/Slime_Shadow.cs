@@ -1,33 +1,44 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class Slime_Bone : Enemy, ITacklable
+public class Slime_Shadow : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
+
+
     private SpriteRenderer sr;
+    public SpriteRenderer Sr
+    {
+        get 
+        {
+            if (sr == null)
+                sr = GetComponent<SpriteRenderer>();
+            return sr;
+        }
+    }
 
-    private readonly float attackDistance = 1f;
+
+    private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
-    private int hitCount = 0;
-
-    [Range(0f, 1f)]
-    [SerializeField]
-    private float spriteAlpha;
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
+
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
+
+
+
     private void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
-        sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
@@ -49,11 +60,36 @@ public class Slime_Bone : Enemy, ITacklable
 
     public void SetAttack()
     {
-
         attack.TackleEnd();
+        attack.gameObject.SetActive(false);
+        Vector2 playerTrm = GameManager.Instance.player.position;
+        Vector2 randValue = Vector2.zero;
+        randValue.Set(Random.Range(3f, 3.5f) + playerTrm.x, Random.Range(3f, 3.5f) + playerTrm.y);
+
+        if (Random.Range(0, 2) == 0)
+        {
+            randValue.Set(randValue.x * -1, randValue.y);
+        }
+
+        if (Random.Range(0, 2) == 0)
+        {
+            randValue.Set(randValue.x, randValue.y * -1);
+        }
+
+        Sr.DOFade(0, 1f).OnComplete(() => 
+        {
+            transform.DOMove(randValue, 2f).OnComplete(() =>
+            {
+                Sr.DOFade(1, 1f);
+                attack.gameObject.SetActive(true);
+            }); 
+        });
+
     }
 
-   
+
+
+
     protected override void SetDefaultState(State state)
     {
         base.SetDefaultState(state);
@@ -75,12 +111,6 @@ public class Slime_Bone : Enemy, ITacklable
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-
-            if (IsHit)
-            {
-                dicState[State.Attack].OnEnd();
-            }
-
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
@@ -89,13 +119,13 @@ public class Slime_Bone : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
-            if(dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
+            if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time && attack.gameObject.activeSelf)
             {
                 lastAttackTime = Time.time;
                 dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
             }
-            
+
             yield return base.LifeTime();
         }
     }
@@ -103,22 +133,11 @@ public class Slime_Bone : Enemy, ITacklable
 
     public override void GetHit(int damage)
     {
-        hitCount++;
         base.GetHit(damage);
     }
 
     protected override void CheckHP()
     {
-
-        if (hitCount > 3)
-        {
-            Anim.SetTrigger("FinalArmored");
-        }
-        else if(hitCount > 1)
-        {
-            Anim.SetTrigger("Armored");
-        }
-
         base.CheckHP();
     }
 
@@ -128,12 +147,11 @@ public class Slime_Bone : Enemy, ITacklable
         return base.Dead();
     }
 
-   
+
 
     public override void Reset()
     {
         base.Reset();
-
     }
 
 #if UNITY_EDITOR

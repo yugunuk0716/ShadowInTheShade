@@ -2,41 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime_Smong : Enemy, ITacklable
+public class Slime_Mushroom : Enemy, IDamagable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
+    private SpriteRenderer sr;
 
-    private readonly float attackDistance = 2f;
+    private readonly float attackDistance = 6f;
     private readonly float chaseDistance = 5f;
 
-    [Range(0f, 1f)]
-    [SerializeField]
-    private float spriteAlpha;
-
     private Move_Chase chase = null;
-    private Attack_Tackle attack = null;
+    private Attack_Mushroom attack = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
-
     private void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
+        sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
+        chase.speed = -2f;
 
         dicState[State.Move] = chase;
 
-        attack = gameObject.GetComponentInChildren<Attack_Tackle>();
+        attack = gameObject.AddComponent<Attack_Mushroom>();
 
         dicState[State.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Smong>();
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+
+        attackCool *= 2;
 
     }
 
@@ -45,13 +44,6 @@ public class Slime_Smong : Enemy, ITacklable
         isAttack = on;
     }
 
-    public void SetAttack() 
-    {
-       
-       attack.TackleEnd();
-    }
-    
-  
     protected override void SetDefaultState(State state)
     {
         base.SetDefaultState(state);
@@ -73,6 +65,7 @@ public class Slime_Smong : Enemy, ITacklable
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
+
             if (dist < chaseDistance && dist > attackDistance)
             {
                 dicState[State.Move].OnEnter();
@@ -81,9 +74,9 @@ public class Slime_Smong : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
-            if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
+            if (dist < attackDistance && lastAttackTime + attackCool < Time.time)
             {
-                lastAttackTime = Time.time; 
+                lastAttackTime = Time.time;
                 dicState[State.Move].OnEnd();
                 dicState[State.Attack].OnEnter();
             }
@@ -92,7 +85,7 @@ public class Slime_Smong : Enemy, ITacklable
         }
     }
 
-   
+
     public override void GetHit(int damage)
     {
         base.GetHit(damage);
@@ -114,6 +107,7 @@ public class Slime_Smong : Enemy, ITacklable
     public override void Reset()
     {
         base.Reset();
+
     }
 
 #if UNITY_EDITOR

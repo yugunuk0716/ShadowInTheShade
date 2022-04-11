@@ -41,6 +41,8 @@ public class Attack_Tackle : MonoBehaviour, IState
         if (enemy != null)
         {
             Invoke(nameof(AttackReset), 1);
+            enemy.Anim.SetFloat("MoveX", 0); 
+            enemy.Anim.SetFloat("MoveY", 0); 
             enemy.Anim.SetBool("isTackle", false);
         }
     }
