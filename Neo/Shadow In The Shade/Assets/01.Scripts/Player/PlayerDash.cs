@@ -10,6 +10,8 @@ public class PlayerDash : MonoBehaviour
     private float dashTime = 0.15f;
     private SpriteRenderer sr;
 
+    private AudioClip dashAudioClip;
+
     private void Start()
     {
         GameManager.Instance.playerSO.moveStats.DSS = 0;
@@ -17,6 +19,7 @@ public class PlayerDash : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         sr = GetComponentInChildren<SpriteRenderer>();
         StartCoroutine(StackPlus());
+        dashAudioClip = Resources.Load<AudioClip>("Sounds/PlayerDash");
     }
 
     private void Update()
@@ -55,6 +58,7 @@ public class PlayerDash : MonoBehaviour
             yield break;
         }
         rigid.AddForce(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
+        SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
         float time = 0;
         float afterTime = 0;
         float targetTime = Random.Range(0.02f, 0.06f);

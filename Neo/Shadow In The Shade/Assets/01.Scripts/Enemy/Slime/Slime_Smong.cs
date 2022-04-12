@@ -18,7 +18,7 @@ public class Slime_Smong : Enemy, ITacklable
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
 
-    private void Awake()
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -34,6 +34,7 @@ public class Slime_Smong : Enemy, ITacklable
 
         dicState[State.Die] = gameObject.AddComponent<Die_Smong>();
 
+        base.Awake();
     }
 
     public void SetTackle(bool on)

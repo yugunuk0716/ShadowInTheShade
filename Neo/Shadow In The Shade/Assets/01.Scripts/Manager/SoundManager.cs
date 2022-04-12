@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour
 
     public string _soundFilePath;
 
-    public AudioSource PlaySound(AudioClip clip, float volume, bool loop)
+    public AudioSource GetAudioSource(AudioClip clip, bool loop, float volume = 0.5f)
     {
         AudioSource source = null;
 

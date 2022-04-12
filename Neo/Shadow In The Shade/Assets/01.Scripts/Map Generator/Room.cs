@@ -16,8 +16,6 @@ public class Room : PoolableMono
 
     public int phaseCount = 0;
 
-    private bool isCleared = false;
-
     public List<Door> doorList = new List<Door>();
 
     public Vector2 leftSpawnPoint;
@@ -28,6 +26,11 @@ public class Room : PoolableMono
     public Collider2D camBound;
 
     public GameObject miniPlayerSprite;
+
+    public GameObject shadowMap;
+    public GameObject defaultMap;
+
+    public bool isClear = false;
 
     private Door leftDoor;
     private Door rightDoor;
@@ -40,6 +43,15 @@ public class Room : PoolableMono
         Height = height;
     }
 
+
+    private void Start()
+    {
+        GameManager.Instance.onPlayerChangeType.AddListener(() => 
+        {
+            shadowMap.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+            defaultMap.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+        });
+    }
 
     private void OnEnable()
     {

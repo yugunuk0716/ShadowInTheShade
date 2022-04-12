@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b9973a4193156042b3d49660c787059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 43597817dbf19724b90c4f224e66205c, type: 2}
+  enemyData: {fileID: 11400000, guid: 42d3c8edec726bb44b4b1650b5754a5c, type: 2}
   isAttack: 0
   isDie: 0
   <OnDie>k__BackingField:
@@ -173,7 +173,6 @@ MonoBehaviour:
       m_Calls: []
   move: {fileID: 0}
   currentState: 0
-  spriteAlpha: 0
 --- !u!114 &2582680548563717365
 MonoBehaviour:
   m_ObjectHideFlags: 0

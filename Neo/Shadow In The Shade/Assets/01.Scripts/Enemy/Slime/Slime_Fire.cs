@@ -17,7 +17,7 @@ public class Slime_Fire : Enemy, IDamagable
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
 
-    private void Awake()
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -33,6 +33,7 @@ public class Slime_Fire : Enemy, IDamagable
 
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
+        base.Awake();
     }
 
 

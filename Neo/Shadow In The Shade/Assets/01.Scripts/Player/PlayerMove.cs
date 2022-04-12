@@ -17,7 +17,7 @@ public class PlayerMove : AgentMove
     {
         if (playerInput.isHit)
         {
-            rigid.velocity = Vector2.zero;
+            playerAxis = Vector2.zero;
             return;
         }
 

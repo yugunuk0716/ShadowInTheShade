@@ -20,6 +20,9 @@ public class Door : MonoBehaviour
     public GameObject openedDoor;
     public GameObject closedDoor;
 
+    public GameObject shadowDoor;
+    public GameObject normalDoor;
+    
 
     private bool isOpen;
     public bool IsOpen
@@ -39,7 +42,14 @@ public class Door : MonoBehaviour
     private void Start()
     {
         IsOpen = true;
+
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        {
+            //shadowDoor.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+            normalDoor.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+        });
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

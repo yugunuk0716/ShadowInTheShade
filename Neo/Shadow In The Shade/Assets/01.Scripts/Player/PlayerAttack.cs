@@ -7,10 +7,14 @@ public class PlayerAttack : MonoBehaviour
     private PlayerInput playerInput;
     private int attackStack;
 
+    private AudioClip attackAudioClip;
+
     private void Start()
     {
         attackStack = 0;
         playerInput = GetComponent<PlayerInput>();
+
+        attackAudioClip = Resources.Load<AudioClip>("Sounds/PlayerAttack");
     }
 
     void Update()
@@ -29,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
             attackStack++;
         else
             attackStack = 0;
-
+        SoundManager.Instance.GetAudioSource(attackAudioClip, false, SoundManager.Instance.BaseVolume).Play();
         GameManager.Instance.onPlayerAttack.Invoke(attackStack);
     }
 }

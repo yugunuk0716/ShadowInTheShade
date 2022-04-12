@@ -15,11 +15,14 @@ public class Slime_Bone : Enemy, ITacklable
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
 
+    int defaultDamage;
+    readonly int damageIncreaseAmout = 2;
+
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
-    private void Awake()
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -36,6 +39,8 @@ public class Slime_Bone : Enemy, ITacklable
 
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
+        defaultDamage = enemyData.damage;
+        base.Awake();
     }
 
     public void SetTackle(bool on)
@@ -109,10 +114,12 @@ public class Slime_Bone : Enemy, ITacklable
         if (hitCount > 3)
         {
             Anim.SetTrigger("FinalArmored");
+            enemyData.damage *= damageIncreaseAmout;
         }
         else if(hitCount > 1)
         {
             Anim.SetTrigger("Armored");
+            enemyData.damage *= damageIncreaseAmout;
         }
 
         base.CheckHP();
@@ -128,8 +135,8 @@ public class Slime_Bone : Enemy, ITacklable
 
     public override void Reset()
     {
+        enemyData.damage = defaultDamage;
         base.Reset();
-
     }
 
 #if UNITY_EDITOR

@@ -20,8 +20,7 @@ public class Slime_Shadow : Enemy, ITacklable
         }
     }
 
-
-    private readonly float attackDistance = 2f;
+    private readonly float attackDistance = 1.5f;
     private readonly float chaseDistance = 5f;
 
     private Move_Chase chase = null;
@@ -35,7 +34,7 @@ public class Slime_Shadow : Enemy, ITacklable
 
 
 
-    private void Awake()
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -51,6 +50,7 @@ public class Slime_Shadow : Enemy, ITacklable
 
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
 
+        base.Awake();
     }
 
     public void SetTackle(bool on)
@@ -151,6 +151,7 @@ public class Slime_Shadow : Enemy, ITacklable
 
     public override void Reset()
     {
+        
         base.Reset();
     }
 

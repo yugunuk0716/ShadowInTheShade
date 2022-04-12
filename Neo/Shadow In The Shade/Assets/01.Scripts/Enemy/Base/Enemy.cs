@@ -37,6 +37,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
+    [Space(10)]
     public bool isAttack = false;
     public bool isDie = false;
 
@@ -52,7 +53,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
         set
         {
-
+            isHit = value;
         }
     }
 
@@ -86,6 +87,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
 
 
+
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
@@ -94,6 +96,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     public UnityEvent OnReset { get; set; }
 
     public AgentMove move;
+
+    [HideInInspector]
+    public AudioClip slimeHitClip;
+
+    public bool isShadow = false;
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
@@ -104,12 +111,25 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected Coroutine lifeTime = null;
 
-    private void Start()
+
+    protected virtual void Awake()
+    {
+        slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
+    }
+
+    protected virtual void Start()
     {
         //currHp = enemyData.maxHealth;
         move = GetComponent<AgentMove>();
         if (move == null)
             print("?");
+
+        GameManager.Instance.onPlayerChangeType.AddListener(() => 
+        {
+            isShadow = !isShadow;
+            Anim.SetBool("isShadow", isShadow);
+            gameObject.layer = 6;
+        });
     }
 
     protected void OnEnable()
@@ -188,6 +208,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         if (currentState.Equals(State.Die)) return;
 
+        SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
 
         StartCoroutine(Blinking());

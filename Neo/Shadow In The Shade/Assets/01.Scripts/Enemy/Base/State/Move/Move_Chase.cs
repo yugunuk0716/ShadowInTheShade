@@ -7,22 +7,37 @@ public class Move_Chase : MonoBehaviour, IState
 {
     public float speed = 3f;
 
-    bool isStateEnter = false;
-    bool canTrace = false;
+    public bool isStateEnter = false;
+    public bool canTrace = false;
 
     private Coroutine chaseCoroutine;
     private Transform target;
     private AgentMove agentMove;
 
+    private Enemy enemy;
+
     public void OnEnter()
     {
         if (isStateEnter)
             return;
+
+        if (enemy == null)
+            enemy = GetComponent<Enemy>();
+
         isStateEnter = true;
+
         if (target == null)
             target = GameManager.Instance.player;
+
         if(agentMove == null)
             agentMove = GetComponent<AgentMove>();
+
+        if(chaseCoroutine != null) 
+        {
+            StopCoroutine(chaseCoroutine);
+        }
+
+
         chaseCoroutine = StartCoroutine(TrackingPlayer());
         canTrace = true;
     }
@@ -59,7 +74,6 @@ public class Move_Chase : MonoBehaviour, IState
             yield return null;
         }
     }
-
 
     
 }

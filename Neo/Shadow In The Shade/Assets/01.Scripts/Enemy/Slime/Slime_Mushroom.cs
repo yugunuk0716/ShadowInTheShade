@@ -18,7 +18,7 @@ public class Slime_Mushroom : Enemy, IDamagable
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
-    private void Awake()
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -37,6 +37,7 @@ public class Slime_Mushroom : Enemy, IDamagable
 
         attackCool *= 2;
 
+        base.Awake();
     }
 
     public void SetTackle(bool on)

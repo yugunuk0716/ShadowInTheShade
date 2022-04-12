@@ -91,12 +91,25 @@ public class Player : MonoBehaviour, IDamagable
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
+    private AudioClip doorAudioClip;
+
+    private void Awake()
+    {
+        doorAudioClip = Resources.Load<AudioClip>("Sounds/DoorOpen");
+    }
+
     private void Start()
     {
         currHP = maxHP;
         RoomManager.Instance.OnMoveRoomEvent.AddListener(() =>
         {
-            currentRoom.doorList.ForEach(d => d.IsOpen = false);
+            currentRoom.isClear = false;
+            currentRoom.doorList.ForEach(d => 
+            {
+                d.IsOpen = false;
+                d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
+            });
+            PlayDoorSound();
         });
 
         //currentRoom = RoomManager.Instance.startRoom;
@@ -124,7 +137,19 @@ public class Player : MonoBehaviour, IDamagable
 
     public void DoorOpen()
     {
-        currentRoom.doorList.ForEach(d => d.IsOpen = true);
+        currentRoom.isClear = true;
+        print(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
+        currentRoom.doorList.ForEach(d => 
+        {
+            d.IsOpen = true;
+            d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
+        });
+        PlayDoorSound();
+    }
+
+    private void PlayDoorSound()
+    {
+        SoundManager.Instance.GetAudioSource(doorAudioClip, false, SoundManager.Instance.BaseVolume).Play();
     }
 
     public void GetHit(int damage)

@@ -16,7 +16,7 @@ public class Slime_Moss : Enemy
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
-    private void Awake()
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -30,6 +30,8 @@ public class Slime_Moss : Enemy
 
         // Á×À½
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+
+        base.Awake();
 
     }
 

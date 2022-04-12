@@ -18,7 +18,9 @@ public class Slime_Beaker : Enemy, ITacklable
     private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
 
-    private void Awake()
+    private int reincarnationIdx = 0;
+
+    protected override void Awake()
     {
         dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
 
@@ -33,7 +35,18 @@ public class Slime_Beaker : Enemy, ITacklable
         dicState[State.Attack] = attack;
 
         dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        base.Awake();
 
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        {
+            isAttack = false;
+            Anim.SetBool("isTackle", false);
+        });
     }
 
     public void SetTackle(bool on)
@@ -90,11 +103,21 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public override void GetHit(int damage)
     {
+
         base.GetHit(damage);
     }
 
     protected override void CheckHP()
     {
+        if (!Anim.GetBool("isReincarnation") && currHP <= 0f)
+        {
+            chase.speed = 0f;
+            currHP = enemyData.maxHealth / 2;
+            IsHit = false;
+            Anim.SetBool("isReincarnation", true);
+            return;
+        }
+
         base.CheckHP();
     }
 
@@ -105,6 +128,34 @@ public class Slime_Beaker : Enemy, ITacklable
     }
 
 
+    public void WaitingReincarnation()
+    {
+        isAttack = true;
+        reincarnationIdx++;
+        if(reincarnationIdx >= 2)
+        {
+            Reincarnation();
+        }
+    }
+
+    public void Reincarnation()
+    {
+        print(currHP);
+        chase.speed = 0f;
+        IsHit = false;
+        reincarnationIdx = 0;
+        Anim.SetBool("isReincarnation", false);
+    }
+
+    public void ReincarnationEnd()
+    {
+        print("¸®ÀÎÄ« ¾Øµå");
+        isAttack = false;
+        gameObject.layer = 6;
+        dicState[State.Move].OnEnd();
+        chase.speed = 3f;
+        //dicState[State.Move].OnEnter();
+    }
 
     public override void Reset()
     {

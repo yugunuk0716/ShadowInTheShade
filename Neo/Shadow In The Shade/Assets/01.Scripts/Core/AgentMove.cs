@@ -7,9 +7,9 @@ public class AgentMove : MonoBehaviour
 
     public Rigidbody2D rigid;
 
-    protected bool _isKnockBack = false;
+    protected bool isKnockBack = false;
 
-    protected Coroutine _knockBackCo = null;
+    protected Coroutine knockBackCo = null;
 
     public void Awake()
     {
@@ -21,7 +21,7 @@ public class AgentMove : MonoBehaviour
     {
         if (rigid == null)
             print($"{gameObject.name}에서 리짓바디가 안들어옴");
-        if (!_isKnockBack && rigid != null)
+        if (!isKnockBack && rigid != null)
         {
             if (rigid == null)
                 print("?");
@@ -32,25 +32,25 @@ public class AgentMove : MonoBehaviour
 
 
 
-    public void KnockBack(Vector2 direction, float power, float duration)
+    public virtual void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (!_isKnockBack)
+        if (!isKnockBack)
         {
-            _isKnockBack = true;
-            _knockBackCo = StartCoroutine(KnockBackCoroutine(direction, power, duration));
+            isKnockBack = true;
+            knockBackCo = StartCoroutine(KnockBackCoroutine(direction, power, duration));
         }
     }
 
-    IEnumerator KnockBackCoroutine(Vector2 direction, float power, float duration)
+    protected IEnumerator KnockBackCoroutine(Vector2 direction, float power, float duration)
     {
         rigid.velocity = direction.normalized * power;
         yield return new WaitForSeconds(duration);
         ResetKnockBackParam();
     }
 
-    private void ResetKnockBackParam()
+    protected void ResetKnockBackParam()
     {
         rigid.velocity = Vector2.zero;
-        _isKnockBack = false;
+        isKnockBack = false;
     }
 }
