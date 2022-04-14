@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ff3ae571d65c946bf9a2eacdc2650d, type: 3}
+  m_Name: TestPlayer
+  m_EditorClassIdentifier: 
+  playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
+  canChangePlayerType: 1
+  playerStates: 0
+  playerInputState: 0
+  moveStats:
+    SPD: 7
+    DSP: 10
+    DRT: 0.1
+    DST: 10
+    DSS: 1
+  attackStats:
+    ATK: 0
+    ASD: 0
+    CTP: 0
+    CTD: 0
+    SCD: 0
+  ectStats:
+    TCT: 1
+    PHP: 0

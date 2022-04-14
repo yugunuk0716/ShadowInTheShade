@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5929916d7b917674780e1aec101b98a2, type: 3}
+  m_Name: Mushroom SO
+  m_EditorClassIdentifier: 
+  enemyName: Mushroom Slime
+  prefab: {fileID: 945484190645815882, guid: 3f04652947c3a584a947f4dd35637614, type: 3}
+  poolPrefab: {fileID: 945484190645815902, guid: 3f04652947c3a584a947f4dd35637614, type: 3}
+  <maxHealth>k__BackingField: 5
+  <damage>k__BackingField: 1
