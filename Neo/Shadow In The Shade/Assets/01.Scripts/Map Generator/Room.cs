@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Room : PoolableMono
@@ -37,6 +38,9 @@ public class Room : PoolableMono
     private Door topDoor;
     private Door bottomDoor;
 
+    public List<EnemySpawnPoint> currentESPList;
+
+
     public Room(int width, int height)
     {
         Width = width;
@@ -51,10 +55,17 @@ public class Room : PoolableMono
             shadowMap.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
             defaultMap.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
         });
+
+    }
+
+    private void Awake()
+    {
+        currentESPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
     }
 
     private void OnEnable()
     {
+        
         RoomManager.Instance.RegisterRoom(this);
         Door[] doors = GetComponentsInChildren<Door>();
         foreach (Door door in doors)
@@ -80,7 +91,29 @@ public class Room : PoolableMono
             }
 
         }
+       
 
+    }
+
+
+
+    public void EnterRoom()
+    {
+        print("1페이즈 생성");
+        //StageManager.Instance.CurEnemySPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
+        SpawnEnemies();
+    }
+
+    public void SpawnEnemies()
+    {
+        foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
+        {
+            if(!esp.isSpawned && esp.phaseCount == phaseCount)
+            {
+                esp.isSpawned = true;
+                esp.Spawn();
+            }
+        }
     }
 
     public Vector2 GetSpawnPoint(DirType dir)
@@ -179,8 +212,14 @@ public class Room : PoolableMono
 
     public override void Reset()
     {
-        //print("Reset");
-        //throw new System.NotImplementedException();
+        //foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
+        //{
+        //    esp.isSpawned = false;
+
+        //}
+        //StageManager.Instance.curEnemySPList.Clear();
+        phaseCount = 0;
+
     }
 
 #if UNITY_EDITOR

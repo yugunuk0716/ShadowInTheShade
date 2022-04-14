@@ -20,7 +20,7 @@ public class DamagePopup : PoolableMono
     public void SetText(int damageAmount, Vector3 pos, bool isCritical)
     {
 
-        transform.position = new Vector3(pos.x, pos.y, -2f);
+        transform.position = new Vector3(pos.x, pos.y, -7f);
 
         _tmp.SetText(damageAmount.ToString());
 

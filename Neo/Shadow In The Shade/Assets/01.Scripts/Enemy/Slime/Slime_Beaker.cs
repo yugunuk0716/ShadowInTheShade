@@ -49,6 +49,11 @@ public class Slime_Beaker : Enemy, ITacklable
         });
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
     public void SetTackle(bool on)
     {
         isAttack = on;

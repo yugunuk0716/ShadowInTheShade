@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IDamagable
 {
-    public Room currentRoom;
+ //   public Room currentRoom;
 
     public LayerMask whatIsHittable;
 
@@ -88,37 +88,28 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    private Rigidbody2D rigid;
+    public Rigidbody2D Rigid
+    {
+        get
+        {
+            if (rigid == null)
+            {
+                rigid = GetComponentInChildren<Rigidbody2D>();
+            }
+
+            return rigid;
+        }
+    }
+
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
-    private AudioClip doorAudioClip;
 
-    private void Awake()
-    {
-        doorAudioClip = Resources.Load<AudioClip>("Sounds/DoorOpen");
-    }
 
     private void Start()
     {
         currHP = maxHP;
-        RoomManager.Instance.OnMoveRoomEvent.AddListener(() =>
-        {
-            currentRoom.isClear = false;
-            currentRoom.doorList.ForEach(d => 
-            {
-                d.IsOpen = false;
-                d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-            });
-            PlayDoorSound();
-        });
-
-        //RoomManager.Instance.OnMoveRoomEvent?.Invoke();
-
-        //currentRoom = RoomManager.Instance.startRoom;
-        //if(currentRoom != null)
-        //{
-        //    currentRoom.miniPlayerSprite.SetActive(true);
-        //}
     }
 
 
@@ -128,7 +119,7 @@ public class Player : MonoBehaviour, IDamagable
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            DoorOpen();
+            StageManager.Instance.StageClear();
         }
 
         if(currentT - lastHitT >= hitCool)
@@ -137,22 +128,8 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-    public void DoorOpen()
-    {
-        currentRoom.isClear = true;
-        print(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-        currentRoom.doorList.ForEach(d => 
-        {
-            d.IsOpen = true;
-            d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-        });
-        PlayDoorSound();
-    }
 
-    private void PlayDoorSound()
-    {
-        SoundManager.Instance.GetAudioSource(doorAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-    }
+   
 
     public void GetHit(int damage)
     {
@@ -233,12 +210,19 @@ public class Player : MonoBehaviour, IDamagable
 
     private void OnParticleCollision(GameObject other)
     {
-        if ((1 << other.layer & whatIsHittable) > 0)
+        if (((1 << other.layer) & whatIsHittable) > 0)
         {
+            if (IsHit || IsDie)
+                return;
             GetHit(1);
-            KnockBack(this.transform.position - other.transform.position, 2f, 0.3f);
+            Rigid.velocity = Vector2.zero;
+            print(other.transform.position - this.transform.position);
+            KnockBack(other.transform.position - this.transform.position, 20f, 0.1f);
             EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
         }
     }
+
+
+  
 
 }

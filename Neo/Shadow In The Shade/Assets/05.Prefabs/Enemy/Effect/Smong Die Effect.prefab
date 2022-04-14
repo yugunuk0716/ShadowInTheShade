@@ -3618,7 +3618,7 @@ ParticleSystem:
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
-    multiplyColliderForceByCollisionAngle: 1
+    multiplyColliderForceByCollisionAngle: 0
     m_Planes:
     - {fileID: 0}
     m_Dampen:
@@ -3795,9 +3795,9 @@ ParticleSystem:
   TriggerModule:
     enabled: 0
     serializedVersion: 2
-    inside: 1
+    inside: 0
     outside: 0
-    enter: 0
+    enter: 2
     exit: 0
     colliderQueryMode: 0
     radiusScale: 1
@@ -4818,3 +4818,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e1732483debdb43832714fd9b87af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myRend: {fileID: 0}

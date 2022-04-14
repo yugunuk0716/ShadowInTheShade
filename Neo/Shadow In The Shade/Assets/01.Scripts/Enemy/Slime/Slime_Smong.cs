@@ -37,6 +37,15 @@ public class Slime_Smong : Enemy, ITacklable
         base.Awake();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
     public void SetTackle(bool on)
     {
         isAttack = on;
