@@ -99,8 +99,6 @@ public class Room : PoolableMono
 
     public void EnterRoom()
     {
-        print("1페이즈 생성");
-        //StageManager.Instance.CurEnemySPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
         SpawnEnemies();
     }
 

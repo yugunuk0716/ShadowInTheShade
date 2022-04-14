@@ -216,7 +216,6 @@ public class Player : MonoBehaviour, IDamagable
                 return;
             GetHit(1);
             Rigid.velocity = Vector2.zero;
-            print(other.transform.position - this.transform.position);
             KnockBack(other.transform.position - this.transform.position, 20f, 0.1f);
             EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
         }
