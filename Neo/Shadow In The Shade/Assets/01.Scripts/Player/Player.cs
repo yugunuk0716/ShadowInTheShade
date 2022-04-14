@@ -112,6 +112,8 @@ public class Player : MonoBehaviour, IDamagable
             PlayDoorSound();
         });
 
+        //RoomManager.Instance.OnMoveRoomEvent?.Invoke();
+
         //currentRoom = RoomManager.Instance.startRoom;
         //if(currentRoom != null)
         //{

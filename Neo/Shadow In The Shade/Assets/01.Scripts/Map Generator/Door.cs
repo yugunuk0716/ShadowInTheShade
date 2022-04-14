@@ -41,7 +41,7 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        IsOpen = true;
+        //IsOpen = true;
 
         GameManager.Instance.onPlayerChangeType.AddListener(() =>
         {

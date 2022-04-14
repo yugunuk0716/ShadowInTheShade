@@ -221,14 +221,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
 
-        //SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
-        //if (currHp <= 0)
-        //{
-        //    isDie = true;
-        //    StartCoroutine(Dead());
-        //    //this.gameObject.SetActive(false);
-        //    OnDie?.Invoke();
-        //}
+       
+       
 
     }
 
@@ -250,14 +244,12 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         {
             Anim.SetTrigger("isDie");
             yield return null;
-            //this.gameObject.SetActive(false);
         }
     }
 
     public void PushInPool()
     {
         PoolManager.Instance.Push(this);
-        //gameObject.SetActive(false);
     }
 
 
