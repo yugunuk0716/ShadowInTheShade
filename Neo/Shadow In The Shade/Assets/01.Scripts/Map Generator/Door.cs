@@ -41,11 +41,10 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        IsOpen = true;
+        //IsOpen = true;
 
         GameManager.Instance.onPlayerChangeType.AddListener(() =>
         {
-            //shadowDoor.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
             normalDoor.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
         });
     }
@@ -55,10 +54,11 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !RoomManager.Instance.isMoving && isOpen)
         {
-            Player player = collision.GetComponent<Player>();
-            player.currentRoom.miniPlayerSprite.SetActive(false);
-            player.currentRoom = adjacentRoom;
-            player.currentRoom.miniPlayerSprite.SetActive(true);
+            StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(false);
+            StageManager.Instance.currentRoom = adjacentRoom;
+            StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
+            StageManager.Instance.CurEnemySPList.Clear();
+            StageManager.Instance.currentRoom.EnterRoom();
             StartCoroutine(MoveRoomCoroutine(collision));
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }

@@ -353,17 +353,13 @@ public class RoomManager : MonoBehaviour
             higherY = room.Y;
         }
 
-        //if (!room.name.Contains("Basic"))
-        //{
-        //    room.transform.position =
-        //    new Vector3(currentLoadRoomData.X * room.Width, currentLoadRoomData.Y * room.Height);
-        //}'
 
         if (room.name.Contains("Start"))
         {
             EffectManager.Instance.SetCamBound(room.camBound);
             room.miniPlayerSprite.SetActive(true);
-            GameManager.Instance.player.GetComponent<Player>().currentRoom = room;
+            StageManager.Instance.currentRoom = room;
+            StageManager.Instance.currentRoom.EnterRoom();
 
         }
 

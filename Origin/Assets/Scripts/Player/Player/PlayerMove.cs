@@ -65,6 +65,8 @@ public class PlayerMove : AgentMove
             time += Time.deltaTime;
             afterTime += Time.deltaTime;
 
+            print($"{afterTime} {targetTime}");
+
             if (afterTime >= targetTime)
             {
                 AfterImage ai = PoolManager.Instance.GetAfterImage();

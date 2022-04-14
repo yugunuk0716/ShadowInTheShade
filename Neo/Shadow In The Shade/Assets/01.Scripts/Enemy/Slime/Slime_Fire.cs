@@ -36,6 +36,14 @@ public class Slime_Fire : Enemy, IDamagable
         base.Awake();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
 
     protected override void SetDefaultState(State state)
     {
@@ -92,13 +100,14 @@ public class Slime_Fire : Enemy, IDamagable
 
     public override IEnumerator Dead()
     {
-        if (isDie.Equals(true))
-        {
-            Anim.SetTrigger("isDie");
-            yield return null;
-            this.gameObject.SetActive(false);
-            chase.speed = 0f;
-        }
+        //if (isDie.Equals(true))
+        //{
+        //    Anim.SetTrigger("isDie");
+        //    yield return null;
+        //    this.gameObject.SetActive(false);
+        //    chase.speed = 0f;
+        //}
+        yield return base.Dead();
     }
 
 

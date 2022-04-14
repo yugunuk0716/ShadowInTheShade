@@ -127,13 +127,16 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         GameManager.Instance.onPlayerChangeType.AddListener(() => 
         {
             isShadow = !isShadow;
+            MyRend.enabled = !isShadow;
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
         });
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
+        isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
+        MyRend.enabled = !isShadow;
         currHP = enemyData.maxHealth;
         MyRend.color = Color.white;
         isDie = false;
@@ -166,7 +169,15 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected virtual IEnumerator LifeTime()
     {
         // 여기에 적의 로직 구현
-        yield return null;
+
+        if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
+        {
+            Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
+            sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
+
+        yield return new WaitForSeconds(1.5f);
+
     }
 
 
@@ -176,6 +187,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         {
             StopCoroutine(lifeTime);
             SetState(State.Die);
+            StageManager.Instance.curStageEnemys.Remove(this);
             isDie = true;
             StartCoroutine(Dead());
             OnDie?.Invoke();
@@ -221,14 +233,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
 
-        //SoundManager.Instance.PlaySFX(SoundManager.Instance._slimeHitSFX);
-        //if (currHp <= 0)
-        //{
-        //    isDie = true;
-        //    StartCoroutine(Dead());
-        //    //this.gameObject.SetActive(false);
-        //    OnDie?.Invoke();
-        //}
+       
+       
 
     }
 
@@ -248,16 +254,15 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (isDie.Equals(true))
         {
+            StageManager.Instance.ClearCheck();
             Anim.SetTrigger("isDie");
             yield return null;
-            //this.gameObject.SetActive(false);
         }
     }
 
     public void PushInPool()
     {
         PoolManager.Instance.Push(this);
-        //gameObject.SetActive(false);
     }
 
 
@@ -266,10 +271,12 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         OnReset?.Invoke();
         currHP = enemyData.maxHealth;
         Anim.ResetTrigger("isDie");
+        Anim.Rebind();
         EnemyManager.Instance.enemyList.Remove(this);
         currentState = State.Default;
         isDie = false;
         isAttack = false;
+        //myRend.enabled = true;
 
     }
 }

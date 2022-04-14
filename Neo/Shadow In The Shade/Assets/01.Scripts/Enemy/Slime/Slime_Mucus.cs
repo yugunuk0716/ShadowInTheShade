@@ -54,6 +54,14 @@ public class Slime_Mucus : Enemy
         base.Awake();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
 
     public void SetMucus(bool on)
     {
