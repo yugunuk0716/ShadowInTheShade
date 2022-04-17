@@ -102,6 +102,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public bool isShadow = false;
 
+    public float speed = 3f;
+
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
@@ -140,7 +142,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         currHP = enemyData.maxHealth;
         MyRend.color = Color.white;
         isDie = false;
-
+        lastAttackTime -= attackCool;
         EnemyManager.Instance.enemyList.Add(this);
 
         SetDefaultState(State.Default);

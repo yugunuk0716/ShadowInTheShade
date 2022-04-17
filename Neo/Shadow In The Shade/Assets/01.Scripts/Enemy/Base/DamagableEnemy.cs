@@ -19,7 +19,6 @@ public class DamagableEnemy : DamagableObject
     {
         if (enemy.isAttack)
         {
-
             if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
             {
                 IDamagable d = collision.GetComponent<IDamagable>();

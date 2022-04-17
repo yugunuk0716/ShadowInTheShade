@@ -50,7 +50,10 @@ public class RoomManager : MonoBehaviour
     readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
     readonly List<Room> adjacentRoomList = new List<Room>();
 
+    [HideInInspector]
     public List<Room> loadedRooms = new List<Room>();
+
+
 
     public Room startRoom;
 
