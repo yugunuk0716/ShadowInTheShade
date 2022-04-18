@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 945484190037544232}
   - component: {fileID: 945484190037544230}
   - component: {fileID: 945484190037544231}
+  - component: {fileID: 1593095583282549792}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &945484190037544232
 Transform:
   m_ObjectHideFlags: 0
@@ -51,7 +52,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945484190037544233}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -70,6 +71,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1593095583282549792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945484190037544233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0ec059143ce8c498966cad1b232c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
+  enemy: {fileID: 945484190645815902}
 --- !u!1 &945484190645815882
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &945484190645815872
 Transform:
   m_ObjectHideFlags: 0
@@ -188,6 +206,7 @@ MonoBehaviour:
   move: {fileID: 0}
   slimeHitClip: {fileID: 0}
   isShadow: 0
+  speed: 3
   currentState: 0
 --- !u!114 &945484190645815903
 MonoBehaviour:

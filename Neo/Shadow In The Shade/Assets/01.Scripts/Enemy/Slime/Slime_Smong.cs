@@ -83,12 +83,10 @@ public class Slime_Smong : Enemy, ITacklable
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (dist < chaseDistance && dist >= attackDistance)
             {
-                print("??");
                 dicState[State.Move].OnEnter();
             }
             else
             {
-                print("Ã¼ÀÌ½º ¾Øµå 11111");
                 dicState[State.Move].OnEnd();
             }
 

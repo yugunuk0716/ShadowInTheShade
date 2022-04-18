@@ -14,7 +14,21 @@ public class Mushroom : PoolableMono
             return rigid;
         }
     }
-    
+
+    private Animator anim;
+
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        {
+            anim.SetBool("isShadow",PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+            
+
+        });
+    }
+
 
     public override void Reset()
     {
