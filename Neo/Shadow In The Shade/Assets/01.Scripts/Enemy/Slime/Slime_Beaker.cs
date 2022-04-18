@@ -85,6 +85,9 @@ public class Slime_Beaker : Enemy, ITacklable
         yield return null;
         while (true)
         {
+            //if (!Anim.GetBool("isReincarnation"))
+            //    continue;
+
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (dist < chaseDistance && dist > attackDistance)
             {
@@ -137,7 +140,7 @@ public class Slime_Beaker : Enemy, ITacklable
     {
         isAttack = true;
         reincarnationIdx++;
-        if(reincarnationIdx >= 2)
+        if(reincarnationIdx >= 5)
         {
             Reincarnation();
         }

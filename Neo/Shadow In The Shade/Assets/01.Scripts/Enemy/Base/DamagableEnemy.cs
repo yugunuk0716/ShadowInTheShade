@@ -28,5 +28,20 @@ public class DamagableEnemy : DamagableObject
                 EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
             }
         }
+        else
+        {
+            if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
+            {
+                IDamagable d = collision.GetComponent<IDamagable>();
+                if (d.IsHit)
+                    return;
+
+                d?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower / 2, dObjData.knockBackDelay);
+                d?.GetHit(dObjData.damage / 2);
+
+                //base.OnTriggerEnter2D(collision);
+                EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+            }
+        }
     }
 }
