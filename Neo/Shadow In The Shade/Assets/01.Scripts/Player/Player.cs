@@ -51,7 +51,21 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     public float maxHP = 0f;
+
     private float currHP = 0f;
+    public float CurrHP
+    {
+        get 
+        {
+            return currHP;
+        }
+
+        set 
+        {
+            currHP = value;
+            UIManager.Instance.SetBar(currHP / maxHP);
+        }
+    }
 
     private float currentT = 0f;
     private float lastHitT = 0f;
@@ -109,7 +123,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        currHP = maxHP;
+        CurrHP = maxHP;
     }
 
 
@@ -141,11 +155,10 @@ public class Player : MonoBehaviour, IDamagable
         IsHit = true;
        
 
-        currHP -= damage;
+        CurrHP -= damage;
 
         StartCoroutine(Blinking());
         StartCoroutine(StateRoutine());
-        //move.rigid.velocity = Vector2.zero;
 
         CheckHp();
 
@@ -186,7 +199,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void CheckHp()
     {
-        if (currHP <= 0f)
+        if (CurrHP <= 0f)
         {
             IsDie = true;
             StartCoroutine(Dead());
@@ -208,18 +221,19 @@ public class Player : MonoBehaviour, IDamagable
 
     
 
-    private void OnParticleCollision(GameObject other)
-    {
-        if (((1 << other.layer) & whatIsHittable) > 0)
-        {
-            if (IsHit || IsDie)
-                return;
-            GetHit(1);
-            Rigid.velocity = Vector2.zero;
-            KnockBack(other.transform.position - this.transform.position, 20f, 0.1f);
-            EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
-        }
-    }
+    //private void OnParticleCollision(GameObject other)
+    //{
+    //    if (((1 << other.layer) & whatIsHittable) > 0)
+    //    {
+    //        if (IsHit || IsDie)
+    //            return;
+    //        Rigid.velocity = Vector2.zero;
+    //        print(other.transform.position - this.transform.position);
+    //        KnockBack(other.transform.position - this.transform.position, 10f, 0.1f);
+    //        GetHit(1);
+    //        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+    //    }
+    //}
 
 
   

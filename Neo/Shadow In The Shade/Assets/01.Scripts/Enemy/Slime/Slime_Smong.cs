@@ -10,6 +10,8 @@ public class Slime_Smong : Enemy, ITacklable
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
+    
+
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
 
@@ -79,7 +81,7 @@ public class Slime_Smong : Enemy, ITacklable
         while (true)
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-            if (dist < chaseDistance && dist > attackDistance)
+            if (dist < chaseDistance && dist >= attackDistance)
             {
                 dicState[State.Move].OnEnter();
             }
@@ -87,6 +89,7 @@ public class Slime_Smong : Enemy, ITacklable
             {
                 dicState[State.Move].OnEnd();
             }
+
             if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
             {
                 lastAttackTime = Time.time; 

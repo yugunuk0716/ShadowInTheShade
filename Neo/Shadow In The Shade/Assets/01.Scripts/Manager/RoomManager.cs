@@ -26,7 +26,7 @@ public enum DiagonalDir
 
 public class RoomManager : MonoBehaviour
 {
-    readonly string currentWorldName = "Dungeon";
+    string currentStageName = "Dungeon";
 
     private static RoomManager instance;
     public static RoomManager Instance
@@ -38,6 +38,8 @@ public class RoomManager : MonoBehaviour
                 GameObject obj = new GameObject("RoomManager");
                 obj.AddComponent<RoomManager>();
                 obj.AddComponent<RoomGenerator>();
+                obj.GetComponent<RoomManager>().spawnableRoomData = Resources.Load<RoomListSO>("1Stage Room List");
+              
                 obj.GetComponent<RoomGenerator>().dungeonGenerationData = Resources.Load<RoomGenerationData>("DungeonGenerationData");
                 instance = obj.GetComponent<RoomManager>();
             }
@@ -47,10 +49,15 @@ public class RoomManager : MonoBehaviour
     }
 
     RoomInfo currentLoadRoomData;
-    readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
-    readonly List<Room> adjacentRoomList = new List<Room>();
+    RoomListSO spawnableRoomData;
 
+
+    readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
+
+    [HideInInspector]
     public List<Room> loadedRooms = new List<Room>();
+
+
 
     public Room startRoom;
 
@@ -71,6 +78,9 @@ public class RoomManager : MonoBehaviour
         {
             OnMoveRoomEvent = new UnityEvent();
         }
+
+  
+
     }
 
     private void Update()
@@ -142,11 +152,8 @@ public class RoomManager : MonoBehaviour
             int x = bossRoom.X;
             int y = bossRoom.Y;
             Destroy(bossRoom.gameObject);
-            //bossRoom.name = "Dungeon Empty";
-            //PoolManager.Instance.Push(bossRoom);
             Room roomToRemove = loadedRooms.Single(r => r.X == x && r.Y == y);
             loadedRooms.Remove(roomToRemove);
-            //PoolManager.Instance.Push(roomToRemove);
             LoadRoom("End", x, y);
 
         }
@@ -311,7 +318,7 @@ public class RoomManager : MonoBehaviour
 
     public void LoadInResourcesRoom(RoomInfo info)
     {
-        Room room = PoolManager.Instance.Pop($"{currentWorldName} {info.name}") as Room;
+        Room room = PoolManager.Instance.Pop($"{currentStageName} {info.name}") as Room;
         if (room.name.Contains("End"))
         {
             room.RemoveUnconnectedDoors();
@@ -320,7 +327,7 @@ public class RoomManager : MonoBehaviour
                 r.ConnectRoom();
             }
         }
-        else if (room.name.Equals($"{currentWorldName} Empty") || room.name.Equals($"{currentWorldName} Basic1"))
+        else if (!room.name.Contains($"Start") && room.name.Contains(currentStageName))
         {
             room.gameObject.SetActive(false);
             PoolManager.Instance.Push(room);
@@ -409,11 +416,9 @@ public class RoomManager : MonoBehaviour
 
     public string GetRandomRoomName()
     {
-        string[] possibleRooms = new string[] {
-            "Empty"
-            //"Basic1"
-        };
-
-        return possibleRooms[Random.Range(0, possibleRooms.Length)];
+        int idx = Random.Range(0, spawnableRoomData.roomList.Count);
+        print($"{idx} {spawnableRoomData.roomList.Count}");
+        return spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1);
+        
     }
 }
