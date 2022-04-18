@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IDamagable
 {
-    public Room currentRoom;
+ //   public Room currentRoom;
 
     public LayerMask whatIsHittable;
 
@@ -51,7 +51,21 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     public float maxHP = 0f;
+
     private float currHP = 0f;
+    public float CurrHP
+    {
+        get 
+        {
+            return currHP;
+        }
+
+        set 
+        {
+            currHP = value;
+            UIManager.Instance.SetBar(currHP / maxHP);
+        }
+    }
 
     private float currentT = 0f;
     private float lastHitT = 0f;
@@ -88,37 +102,28 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    private Rigidbody2D rigid;
+    public Rigidbody2D Rigid
+    {
+        get
+        {
+            if (rigid == null)
+            {
+                rigid = GetComponentInChildren<Rigidbody2D>();
+            }
+
+            return rigid;
+        }
+    }
+
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
-    private AudioClip doorAudioClip;
 
-    private void Awake()
-    {
-        doorAudioClip = Resources.Load<AudioClip>("Sounds/DoorOpen");
-    }
 
     private void Start()
     {
-        currHP = maxHP;
-        RoomManager.Instance.OnMoveRoomEvent.AddListener(() =>
-        {
-            currentRoom.isClear = false;
-            currentRoom.doorList.ForEach(d => 
-            {
-                d.IsOpen = false;
-                d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-            });
-            PlayDoorSound();
-        });
-
-        //RoomManager.Instance.OnMoveRoomEvent?.Invoke();
-
-        //currentRoom = RoomManager.Instance.startRoom;
-        //if(currentRoom != null)
-        //{
-        //    currentRoom.miniPlayerSprite.SetActive(true);
-        //}
+        CurrHP = maxHP;
     }
 
 
@@ -128,7 +133,7 @@ public class Player : MonoBehaviour, IDamagable
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            DoorOpen();
+            StageManager.Instance.StageClear();
         }
 
         if(currentT - lastHitT >= hitCool)
@@ -137,22 +142,8 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-    public void DoorOpen()
-    {
-        currentRoom.isClear = true;
-        print(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-        currentRoom.doorList.ForEach(d => 
-        {
-            d.IsOpen = true;
-            d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-        });
-        PlayDoorSound();
-    }
 
-    private void PlayDoorSound()
-    {
-        SoundManager.Instance.GetAudioSource(doorAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-    }
+   
 
     public void GetHit(int damage)
     {
@@ -164,11 +155,10 @@ public class Player : MonoBehaviour, IDamagable
         IsHit = true;
        
 
-        currHP -= damage;
+        CurrHP -= damage;
 
         StartCoroutine(Blinking());
         StartCoroutine(StateRoutine());
-        //move.rigid.velocity = Vector2.zero;
 
         CheckHp();
 
@@ -209,7 +199,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void CheckHp()
     {
-        if (currHP <= 0f)
+        if (CurrHP <= 0f)
         {
             IsDie = true;
             StartCoroutine(Dead());
@@ -231,14 +221,21 @@ public class Player : MonoBehaviour, IDamagable
 
     
 
-    private void OnParticleCollision(GameObject other)
-    {
-        if ((1 << other.layer & whatIsHittable) > 0)
-        {
-            GetHit(1);
-            KnockBack(this.transform.position - other.transform.position, 2f, 0.3f);
-            EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
-        }
-    }
+    //private void OnParticleCollision(GameObject other)
+    //{
+    //    if (((1 << other.layer) & whatIsHittable) > 0)
+    //    {
+    //        if (IsHit || IsDie)
+    //            return;
+    //        Rigid.velocity = Vector2.zero;
+    //        print(other.transform.position - this.transform.position);
+    //        KnockBack(other.transform.position - this.transform.position, 10f, 0.1f);
+    //        GetHit(1);
+    //        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+    //    }
+    //}
+
+
+  
 
 }

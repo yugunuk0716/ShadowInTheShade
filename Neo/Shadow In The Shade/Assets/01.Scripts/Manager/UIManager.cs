@@ -17,6 +17,12 @@ public class UIManager : MonoBehaviour
     public GameObject minimap;
     private bool getTab;
 
+    [SerializeField]
+    private Image playerHPBar;
+
+    [SerializeField]
+    private Image playerEXPBar;
+
 
     private void Awake()
     {
@@ -33,6 +39,17 @@ public class UIManager : MonoBehaviour
     private void DrawMiniMap(bool on)
     {
         minimap.SetActive(on);
+    }
+
+    public void SetBar(float value, bool isEXP = false)
+    {
+        if (isEXP)
+        {
+            playerEXPBar.fillAmount = value;
+            return;
+        }
+
+        playerHPBar.fillAmount = value;
     }
     
 

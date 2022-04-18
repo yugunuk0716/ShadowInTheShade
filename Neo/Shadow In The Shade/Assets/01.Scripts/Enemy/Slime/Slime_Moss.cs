@@ -34,6 +34,14 @@ public class Slime_Moss : Enemy
         base.Awake();
 
     }
+    protected override void Start()
+    {
+        base.Start();
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
 
     protected override void SetDefaultState(State state)
     {

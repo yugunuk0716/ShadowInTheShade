@@ -24,6 +24,7 @@ public class Move_Chase : MonoBehaviour, IState
         if (enemy == null)
             enemy = GetComponent<Enemy>();
 
+        speed = enemy.speed;
         isStateEnter = true;
 
         if (target == null)
@@ -38,32 +39,37 @@ public class Move_Chase : MonoBehaviour, IState
         }
 
 
-        chaseCoroutine = StartCoroutine(TrackingPlayer());
         canTrace = true;
+        chaseCoroutine = StartCoroutine(TrackingPlayer());
     }
 
     public void OnEnd()
     {
         if (chaseCoroutine != null)
         {
+            print("Ã¼ÀÌ½º ¾Øµå");
             isStateEnter = false;
             canTrace = false;
-            StopCoroutine(chaseCoroutine);
+            //StopCoroutine(chaseCoroutine);
+            //agentMove.rigid.velocity = Vector3.zero;
         }
     }
 
     IEnumerator TrackingPlayer()
     {
-        while (true)
-        {
+        //while (true)
+        //{
             if (target != null)
             {
+            print(1);
                 if (canTrace)
                 {
-                    Vector2 dir = target.transform.position - this.gameObject.transform.position;
+                print(2);
+                Vector2 dir = target.transform.position - this.gameObject.transform.position;
 
                     if (agentMove != null)
                     {
+                    print(dir.normalized);
                         agentMove.OnMove(dir.normalized, speed);
                     }
                 }
@@ -72,7 +78,7 @@ public class Move_Chase : MonoBehaviour, IState
 
 
             yield return null;
-        }
+        //}
     }
 
     
