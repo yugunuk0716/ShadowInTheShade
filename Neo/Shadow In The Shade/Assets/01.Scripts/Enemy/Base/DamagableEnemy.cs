@@ -25,7 +25,7 @@ public class DamagableEnemy : DamagableObject
                 if (d.IsHit)
                     return;
                 base.OnTriggerEnter2D(collision);
-                EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 2f, 0.7f);
+                
             }
         }
         else
@@ -40,7 +40,6 @@ public class DamagableEnemy : DamagableObject
                 d?.GetHit(dObjData.damage / 2);
 
                 //base.OnTriggerEnter2D(collision);
-                EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 2f, 0.7f);
             }
         }
     }
