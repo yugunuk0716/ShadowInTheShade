@@ -1,4 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 3b5b4616ea3a7994cb3ae843acfdcc31
+TextureImporter:
+  internalIDToNameTable: []
+=======
 guid: 7c11c9fa25e27aa49a1cb3764c7f17a0
 TextureImporter:
   internalIDToNameTable:
@@ -107,6 +112,7 @@ TextureImporter:
   - first:
       213: -5392114577020028410
     second: human_mapTiles_stage1_v2_shadowMode_42
+>>>>>>> origin/main
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -137,7 +143,11 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
+    filterMode: 1
+=======
     filterMode: 0
+>>>>>>> origin/main
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -146,12 +156,20 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
+<<<<<<< HEAD
+  spriteMode: 1
+=======
   spriteMode: 2
+>>>>>>> origin/main
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
+  spritePixelsToUnits: 100
+=======
   spritePixelsToUnits: 32
+>>>>>>> origin/main
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -180,6 +198,11 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
+  spriteSheet:
+    serializedVersion: 2
+    sprites: []
+=======
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -954,6 +977,7 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+>>>>>>> origin/main
     outline: []
     physicsShape: []
     bones: []
