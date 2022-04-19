@@ -793,7 +793,7 @@ RectTransform:
   - {fileID: 711125060}
   - {fileID: 247088519}
   m_Father: {fileID: 893409838}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1188,7 +1188,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1531,7 +1531,7 @@ RectTransform:
   - {fileID: 746581810}
   - {fileID: 843319443}
   m_Father: {fileID: 893409838}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2364,10 +2364,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 2132721953}
   - {fileID: 705213774}
   - {fileID: 1877897213}
   - {fileID: 265591008}
-  - {fileID: 2132721953}
   m_Father: {fileID: 380442855}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2477,7 +2477,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1789509712}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -4692,9 +4692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3fcabd6f4e7a24a9fbae287933830c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsHittable:
-    serializedVersion: 2
-    m_Bits: 64
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -4923,7 +4920,7 @@ RectTransform:
   - {fileID: 1966381276}
   - {fileID: 849450425}
   m_Father: {fileID: 893409838}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6110,7 +6107,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 893409838}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

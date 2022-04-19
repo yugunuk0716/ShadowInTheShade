@@ -169,11 +169,15 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected virtual IEnumerator LifeTime()
     {
         // 여기에 적의 로직 구현
-
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
+            print("ㅁㄴㅇ");
             Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
+        else
+        {
+            print($"{PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates)},,, {enemyData.enemyName} ");
         }
 
         yield return new WaitForSeconds(.3f);

@@ -89,26 +89,29 @@ public class Slime_Beaker : Enemy, ITacklable
             //    continue;
 
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-            if (dist < chaseDistance)
+            if (!Anim.GetBool("isReincarnation"))
             {
-                if (dist < chaseDistance && dist > attackDistance)
+                if (dist < chaseDistance)
                 {
-                    SetState(State.Move);
-                    //dicState[State.Move].OnEnter();
+                    if (dist < chaseDistance && dist > attackDistance)
+                    {
+                        SetState(State.Move);
+                        //dicState[State.Move].OnEnter();
+                    }
+                    else
+                    {
+                        dicState[State.Move].OnEnd();
+                    }
+                    if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
+                    {
+                        lastAttackTime = Time.time;
+                        SetState(State.Attack);
+                    }
                 }
-                else
+                else if (!isDie)
                 {
-                    dicState[State.Move].OnEnd();
+                    SetState(State.Default);
                 }
-                if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
-                {
-                    lastAttackTime = Time.time;
-                    SetState(State.Attack);
-                }
-            }
-            else
-            {
-                SetState(State.Default);
             }
 
             yield return base.LifeTime();
@@ -147,7 +150,7 @@ public class Slime_Beaker : Enemy, ITacklable
     {
         isAttack = true;
         reincarnationIdx++;
-        if(reincarnationIdx >= 5)
+        if(reincarnationIdx >= 10)
         {
             Reincarnation();
         }

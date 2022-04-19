@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
@@ -51,6 +52,10 @@ public class StageManager : MonoBehaviour
         RoomManager.Instance.OnMoveRoomEvent.AddListener(() =>
         {
             //currentRoom.isClear = false;
+            if (!currentRoom.isClear)
+            {
+                DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 6f, 1f);
+            }
             currentRoom.doorList.ForEach(d =>
             {
                 d.IsOpen = currentRoom.isClear;
@@ -89,6 +94,7 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
+        DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 8f, 1f);
         currentRoom.doorList.ForEach(d =>
         {
             d.IsOpen = true;

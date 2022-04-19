@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 342028937629155270}
   - component: {fileID: 8376926018435196024}
   - component: {fileID: 2173891571983212793}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Smong Die Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4851,4 +4851,5 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 8
+  skipKnockBack: 1
   dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}

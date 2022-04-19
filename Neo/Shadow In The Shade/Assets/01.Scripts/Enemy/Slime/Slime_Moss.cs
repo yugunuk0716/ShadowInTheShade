@@ -63,7 +63,11 @@ public class Slime_Moss : Enemy
         yield return null;
         dicState[State.Attack].OnEnter();
         dicState[State.Default].OnEnter();
-      
+
+        while (true)
+        {
+            yield return base.LifeTime();
+        }
     }
 
     public override void GetHit(int damage)

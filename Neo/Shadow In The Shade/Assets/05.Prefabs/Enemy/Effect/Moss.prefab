@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5106736288726610519}
   - component: {fileID: 67298727180860398}
   - component: {fileID: 3355988984437723860}
+  - component: {fileID: 5246796967910585906}
   m_Layer: 0
   m_Name: Moss
   m_TagString: Untagged
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 6733215
-  m_SortingLayer: 1
+  m_SortingLayerID: -96285203
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: -916841624063119850, guid: fe2c749b25acd1d46b5624d9a1d45f16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -132,7 +133,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0041175634, y: -0.018528938}
+  m_Offset: {x: 0.004846409, y: -0.006203443}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -143,7 +144,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.74471223, y: 0.39472067}
+  m_Size: {x: 0.56543267, y: 0.24457383}
   m_EdgeRadius: 0
 --- !u!114 &3355988984437723860
 MonoBehaviour:
@@ -161,3 +162,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
+--- !u!114 &5246796967910585906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371835642235869577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442ca27f0cae8b94d9a8723f70ad71b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateOnce: 0

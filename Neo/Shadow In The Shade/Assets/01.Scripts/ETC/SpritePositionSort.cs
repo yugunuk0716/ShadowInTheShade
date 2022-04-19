@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class SpritePositionSort : MonoBehaviour
 {
     public bool updateOnce = false;
 
-    private SpriteRenderer spriteRenderer = null;
+    private Renderer rd;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        rd = GetComponent<Renderer>();
+        Sort();
     }
 
     private void LateUpdate()
@@ -18,8 +20,13 @@ public class SpritePositionSort : MonoBehaviour
         if (updateOnce)
             return;
 
-        float precisionMultiplier = 10.0f; // Sorting Order 정밀도 용
-        spriteRenderer.sortingOrder = (int)(-transform.position.y * precisionMultiplier);
-
+        Sort();
     }
+
+    private void Sort()
+    {
+        float precisionMultiplier = 10.0f; // Sorting Order 정밀도 용
+        rd.sortingOrder = (int)(-transform.position.y * precisionMultiplier);
+    }
+
 }

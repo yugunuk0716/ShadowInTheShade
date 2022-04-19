@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class DefualtButtons : MonoBehaviour
 {
@@ -39,5 +40,10 @@ public class DefualtButtons : MonoBehaviour
         {
             buttons[i].transform.DOLocalMove(originPos[i] += new Vector3(-600, 0, 0), .5f).SetEase(Ease.Linear);
         }
+    }
+
+    public void LoadInGameScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }

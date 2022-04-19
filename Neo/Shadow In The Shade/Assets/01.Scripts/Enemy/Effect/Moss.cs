@@ -5,11 +5,21 @@ using UnityEngine;
 public class Moss : PoolableMono
 {
     public Animator _ainm;
+    private SpriteRenderer sr;
     public bool _isAttacked;
 
     private void Awake()
     {
         _ainm = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+    void Start()
+    {
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        {
+            sr.enabled = !PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
+        });
     }
 
     public void SetCreateAnimation()

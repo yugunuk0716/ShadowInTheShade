@@ -7,8 +7,6 @@ public class Player : MonoBehaviour, IDamagable
 {
  //   public Room currentRoom;
 
-    public LayerMask whatIsHittable;
-
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
@@ -153,8 +151,8 @@ public class Player : MonoBehaviour, IDamagable
         lastHitT = currentT;
 
         IsHit = true;
-       
 
+        Rigid.velocity = Vector2.zero;
         CurrHP -= damage;
 
         StartCoroutine(Blinking());

@@ -60,7 +60,6 @@ public class Door : MonoBehaviour
             StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
             StageManager.Instance.CurEnemySPList.Clear();
             StageManager.Instance.currentRoom.currentESPList = StageManager.Instance.currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
-            StageManager.Instance.currentRoom.EnterRoom();
             StartCoroutine(MoveRoomCoroutine(collision));
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
@@ -119,5 +118,6 @@ public class Door : MonoBehaviour
         RoomManager.Instance.OnMoveRoomEvent?.Invoke();
         RoomManager.Instance.isMoving = false;
         GameManager.Instance.timeScale = 1f;
+        StageManager.Instance.currentRoom.EnterRoom();
     }
 }
