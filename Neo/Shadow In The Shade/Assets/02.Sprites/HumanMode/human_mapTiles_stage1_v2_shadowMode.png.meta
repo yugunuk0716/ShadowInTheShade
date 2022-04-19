@@ -1,15 +1,7 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 3b5b4616ea3a7994cb3ae843acfdcc31
 TextureImporter:
-  internalIDToNameTable: []
-=======
-guid: 7c11c9fa25e27aa49a1cb3764c7f17a0
-TextureImporter:
   internalIDToNameTable:
-  - first:
-      213: -6030018847002944773
-    second: human_mapTiles_stage1_v2_shadowMode_0
   - first:
       213: 9185039801363761962
     second: human_mapTiles_stage1_v2_shadowMode_1
@@ -112,7 +104,9 @@ TextureImporter:
   - first:
       213: -5392114577020028410
     second: human_mapTiles_stage1_v2_shadowMode_42
->>>>>>> origin/main
+  - first:
+      213: -6030018847002944773
+    second: human_mapTiles_stage1_v2_shadowMode_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -143,33 +137,21 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-<<<<<<< HEAD
-    filterMode: 1
-=======
     filterMode: 0
->>>>>>> origin/main
     aniso: 1
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
-  spriteMode: 1
-=======
   spriteMode: 2
->>>>>>> origin/main
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD
-  spritePixelsToUnits: 100
-=======
   spritePixelsToUnits: 32
->>>>>>> origin/main
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -184,31 +166,26 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-  spriteSheet:
-    serializedVersion: 2
-    sprites: []
-=======
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -220,7 +197,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -232,7 +209,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -242,27 +219,6 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites:
-    - serializedVersion: 2
-      name: human_mapTiles_stage1_v2_shadowMode_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 208
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bfa9a7b9ec1115ca0800000000000000
-      internalID: -6030018847002944773
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     - serializedVersion: 2
       name: human_mapTiles_stage1_v2_shadowMode_1
       rect:
@@ -977,11 +933,31 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
->>>>>>> origin/main
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v2_shadowMode_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 208
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfa9a7b9ec1115ca0800000000000000
+      internalID: -6030018847002944773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 9188df6e2dfd8754f966d3cff832da68
     internalID: 0
     vertices: []
     indices: 
