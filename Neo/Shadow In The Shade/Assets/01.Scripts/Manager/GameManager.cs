@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent<int> onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
     public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
 
+    public FeedBackPlayer feedBackPlayer;
+
     public PlayerSO playerSO;
 
 

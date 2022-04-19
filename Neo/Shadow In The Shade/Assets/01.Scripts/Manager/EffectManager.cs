@@ -143,10 +143,10 @@ public class EffectManager : MonoBehaviour
             bloodImage.sprite = sprite;
         }
 
-        if (doShake)
+ /*       if (doShake)
         {
             CameraShake(shakeDuration, shakePower);
-        }
+        }*/
 
         if (imageTween != null && imageTween.IsActive())
         {
@@ -172,7 +172,7 @@ public class EffectManager : MonoBehaviour
         cinemachineCamConfiner.m_BoundingShape2D = col;
     }
 
-    public void CameraShake(float shakeDuration = 1f, float shakePower = 0.5f)
+/*    public void CameraShake(float shakeDuration = 1f, float shakePower = 0.5f)
     {
         if (camTween != null && camTween.IsActive())
         {
@@ -189,6 +189,6 @@ public class EffectManager : MonoBehaviour
         }
         camTween = DOTween.To(() => cmPerlin.m_AmplitudeGain, value => cmPerlin.m_AmplitudeGain = value, 0, shakeDuration);
     }
-   
+   */
 
 }

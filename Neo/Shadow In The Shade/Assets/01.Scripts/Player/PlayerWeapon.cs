@@ -9,7 +9,7 @@ public class PlayerWeapon : DamagableObject
     {
         if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
         {
-            EffectManager.Instance.CameraShake(.5f, 2f);
+            GameManager.Instance.feedBackPlayer.PlayFeedback();
         }
         //Time.timeScale = 0.8;
         base.OnTriggerEnter2D(collision);
