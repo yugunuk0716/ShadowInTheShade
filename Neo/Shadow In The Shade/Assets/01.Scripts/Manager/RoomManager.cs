@@ -370,7 +370,7 @@ public class RoomManager : MonoBehaviour
 
         }
 
-        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width,  currentLoadRoomData.Y * room.Height, 0f);
+        room.transform.position = new Vector3(currentLoadRoomData.X * room.Width,  currentLoadRoomData.Y * room.Height, 3f);
         #region 주석
         ////생각 해보니까 이게 x가 0보다 크다면이랑 0보다 작다면을 나눠야 될 듯 혹은 Y가 양수인지 음수인지
         //if (room.name.Contains("Basic1"))
@@ -417,7 +417,7 @@ public class RoomManager : MonoBehaviour
     public string GetRandomRoomName()
     {
         int idx = Random.Range(0, spawnableRoomData.roomList.Count);
-        print($"{idx} {spawnableRoomData.roomList.Count}");
+        //print($"{idx} {spawnableRoomData.roomList.Count}");
         return spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1);
         
     }

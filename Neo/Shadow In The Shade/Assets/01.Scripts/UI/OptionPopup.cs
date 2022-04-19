@@ -67,7 +67,7 @@ public class OptionPopup : Popup
         previousScreenModeButton.onClick.AddListener(SetScreenMode);
         nextScreenModeScreenButton.onClick.AddListener(SetScreenMode);
 
-        print($"{Screen.currentResolution.width} x {Screen.currentResolution.height}");
+        //print($"{Screen.currentResolution.width} x {Screen.currentResolution.height}");
 
         if (currentResolution != 0)
         {
@@ -96,7 +96,7 @@ public class OptionPopup : Popup
 
     private void SetResolutionText(Resolution resolution)
     {
-        print(resolutions[currentResolution]);
+        //print(resolutions[currentResolution]);
         resolutionText.text = $"{resolution.width} x {resolution.height}";
     }
 

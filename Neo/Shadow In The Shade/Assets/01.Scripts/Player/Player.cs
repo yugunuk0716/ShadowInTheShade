@@ -163,6 +163,7 @@ public class Player : MonoBehaviour, IDamagable
         CheckHp();
 
         OnHit?.Invoke();
+        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
 
     }
 
@@ -183,10 +184,7 @@ public class Player : MonoBehaviour, IDamagable
         if (IsHit || IsDie)
             return;
         if (move == null)
-        {
-            print("¿Ö ¾øÀ½?");
-            return;
-        }
+      
         move.KnockBack(direction, power, duration);
     }
 

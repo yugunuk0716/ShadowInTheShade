@@ -89,19 +89,26 @@ public class Slime_Beaker : Enemy, ITacklable
             //    continue;
 
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-            if (dist < chaseDistance && dist > attackDistance)
+            if (dist < chaseDistance)
             {
-                dicState[State.Move].OnEnter();
+                if (dist < chaseDistance && dist > attackDistance)
+                {
+                    SetState(State.Move);
+                    //dicState[State.Move].OnEnter();
+                }
+                else
+                {
+                    dicState[State.Move].OnEnd();
+                }
+                if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
+                {
+                    lastAttackTime = Time.time;
+                    SetState(State.Attack);
+                }
             }
             else
             {
-                dicState[State.Move].OnEnd();
-            }
-            if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
-            {
-                lastAttackTime = Time.time;
-                dicState[State.Move].OnEnd();
-                dicState[State.Attack].OnEnter();
+                SetState(State.Default);
             }
 
             yield return base.LifeTime();
@@ -148,7 +155,6 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public void Reincarnation()
     {
-        print(currHP);
         chase.speed = 0f;
         IsHit = false;
         reincarnationIdx = 0;
@@ -157,7 +163,6 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public void ReincarnationEnd()
     {
-        print("¸®ÀÎÄ« ¾Øµå");
         isAttack = false;
         gameObject.layer = 6;
         dicState[State.Move].OnEnd();

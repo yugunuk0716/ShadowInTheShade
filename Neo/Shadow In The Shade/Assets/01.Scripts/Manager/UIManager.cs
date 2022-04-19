@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     private Image playerHPBar;
 
     [SerializeField]
+    private Image playerHPBar_White;
+
+    [SerializeField]
     private Image playerEXPBar;
 
 
@@ -93,6 +96,7 @@ public class UIManager : MonoBehaviour
         }
 
         playerHPBar.fillAmount = value;
+        playerHPBar_White.DOFillAmount(playerHPBar.fillAmount, .3f).SetEase(Ease.Linear).SetDelay(.5f);
     }
 
     public void OpenPopup(string name, object data = null, int closeCount = 1)

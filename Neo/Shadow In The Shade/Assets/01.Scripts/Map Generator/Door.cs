@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public enum DirType
 {
@@ -58,6 +59,7 @@ public class Door : MonoBehaviour
             StageManager.Instance.currentRoom = adjacentRoom;
             StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
             StageManager.Instance.CurEnemySPList.Clear();
+            StageManager.Instance.currentRoom.currentESPList = StageManager.Instance.currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
             StageManager.Instance.currentRoom.EnterRoom();
             StartCoroutine(MoveRoomCoroutine(collision));
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
@@ -78,7 +80,6 @@ public class Door : MonoBehaviour
 
         RoomManager.Instance.isMoving = true;
         GameManager.Instance.timeScale = 0f;
-        print(adjacentRoom.GetSpawnPoint(doorType));
         collision.transform.SetParent(adjacentRoom.transform);
         PlayerMove agentMove = collision.GetComponent<PlayerMove>();
         agentMove.rigid.velocity = Vector2.zero;

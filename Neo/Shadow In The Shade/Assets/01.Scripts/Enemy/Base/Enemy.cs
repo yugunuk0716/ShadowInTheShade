@@ -123,8 +123,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         //currHp = enemyData.maxHealth;
         move = GetComponent<AgentMove>();
-        if (move == null)
-            print("?");
 
         GameManager.Instance.onPlayerChangeType.AddListener(() => 
         {
@@ -149,7 +147,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         lifeTime = StartCoroutine(LifeTime());
         //PoolManager.Instance.enemies.Add(this);
     }
-
+    
     protected virtual void SetDefaultState(State state)     // 초기 행동 설정
     {
         currentState = state;
@@ -178,7 +176,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.3f);
 
     }
 
@@ -244,11 +242,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (isHit || isDie)
             return;
-        if(move == null)
-        {
-            print("왜 없음?");
-            return;
-        }    
         move.KnockBack(direction, power, duration);
     }
 

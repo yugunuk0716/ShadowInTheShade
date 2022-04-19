@@ -39,7 +39,6 @@ public class PoolManager : MonoBehaviour
     {
         if (!pools.ContainsKey(prefabName))
         {
-            print(prefabName);
             Debug.LogError("Prefab doesnt exist on pool");
             return null;
         }
@@ -53,7 +52,7 @@ public class PoolManager : MonoBehaviour
 
     public void Push(PoolableMono obj)
     {
-        print($"{obj.name} 副府令");
+        //print($"{obj.name} 副府令");
         pools[obj.name].Push(obj);
         obj.transform.SetParent(this.transform);
     }

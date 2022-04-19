@@ -21,7 +21,6 @@ public class Attack_Mushroom : MonoBehaviour, IState
         mushroom.transform.position = this.transform.position;
         //GameObject obj = Instantiate(mushroomPrefab, this.transform.position, Quaternion.identity);
         Vector2 dir = target.position - this.gameObject.transform.position;
-        print(dir.normalized * 2f);
         mushroom.Rigid.velocity = dir.normalized * 6f;
         StartCoroutine(CheckDistRoutine());
 

@@ -60,11 +60,11 @@ public class Room : PoolableMono
 
     private void Awake()
     {
-        currentESPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
     }
 
     private void OnEnable()
     {
+        currentESPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
         
         RoomManager.Instance.RegisterRoom(this);
         Door[] doors = GetComponentsInChildren<Door>();
@@ -100,10 +100,12 @@ public class Room : PoolableMono
     public void EnterRoom()
     {
         SpawnEnemies();
+        StageManager.Instance.ClearCheck();
     }
 
     public void SpawnEnemies()
     {
+         
         foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
         {
             if(!esp.isSpawned && esp.phaseCount == phaseCount)
