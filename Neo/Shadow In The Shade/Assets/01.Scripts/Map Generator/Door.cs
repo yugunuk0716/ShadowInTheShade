@@ -80,7 +80,6 @@ public class Door : MonoBehaviour
 
         RoomManager.Instance.isMoving = true;
         GameManager.Instance.timeScale = 0f;
-        print(adjacentRoom.GetSpawnPoint(doorType));
         collision.transform.SetParent(adjacentRoom.transform);
         PlayerMove agentMove = collision.GetComponent<PlayerMove>();
         agentMove.rigid.velocity = Vector2.zero;

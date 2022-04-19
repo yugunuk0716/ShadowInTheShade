@@ -53,10 +53,6 @@ public class Idle_Patrol : MonoBehaviour, IState
                 moveDir = Vector2.zero;
                 agentMove.OnMove(moveDir, speed);
             }
-            else
-            {
-                print($"{gameObject.name} 에이전트 무브가 없음");
-            }
             yield return new WaitForSeconds(1f);
         }
     }

@@ -39,7 +39,6 @@ public class PoolManager : MonoBehaviour
     {
         if (!pools.ContainsKey(prefabName))
         {
-            print(prefabName);
             Debug.LogError("Prefab doesnt exist on pool");
             return null;
         }

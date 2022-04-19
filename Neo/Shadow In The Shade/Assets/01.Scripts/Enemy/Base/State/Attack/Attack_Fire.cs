@@ -31,7 +31,6 @@ public class Attack_Fire : MonoBehaviour, IState
         {
             enemy.Anim.SetBool("isAttack", false);
             obj = PoolManager.Instance.Pop("Fire Die Effect") as FireParticle;
-            print(this.transform.position);
             obj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 1f, -5f);
             enemy.CurrHP = 0;
         }

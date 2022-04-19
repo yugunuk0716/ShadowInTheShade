@@ -96,7 +96,6 @@ public class EffectManager : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        print("?");
         while (true)
         {
             a += 0.01f;

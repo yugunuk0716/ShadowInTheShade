@@ -123,8 +123,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         //currHp = enemyData.maxHealth;
         move = GetComponent<AgentMove>();
-        if (move == null)
-            print("?");
 
         GameManager.Instance.onPlayerChangeType.AddListener(() => 
         {
@@ -244,11 +242,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (isHit || isDie)
             return;
-        if(move == null)
-        {
-            print("¿Ö ¾øÀ½?");
-            return;
-        }    
         move.KnockBack(direction, power, duration);
     }
 

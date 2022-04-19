@@ -76,10 +76,7 @@ public class PlayerDash : MonoBehaviour
                 {
                     ai.SetSprite(sr.sprite, transform.position);
                 }
-                else
-                {
-                    print("ºö");
-                }
+              
                 targetTime = Random.Range(0.02f, 0.06f);
                 afterTime = 0;
             }

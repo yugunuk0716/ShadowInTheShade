@@ -38,10 +38,13 @@ public class GameManager : MonoBehaviour
     public PlayerSO playerSO;
 
 
-    [SerializeField] private PoolingListSO _poollingList;
+    [SerializeField] 
+    private PoolingListSO poollingList;
+
     
 
-    [SerializeField] private EnemyListSO _enemyList;
+    [SerializeField] 
+    private EnemyListSO enemyList;
 
 
     public void init()
@@ -57,13 +60,12 @@ public class GameManager : MonoBehaviour
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 
-        foreach (PoolableMono p in _poollingList.list)
+        foreach (PoolableMono p in poollingList.list)
         {
             PoolManager.Instance.CreatePool(p);
         }
 
-       
-        foreach (EnemyDataSO so in _enemyList.enemyList)
+        foreach (EnemyDataSO so in enemyList.enemyList)
         {
             PoolManager.Instance.CreatePool(so.poolPrefab, so.enemyName); //Ç®¿ë ÇÁ¸®ÆÕ
         }

@@ -184,10 +184,7 @@ public class Player : MonoBehaviour, IDamagable
         if (IsHit || IsDie)
             return;
         if (move == null)
-        {
-            print("¿Ö ¾øÀ½?");
-            return;
-        }
+      
         move.KnockBack(direction, power, duration);
     }
 

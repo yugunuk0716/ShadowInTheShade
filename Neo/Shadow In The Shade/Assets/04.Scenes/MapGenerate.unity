@@ -555,8 +555,8 @@ MonoBehaviour:
       m_Calls: []
   feedBackPlayer: {fileID: 2125583446}
   playerSO: {fileID: 11400000, guid: fb0957e86690ff147bbc284e30d108b6, type: 2}
-  _poollingList: {fileID: 11400000, guid: 66bda91266499e844bb76383cce0aed5, type: 2}
-  _enemyList: {fileID: 11400000, guid: 9a1c27aaa9e677a468fe01b562f37782, type: 2}
+  poollingList: {fileID: 11400000, guid: 66bda91266499e844bb76383cce0aed5, type: 2}
+  enemyList: {fileID: 11400000, guid: 9a1c27aaa9e677a468fe01b562f37782, type: 2}
 --- !u!114 &205273110
 MonoBehaviour:
   m_ObjectHideFlags: 0

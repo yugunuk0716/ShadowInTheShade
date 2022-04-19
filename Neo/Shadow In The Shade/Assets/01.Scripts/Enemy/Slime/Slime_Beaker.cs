@@ -155,7 +155,6 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public void Reincarnation()
     {
-        print(currHP);
         chase.speed = 0f;
         IsHit = false;
         reincarnationIdx = 0;
@@ -164,7 +163,6 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public void ReincarnationEnd()
     {
-        print("리인카 앤드");
         isAttack = false;
         gameObject.layer = 6;
         dicState[State.Move].OnEnd();
