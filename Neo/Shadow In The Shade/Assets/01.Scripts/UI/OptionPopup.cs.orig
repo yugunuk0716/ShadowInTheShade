@@ -96,7 +96,10 @@ public class OptionPopup : Popup
 
     private void SetResolutionText(Resolution resolution)
     {
+<<<<<<< HEAD
         //print(resolutions[currentResolution]);
+=======
+>>>>>>> origin/main
         resolutionText.text = $"{resolution.width} x {resolution.height}";
     }
 

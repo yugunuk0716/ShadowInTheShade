@@ -47,7 +47,6 @@ public class Move_Chase : MonoBehaviour, IState
     {
         if (chaseCoroutine != null)
         {
-            print("Ã¼ÀÌ½º ¾Øµå");
             isStateEnter = false;
             canTrace = false;
             //StopCoroutine(chaseCoroutine);
