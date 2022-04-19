@@ -417,7 +417,6 @@ public class RoomManager : MonoBehaviour
     public string GetRandomRoomName()
     {
         int idx = Random.Range(0, spawnableRoomData.roomList.Count);
-        print($"{idx} {spawnableRoomData.roomList.Count}");
         return spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1);
         
     }

@@ -104,15 +104,7 @@ public class Room : PoolableMono
     }
 
     public void SpawnEnemies()
-    {
-        if(StageManager.Instance.CurEnemySPList == null)
-        {
-            print("인생 2회차 각인가");
-        }
-        else
-        {
-            print(StageManager.Instance.CurEnemySPList.Count);
-        }   
+    { 
         foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
         {
             if(!esp.isSpawned && esp.phaseCount == phaseCount)

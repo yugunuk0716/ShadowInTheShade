@@ -149,7 +149,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         lifeTime = StartCoroutine(LifeTime());
         //PoolManager.Instance.enemies.Add(this);
     }
-
+    
     protected virtual void SetDefaultState(State state)     // 초기 행동 설정
     {
         currentState = state;
