@@ -163,6 +163,7 @@ public class Player : MonoBehaviour, IDamagable
         CheckHp();
 
         OnHit?.Invoke();
+        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
 
     }
 
