@@ -34,7 +34,7 @@ public class StageManager : MonoBehaviour
         }
         set
         {
-
+            CurEnemySPList = value;
         }
     }
     private List<EnemySpawnPoint> curEnemySPList = new List<EnemySpawnPoint>();

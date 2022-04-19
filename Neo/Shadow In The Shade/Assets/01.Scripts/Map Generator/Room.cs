@@ -60,11 +60,11 @@ public class Room : PoolableMono
 
     private void Awake()
     {
-        currentESPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
     }
 
     private void OnEnable()
     {
+        currentESPList = GetComponentsInChildren<EnemySpawnPoint>().ToList();
         
         RoomManager.Instance.RegisterRoom(this);
         Door[] doors = GetComponentsInChildren<Door>();
@@ -100,14 +100,24 @@ public class Room : PoolableMono
     public void EnterRoom()
     {
         SpawnEnemies();
+        StageManager.Instance.ClearCheck();
     }
 
     public void SpawnEnemies()
     {
+        if(StageManager.Instance.CurEnemySPList == null)
+        {
+            print("인생 2회차 각인가");
+        }
+        else
+        {
+            print(StageManager.Instance.CurEnemySPList.Count);
+        }   
         foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
         {
             if(!esp.isSpawned && esp.phaseCount == phaseCount)
             {
+                print(esp.data.enemyName);
                 esp.isSpawned = true;
                 esp.Spawn();
             }
