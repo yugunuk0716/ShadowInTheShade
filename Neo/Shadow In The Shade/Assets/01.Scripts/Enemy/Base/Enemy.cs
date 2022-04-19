@@ -178,7 +178,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
 
     }
 

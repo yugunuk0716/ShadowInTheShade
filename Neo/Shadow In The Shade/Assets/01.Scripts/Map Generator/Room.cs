@@ -111,7 +111,7 @@ public class Room : PoolableMono
         }
         else
         {
-            print(StageManager.Instance.CurEnemySPList.Count);
+           // print(StageManager.Instance.CurEnemySPList.Count);
         }   
         foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
         {
