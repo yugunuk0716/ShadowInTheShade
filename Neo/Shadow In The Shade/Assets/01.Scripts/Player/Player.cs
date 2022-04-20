@@ -13,6 +13,8 @@ public class Player : MonoBehaviour, IDamagable
     public UnityEvent OnHit { get; set; }
 
     private PlayerInput playerInput;
+    private PlayerDash playerDash;
+
     public PlayerInput PlayerInput
     {
         get
@@ -122,6 +124,7 @@ public class Player : MonoBehaviour, IDamagable
     private void Start()
     {
         CurrHP = maxHP;
+        playerDash = GetComponent<PlayerDash>();
     }
 
 
@@ -146,8 +149,9 @@ public class Player : MonoBehaviour, IDamagable
     public void GetHit(int damage)
     {
 
-        if (IsDie || IsHit)
+        if (IsDie || IsHit || playerDash.isDash)
             return;
+
         lastHitT = currentT;
 
         IsHit = true;
