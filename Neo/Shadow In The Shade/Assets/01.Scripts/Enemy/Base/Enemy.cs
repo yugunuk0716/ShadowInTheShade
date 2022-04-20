@@ -43,6 +43,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
+    protected float hitCool = 0.5f;
+    protected float lastHitTime = 0f;
 
     private bool isHit = false;
     public bool IsHit
@@ -166,19 +168,25 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dicState[state].OnEnter();
     }
 
+    private void Update()
+    {
+        if (Time.time - lastHitTime >= hitCool)
+        {
+            print("fase");
+            IsHit = false;
+        }
+    }
+
     protected virtual IEnumerator LifeTime()
     {
-        // 여기에 적의 로직 구현
+        
+
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
-            print("ㅁㄴㅇ");
             Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
-        else
-        {
-            print($"{PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates)},,, {enemyData.enemyName} ");
-        }
+       
 
         yield return new WaitForSeconds(.3f);
 
@@ -197,7 +205,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             OnDie?.Invoke();
             //SetDisable();
         }
-        isHit = false;
+        //isHit = false;
     }
 
     protected IEnumerator Blinking()
@@ -213,7 +221,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             return;
 
         isHit = true;
-
+        lastHitTime = Time.time;
         float critical = Random.value;
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)

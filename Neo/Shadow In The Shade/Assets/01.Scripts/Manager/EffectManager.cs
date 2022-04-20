@@ -47,7 +47,7 @@ public class EffectManager : MonoBehaviour
     public CinemachineVirtualCamera cinemachineCam;
 
     CinemachineBasicMultiChannelPerlin cmPerlin;
-    Tween camTween = null;
+    //Tween camTween = null;
     Tween imageTween = null;
 
     private void Awake()

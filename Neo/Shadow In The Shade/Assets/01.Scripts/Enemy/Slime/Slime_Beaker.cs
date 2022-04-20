@@ -88,7 +88,15 @@ public class Slime_Beaker : Enemy, ITacklable
             //if (!Anim.GetBool("isReincarnation"))
             //    continue;
 
+
+            if (IsHit)
+            {
+                yield return null;
+                continue;
+            }
+
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
+
             if (!Anim.GetBool("isReincarnation"))
             {
                 if (dist < chaseDistance)
@@ -96,12 +104,8 @@ public class Slime_Beaker : Enemy, ITacklable
                     if (dist < chaseDistance && dist > attackDistance)
                     {
                         SetState(State.Move);
-                        //dicState[State.Move].OnEnter();
                     }
-                    else
-                    {
-                        dicState[State.Move].OnEnd();
-                    }
+                 
                     if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;

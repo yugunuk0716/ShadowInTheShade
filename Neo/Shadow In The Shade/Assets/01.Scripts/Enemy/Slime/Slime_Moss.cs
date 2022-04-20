@@ -60,12 +60,13 @@ public class Slime_Moss : Enemy
 
     protected override IEnumerator LifeTime()
     {
-        yield return null;
-        dicState[State.Attack].OnEnter();
-        dicState[State.Default].OnEnter();
-
         while (true)
         {
+            yield return null;
+            
+            SetState(State.Attack);
+            SetState(State.Default);
+
             yield return base.LifeTime();
         }
     }
