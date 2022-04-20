@@ -576,6 +576,7 @@ MonoBehaviour:
   popupParent: {fileID: 2132721953}
   optionPopupPrefab: {fileID: 7465974559394415681, guid: 4d3aaeb234958864ebf6b8444dfc8db3, type: 3}
   _isPopuped: 0
+  fadeImage: {fileID: 379408271}
 --- !u!114 &205273111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3050,7 +3051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinemachineCamObj: {fileID: 910672786}
   shakeDuration: 1
-  shakePower: 0.5
+  shakePower: 1
 --- !u!1 &1145662430
 GameObject:
   m_ObjectHideFlags: 0

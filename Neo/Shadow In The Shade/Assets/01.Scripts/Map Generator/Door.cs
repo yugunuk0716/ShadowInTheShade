@@ -10,6 +10,7 @@ public enum DirType
     Right,
     Top,
     Bottom,
+    Boss
 }
 
 public class Door : MonoBehaviour
@@ -55,12 +56,20 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !RoomManager.Instance.isMoving && isOpen)
         {
-            StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(false);
-            StageManager.Instance.currentRoom = adjacentRoom;
-            StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
-            StageManager.Instance.CurEnemySPList.Clear();
-            StageManager.Instance.currentRoom.currentESPList = StageManager.Instance.currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
-            StartCoroutine(MoveRoomCoroutine(collision));
+           
+            if (!doorType.Equals(DirType.Boss))
+            {
+                StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(false);
+                StageManager.Instance.currentRoom = adjacentRoom;
+                StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
+                StageManager.Instance.CurEnemySPList.Clear();
+                StageManager.Instance.currentRoom.currentESPList = StageManager.Instance.currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
+                StartCoroutine(MoveRoomCoroutine(collision));
+            }
+            else
+            {
+                //여기서 보스 방 함수(혹은 코루틴)을 실행해야댐
+            }
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
     }
@@ -119,5 +128,12 @@ public class Door : MonoBehaviour
         RoomManager.Instance.isMoving = false;
         GameManager.Instance.timeScale = 1f;
         StageManager.Instance.currentRoom.EnterRoom();
+    }
+
+    IEnumerator MoveBossRoomCoroutine(Collider2D collision)
+    {
+
+
+        yield return null;
     }
 }

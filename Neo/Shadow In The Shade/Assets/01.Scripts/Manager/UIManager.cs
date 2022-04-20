@@ -39,6 +39,9 @@ public class UIManager : MonoBehaviour
     public Dictionary<string, Popup> popupDic = new Dictionary<string, Popup>();
     private Stack<Popup> popupStack = new Stack<Popup>();
 
+    float a = 1;
+    public Image fadeImage;
+
     private void Awake()
     {
         instance = this;
@@ -46,7 +49,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-
         popupCanvasGroup = popupParent.GetComponent<CanvasGroup>();
         if (popupCanvasGroup == null)
         {
@@ -80,6 +82,49 @@ public class UIManager : MonoBehaviour
                 OpenPopup("option");
             }
         }
+    }
+
+
+    public void StartFadeIn()
+    {
+        StartCoroutine(FadeIn());
+    }
+
+    public void StartFadeOut()
+    {
+        print("fadeOut");
+        StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeIn()
+    {
+        while (true)
+        {
+            a += 0.01f;
+           
+            fadeImage.color = new Color(0, 0, 0, a);
+            yield return new WaitForSeconds(0.01f);
+            if (a >= 1)
+                break;
+        }
+
+
+        StartCoroutine(FadeOut());
+    }
+    private IEnumerator FadeOut()
+    {
+        a = 1f;
+        while (true)
+        {
+            a -= 0.01f;
+            print($"fadeOuting {a}");
+            fadeImage.color = new Color(0, 0, 0, a);
+            print($"fadeOuting {fadeImage.color}");
+            yield return new WaitForSeconds(0.01f);
+            if (a <= 0)
+                break;
+        }
+
     }
 
     private void DrawMiniMap(bool on)

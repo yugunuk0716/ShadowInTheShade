@@ -28,7 +28,7 @@ public class Attack_Mucus : MonoBehaviour, IState
         
         mucus.SetMucus(true);
         StartCoroutine(LerpRoutine());
-        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);
+        //EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);
       
     }
 
