@@ -5544,6 +5544,7 @@ MonoBehaviour:
   shadowMap: {fileID: 0}
   defaultMap: {fileID: 0}
   isClear: 0
+  currentESPList: []
 --- !u!61 &2672322081087447914
 BoxCollider2D:
   m_ObjectHideFlags: 0
