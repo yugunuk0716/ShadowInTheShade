@@ -119,20 +119,29 @@ public class Slime_Shadow : Enemy, ITacklable
         yield return null;
         while (true)
         {
-            float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-            if (dist < chaseDistance && dist > attackDistance)
+            if (IsHit)
             {
-                dicState[State.Move].OnEnter();
+                yield return null;
+                continue;
+            }
+
+
+            float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
+            if (dist < chaseDistance)
+            {
+                if (dist > attackDistance)
+                {
+                    SetState(State.Move);
+                }
+                if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time && attack.gameObject.activeSelf)
+                {
+                    lastAttackTime = Time.time;
+                    SetState(State.Attack);
+                }
             }
             else
             {
-                dicState[State.Move].OnEnd();
-            }
-            if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time && attack.gameObject.activeSelf)
-            {
-                lastAttackTime = Time.time;
-                dicState[State.Move].OnEnd();
-                dicState[State.Attack].OnEnter();
+                SetState(State.Default);
             }
 
             yield return base.LifeTime();

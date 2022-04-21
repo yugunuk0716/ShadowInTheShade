@@ -31,8 +31,7 @@ public class EffectManager : MonoBehaviour
         }
     }
 
-    float a = 1;
-    public Image fadeImage;
+   
     public Image bloodImage;
     public CanvasGroup bloodImageCanvasGroup;
 
@@ -47,7 +46,7 @@ public class EffectManager : MonoBehaviour
     public CinemachineVirtualCamera cinemachineCam;
 
     CinemachineBasicMultiChannelPerlin cmPerlin;
-    Tween camTween = null;
+    //Tween camTween = null;
     Tween imageTween = null;
 
     private void Awake()
@@ -58,7 +57,6 @@ public class EffectManager : MonoBehaviour
         slimeBlood = Resources.Load<Sprite>("slime");
         defaultBlood = Resources.Load<Sprite>("blood");
         minimapCamObj = GameObject.Find("MiniMapCamera");
-        fadeImage = GameObject.Find("FadeImage").GetComponent<Image>();
         cinemachineCamConfiner = cinemachineCamObj.GetComponent<CinemachineConfiner>();
         cinemachineCam = cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
         cmPerlin = cinemachineCamObj.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -67,15 +65,7 @@ public class EffectManager : MonoBehaviour
 
     }
 
-    void Start()
-    {
-
-        //_cinemachineCamConfiner.m_BoundingShape2D = StageManager.Instance._rooms.Find((r) => r._isEntry)._camBound;
-
-
-        //StartFadeOut();
-
-    }
+   
 
     private void CameraPerlinInit()
     {
@@ -84,44 +74,7 @@ public class EffectManager : MonoBehaviour
         cmPerlin.m_AmplitudeGain = 0f;
     }
 
-    public void StartFadeIn()
-    {
-        StartCoroutine(FadeIn());
-    }
-
-    public void StartFadeOut()
-    {
-        StartCoroutine(FadeOut());
-    }
-
-    private IEnumerator FadeIn()
-    {
-        print("?");
-        while (true)
-        {
-            a += 0.01f;
-            fadeImage.color = new Color(0, 0, 0, a);
-            yield return new WaitForSeconds(0.01f);
-            if (a >= 1)
-                break;
-        }
-
-
-        StartCoroutine(FadeOut());
-    }
-    private IEnumerator FadeOut()
-    {
-        a = 1f;
-        while (true)
-        {
-            a -= 0.01f;
-            fadeImage.color = new Color(0, 0, 0, a);
-            yield return new WaitForSeconds(0.01f);
-            if (a <= 0)
-                break;
-        }
-
-    }
+ 
 
     public void BloodEffect(EffectType effectType = EffectType.BLOOD, float shakeDuration = 1f, float shakePower = 0.5f, float bloodEffectDuration = 1.5f, bool doShake = false)
     {
@@ -143,10 +96,7 @@ public class EffectManager : MonoBehaviour
             bloodImage.sprite = sprite;
         }
 
-        if (doShake)
-        {
-            CameraShake(shakeDuration, shakePower);
-        }
+
 
         if (imageTween != null && imageTween.IsActive())
         {
@@ -172,7 +122,7 @@ public class EffectManager : MonoBehaviour
         cinemachineCamConfiner.m_BoundingShape2D = col;
     }
 
-    public void CameraShake(float shakeDuration = 1f, float shakePower = 0.5f)
+/*    public void CameraShake(float shakeDuration = 1f, float shakePower = 0.5f)
     {
         if (camTween != null && camTween.IsActive())
         {
@@ -189,6 +139,6 @@ public class EffectManager : MonoBehaviour
         }
         camTween = DOTween.To(() => cmPerlin.m_AmplitudeGain, value => cmPerlin.m_AmplitudeGain = value, 0, shakeDuration);
     }
-   
+   */
 
 }

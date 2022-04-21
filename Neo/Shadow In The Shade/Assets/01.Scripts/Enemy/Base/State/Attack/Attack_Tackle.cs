@@ -38,7 +38,6 @@ public class Attack_Tackle : MonoBehaviour, IState
             Vector3 vec = GameManager.Instance.player.position - transform.position;
             enemy.Anim.SetFloat("MoveX", vec.x); // Mathf.Clamp(vec.x, -1f, 1f));
             enemy.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
-            print(vec);
             //enemy.move.rigid.velocity = Vector2.zero;
             enemy.move.OnMove(vec.normalized, 9f);
             enemy.Anim.SetBool("isTackle", true);

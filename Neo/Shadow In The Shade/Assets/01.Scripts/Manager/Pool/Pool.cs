@@ -8,7 +8,7 @@ class Pool<T> where T : PoolableMono
     private T _prefab; //오리지날 저장
     private Transform _parent;
 
-    public Pool(T prefab, Transform parent, int count = 10)
+    public Pool(T prefab, Transform parent, int count = 2)
     {
         _prefab = prefab;
         _parent = parent;

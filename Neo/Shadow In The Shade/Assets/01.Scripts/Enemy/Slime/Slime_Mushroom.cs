@@ -74,22 +74,33 @@ public class Slime_Mushroom : Enemy, IDamagable
         yield return null;
         while (true)
         {
+            if (IsHit)
+            {
+                yield return null;
+                continue;
+            }
+
+
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
-            if (dist < chaseDistance && dist > attackDistance)
+            if(dist < chaseDistance)
             {
-                dicState[State.Move].OnEnter();
+                if (dist > attackDistance)
+                {
+                    SetState(State.Move);
+                }
+                if (dist < attackDistance && lastAttackTime + attackCool < Time.time)
+                {
+                    lastAttackTime = Time.time;
+                    SetState(State.Attack);
+                }
             }
             else
             {
-                dicState[State.Move].OnEnd();
+                SetState(State.Default);
             }
-            if (dist < attackDistance && lastAttackTime + attackCool < Time.time)
-            {
-                lastAttackTime = Time.time;
-                dicState[State.Move].OnEnd();
-                dicState[State.Attack].OnEnter();
-            }
+
+            
 
             yield return base.LifeTime();
         }

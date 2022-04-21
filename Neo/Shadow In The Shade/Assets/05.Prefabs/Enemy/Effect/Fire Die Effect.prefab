@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2416302622260219648}
   - component: {fileID: 2416302622260219655}
   - component: {fileID: -258081336848815551}
+  - component: {fileID: 3511377466505697397}
+  - component: {fileID: 7714383340731799821}
   m_Layer: 6
   m_Name: Fire Die Effect
   m_TagString: Untagged
@@ -4876,3 +4878,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7189da5a0130f419f9576adf2c2027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myRend: {fileID: 0}
+--- !u!58 &3511377466505697397
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416302622260219654}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
+--- !u!114 &7714383340731799821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416302622260219654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28cc527ab85732f40b5f9cc82a9d3e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}

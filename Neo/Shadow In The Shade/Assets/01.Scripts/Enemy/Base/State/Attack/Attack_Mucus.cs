@@ -6,7 +6,11 @@ public class Attack_Mucus : MonoBehaviour, IState
 {
     public float slowAmount = 3f;
     public float attachTime = 2f;
-    private bool isStateEnter = false;
+    public bool isStateEnter = false;
+
+    int originLayer;
+    readonly int targetLayer = 9;
+
 
     private Vector2 attachPosition = new Vector2(0f, -0.45f);
 
@@ -14,17 +18,23 @@ public class Attack_Mucus : MonoBehaviour, IState
 
     public void OnEnter()
     {
+
         if (mucus == null)
             mucus = GetComponent<Slime_Mucus>();
+
+        originLayer = mucus.gameObject.layer;
+        mucus.gameObject.layer = targetLayer;
+
+        
         mucus.SetMucus(true);
         StartCoroutine(LerpRoutine());
-        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);
-       
+        //EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, slowAmount, 0.7f);
+      
     }
 
     public void OnEnd()
     {
-       
+        mucus.gameObject.layer = originLayer;
     }
 
     private void Update()
@@ -32,6 +42,7 @@ public class Attack_Mucus : MonoBehaviour, IState
         if (!isStateEnter)
             return;
         transform.localPosition = attachPosition;
+        
     }
 
     IEnumerator AttackRoutine()

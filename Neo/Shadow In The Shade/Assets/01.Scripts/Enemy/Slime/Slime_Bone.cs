@@ -87,25 +87,30 @@ public class Slime_Bone : Enemy, ITacklable
         {
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
-            if (IsHit)
+            if (IsHit || isDie)
             {
-                dicState[State.Attack].OnEnd();
+                yield return null;
+                continue;
             }
 
-            if (dist < chaseDistance && dist > attackDistance)
+            if (dist < chaseDistance)
             {
-                dicState[State.Move].OnEnter();
+                if (dist > attackDistance)
+                {
+                    SetState(State.Move);
+                }
+               
+                if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
+                {
+                    lastAttackTime = Time.time;
+                    SetState(State.Attack);
+                }
             }
             else
             {
-                dicState[State.Move].OnEnd();
+                SetState(State.Default);
             }
-            if(dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
-            {
-                lastAttackTime = Time.time;
-                dicState[State.Move].OnEnd();
-                dicState[State.Attack].OnEnter();
-            }
+          
             
             yield return base.LifeTime();
         }

@@ -404,16 +404,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3655128400025222935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddcf6a7e8eb19345a9386452f560863, type: 3}
+  m_Script: {fileID: 11500000, guid: b49e9e43c8952dd4d8e4dc21935d5cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resolutionText: {fileID: 3655128400372374763}
-  _screenModeText: {fileID: 3655128400228839492}
-  _previousButton: {fileID: 3655128400892606606}
-  _nextButton: {fileID: 3655128401827884053}
-  _previousScreenModeButton: {fileID: 3655128400925302110}
-  _nextScreenModeScreenButton: {fileID: 3655128401242004772}
-  _applyChangeButton: {fileID: 3655128401870526124}
+  resolutionText: {fileID: 3655128400372374763}
+  screenModeText: {fileID: 3655128400228839492}
+  previousButton: {fileID: 3655128400892606606}
+  nextButton: {fileID: 3655128401827884053}
+  previousScreenModeButton: {fileID: 3655128400925302110}
+  nextScreenModeScreenButton: {fileID: 3655128401242004772}
+  applyChangeButton: {fileID: 3655128401870526124}
 --- !u!225 &5170186522706935554
 CanvasGroup:
   m_ObjectHideFlags: 0

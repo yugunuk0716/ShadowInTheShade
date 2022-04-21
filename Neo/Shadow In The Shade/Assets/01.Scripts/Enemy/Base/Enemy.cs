@@ -43,6 +43,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
+    protected float hitCool = 0.5f;
+    protected float lastHitTime = 0f;
 
     private bool isHit = false;
     public bool IsHit
@@ -114,17 +116,18 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected Coroutine lifeTime = null;
 
 
+    protected Color originColor;
+
     protected virtual void Awake()
     {
         slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
+        originColor = MyRend.color;
     }
 
     protected virtual void Start()
     {
         //currHp = enemyData.maxHealth;
         move = GetComponent<AgentMove>();
-        if (move == null)
-            print("?");
 
         GameManager.Instance.onPlayerChangeType.AddListener(() => 
         {
@@ -133,6 +136,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
         });
+       
     }
 
     protected virtual void OnEnable()
@@ -140,7 +144,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
         MyRend.enabled = !isShadow;
         currHP = enemyData.maxHealth;
-        MyRend.color = Color.white;
+        MyRend.color = originColor;
         isDie = false;
         lastAttackTime -= attackCool;
         EnemyManager.Instance.enemyList.Add(this);
@@ -149,7 +153,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         lifeTime = StartCoroutine(LifeTime());
         //PoolManager.Instance.enemies.Add(this);
     }
-
+    
     protected virtual void SetDefaultState(State state)     // 초기 행동 설정
     {
         currentState = state;
@@ -168,17 +172,35 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dicState[state].OnEnter();
     }
 
+    private void Update()
+    {
+        if (Time.time - lastHitTime >= hitCool)
+        {
+            IsHit = false;
+        }
+    }
+
     protected virtual IEnumerator LifeTime()
     {
-        // 여기에 적의 로직 구현
+        float distance = (GameManager.Instance.player.position - transform.position).magnitude;
+
+        //if(Mathf.Sqrt(distance) < 2f)
+        //{
+        //    MyRend.color = Color.white;
+        //}
+        //else
+        //{
+        //    MyRend.color = originColor;
+        //}
 
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
             Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
+       
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.3f);
 
     }
 
@@ -195,7 +217,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             OnDie?.Invoke();
             //SetDisable();
         }
-        isHit = false;
+        //isHit = false;
     }
 
     protected IEnumerator Blinking()
@@ -211,7 +233,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             return;
 
         isHit = true;
-
+        lastHitTime = Time.time;
         float critical = Random.value;
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
@@ -244,11 +266,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (isHit || isDie)
             return;
-        if(move == null)
-        {
-            print("왜 없음?");
-            return;
-        }    
         move.KnockBack(direction, power, duration);
     }
 

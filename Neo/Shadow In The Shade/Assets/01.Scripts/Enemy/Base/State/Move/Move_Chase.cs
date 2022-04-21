@@ -47,7 +47,6 @@ public class Move_Chase : MonoBehaviour, IState
     {
         if (chaseCoroutine != null)
         {
-            print("Ã¼ÀÌ½º ¾Øµå");
             isStateEnter = false;
             canTrace = false;
             //StopCoroutine(chaseCoroutine);
@@ -61,15 +60,12 @@ public class Move_Chase : MonoBehaviour, IState
         //{
             if (target != null)
             {
-            print(1);
                 if (canTrace)
                 {
-                print(2);
                 Vector2 dir = target.transform.position - this.gameObject.transform.position;
 
                     if (agentMove != null)
                     {
-                    print(dir.normalized);
                         agentMove.OnMove(dir.normalized, speed);
                     }
                 }

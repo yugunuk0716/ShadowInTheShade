@@ -18,7 +18,6 @@ public class Slime_Mucus : Enemy
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
-    private Color originColor;
     private Color attachedColor;
 
     private Move_Chase chase = null;
@@ -90,19 +89,30 @@ public class Slime_Mucus : Enemy
         yield return null;
         while (true)
         {
-            float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
-            if (dist < chaseDistance && dist > attackDistance)
+            if (IsHit)
             {
-                dicState[State.Move].OnEnter();
-            }
-            else
-            {
-                dicState[State.Move].OnEnd();
+                yield return null;
+                continue;
             }
 
-            if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
+
+            float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
+            if (dist < chaseDistance)
             {
-                dicState[State.Attack].OnEnter();
+                if (dist > attackDistance)
+                {
+                    SetState(State.Move);
+                }
+
+
+                if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
+                {
+                    SetState(State.Attack);
+                }
+            }
+            else if(!attack.isStateEnter)
+            {
+                SetState(State.Default);
             }
 
             yield return base.LifeTime();

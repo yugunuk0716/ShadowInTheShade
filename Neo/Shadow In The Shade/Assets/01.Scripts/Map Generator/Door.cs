@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public enum DirType
 {
@@ -9,6 +10,7 @@ public enum DirType
     Right,
     Top,
     Bottom,
+    Boss
 }
 
 public class Door : MonoBehaviour
@@ -54,12 +56,21 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !RoomManager.Instance.isMoving && isOpen)
         {
-            StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(false);
-            StageManager.Instance.currentRoom = adjacentRoom;
-            StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
-            StageManager.Instance.CurEnemySPList.Clear();
-            StageManager.Instance.currentRoom.EnterRoom();
-            StartCoroutine(MoveRoomCoroutine(collision));
+           
+            if (!doorType.Equals(DirType.Boss))
+            {
+                //UIManager.Instance.StartFadeIn();
+                StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(false);
+                StageManager.Instance.currentRoom = adjacentRoom;
+                StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
+                StageManager.Instance.CurEnemySPList.Clear();
+                StageManager.Instance.currentRoom.currentESPList = StageManager.Instance.currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
+                StartCoroutine(MoveRoomCoroutine(collision));
+            }
+            else
+            {
+                //여기서 보스 방 함수(혹은 코루틴)을 실행해야댐
+            }
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
     }
@@ -78,7 +89,6 @@ public class Door : MonoBehaviour
 
         RoomManager.Instance.isMoving = true;
         GameManager.Instance.timeScale = 0f;
-        print(adjacentRoom.GetSpawnPoint(doorType));
         collision.transform.SetParent(adjacentRoom.transform);
         PlayerMove agentMove = collision.GetComponent<PlayerMove>();
         agentMove.rigid.velocity = Vector2.zero;
@@ -118,5 +128,13 @@ public class Door : MonoBehaviour
         RoomManager.Instance.OnMoveRoomEvent?.Invoke();
         RoomManager.Instance.isMoving = false;
         GameManager.Instance.timeScale = 1f;
+        StageManager.Instance.currentRoom.EnterRoom();
+    }
+
+    IEnumerator MoveBossRoomCoroutine(Collider2D collision)
+    {
+        UIManager.Instance.StartFadeOut();
+
+        yield return null;
     }
 }
