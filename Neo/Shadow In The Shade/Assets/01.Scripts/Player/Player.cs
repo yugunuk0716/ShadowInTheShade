@@ -116,8 +116,11 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    private bool isInvincibility = false;
+
+
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
-    private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
+    private readonly WaitForSeconds colorWait = new WaitForSeconds(0.2f);
 
 
 
@@ -141,6 +144,11 @@ public class Player : MonoBehaviour, IDamagable
         {
             IsHit = false;
         }
+
+        if (currentT - lastHitT >= hitCool * 3f)
+        {
+            isInvincibility = false;
+        }
     }
 
 
@@ -149,12 +157,13 @@ public class Player : MonoBehaviour, IDamagable
     public void GetHit(int damage)
     {
 
-        if (IsDie || IsHit || playerDash.isDash)
+        if (IsDie || IsHit || playerDash.isDash || isInvincibility)
             return;
 
         lastHitT = currentT;
 
         IsHit = true;
+        isInvincibility = true;
 
         Rigid.velocity = Vector2.zero;
         CurrHP -= damage;
@@ -173,9 +182,12 @@ public class Player : MonoBehaviour, IDamagable
     {
         //PlayerInputState oldState = GameManager.Instance.playerSO.playerInputState;
         //GameManager.Instance.playerSO.playerInputState = PlayerInputState.Hit;
-        GameManager.Instance.timeScale = 0;
-        yield return new WaitForSeconds(0.5f);
-        GameManager.Instance.timeScale = 1;
+      
+
+            GameManager.Instance.timeScale = 0;
+            yield return new WaitForSeconds(0.5f);
+            GameManager.Instance.timeScale = 1;
+    
 
         //GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
  
@@ -183,7 +195,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (IsHit || IsDie)
+        if (IsHit || IsDie || isInvincibility || playerDash.isDash)
             return;
         if (move == null)
       
@@ -192,9 +204,21 @@ public class Player : MonoBehaviour, IDamagable
 
     private IEnumerator Blinking()
     {
-        MyRend.color = color_Trans;
-        yield return colorWait;
-        MyRend.color = Color.white;
+        while (true)
+        {
+
+            if (isInvincibility == false)
+            {
+                yield break;
+            }
+
+            yield return colorWait;
+            MyRend.color = color_Trans;
+            yield return colorWait;
+            MyRend.color = Color.white;
+
+
+        }
     }
 
     public void CheckHp()

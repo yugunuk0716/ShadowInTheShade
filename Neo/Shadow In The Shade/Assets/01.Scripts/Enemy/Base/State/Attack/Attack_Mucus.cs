@@ -6,7 +6,7 @@ public class Attack_Mucus : MonoBehaviour, IState
 {
     public float slowAmount = 3f;
     public float attachTime = 2f;
-    private bool isStateEnter = false;
+    public bool isStateEnter = false;
 
     int originLayer;
     readonly int targetLayer = 9;
@@ -42,6 +42,7 @@ public class Attack_Mucus : MonoBehaviour, IState
         if (!isStateEnter)
             return;
         transform.localPosition = attachPosition;
+        
     }
 
     IEnumerator AttackRoutine()

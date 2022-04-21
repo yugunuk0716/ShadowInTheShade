@@ -59,6 +59,7 @@ public class Door : MonoBehaviour
            
             if (!doorType.Equals(DirType.Boss))
             {
+                //UIManager.Instance.StartFadeIn();
                 StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(false);
                 StageManager.Instance.currentRoom = adjacentRoom;
                 StageManager.Instance.currentRoom.miniPlayerSprite.SetActive(true);
@@ -132,7 +133,7 @@ public class Door : MonoBehaviour
 
     IEnumerator MoveBossRoomCoroutine(Collider2D collision)
     {
-
+        UIManager.Instance.StartFadeOut();
 
         yield return null;
     }

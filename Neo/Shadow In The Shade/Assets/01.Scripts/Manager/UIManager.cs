@@ -82,6 +82,17 @@ public class UIManager : MonoBehaviour
                 OpenPopup("option");
             }
         }
+
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    StartFadeOut();
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    StartFadeOut();
+        //}
+
     }
 
 

@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class SpritePositionSort : MonoBehaviour
 {
-    public bool updateOnce = false;
 
     private Renderer rd;
 
@@ -17,9 +16,6 @@ public class SpritePositionSort : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (updateOnce)
-            return;
-
         Sort();
     }
 

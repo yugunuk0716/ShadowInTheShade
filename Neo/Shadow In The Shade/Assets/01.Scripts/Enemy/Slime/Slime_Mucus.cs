@@ -18,7 +18,6 @@ public class Slime_Mucus : Enemy
     [Range(0f, 1f)]
     [SerializeField]
     private float spriteAlpha;
-    private Color originColor;
     private Color attachedColor;
 
     private Move_Chase chase = null;
@@ -111,7 +110,7 @@ public class Slime_Mucus : Enemy
                     SetState(State.Attack);
                 }
             }
-            else
+            else if(!attack.isStateEnter)
             {
                 SetState(State.Default);
             }

@@ -20,7 +20,6 @@ public class TimeFreezeFeedback : Feedback
     public override void CreateFeedback()
     {
         // 0.05초후에 0.2로 타임을 조정했다가 다시 0.02초 후에 1로 변경한다.
-        print("멈춰!");
         TimeManager.Instance.ModifyTimeScale(_timeFreezeValue, _freezeTimeDelay, () =>
         {
             TimeManager.Instance.ModifyTimeScale(1, _unFreezeTimeDelay);

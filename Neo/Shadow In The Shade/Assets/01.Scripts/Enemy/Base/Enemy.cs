@@ -116,9 +116,12 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected Coroutine lifeTime = null;
 
 
+    protected Color originColor;
+
     protected virtual void Awake()
     {
         slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
+        originColor = MyRend.color;
     }
 
     protected virtual void Start()
@@ -133,6 +136,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
         });
+       
     }
 
     protected virtual void OnEnable()
@@ -140,7 +144,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
         MyRend.enabled = !isShadow;
         currHP = enemyData.maxHealth;
-        MyRend.color = Color.white;
+        MyRend.color = originColor;
         isDie = false;
         lastAttackTime -= attackCool;
         EnemyManager.Instance.enemyList.Add(this);
@@ -172,14 +176,22 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (Time.time - lastHitTime >= hitCool)
         {
-            print("fase");
             IsHit = false;
         }
     }
 
     protected virtual IEnumerator LifeTime()
     {
-        
+        float distance = (GameManager.Instance.player.position - transform.position).magnitude;
+
+        //if(Mathf.Sqrt(distance) < 2f)
+        //{
+        //    MyRend.color = Color.white;
+        //}
+        //else
+        //{
+        //    MyRend.color = originColor;
+        //}
 
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
