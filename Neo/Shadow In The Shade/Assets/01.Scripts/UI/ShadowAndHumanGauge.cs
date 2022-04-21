@@ -10,10 +10,10 @@ public class ShadowAndHumanGauge : MonoBehaviour
     private Image spliter;
 
     [SerializeField]
-    private Image shadowGague;
+    private Image shadowGauge;
 
     [SerializeField]
-    private Image humanGague;
+    private Image humanGauge;
 
     private Sequence GaugeChangeSeq;
 
@@ -22,8 +22,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
         GaugeChangeSeq = DOTween.Sequence();
 
         GaugeChangeSeq.Append(spliter.rectTransform.DOAnchorPos3DX(-130f, .3f));
-        GaugeChangeSeq.Join(shadowGague.rectTransform.DOScaleX(1.4f,.3f));
-        GaugeChangeSeq.Join(humanGague.rectTransform.DOScaleX(.6f,.3f));
+        GaugeChangeSeq.Join(shadowGauge.rectTransform.DOScaleX(1.4f,.3f));
+        GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(.6f,.3f));
     }
 
     void Update()

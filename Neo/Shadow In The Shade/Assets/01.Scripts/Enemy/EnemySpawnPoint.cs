@@ -6,6 +6,21 @@ public class EnemySpawnPoint : MonoBehaviour
 {
     public int phaseCount = 0;
 
+    private Animator Anim
+    {
+        get 
+        {
+            if (Anim == null)
+                Anim = GetComponent<Animator>();
+            return Anim; 
+        }
+        set 
+        { 
+            Anim = value; 
+        }
+
+    }
+
     public EnemyDataSO data;
 
     public bool isSpawned = false;
@@ -24,6 +39,11 @@ public class EnemySpawnPoint : MonoBehaviour
         StageManager.Instance.curStageEnemys.Add(enemy);
         enemy.transform.position = this.transform.position;
         enemy.enemyData = data;
+    }
+
+    IEnumerator SpawnRoutine()
+    {
+        yield return new WaitUntil(() => true );
     }
 
 #if UNITY_EDITOR

@@ -1225,8 +1225,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -195, y: -14.3}
-  m_SizeDelta: {x: 12, y: 40}
+  m_AnchoredPosition: {x: -195.24, y: -14}
+  m_SizeDelta: {x: 6, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &431983934
 MonoBehaviour:
@@ -2381,8 +2381,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spliter: {fileID: 855713033}
-  shadowGague: {fileID: 283683461}
-  humanGague: {fileID: 593258394}
+  shadowGauge: {fileID: 283683461}
+  humanGauge: {fileID: 593258394}
 --- !u!1 &849450424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,7 +2438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &855713032
 RectTransform:
   m_ObjectHideFlags: 0

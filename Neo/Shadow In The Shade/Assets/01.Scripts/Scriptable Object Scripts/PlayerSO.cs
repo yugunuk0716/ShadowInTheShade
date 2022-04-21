@@ -37,6 +37,9 @@ public struct PlayerMoveStats
 
     [Header("대쉬 스택")]
     public int DSS;
+
+    [Header("최대 대쉬 스택")]
+    public int MDS;
 }
 
 

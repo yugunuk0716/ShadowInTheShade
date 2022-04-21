@@ -14,7 +14,6 @@ public class PlayerDash : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.playerSO.moveStats.DSS = 0;
         rigid = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -44,8 +43,11 @@ public class PlayerDash : MonoBehaviour
     {
         while(true)
         {
-            GameManager.Instance.playerSO.moveStats.DSS++;
+            yield return new WaitUntil(() => GameManager.Instance.playerSO.moveStats.DSS < GameManager.Instance.playerSO.moveStats.MDS);
             yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DST);
+            GameManager.Instance.playerSO.moveStats.DSS++;
+
+
         }
     }
 

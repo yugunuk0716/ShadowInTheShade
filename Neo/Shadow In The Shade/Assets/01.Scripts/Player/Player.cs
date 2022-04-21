@@ -166,7 +166,15 @@ public class Player : MonoBehaviour, IDamagable
         isInvincibility = true;
 
         Rigid.velocity = Vector2.zero;
-        CurrHP -= damage;
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+            CurrHP -= damage;
+        }
+        else if(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+        {
+            //여기서 그림자
+            print("그림자 피격");
+        }
 
         StartCoroutine(Blinking());
         StartCoroutine(StateRoutine());
