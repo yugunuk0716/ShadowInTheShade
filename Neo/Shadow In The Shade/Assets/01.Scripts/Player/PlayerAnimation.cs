@@ -20,7 +20,13 @@ public class PlayerAnimation : MonoBehaviour
         playerSprite = this.gameObject;
         GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
-        GameManager.Instance.onPlayerDash.AddListener(() => { StartCoroutine(PlayerDashAnimation()); });
+        GameManager.Instance.onPlayerDash.AddListener(() => 
+        {
+            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+            {
+                StartCoroutine(PlayerDashAnimation());
+            }
+        });
     }
 
     private void Update()
