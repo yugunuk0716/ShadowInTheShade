@@ -1340,7 +1340,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 639
+    m_Bits: 1791
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1913,6 +1913,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   dObjData: {fileID: 11400000, guid: d63d7b11691784542b792a5d61d231d6, type: 2}
+  playerAnim: {fileID: 1571949944}
 --- !u!61 &745265155
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4365,6 +4366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fce2f7b941d8249a71b1fe4cc18a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastMoveDir: {x: 0, y: 0}
 --- !u!95 &1571949945
 Animator:
   serializedVersion: 3

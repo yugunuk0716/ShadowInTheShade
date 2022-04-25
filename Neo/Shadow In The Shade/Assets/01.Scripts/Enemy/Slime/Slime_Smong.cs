@@ -89,22 +89,25 @@ public class Slime_Smong : Enemy, ITacklable
 
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
-            if (dist < chaseDistance)
+            if (!isAttack)
             {
-                if (dist >= attackDistance)
+                if (dist < chaseDistance)
                 {
-                    SetState(State.Move);
-                }
+                    if (dist > attackDistance)
+                    {
+                        SetState(State.Move);
+                    }
 
-                if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
-                {
-                    lastAttackTime = Time.time;
-                   SetState(State.Attack);
+                    if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
+                    {
+                        lastAttackTime = Time.time;
+                        SetState(State.Attack);
+                    }
                 }
-            }
-            else
-            {
-                SetState(State.Default);
+                else
+                {
+                    SetState(State.Default);
+                }
             }
 
             yield return base.LifeTime();

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    public Vector2 lastMoveDir;
     private PlayerInput playerInput;
     private Vector2 moveDir;
-    private Vector2 lastMoveDir;
     private Animator playerAnimator;
     private Animator playerTypeChangeEffcetAnimator;
     private GameObject playerSprite;
