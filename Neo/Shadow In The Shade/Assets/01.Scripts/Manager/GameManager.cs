@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public Transform player;
     public bool isInvincible = false;
+    public float defaultShadowGaugeSpeed = 1f;
     private float playerSpeed = 7f;
 
     [Range(0f, 1f)]
