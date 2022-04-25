@@ -8,6 +8,7 @@ TagManager:
   - Door
   - ClearTrigger
   - Room
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - EnemyEffect
   - MiniMap
   - Ignore Collision
-  - 
+  - Wall
   - 
   - 
   - 

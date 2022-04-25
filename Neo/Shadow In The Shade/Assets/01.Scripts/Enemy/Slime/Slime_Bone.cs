@@ -8,7 +8,7 @@ public class Slime_Bone : Enemy, ITacklable
 
     private SpriteRenderer sr;
 
-    private readonly float attackDistance = 1f;
+    private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
     private int hitCount = 0;
 
@@ -93,22 +93,25 @@ public class Slime_Bone : Enemy, ITacklable
                 continue;
             }
 
-            if (dist < chaseDistance)
+            if (!isAttack)
             {
-                if (dist > attackDistance)
+                if (dist < chaseDistance)
                 {
-                    SetState(State.Move);
+                    if (dist > attackDistance)
+                    {
+                        SetState(State.Move);
+                    }
+
+                    if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
+                    {
+                        lastAttackTime = Time.time;
+                        SetState(State.Attack);
+                    }
                 }
-               
-                if (dist < attackDistance && !isAttack && attackCool + lastAttackTime < Time.time)
+                else
                 {
-                    lastAttackTime = Time.time;
-                    SetState(State.Attack);
+                    SetState(State.Default);
                 }
-            }
-            else
-            {
-                SetState(State.Default);
             }
           
             

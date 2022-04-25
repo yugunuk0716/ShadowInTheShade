@@ -183,7 +183,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual IEnumerator LifeTime()
     {
-        yield return new WaitUntil(Disarm);
+        yield return new WaitUntil(() => !isDisarmed);
 
         float distance = (GameManager.Instance.player.position - transform.position).magnitude;
 
@@ -198,11 +198,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     }
 
-    protected bool Disarm()
-    {
-        print("Disarm");
-        return isDisarmed;
-    }
+    
 
 
 

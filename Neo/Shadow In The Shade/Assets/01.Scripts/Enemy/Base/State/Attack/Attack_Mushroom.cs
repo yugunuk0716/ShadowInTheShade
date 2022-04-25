@@ -31,9 +31,12 @@ public class Attack_Mushroom : MonoBehaviour, IState
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            if ((transform.position - mushroom.transform.position).sqrMagnitude > 25)
+            if ((transform.position - mushroom.transform.position).sqrMagnitude > 25 || mushroom.isPushed)
             {
-                PoolManager.Instance.Push(mushroom);
+                if (!mushroom.isPushed) 
+                {
+                    PoolManager.Instance.Push(mushroom);
+                }
                 canAttack = true;
                 yield break;
             }

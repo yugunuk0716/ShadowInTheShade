@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
         playerSO.moveStats.DSS = 1;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
-        print(playerSO.moveStats.DSS);
 
         foreach (PoolableMono p in poollingList.list)
         {

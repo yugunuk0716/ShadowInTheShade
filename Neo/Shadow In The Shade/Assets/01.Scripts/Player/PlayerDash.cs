@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,10 @@ public class PlayerDash : MonoBehaviour
 
     private AudioClip dashAudioClip;
 
+
+    private int originLayer;
+    private readonly int targetLayer = 9;
+
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -19,6 +24,7 @@ public class PlayerDash : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         StartCoroutine(StackPlus());
         dashAudioClip = Resources.Load<AudioClip>("Sounds/PlayerDash");
+        originLayer = gameObject.layer;
     }
 
     private void Update()
@@ -59,41 +65,84 @@ public class PlayerDash : MonoBehaviour
         {
             yield break;
         }
-        rigid.AddForce(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
-        SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-        float time = 0;
-        float afterTime = 0;
-        float targetTime = Random.Range(0.02f, 0.06f);
 
+        Sequence seq = DOTween.Sequence();
 
-        while (isDash)
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
         {
-            time += Time.deltaTime;
-            afterTime += Time.deltaTime;
+            gameObject.layer = targetLayer;
 
-            if (afterTime >= targetTime)
-            {
-                AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
-                if(ai != null && sr != null)
-                {
-                    ai.SetSprite(sr.sprite, transform.position);
-                }
-              
-                targetTime = Random.Range(0.02f, 0.06f);
-                afterTime = 0;
-            }
-            
-
-            if (time >= dashTime)
-            {
-                isDash = false;
-            }
-            yield return null;
+            seq.Append(sr.DOFade(0f, .1f));
+            //seq.Insert(.5f, sr.DOFade(1f, .1f));
+            TimeManager.Instance.ModifyTimeScale(0f, .5f, () => { sr.DOFade(1f, .1f); TimeManager.Instance.ModifyTimeScale(1f, .5f); });
+        
         }
+
+        
+        rigid.AddForce(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
+
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+            SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
+            float time = 0;
+            float afterTime = 0;
+            float targetTime = Random.Range(0.02f, 0.06f);
+
+            while (isDash)
+            {
+                time += Time.deltaTime;
+                afterTime += Time.deltaTime;
+
+                if (afterTime >= targetTime)
+                {
+                    AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
+                    if (ai != null && sr != null)
+                    {
+                        ai.SetSprite(sr.sprite, transform.position);
+                    }
+
+                    targetTime = Random.Range(0.02f, 0.06f);
+                    afterTime = 0;
+                }
+
+
+                if (time >= dashTime)
+                {
+                    isDash = false;
+                }
+                yield return null;
+            }
+        }
+        else
+        {
+            float time2 = 0;
+            while (isDash)
+            {
+                time2 += Time.deltaTime;
+                if (time2 >= dashTime)
+                {
+                    
+                    isDash = false;
+                   
+                }
+                yield return null;
+            }
+          
+        }
+
+       
+
+        //if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+        //{
+        //    yield return new WaitForSeconds(3f);
+        //    //isDash = false;
+        //}
+
         GameManager.Instance.playerSO.moveStats.DSS--;
         GameManager.Instance.onPlayerDash.Invoke();
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         rigid.velocity = Vector2.zero;
+        gameObject.layer = originLayer;
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
         
     }

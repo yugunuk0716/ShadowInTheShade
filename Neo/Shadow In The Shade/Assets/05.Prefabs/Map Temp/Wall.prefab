@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 784589409705313565}
   - component: {fileID: 9096893574720427783}
   - component: {fileID: 4614118033349977828}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shadow Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442ca27f0cae8b94d9a8723f70ad71b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateOnce: 1
 --- !u!1 &1332352935951064072
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +106,7 @@ GameObject:
   - component: {fileID: 2584297272604519860}
   - component: {fileID: 2783694780559133927}
   - component: {fileID: 4028425528588167977}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Normal Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442ca27f0cae8b94d9a8723f70ad71b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateOnce: 1
 --- !u!1 &1407808324641573425
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,9 +202,9 @@ GameObject:
   - component: {fileID: 8955443517986521599}
   - component: {fileID: 3999979305182817436}
   - component: {fileID: 7321862642869109752}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
