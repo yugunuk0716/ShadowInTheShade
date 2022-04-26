@@ -143,7 +143,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         //currHp = enemyData.maxHealth;
         move = GetComponent<AgentMove>();
 
-        GameManager.Instance.OnPlayerChangeType.AddListener(() => 
+        GameManager.Instance.onPlayerChangeType.AddListener(() => 
         {
             isShadow = !isShadow;
             MyRend.enabled = !isShadow;

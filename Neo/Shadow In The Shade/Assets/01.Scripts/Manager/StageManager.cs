@@ -75,7 +75,7 @@ public class StageManager : MonoBehaviour
         });
 
 
-        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
         {
             if (currentRoom != null)
             {
@@ -114,8 +114,13 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
+        if (isBattle)
+        {
+            onBattleEnd?.Invoke();
+            Chest c = PoolManager.Instance.Pop("Normal Chest") as Chest;
+            c.Popup(currentRoom.transform.position);
+        }
         isBattle = false;
-        onBattleEnd?.Invoke();
         globalLight.intensity = 1f;
         globalLight.color = shadowColor * 2;
         DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 7.5f, 1f);

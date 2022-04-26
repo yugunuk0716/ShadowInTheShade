@@ -50,6 +50,15 @@ public class ShadowAndHumanGauge : MonoBehaviour
             shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
             humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .05f);
         });
+        GameManager.Instance.onPlayerHit.AddListener(() =>
+        {
+            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+            {
+                shadowGaugeAmount -= 0.1f;
+                humanGaugeAmount += 0.1f;
+            }
+        });
+
         shadowGaugeAmount = .5f;
         humanGaugeAmount = 1.5f;
         gaugeState = GaugeState.Shadow;
@@ -121,7 +130,7 @@ public class ShadowAndHumanGauge : MonoBehaviour
         gaugeState = GaugeState.Human;
         spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
           
-        GameManager.Instance.OnPlayerChangingType?.Invoke();
+        GameManager.Instance.onPlayerChangingType?.Invoke();
        
     }
 
@@ -129,6 +138,6 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         gaugeState = GaugeState.Shadow;
         spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
-        GameManager.Instance.OnPlayerChangingType?.Invoke();
+        GameManager.Instance.onPlayerChangingType?.Invoke();
     }
 }

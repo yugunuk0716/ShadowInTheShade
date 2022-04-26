@@ -45,7 +45,7 @@ public class PlayerInput : MonoBehaviour
                         moveDir.y = Input.GetAxisRaw("Vertical");
                         //isChangePlayerType = Input.GetButtonDown("Change");
                         isDash = Input.GetButtonDown("Fire1");
-                        //isUse = Input.GetButtonDown("Use");
+                        isUse = Input.GetButtonDown("Use");
                         break;
                 }
                 break;

@@ -128,6 +128,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         CurrHP = maxHP;
         playerDash = GetComponent<PlayerDash>();
+        OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
     }
 
 
