@@ -57,7 +57,6 @@ public class Attack_Tackle : MonoBehaviour, IState
             while (a <= 4)
             {
                 a += 0.02f;
-                print($"{a} && {vec.normalized * a}");
                 atkArea.Lr.SetPosition(1, vec.normalized * a);
                 yield return new WaitForSeconds(0.001f);
 

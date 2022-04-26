@@ -40,7 +40,20 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [Space(10)]
     public bool isAttack = false;
     public bool isDie = false;
-    public bool isDisarmed = false;
+    private bool isDisarmed = false;
+    public bool IsDisarmed 
+    {
+        get
+        {
+            return isDisarmed;
+        } 
+        set 
+        {
+            if (!value)
+                move.rigid.velocity = Vector2.zero;
+            isDisarmed = value; 
+        }
+    }
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
@@ -183,7 +196,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual IEnumerator LifeTime()
     {
-        yield return new WaitUntil(() => !isDisarmed);
+        yield return new WaitUntil(() => !IsDisarmed);
 
         float distance = (GameManager.Instance.player.position - transform.position).magnitude;
 
