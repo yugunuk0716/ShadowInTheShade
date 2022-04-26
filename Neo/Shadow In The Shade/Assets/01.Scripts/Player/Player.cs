@@ -50,7 +50,6 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-    public float maxHP = 0f;
 
     private float currHP = 0f;
     public float CurrHP
@@ -63,7 +62,7 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP / maxHP);
+            UIManager.Instance.SetBar(currHP /  GameManager.Instance.playerSO.ectStats.PMH);
         }
     }
 
@@ -126,7 +125,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = maxHP;
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
         playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
     }

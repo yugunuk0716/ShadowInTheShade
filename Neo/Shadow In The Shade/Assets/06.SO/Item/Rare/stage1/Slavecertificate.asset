@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc6a4a6b1657fb4b999a5a590b46873, type: 3}
+  m_Name: Slavecertificate
+  m_EditorClassIdentifier: 
+  itemName: "\uB178\uC608 \uC99D\uD45C"
+  itemSprite: {fileID: -2900649868436881176, guid: f500f1303b6372841acc3072d7b4831a, type: 3}
+  rarity: 1
+  itemAbility: "\uC9C1\uC5C5 \uC2A4\uD0AC \uC0AC\uC6A9\uC2DC 2\uCD08\uAC04 \uC774\uB3D9\uC18D\uB3C4
+    5 \uC99D\uAC00"
+  itemComment: 
+  attackPoint: 0
+  maxHpPoint: 0
+  attackSpeedPoint: 0
+  moveSpeedPoint: 2
+  criticalPercentagePoint: 0
+  criticalPowerPoint: 0
+  shadowGaugePoint: 0

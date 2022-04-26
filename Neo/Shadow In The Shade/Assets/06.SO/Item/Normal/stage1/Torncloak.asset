@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edc6a4a6b1657fb4b999a5a590b46873, type: 3}
-  m_Name: RedPill
+  m_Name: Torncloak
   m_EditorClassIdentifier: 
-  itemName: "\uBE68\uAC04 \uC54C\uC57D"
-  itemSprite: {fileID: -3531776981454387284, guid: f500f1303b6372841acc3072d7b4831a, type: 3}
+  itemName: "\uCC22\uC5B4\uC9C4 \uB9DD\uD1A0"
+  itemSprite: {fileID: 8860502673526200405, guid: f500f1303b6372841acc3072d7b4831a, type: 3}
   rarity: 0
-  itemAbility: "\uCD5C\uB300 \uCCB4\uB825 20 \uC99D\uAC00"
+  itemAbility: "\uB2A5\uB825 \uC5C6\uC74C"
   itemComment: 
   attackPoint: 0
-  maxHpPoint: 20
+  maxHpPoint: 0
   attackSpeedPoint: 0
   moveSpeedPoint: 0
   criticalPercentagePoint: 0
