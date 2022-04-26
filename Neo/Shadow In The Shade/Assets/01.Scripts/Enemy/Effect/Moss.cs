@@ -16,7 +16,7 @@ public class Moss : PoolableMono
 
     void Start()
     {
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
         {
             sr.enabled = !PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
         });

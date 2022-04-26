@@ -18,7 +18,7 @@ public class PlayerAnimation : MonoBehaviour
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
-        GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
+        GameManager.Instance.OnPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
         GameManager.Instance.onPlayerDash.AddListener(() => 
         {

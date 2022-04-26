@@ -64,7 +64,7 @@ public class StageManager : MonoBehaviour
             PlayDoorSound();
         });
 
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
         {
             currentRoom.doorList.ForEach(d =>
             {

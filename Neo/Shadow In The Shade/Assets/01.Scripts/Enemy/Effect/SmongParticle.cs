@@ -16,7 +16,7 @@ public class SmongParticle : PoolableMono
 
     private void Start()
     {
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
         {
             myRend.enabled = !PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
         });
