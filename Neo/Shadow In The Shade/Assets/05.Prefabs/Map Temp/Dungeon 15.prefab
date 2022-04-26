@@ -213,6 +213,8 @@ GameObject:
   - component: {fileID: 5614896474723756415}
   - component: {fileID: 4660707296209986837}
   - component: {fileID: 405102169018318043}
+  - component: {fileID: 1765482295633320079}
+  - component: {fileID: 3328821186880468918}
   m_Layer: 0
   m_Name: WallBottom
   m_TagString: Untagged
@@ -1106,6 +1108,44 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!61 &1765482295633320079
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342499647050598702}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.05214405, y: -17.076889}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 28.627779, y: 1.8131104}
+  m_EdgeRadius: 0
+--- !u!114 &3328821186880468918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342499647050598702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &629385997508802446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6859,6 +6899,7 @@ GameObject:
   - component: {fileID: 5505491259457189173}
   - component: {fileID: 2165440749293383320}
   - component: {fileID: 297476889379572491}
+  - component: {fileID: 2862356800641699373}
   m_Layer: 0
   m_Name: B
   m_TagString: Door
@@ -6928,6 +6969,18 @@ MonoBehaviour:
   closedDoor: {fileID: 830186706418198123}
   shadowDoor: {fileID: 2818898799289036718}
   normalDoor: {fileID: 6279774674274870489}
+--- !u!114 &2862356800641699373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631816805024093214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5698173616548891587
 GameObject:
   m_ObjectHideFlags: 0
@@ -27671,6 +27724,8 @@ GameObject:
   - component: {fileID: 5023782368694014280}
   - component: {fileID: 1177516014015502930}
   - component: {fileID: 8177419991548214686}
+  - component: {fileID: 1644228366697146825}
+  - component: {fileID: 5935127071369913114}
   m_Layer: 0
   m_Name: WallBottom
   m_TagString: Untagged
@@ -28526,6 +28581,44 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!61 &1644228366697146825
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692152168463360378}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.05214405, y: -17.076889}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 28.627779, y: 1.8131104}
+  m_EdgeRadius: 0
+--- !u!114 &5935127071369913114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692152168463360378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7730308768584345044
 GameObject:
   m_ObjectHideFlags: 0
