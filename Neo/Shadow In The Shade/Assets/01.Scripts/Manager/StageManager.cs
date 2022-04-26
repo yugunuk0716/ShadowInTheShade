@@ -25,6 +25,8 @@ public class StageManager : MonoBehaviour
 
     public Light2D globalLight;
     public Room currentRoom;
+    public bool isBattle = false;
+    public UnityEvent onBattleEnd = new UnityEvent();
 
     private Color shadowColor = new Color(60 / 255f, 60 / 255f, 60 / 255f);
 
@@ -45,7 +47,6 @@ public class StageManager : MonoBehaviour
     private List<EnemySpawnPoint> curEnemySPList = new List<EnemySpawnPoint>();
 
     private AudioClip doorAudioClip;
-    public bool isBattle = false;
 
     private void Awake()
     {
@@ -73,13 +74,23 @@ public class StageManager : MonoBehaviour
             PlayDoorSound();
         });
 
+
         GameManager.Instance.OnPlayerChangeType.AddListener(() =>
         {
-            currentRoom.doorList.ForEach(d =>
+            if (currentRoom != null)
             {
-                d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-            });
+                currentRoom.doorList.ForEach(d =>
+                {
+                    d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
+                });
+            }
+            else
+            {
+                print("현재 방이 없음");
+            }
         });
+
+
     }
 
 
@@ -104,6 +115,7 @@ public class StageManager : MonoBehaviour
     {
         currentRoom.isClear = true;
         isBattle = false;
+        onBattleEnd?.Invoke();
         globalLight.intensity = 1f;
         globalLight.color = shadowColor * 2;
         DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 7.5f, 1f);
