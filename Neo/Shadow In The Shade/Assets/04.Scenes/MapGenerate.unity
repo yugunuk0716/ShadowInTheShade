@@ -543,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1789509712}
   isInvincible: 0
+  defaultShadowGaugeSpeed: 0.05
   timeScale: 1
   onPlayerDash:
     m_PersistentCalls:
@@ -550,7 +551,10 @@ MonoBehaviour:
   onPlayerAttack:
     m_PersistentCalls:
       m_Calls: []
-  onPlayerChangeType:
+  OnPlayerChangeType:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerChangingType:
     m_PersistentCalls:
       m_Calls: []
   feedBackPlayer: {fileID: 2125583446}
@@ -866,15 +870,15 @@ RectTransform:
   m_GameObject: {fileID: 283683459}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 843319443}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -356.96988, y: -14.133965}
-  m_SizeDelta: {x: 161.2293, y: -32.986}
+  m_AnchoredPosition: {x: -353.7, y: -14.133965}
+  m_SizeDelta: {x: 164.3921, y: -32.986}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &283683461
 MonoBehaviour:
@@ -1225,7 +1229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -195.24, y: -14}
+  m_AnchoredPosition: {x: -195, y: -14}
   m_SizeDelta: {x: 6, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &431983934
@@ -2381,9 +2385,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10af61a92a58062419662bb2d6763c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spliter: {fileID: 855713033}
+  gaugeState: 0
+  spliter: {fileID: 431983934}
   shadowGauge: {fileID: 283683461}
   humanGauge: {fileID: 593258394}
+  shadowGaugeAmount: 0
+  humanGaugeAmount: 0
 --- !u!1 &849450424
 GameObject:
   m_ObjectHideFlags: 0

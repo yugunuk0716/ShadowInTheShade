@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public Transform player;
     public bool isInvincible = false;
+    public float defaultShadowGaugeSpeed = 1f;
     private float playerSpeed = 7f;
 
     [Range(0f, 1f)]
@@ -31,7 +32,8 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onPlayerDash; //플레이어가 대쉬할 때 쓰는 이벤트
     public UnityEvent<int> onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
-    public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꿀 때 스는 이벤트
+    public UnityEvent OnPlayerChangeType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
+    public UnityEvent OnPlayerChangingType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
 
     public FeedBackPlayer feedBackPlayer;
 
@@ -51,11 +53,13 @@ public class GameManager : MonoBehaviour
     {
         onPlayerDash = new UnityEvent();
         onPlayerAttack = new UnityEvent<int>();
-        onPlayerChangeType = new UnityEvent();
-      
+        OnPlayerChangeType = new UnityEvent();
+        OnPlayerChangingType = new UnityEvent();
+
+
 
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
-        playerSO.playerStates = PlayerStates.Human;
+        playerSO.playerStates = PlayerStates.Shadow;
         playerSO.moveStats.SPD = playerSpeed;
         playerSO.moveStats.DSS = 1;
         playerSO.playerInputState = PlayerInputState.Idle;

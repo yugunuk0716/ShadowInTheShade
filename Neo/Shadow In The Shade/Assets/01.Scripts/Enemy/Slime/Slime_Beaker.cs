@@ -42,7 +42,7 @@ public class Slime_Beaker : Enemy, ITacklable
     protected override void Start()
     {
         base.Start();
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
         {
             isAttack = false;
             Anim.SetBool("isTackle", false);

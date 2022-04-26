@@ -9,7 +9,7 @@ public class Wall : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
         {
             shadowWall.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
             normalWall.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));

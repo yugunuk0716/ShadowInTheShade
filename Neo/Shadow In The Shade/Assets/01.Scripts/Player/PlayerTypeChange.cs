@@ -9,10 +9,11 @@ public class PlayerTypeChange : MonoBehaviour
     void Start()
     {
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
+        GameManager.Instance.OnPlayerChangingType.AddListener(ChangeType);
     }
 
     // Update is called once per frame
-    void Update()
+/*    void Update()
     {
         if(playerInput.isChangePlayerType)
         {
@@ -28,10 +29,29 @@ public class PlayerTypeChange : MonoBehaviour
 
 
                 GameManager.Instance.playerSO.playerStates = _ps;
-                GameManager.Instance.onPlayerChangeType.Invoke();
+                GameManager.Instance.OnPlayerChangeType.Invoke();
                 GameManager.Instance.playerSO.canChangePlayerType = false;
                 playerInput.isChangePlayerType = false;
             }
+        }
+    }*/
+
+    public void ChangeType()
+    {
+        if (GameManager.Instance.playerSO.canChangePlayerType)
+        {
+            PlayerStates _ps = GameManager.Instance.playerSO.playerStates;
+
+
+            if (_ps == PlayerStates.Human)
+                _ps = PlayerStates.Shadow;
+            else
+                _ps = PlayerStates.Human;
+
+
+            GameManager.Instance.playerSO.playerStates = _ps;
+            GameManager.Instance.OnPlayerChangeType.Invoke();
+            GameManager.Instance.playerSO.canChangePlayerType = false;
         }
     }
 }
