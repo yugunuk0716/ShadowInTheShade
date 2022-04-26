@@ -26,7 +26,7 @@ public class ShadowAndHumanGauge : MonoBehaviour
     [SerializeField]
     private Image humanGauge;
 
-    private Sequence GaugeChangeSeq;
+    //private Sequence GaugeChangeSeq;
 
     public float shadowGaugeAmount = 0;
     public float humanGaugeAmount = 0;
@@ -38,6 +38,7 @@ public class ShadowAndHumanGauge : MonoBehaviour
                 humanGaugeAmount = 1.5f;
                 GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
                 GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);*/
+        GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
         shadowGaugeAmount = .5f;
         humanGaugeAmount = 1.5f;
         gaugeState = GaugeState.Shadow;
@@ -92,5 +93,11 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
         shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
         humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .05f);
+    }
+
+    public void DashDecrease()
+    {
+        shadowGaugeAmount += -.1f;
+        humanGaugeAmount += .1f;
     }
 }
