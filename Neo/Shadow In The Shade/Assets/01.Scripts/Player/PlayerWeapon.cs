@@ -12,7 +12,6 @@ public class PlayerWeapon : DamagableObject
     {
 
         Debug.DrawRay(transform.position, playerAnim.lastMoveDir, Color.white, 1f);
-        print(playerAnim.lastMoveDir);
 
         if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class StageManager : MonoBehaviour
 {
@@ -22,7 +23,10 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    public Light2D globalLight;
     public Room currentRoom;
+
+    private Color shadowColor = new Color(60 / 255f, 60 / 255f, 60 / 255f);
 
     public List<Enemy> curStageEnemys = new List<Enemy>();
     public List<EnemySpawnPoint> CurEnemySPList
@@ -41,10 +45,12 @@ public class StageManager : MonoBehaviour
     private List<EnemySpawnPoint> curEnemySPList = new List<EnemySpawnPoint>();
 
     private AudioClip doorAudioClip;
+    public bool isBattle = false;
 
     private void Awake()
     {
         doorAudioClip = Resources.Load<AudioClip>("Sounds/DoorOpen");
+        globalLight = GameObject.Find("Global Light").GetComponent<Light2D>();
     }
 
     private void Start()
@@ -54,6 +60,9 @@ public class StageManager : MonoBehaviour
             //currentRoom.isClear = false;
             if (!currentRoom.isClear)
             {
+                isBattle = true;
+                globalLight.intensity = 0.45f;
+                globalLight.color = shadowColor;
                 DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 6f, 1f);
             }
             currentRoom.doorList.ForEach(d =>
@@ -94,6 +103,9 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
+        isBattle = false;
+        globalLight.intensity = 1f;
+        globalLight.color = shadowColor * 2;
         DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 7.5f, 1f);
         currentRoom.doorList.ForEach(d =>
         {
