@@ -13,7 +13,7 @@ public enum ItemRarity
 
 
 [CreateAssetMenu(menuName = "SO/Item/ItemDataSO")]
-public class Item : ScriptableObject
+public class ItemSO : ScriptableObject
 {
     [Header("아이템 기본 정보")]
     public string itemName;

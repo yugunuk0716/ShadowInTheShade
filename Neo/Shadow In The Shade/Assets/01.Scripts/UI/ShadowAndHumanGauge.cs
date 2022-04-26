@@ -48,27 +48,26 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
     void Update()
     {
-        
-            if (gaugeState.Equals(GaugeState.Shadow))
-            {
-                if ((shadowGaugeAmount < 0.5f && humanGaugeAmount > 1.5f))
-                {
-                    gaugeState = GaugeState.Human;
-                    spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
-                    GameManager.Instance.OnPlayerChangingType.Invoke();
-                }
-            }
-            else if (gaugeState.Equals(GaugeState.Human))
-            {
-                if ((humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f))
-                {
-                    gaugeState = GaugeState.Shadow;
-                    spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
-                    GameManager.Instance.OnPlayerChangingType.Invoke();
 
-                }
+        if (gaugeState.Equals(GaugeState.Shadow))
+        {
+
+            if ((shadowGaugeAmount < 0.5f && humanGaugeAmount > 1.5f))
+            {
+                GotoHuman();
             }
-        
+
+        }
+        else if (gaugeState.Equals(GaugeState.Human))
+        {
+
+            if ((humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f))
+            {
+                GotoShadow();
+            }
+
+        }
+
     }
 
     public IEnumerator DefaultDecreaseGauge()
@@ -104,5 +103,19 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         shadowGaugeAmount += -.1f;
         humanGaugeAmount += .1f;
+    }
+
+    public void GotoHuman()
+    {
+        gaugeState = GaugeState.Human;
+        spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
+        GameManager.Instance.OnPlayerChangingType.Invoke();
+    }
+
+    public void GotoShadow()
+    {
+        gaugeState = GaugeState.Shadow;
+        spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
+        GameManager.Instance.OnPlayerChangingType.Invoke();
     }
 }
