@@ -4829,6 +4829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1789509712}
   - component: {fileID: 1789509721}
+  - component: {fileID: 1789509722}
   - component: {fileID: 1789509719}
   - component: {fileID: 1789509718}
   - component: {fileID: 1789509717}
@@ -5025,6 +5026,20 @@ MonoBehaviour:
       m_Calls: []
   maxHP: 10
   move: {fileID: 1789509718}
+--- !u!114 &1789509722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789509711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3426a5df878164d94da1ec3c359fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getitme: {fileID: 0}
+  playerHasItems: []
 --- !u!1001 &1822831938
 PrefabInstance:
   m_ObjectHideFlags: 0
