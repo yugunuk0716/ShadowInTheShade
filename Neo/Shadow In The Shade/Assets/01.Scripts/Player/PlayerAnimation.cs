@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    public Vector2 lastMoveDir;
     private PlayerInput playerInput;
     private Vector2 moveDir;
-    private Vector2 lastMoveDir;
     private Animator playerAnimator;
     private Animator playerTypeChangeEffcetAnimator;
     private GameObject playerSprite;
@@ -20,7 +20,13 @@ public class PlayerAnimation : MonoBehaviour
         playerSprite = this.gameObject;
         GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
-        GameManager.Instance.onPlayerDash.AddListener(() => { StartCoroutine(PlayerDashAnimation()); });
+        GameManager.Instance.onPlayerDash.AddListener(() => 
+        {
+            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+            {
+                StartCoroutine(PlayerDashAnimation());
+            }
+        });
     }
 
     private void Update()

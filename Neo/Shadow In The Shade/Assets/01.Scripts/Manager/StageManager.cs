@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class StageManager : MonoBehaviour
 {
@@ -22,7 +23,12 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    public Light2D globalLight;
     public Room currentRoom;
+    public bool isBattle = false;
+    public UnityEvent onBattleEnd = new UnityEvent();
+
+    private Color shadowColor = new Color(60 / 255f, 60 / 255f, 60 / 255f);
 
     public List<Enemy> curStageEnemys = new List<Enemy>();
     public List<EnemySpawnPoint> CurEnemySPList
@@ -45,6 +51,7 @@ public class StageManager : MonoBehaviour
     private void Awake()
     {
         doorAudioClip = Resources.Load<AudioClip>("Sounds/DoorOpen");
+        globalLight = GameObject.Find("Global Light").GetComponent<Light2D>();
     }
 
     private void Start()
@@ -54,6 +61,9 @@ public class StageManager : MonoBehaviour
             //currentRoom.isClear = false;
             if (!currentRoom.isClear)
             {
+                isBattle = true;
+                globalLight.intensity = 0.45f;
+                globalLight.color = shadowColor;
                 DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 6f, 1f);
             }
             currentRoom.doorList.ForEach(d =>
@@ -64,13 +74,23 @@ public class StageManager : MonoBehaviour
             PlayDoorSound();
         });
 
+
         GameManager.Instance.onPlayerChangeType.AddListener(() =>
         {
-            currentRoom.doorList.ForEach(d =>
+            if (currentRoom != null)
             {
-                d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
-            });
+                currentRoom.doorList.ForEach(d =>
+                {
+                    d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
+                });
+            }
+            else
+            {
+                print("현재 방이 없음");
+            }
         });
+
+
     }
 
 
@@ -94,6 +114,43 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
+        if (isBattle)
+        {
+            onBattleEnd?.Invoke();
+            Rarity rarity = Rarity.Normal;
+            int idx = Random.Range(0, 100);
+            bool canDrop = true;
+
+            print(idx);
+
+            if(idx < 50)
+            {
+                canDrop = false; 
+            }
+            else if(49 < idx && idx < 85 )
+            {
+                rarity = Rarity.Normal;  
+            }
+            else if( 84 < idx && idx < 98)
+            {
+                rarity = Rarity.Rare;
+            }
+            else if(97 < idx && idx < 100)
+            {
+                rarity = Rarity.Unique;
+            }
+
+
+            if (canDrop)
+            {
+
+                Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
+                c.Popup(currentRoom.transform.position);
+            }
+        }
+        isBattle = false;
+        globalLight.intensity = 1f;
+        globalLight.color = shadowColor * 2;
         DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 7.5f, 1f);
         currentRoom.doorList.ForEach(d =>
         {

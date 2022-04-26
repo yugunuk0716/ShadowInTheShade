@@ -6,6 +6,7 @@ public class DamagableObject : MonoBehaviour
 {
     public LayerMask whatIsTarget;
 
+
     public DamagableObjectSO dObjData;
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

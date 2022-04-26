@@ -1,4 +1,6 @@
+using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
@@ -11,15 +13,19 @@ public class PlayerDash : MonoBehaviour
     private SpriteRenderer sr;
 
     private AudioClip dashAudioClip;
+    private List<Enemy> enemies = new List<Enemy>();
+
+    private int originLayer;
+    private readonly int targetLayer = 9;
 
     private void Start()
     {
-        GameManager.Instance.playerSO.moveStats.DSS = 0;
         rigid = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         sr = GetComponentInChildren<SpriteRenderer>();
         StartCoroutine(StackPlus());
         dashAudioClip = Resources.Load<AudioClip>("Sounds/PlayerDash");
+        originLayer = gameObject.layer;
     }
 
     private void Update()
@@ -44,55 +50,125 @@ public class PlayerDash : MonoBehaviour
     {
         while(true)
         {
-            GameManager.Instance.playerSO.moveStats.DSS++;
+            yield return new WaitUntil(() => GameManager.Instance.playerSO.moveStats.DSS < GameManager.Instance.playerSO.moveStats.MDS);
             yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DST);
+            GameManager.Instance.playerSO.moveStats.DSS++;
+
+
         }
     }
 
     internal IEnumerator DashCoroutine()
     {
         isDash = true;
+        enemies.Clear();
         yield return null;
         if (GameManager.Instance.playerSO.moveStats.DSS <= 0 || playerInput.moveDir.normalized == Vector2.zero)
         {
             yield break;
         }
-        rigid.AddForce(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
-        SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-        float time = 0;
-        float afterTime = 0;
-        float targetTime = Random.Range(0.02f, 0.06f);
 
+        Sequence seq = DOTween.Sequence();
 
-        while (isDash)
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
         {
-            time += Time.deltaTime;
-            afterTime += Time.deltaTime;
+            gameObject.layer = targetLayer;
 
-            if (afterTime >= targetTime)
+            seq.Append(sr.DOFade(0f, .1f));
+            seq.Insert(.5f, sr.DOFade(1f, .1f));
+            RaycastHit2D[] hit2Ds = Physics2D.RaycastAll(transform.position, playerInput.moveDir.normalized, GameManager.Instance.playerSO.moveStats.DSP, LayerMask.GetMask("Enemy"));
+            foreach (RaycastHit2D hit2D in hit2Ds)
             {
-                AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
-                if(ai != null && sr != null)
+                if(hit2D.collider != null)
                 {
-                    ai.SetSprite(sr.sprite, transform.position);
+                    print(hit2D.collider.gameObject.layer);
+                    if (hit2D.collider.gameObject.layer == 6)
+                    {
+                        print(hit2D.collider.name);
+                        Enemy tempEnemy = hit2D.collider.gameObject.GetComponent<Enemy>();
+                        tempEnemy.IsDisarmed = true;
+                        enemies.Add(tempEnemy);
+                    }
                 }
-              
-                targetTime = Random.Range(0.02f, 0.06f);
-                afterTime = 0;
             }
-            
-
-            if (time >= dashTime)
-            {
-                isDash = false;
-            }
-            yield return null;
+            //TimeManager.Instance.ModifyTimeScale(0f, .5f, () => { sr.DOFade(1f, .1f); TimeManager.Instance.ModifyTimeScale(1f, .5f); });
+        
         }
+
+        
+        rigid.AddForce(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP, ForceMode2D.Impulse);
+
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+            SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
+            float time = 0;
+            float afterTime = 0;
+            float targetTime = Random.Range(0.02f, 0.06f);
+
+            while (isDash)
+            {
+                time += Time.deltaTime;
+                afterTime += Time.deltaTime;
+
+                if (afterTime >= targetTime)
+                {
+                    AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
+                    if (ai != null && sr != null)
+                    {
+                        ai.SetSprite(sr.sprite, transform.position);
+                    }
+
+                    targetTime = Random.Range(0.02f, 0.06f);
+                    afterTime = 0;
+                }
+
+
+                if (time >= dashTime)
+                {
+                    isDash = false;
+                }
+                yield return null;
+            }
+        }
+        else
+        {
+            float time2 = 0;
+            while (isDash)
+            {
+                time2 += Time.deltaTime;
+                if (time2 >= dashTime)
+                {
+                    
+                    isDash = false;
+                   
+                }
+                yield return null;
+            }
+          
+        }
+
+       
+
+        //if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+        //{
+        //    yield return new WaitForSeconds(3f);
+        //    //isDash = false;
+        //}
+
+     
         GameManager.Instance.playerSO.moveStats.DSS--;
         GameManager.Instance.onPlayerDash.Invoke();
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         rigid.velocity = Vector2.zero;
+        gameObject.layer = originLayer;
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
-        
+
+        if (enemies.Count > 0)
+        {
+            yield return new WaitForSeconds(3f);
+            enemies.ForEach(e => e.IsDisarmed = false);
+
+        }
+
     }
 }

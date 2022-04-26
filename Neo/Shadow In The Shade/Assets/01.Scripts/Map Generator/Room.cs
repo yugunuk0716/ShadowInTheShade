@@ -111,7 +111,7 @@ public class Room : PoolableMono
             if(!esp.isSpawned && esp.phaseCount == phaseCount)
             {
                 esp.isSpawned = true;
-                esp.Spawn();
+                esp.StartSpawn();
             }
         }
     }

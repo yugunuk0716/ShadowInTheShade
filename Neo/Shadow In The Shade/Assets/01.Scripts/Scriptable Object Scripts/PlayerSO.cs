@@ -24,6 +24,7 @@ public enum PlayerInputState // 플레이어 인풋 상태
 public struct PlayerMoveStats
 {
     [Header("이동 속도")]
+    
     public float SPD;
 
     [Header("대쉬 속도")]
@@ -37,6 +38,9 @@ public struct PlayerMoveStats
 
     [Header("대쉬 스택")]
     public int DSS;
+
+    [Header("최대 대쉬 스택")]
+    public int MDS;
 }
 
 
@@ -66,7 +70,7 @@ public struct PlayerECTStats
     public float TCT;
 
     [Header("플레이어 체력")]
-    public int PHP;
+    public float PMH;
 
 }
 
@@ -81,6 +85,8 @@ public class PlayerSO : ScriptableObject
     public bool canChangePlayerType;
     public PlayerStates playerStates;
     public PlayerInputState playerInputState;
+
+
 
     [Header("플레이어의 이동스탯")]
     public PlayerMoveStats moveStats;

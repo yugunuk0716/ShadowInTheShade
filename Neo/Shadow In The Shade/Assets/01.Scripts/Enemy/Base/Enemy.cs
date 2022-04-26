@@ -40,6 +40,20 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [Space(10)]
     public bool isAttack = false;
     public bool isDie = false;
+    private bool isDisarmed = false;
+    public bool IsDisarmed 
+    {
+        get
+        {
+            return isDisarmed;
+        } 
+        set 
+        {
+            if (!value)
+                move.rigid.velocity = Vector2.zero;
+            isDisarmed = value; 
+        }
+    }
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
@@ -182,27 +196,23 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual IEnumerator LifeTime()
     {
-        float distance = (GameManager.Instance.player.position - transform.position).magnitude;
+        yield return new WaitUntil(() => !IsDisarmed);
 
-        //if(Mathf.Sqrt(distance) < 2f)
-        //{
-        //    MyRend.color = Color.white;
-        //}
-        //else
-        //{
-        //    MyRend.color = originColor;
-        //}
+        float distance = (GameManager.Instance.player.position - transform.position).magnitude;
 
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
             Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
-       
+
 
         yield return new WaitForSeconds(.3f);
 
     }
+
+    
+
 
 
     protected virtual void CheckHP()

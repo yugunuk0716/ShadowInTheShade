@@ -39,8 +39,16 @@ public class UIManager : MonoBehaviour
     public Dictionary<string, Popup> popupDic = new Dictionary<string, Popup>();
     private Stack<Popup> popupStack = new Stack<Popup>();
 
+    #region Fade
     float a = 1;
     public Image fadeImage;
+    #endregion
+
+    public RectTransform tooltipTextTrm;
+    public Text tooltipText;
+
+    private CanvasGroup tooltipCG;
+    private Vector3 initPosition;
 
     private void Awake()
     {
@@ -188,7 +196,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowToolTip(string text)
+    {
+        tooltipText.text = text;
 
+        Sequence seq = DOTween.Sequence();
+        CanvasGroup cg = instance.tooltipCG;
+        seq.Append(DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f));
+        float y = instance.initPosition.y;
+        seq.Join(instance.tooltipTextTrm.DOLocalMoveY(y + 120f, 0.5f));
+    }
 
 
 }

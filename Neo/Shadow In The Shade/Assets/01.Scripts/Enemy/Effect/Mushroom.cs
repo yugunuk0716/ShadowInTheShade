@@ -17,6 +17,8 @@ public class Mushroom : PoolableMono
 
     private Animator anim;
 
+    public bool isPushed = false;
+
 
     private void Awake()
     {
@@ -34,10 +36,35 @@ public class Mushroom : PoolableMono
         });
     }
 
+
+
     private void OnEnable()
     {
         anim.SetBool("isShadow", PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+        isPushed = false;
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    print(collision.gameObject.tag);
+    //    if (collision.gameObject.CompareTag("Wall"))
+    //    {
+    //        isPushed = true;
+    //        this.rigid.velocity = Vector2.zero;
+    //        PoolManager.Instance.Push(this);
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isPushed = true;
+            this.rigid.velocity = Vector2.zero;
+            PoolManager.Instance.Push(this);
+        }
+    }
+
     public override void Reset()
     {
 

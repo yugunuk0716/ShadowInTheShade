@@ -50,7 +50,6 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-    public float maxHP = 0f;
 
     private float currHP = 0f;
     public float CurrHP
@@ -63,7 +62,7 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP / maxHP);
+            UIManager.Instance.SetBar(currHP /  GameManager.Instance.playerSO.ectStats.PMH);
         }
     }
 
@@ -126,8 +125,9 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = maxHP;
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
         playerDash = GetComponent<PlayerDash>();
+        OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
     }
 
 
@@ -166,7 +166,15 @@ public class Player : MonoBehaviour, IDamagable
         isInvincibility = true;
 
         Rigid.velocity = Vector2.zero;
-        CurrHP -= damage;
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+            CurrHP -= damage;
+        }
+        else if(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+        {
+            //여기서 그림자
+            print("그림자 피격");
+        }
 
         StartCoroutine(Blinking());
         StartCoroutine(StateRoutine());
