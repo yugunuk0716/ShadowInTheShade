@@ -14,6 +14,18 @@ public enum Rarity
 
 public class ItemManager : MonoBehaviour
 {
+    public static ItemManager Instance;
+
+    public void Awake()
+    {
+        if(Instance !=null)
+        {
+            Destroy(this.gameObject);
+        }
+
+        Instance = this;
+    }
+
     [Header("아이템 SO 리스트")]
     public List<ItemSO> items;
 
