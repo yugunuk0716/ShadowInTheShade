@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
             moveDir = Vector2.zero;
             isDash = false;
             isAttack = false;
-            isChangePlayerType = false;
+          //  isChangePlayerType = false;
             isUse = false;
             return;
         }
@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
                   
                     case PlayerInputState.Dash:
                         isDash = Input.GetButtonDown("Fire1");
-                        isChangePlayerType = Input.GetButtonDown("Change");
+                        //isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Use:
                         isUse = Input.GetButtonDown("Use");
@@ -43,7 +43,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Change:
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
-                        isChangePlayerType = Input.GetButtonDown("Change");
+                        //isChangePlayerType = Input.GetButtonDown("Change");
                         isDash = Input.GetButtonDown("Fire1");
                         //isUse = Input.GetButtonDown("Use");
                         break;
@@ -57,7 +57,7 @@ public class PlayerInput : MonoBehaviour
                     //    break;
                     case PlayerInputState.Dash:
                         isDash = Input.GetButtonDown("Fire1");
-                        isChangePlayerType = Input.GetButtonDown("Change");
+                        //isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
                         moveDir = Vector2.zero;
@@ -68,7 +68,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Change:
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
-                        isChangePlayerType = Input.GetButtonDown("Change");
+                        //isChangePlayerType = Input.GetButtonDown("Change");
                         isAttack = Input.GetButtonDown("Fire2");
                         isDash = Input.GetButtonDown("Fire1");
                         break;

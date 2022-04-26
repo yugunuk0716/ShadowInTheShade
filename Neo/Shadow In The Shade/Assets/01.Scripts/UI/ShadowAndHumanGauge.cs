@@ -33,11 +33,14 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
     void Start()
     {
-        GaugeChangeSeq = DOTween.Sequence();
+        /*        GaugeChangeSeq = DOTween.Sequence();
+                shadowGaugeAmount = .5f;
+                humanGaugeAmount = 1.5f;
+                GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
+                GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);*/
         shadowGaugeAmount = .5f;
         humanGaugeAmount = 1.5f;
-        GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
-        GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);
+        gaugeState = GaugeState.Shadow;
         DecreaseGauge(gaugeState);
         StartCoroutine(DefaultDecreaseGauge());
     }
@@ -49,7 +52,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
             if ((shadowGaugeAmount < 0.5f && humanGaugeAmount > 1.5f))
             {
                 gaugeState = GaugeState.Human;
-                spliter.transform.DOLocalMoveX(-120, .3f);
+                spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
+                GameManager.Instance.OnPlayerChangingType.Invoke();
             }
         }
         else if (gaugeState.Equals(GaugeState.Human))
@@ -57,7 +61,9 @@ public class ShadowAndHumanGauge : MonoBehaviour
             if ((humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f))
             {
                 gaugeState = GaugeState.Shadow;
-                spliter.transform.DOLocalMoveX(-274f, .3f);
+                spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
+                GameManager.Instance.OnPlayerChangingType.Invoke();
+
             }
         }
     }
@@ -75,13 +81,13 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         if (state.Equals(GaugeState.Shadow))
         {
-            shadowGaugeAmount += -.1f;
-            humanGaugeAmount += .1f;
+            shadowGaugeAmount += -.01f;
+            humanGaugeAmount += .01f;
         }
         else if (state.Equals(GaugeState.Human))
         {
-            shadowGaugeAmount += .1f;
-            humanGaugeAmount += -.1f;
+            shadowGaugeAmount += .01f;
+            humanGaugeAmount += -.01f;
         }
 
         shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);

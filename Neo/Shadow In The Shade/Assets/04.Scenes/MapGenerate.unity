@@ -543,7 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1789509712}
   isInvincible: 0
-  defaultShadowGaugeSpeed: 0.5
+  defaultShadowGaugeSpeed: 0.05
   timeScale: 1
   onPlayerDash:
     m_PersistentCalls:
@@ -551,7 +551,10 @@ MonoBehaviour:
   onPlayerAttack:
     m_PersistentCalls:
       m_Calls: []
-  onPlayerChangeType:
+  OnPlayerChangeType:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerChangingType:
     m_PersistentCalls:
       m_Calls: []
   feedBackPlayer: {fileID: 2125583446}
@@ -1226,7 +1229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -14}
+  m_AnchoredPosition: {x: -195, y: -14}
   m_SizeDelta: {x: 6, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &431983934
@@ -2386,6 +2389,8 @@ MonoBehaviour:
   spliter: {fileID: 431983934}
   shadowGauge: {fileID: 283683461}
   humanGauge: {fileID: 593258394}
+  shadowGaugeAmount: 0
+  humanGaugeAmount: 0
 --- !u!1 &849450424
 GameObject:
   m_ObjectHideFlags: 0
