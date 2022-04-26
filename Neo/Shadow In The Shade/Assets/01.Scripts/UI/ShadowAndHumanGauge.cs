@@ -39,6 +39,17 @@ public class ShadowAndHumanGauge : MonoBehaviour
                 GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
                 GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);*/
         GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
+        StageManager.Instance.onBattleEnd.AddListener(() => 
+        {
+            if (gaugeState.Equals(GaugeState.Shadow))
+            {
+                GotoHuman();
+            }
+            shadowGaugeAmount = .5f;
+            humanGaugeAmount = 1.5f;
+            shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
+            humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .05f);
+        });
         shadowGaugeAmount = .5f;
         humanGaugeAmount = 1.5f;
         gaugeState = GaugeState.Shadow;
@@ -109,13 +120,15 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         gaugeState = GaugeState.Human;
         spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
-        GameManager.Instance.OnPlayerChangingType.Invoke();
+          
+        GameManager.Instance.OnPlayerChangingType?.Invoke();
+       
     }
 
     public void GotoShadow()
     {
         gaugeState = GaugeState.Shadow;
         spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
-        GameManager.Instance.OnPlayerChangingType.Invoke();
+        GameManager.Instance.OnPlayerChangingType?.Invoke();
     }
 }
