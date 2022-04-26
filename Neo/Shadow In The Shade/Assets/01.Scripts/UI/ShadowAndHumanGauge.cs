@@ -48,25 +48,27 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
     void Update()
     {
-        if (gaugeState.Equals(GaugeState.Shadow))
-        {
-            if ((shadowGaugeAmount < 0.5f && humanGaugeAmount > 1.5f))
+        
+            if (gaugeState.Equals(GaugeState.Shadow))
             {
-                gaugeState = GaugeState.Human;
-                spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
-                GameManager.Instance.OnPlayerChangingType.Invoke();
+                if ((shadowGaugeAmount < 0.5f && humanGaugeAmount > 1.5f))
+                {
+                    gaugeState = GaugeState.Human;
+                    spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
+                    GameManager.Instance.OnPlayerChangingType.Invoke();
+                }
             }
-        }
-        else if (gaugeState.Equals(GaugeState.Human))
-        {
-            if ((humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f))
+            else if (gaugeState.Equals(GaugeState.Human))
             {
-                gaugeState = GaugeState.Shadow;
-                spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
-                GameManager.Instance.OnPlayerChangingType.Invoke();
+                if ((humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f))
+                {
+                    gaugeState = GaugeState.Shadow;
+                    spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
+                    GameManager.Instance.OnPlayerChangingType.Invoke();
 
+                }
             }
-        }
+        
     }
 
     public IEnumerator DefaultDecreaseGauge()
@@ -74,7 +76,10 @@ public class ShadowAndHumanGauge : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(GameManager.Instance.defaultShadowGaugeSpeed);
-            DecreaseGauge(gaugeState);
+            if (StageManager.Instance.isBattle)
+            {
+                DecreaseGauge(gaugeState);
+            }
         }
     }
 
