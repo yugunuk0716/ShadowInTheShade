@@ -127,6 +127,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
         playerDash = GetComponent<PlayerDash>();
+        OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
     }
 
 

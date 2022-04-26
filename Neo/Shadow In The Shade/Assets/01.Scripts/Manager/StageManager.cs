@@ -75,7 +75,7 @@ public class StageManager : MonoBehaviour
         });
 
 
-        GameManager.Instance.OnPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
         {
             if (currentRoom != null)
             {
@@ -114,8 +114,41 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
+        if (isBattle)
+        {
+            onBattleEnd?.Invoke();
+            Rarity rarity = Rarity.Normal;
+            int idx = Random.Range(0, 100);
+            bool canDrop = true;
+
+            print(idx);
+
+            if(idx < 50)
+            {
+                canDrop = false; 
+            }
+            else if(49 < idx && idx < 85 )
+            {
+                rarity = Rarity.Normal;  
+            }
+            else if( 84 < idx && idx < 98)
+            {
+                rarity = Rarity.Rare;
+            }
+            else if(97 < idx && idx < 100)
+            {
+                rarity = Rarity.Unique;
+            }
+
+
+            if (canDrop)
+            {
+
+                Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
+                c.Popup(currentRoom.transform.position);
+            }
+        }
         isBattle = false;
-        onBattleEnd?.Invoke();
         globalLight.intensity = 1f;
         globalLight.color = shadowColor * 2;
         DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 7.5f, 1f);

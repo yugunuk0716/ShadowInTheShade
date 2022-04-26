@@ -6,8 +6,9 @@ using System.Linq;
 [System.Serializable]
 public enum Rarity
 {
-    Nomal,
+    Normal,
     Rare,
+    Unique,
     Legendary
 }
 

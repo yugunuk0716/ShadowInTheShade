@@ -9,7 +9,7 @@ public class PlayerTypeChange : MonoBehaviour
     void Start()
     {
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
-        GameManager.Instance.OnPlayerChangingType.AddListener(ChangeType);
+        GameManager.Instance.onPlayerChangingType.AddListener(ChangeType);
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class PlayerTypeChange : MonoBehaviour
 
 
             GameManager.Instance.playerSO.playerStates = _ps;
-            GameManager.Instance.OnPlayerChangeType?.Invoke();
+            GameManager.Instance.onPlayerChangeType?.Invoke();
             GameManager.Instance.playerSO.canChangePlayerType = false;
         }
     }
