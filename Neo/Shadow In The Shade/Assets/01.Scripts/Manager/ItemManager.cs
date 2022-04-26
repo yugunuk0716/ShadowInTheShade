@@ -30,4 +30,9 @@ public class ItemManager : MonoBehaviour
 
         return pickedItems[Random.Range(0, pickedItems.Count)];
     }
+
+    public void AddingItem(ItemSO item)
+    {
+        GameManager.Instance.player.GetComponent<PlayerItem>().getItme = item;
+    }
 }

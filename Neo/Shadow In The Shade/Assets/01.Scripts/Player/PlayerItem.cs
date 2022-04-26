@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerItem : MonoBehaviour
 {
-    public Item getItme;
+    public ItemSO getItme;
 
-    public List<Item> playerHasItems = new List<Item>();
+    public List<ItemSO> playerHasItems = new List<ItemSO>();
 
     private void Update()
     {
@@ -16,17 +16,18 @@ public class PlayerItem : MonoBehaviour
         }
     }
 
-    public void AddingItem(Item item)
+    public void AddingItem(ItemSO item)
     {
-        ItemSO iSo = item.itemData;
         PlayerSO pSo = GameManager.Instance.playerSO;
 
-        pSo.attackStats.ATK += iSo.attackPoint;
-        pSo.ectStats.PMH += iSo.maxHpPoint;
-        pSo.attackStats.ASD += iSo.attackSpeedPoint;
-        pSo.moveStats.SPD += iSo.moveSpeedPoint;
-        pSo.attackStats.CTP += iSo.criticalPercentagePoint;
-        pSo.attackStats.CTD += iSo.criticalPowerPoint;
+        pSo.attackStats.ATK += item.attackPoint;
+        pSo.ectStats.PMH += item.maxHpPoint;
+        pSo.attackStats.ASD += item.attackSpeedPoint;
+        pSo.moveStats.SPD += item.moveSpeedPoint;
+        pSo.attackStats.CTP += item.criticalPercentagePoint;
+        pSo.attackStats.CTD += item.criticalPowerPoint;
+
+        GameManager.Instance.playerSO = pSo;
         //iSo.shadowGaugePoint 애는 나중에 만들면 될듯
     }
 }
