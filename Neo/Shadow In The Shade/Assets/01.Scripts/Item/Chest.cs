@@ -25,14 +25,24 @@ public class Chest : Interactable
 
     public override void Use(GameObject target)
     {
-        if (!canUse || used) return;
+        if (!canUse || used)
+        {
+            print("오픈 실패");
+            return; 
+        }
 
         print("오픈");
         used = true;
-        anim.SetBool("open", true);
+        anim.SetTrigger("open");
 
         //여기서 아이템 받아와서 드랍
+        Invoke(nameof(PushChestInPool), 3f);
+    }
 
+
+    private void PushChestInPool()
+    {
+        PoolManager.Instance.Push(this); 
     }
 
     public void Popup(Vector3 pos)// 이 함수는 스테이지 클리어시 풀에서 상자 꺼내서 실행하면 됨
@@ -54,6 +64,8 @@ public class Chest : Interactable
 
     public override void Reset()
     {
-        anim.SetBool("open", false);
+        canUse = false;
+        used = false;
+        anim.ResetTrigger("open");
     }
 }

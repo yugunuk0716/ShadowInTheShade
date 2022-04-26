@@ -117,8 +117,36 @@ public class StageManager : MonoBehaviour
         if (isBattle)
         {
             onBattleEnd?.Invoke();
-            Chest c = PoolManager.Instance.Pop("Normal Chest") as Chest;
-            c.Popup(currentRoom.transform.position);
+            Rarity rarity = Rarity.Normal;
+            int idx = Random.Range(0, 100);
+            bool canDrop = true;
+
+            print(idx);
+
+            if(idx < 50)
+            {
+                canDrop = false; 
+            }
+            else if(49 < idx && idx < 85 )
+            {
+                rarity = Rarity.Normal;  
+            }
+            else if( 84 < idx && idx < 98)
+            {
+                rarity = Rarity.Rare;
+            }
+            else if(97 < idx && idx < 100)
+            {
+                rarity = Rarity.Unique;
+            }
+
+
+            if (canDrop)
+            {
+
+                Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
+                c.Popup(currentRoom.transform.position);
+            }
         }
         isBattle = false;
         globalLight.intensity = 1f;
