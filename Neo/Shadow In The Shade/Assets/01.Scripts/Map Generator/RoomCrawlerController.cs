@@ -35,9 +35,16 @@ public class RoomCrawlerController : MonoBehaviour
 
         for (int i = 0; i < iterations; i++)
         {
-            foreach (RoomCrawler dungeonCrawler in dungeonCrawlers)
+            for (int j = 0; j < dungeonCrawlers.Count; j++)
             {
-                Vector2Int newPos = dungeonCrawler.Move(directionMovementMap);
+                Vector2Int newPos = dungeonCrawlers[j].Move(directionMovementMap);
+
+                if(positionsVisited.Contains(newPos))
+                {
+                    j--;
+                    continue;
+                }
+
                 positionsVisited.Add(newPos);
             }
         }

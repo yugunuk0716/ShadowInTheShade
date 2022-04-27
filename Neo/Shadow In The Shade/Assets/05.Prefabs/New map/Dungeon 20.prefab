@@ -902,10 +902,10 @@ MonoBehaviour:
   <Y>k__BackingField: 0
   phaseCount: 0
   doorList: []
-  leftSpawnPoint: {x: 0, y: 0}
-  rightSpawnPoint: {x: 0, y: 0}
-  topSpawnPoint: {x: 0, y: 0}
-  bottomSpawnPoint: {x: 0, y: 0}
+  leftSpawnPoint: {x: 1.6, y: 0}
+  rightSpawnPoint: {x: -1.6, y: 0}
+  topSpawnPoint: {x: 0, y: -0.9}
+  bottomSpawnPoint: {x: 0, y: 0.9}
   camBound: {fileID: 1916464690610262170}
   miniPlayerSprite: {fileID: 5817788179110280199}
   shadowMap: {fileID: 1916464690227487731}
@@ -17839,7 +17839,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4007570964606635420}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0, z: -21.870775}
+  m_LocalPosition: {x: 0.1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1916464689075119856}
@@ -18318,7 +18318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5817788179110280199}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20.870775}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1916464689075119856}

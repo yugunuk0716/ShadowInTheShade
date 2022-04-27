@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerTypeChange : MonoBehaviour
 {
+    public PlayerAnimation playerAnim;
     private PlayerInput playerInput;
+   
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
+        playerAnim = GameManager.Instance.player.GetComponentInChildren<PlayerAnimation>();
         GameManager.Instance.onPlayerChangingType.AddListener(ChangeType);
     }
 
