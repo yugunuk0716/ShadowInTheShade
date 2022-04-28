@@ -45,6 +45,7 @@ public class Chest : Interactable
         Item item = PoolManager.Instance.Pop("Item Temp") as Item;
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
         item.transform.DOMove(transform.position - new Vector3(1, 1), 1f);
+        item.canUse = true;
         item.Init(rarity);
         Invoke(nameof(PushChestInPool), 3f);
     }

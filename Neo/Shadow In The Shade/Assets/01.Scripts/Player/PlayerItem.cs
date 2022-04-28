@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerItem : MonoBehaviour
 {
-    public ItemSO getItme;
+    //public ItemSO getItme;
+    public GameObject imegeContent;
 
     public List<ItemSO> playerHasItems = new List<ItemSO>();
 
-    private void Update()
+/*    private void Update()
     {
         if(getItme != null)
         {
             AddingItem(getItme);
         }
-    }
+    }*/
 
     public void AddingItem(ItemSO item)
     {
+        print("??");
         PlayerSO pSo = GameManager.Instance.playerSO;
 
         pSo.attackStats.ATK += item.attackPoint;
@@ -29,5 +32,10 @@ public class PlayerItem : MonoBehaviour
 
         GameManager.Instance.playerSO = pSo;
         //iSo.shadowGaugePoint 애는 나중에 만들면 될듯
+
+        ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
+        image.transform.SetParent(imegeContent.transform);
+        image.GetComponent<Image>().sprite = item.itemSprite;
+        return;
     }
 }
