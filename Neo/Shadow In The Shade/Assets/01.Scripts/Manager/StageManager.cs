@@ -75,7 +75,7 @@ public class StageManager : MonoBehaviour
         });
 
 
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
         {
             if (currentRoom != null)
             {

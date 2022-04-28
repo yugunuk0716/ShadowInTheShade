@@ -18,7 +18,7 @@ public class PlayerAnimation : MonoBehaviour
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
-        GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
+        //GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
         GameManager.Instance.onPlayerDash.AddListener(() => 
         {
@@ -27,6 +27,12 @@ public class PlayerAnimation : MonoBehaviour
                 StartCoroutine(PlayerDashAnimation());
             }
         });
+    }
+
+    public void StartCoChangePlayerTypeAnimation()
+    {
+        //Debug.Log("?");
+        StartCoroutine(ChangePlayerTypeAnimation());
     }
 
     private void Update()
@@ -67,20 +73,22 @@ public class PlayerAnimation : MonoBehaviour
             playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", true);
             yield return new WaitForSeconds(.2f);
             playerAnimator.SetBool("IsShadow", false);
+            yield return new WaitForSeconds(.2f);
         }
         else
         {
             playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", true);
             yield return new WaitForSeconds(.1f);
             playerAnimator.SetBool("IsShadow", true);
+            yield return new WaitForSeconds(.9f);
         }
 
+       
+        GameManager.Instance.onPlayerTypeChanged?.Invoke();
+        GameManager.Instance.playerSO = so;
         playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", false);
         playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", false);
-
-        yield return new WaitForSeconds(so.ectStats.TCT);
         so.canChangePlayerType = true;
-        GameManager.Instance.playerSO = so;
     }
 
 

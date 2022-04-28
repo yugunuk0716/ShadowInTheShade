@@ -9,7 +9,6 @@ public class Chest : Interactable
     private BoxCollider2D boxCol;
     private Animator anim;
     private Rigidbody2D rigid;
-    private Rarity rarity;
     private ItemSO targetItem;
 
     private bool canUse = false;

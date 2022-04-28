@@ -50,7 +50,7 @@ public class Room : PoolableMono
 
     private void Start()
     {
-        GameManager.Instance.onPlayerChangeType.AddListener(() => 
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
             shadowMap.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
             defaultMap.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));

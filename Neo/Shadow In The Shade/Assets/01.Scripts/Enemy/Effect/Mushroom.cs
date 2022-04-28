@@ -28,7 +28,7 @@ public class Mushroom : PoolableMono
     private void Start()
     {
        
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
         {
             anim.SetBool("isShadow", PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
             
