@@ -1,79 +1,136 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Boss_Dice : Enemy
+public class Boss_Dice : PoolableMono, IDamagable
 {
     private readonly float attackDistance = 0f;
 
     Attack_Dice attack;
 
-    protected override void Awake()
+    private int currHP = 0;
+    public int CurrHP
+    {
+        get
+        {
+            return currHP;
+        }
+
+        set
+        {
+            currHP = value;
+            CheckHP();
+        }
+    }
+
+    private bool isHit = false;
+    public bool IsHit
+    {
+        get
+        {
+            return isHit;
+        }
+        set
+        {
+            isHit = value;
+        }
+    }
+
+    private bool isDisarmed = false;
+    public bool IsDisarmed
+    {
+        get
+        {
+            return isDisarmed;
+        }
+        set
+        {
+            if (!value)
+                move.rigid.velocity = Vector2.zero;
+            isDisarmed = value;
+        }
+    }
+
+    [Space(10)]
+    public bool isAttack = false;
+    public bool isDie = false;
+
+    [field: SerializeField]
+    public UnityEvent OnDie { get; set; }
+    [field: SerializeField]
+    public UnityEvent OnHit { get; set; }
+    [field: SerializeField]
+    public UnityEvent OnReset { get; set; }
+
+    [HideInInspector]
+    public AudioClip slimeHitClip;
+
+    public AgentMove move;
+
+    private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
+    private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
+
+
+    protected  void Awake()
     {
 
-        dicState[State.Default] = gameObject.AddComponent<Idle_Dice>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
 
-
-        //chase = gameObject.AddComponent<Move_Chase>();
-        //chase.speed = 2f;
-
-        //dicState[State.Move] = chase;
 
         attack = gameObject.AddComponent<Attack_Dice>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
-        base.Awake();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
+
     }
 
-    protected override void Start()
+    protected Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
+
+    protected void Start()
     {
-        base.Start();
+        
     }
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
+        
     }
 
-    protected override void SetDefaultState(State state)
+    protected void SetDefaultState(EnemyState state)
     {
-        base.SetDefaultState(state);
+        
     }
 
-    protected override void SetState(State state)
+    protected void SetState(EnemyState state)
     {
-        base.SetState(state);
+       
     }
 
-    protected override void PlayState(State state)
+    protected void PlayState(EnemyState state)
     {
-        base.PlayState(state);
+        
     }
 
-    protected override IEnumerator LifeTime()
+    protected IEnumerator LifeTime()
     {
 
         while (true)
         {
-            print($"{IsDisarmed}, {isAttack}");
-            print("asd1");
             if (!isAttack)
             {
-                print("asd2");
                 if (GameManager.Instance != null)
                 {
 
                     if ((GameManager.Instance.player.position - transform.position).magnitude < attackDistance)
                     {
-                        SetState(State.Attack);
+                        SetState(EnemyState.Attack);
                     }
 
                     else
                     {
-                        print("asd");
-                        SetState(State.Default);
+                        SetState(EnemyState.Default);
                     }
                 }
 
@@ -83,36 +140,37 @@ public class Boss_Dice : Enemy
         }
     }
 
-    protected override void CheckHP()
+    protected void CheckHP()
     {
-        base.CheckHP();
+        
     }
 
-    public override void GetHit(int damage)
+    public void GetHit(int damage)
     {
-        base.GetHit(damage);
+        
     }
 
-    public override IEnumerator Dead()
+    public IEnumerator Dead()
     {
-        return base.Dead();
+        yield return null;
     }
 
 
 
     public override void Reset()
     {
-        OnReset?.Invoke();
-        currHP = enemyData.maxHealth;
-        Anim.ResetTrigger("isDie");
-        EnemyManager.Instance.enemyList.Remove(this);
-        currentState = State.Default;
-        isDie = false;
-        isAttack = false;
+        //OnReset?.Invoke();
+        //currHP = enemyData.maxHealth;
+        //Anim.ResetTrigger("isDie");
+        //EnemyManager.Instance.enemyList.Remove(this);
+        //currentState = State.Default;
+        //isDie = false;
+        //isAttack = false;
 
     }
 
-
-
-
+    public void KnockBack(Vector2 direction, float power, float duration)
+    {
+        throw new System.NotImplementedException();
+    }
 }
