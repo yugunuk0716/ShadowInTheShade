@@ -35,6 +35,13 @@ public class Item : Interactable
 
     private void OnEnable()
     {
+        
+    }
+
+    public void Init(Rarity rarity)
+    {
+        itemSO = ItemManager.Instance.PickItem(rarity);
+
         Sr.sprite = itemSO.itemSprite;
     }
 
@@ -78,7 +85,7 @@ public class Item : Interactable
     {
         canUse = false;
         used = false;
-        sr.sprite = null;
+        Sr.sprite = null;
         itemSO = null;
     }
 
