@@ -32,6 +32,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         set
         {
+            print("나한테 왜그래요");
             currHP = value;
             CheckHP();
         }
@@ -217,11 +218,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void CheckHP()
     {
-        if (currHP <= 0f)
+        if (currHP <= 0)
         {
             StopCoroutine(lifeTime);
             SetState(State.Die);
-            StageManager.Instance.curStageEnemys.Remove(this);
+            //StageManager.Instance.curStageEnemys.Remove(this);
             isDie = true;
             StartCoroutine(Dead());
             OnDie?.Invoke();

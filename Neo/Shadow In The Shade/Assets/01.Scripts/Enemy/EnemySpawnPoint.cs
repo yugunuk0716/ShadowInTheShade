@@ -49,10 +49,10 @@ public class EnemySpawnPoint : MonoBehaviour
 
     public void StartSpawn()
     {
-        Anim.SetTrigger("spawn");
         enemy = PoolManager.Instance.Pop(data.enemyName) as Enemy;
-
         StageManager.Instance.curStageEnemys.Add(enemy);
+
+        Anim.SetTrigger("spawn");
     }
 
     private void ResetSpawner()

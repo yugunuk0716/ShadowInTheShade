@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 8955443517986521599}
   - component: {fileID: 3999979305182817436}
   - component: {fileID: 7321862642869109752}
+  - component: {fileID: 407683604930831200}
   m_Layer: 10
   m_Name: Wall
   m_TagString: Wall
@@ -283,7 +284,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407808324641573425}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -316,3 +317,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowWall: {fileID: 1259939707882524888}
   normalWall: {fileID: 1332352935951064072}
+--- !u!58 &407683604930831200
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407808324641573425}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.71}
+  serializedVersion: 2
+  m_Radius: 1.5
