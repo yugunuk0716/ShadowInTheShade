@@ -7,6 +7,8 @@ public class Chest : Interactable
     private BoxCollider2D boxCol;
     private Animator anim;
     private Rigidbody2D rigid;
+    private Rarity rarity;
+    private ItemSO targetItem;
 
     private bool canUse = false;
 
@@ -20,7 +22,27 @@ public class Chest : Interactable
 
     private void Start()
     {
-        StageManager.Instance.onBattleEnd.AddListener(() => {  });
+        StageManager.Instance.onBattleEnd.AddListener(() => { });
+        string[] a = transform.name.Split(' ');
+        for (int i = 0; i < 3; i++)
+        {
+            if (a[0].Equals("Normal"))
+            {
+                rarity = Rarity.Normal;
+            }
+            else if (a[0].Equals("Rare"))
+            {
+                rarity = Rarity.Rare;
+            }
+            else if (a[0].Equals("Unnique"))
+            {
+                rarity = Rarity.Unique;
+            }
+            else if (a[0].Equals("Legendary"))
+            {
+                rarity = Rarity.Legendary;
+            }
+        }
     }
 
     public override void Use(GameObject target)
@@ -28,7 +50,7 @@ public class Chest : Interactable
         if (!canUse || used)
         {
             print("오픈 실패");
-            return; 
+            return;
         }
 
         print("오픈");
@@ -36,13 +58,14 @@ public class Chest : Interactable
         anim.SetTrigger("open");
 
         //여기서 아이템 받아와서 드랍
+        targetItem = ItemManager.Instance.PickItem(rarity);
         Invoke(nameof(PushChestInPool), 3f);
     }
 
 
     private void PushChestInPool()
     {
-        PoolManager.Instance.Push(this); 
+        PoolManager.Instance.Push(this);
     }
 
     public void Popup(Vector3 pos)// 이 함수는 스테이지 클리어시 풀에서 상자 꺼내서 실행하면 됨

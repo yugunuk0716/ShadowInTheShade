@@ -37,7 +37,7 @@ public class ItemManager : MonoBehaviour
         {
             if(a.rarity.Equals(_rarity))
             {
-                pickedItems.Add(a);
+                pickedItems.Add(a); 
             }
         }
 

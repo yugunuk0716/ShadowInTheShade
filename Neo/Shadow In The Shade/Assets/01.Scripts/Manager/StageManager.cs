@@ -143,7 +143,6 @@ public class StageManager : MonoBehaviour
 
             if (canDrop)
             {
-
                 Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
                 c.Popup(currentRoom.transform.position);
             }
