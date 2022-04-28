@@ -20,4 +20,16 @@ public abstract class Interactable : PoolableMono
         
     }
 
+    public virtual void PushChestInPool()
+    {
+        PoolManager.Instance.Push(this);
+    }
+
+    public virtual void Popup(Vector3 pos)// 이 함수는 스테이지 클리어시 풀에서 상자 꺼내서 실행하면 됨
+    {
+        
+    }
+
+  
+
 }

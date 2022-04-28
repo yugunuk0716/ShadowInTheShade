@@ -37,9 +37,11 @@ public class ItemManager : MonoBehaviour
         {
             if(a.rarity.Equals(_rarity))
             {
-                pickedItems.Add(a); 
+                pickedItems.Add(a);
+
             }
         }
+        print(pickedItems.Count);
 
         return pickedItems[Random.Range(0, pickedItems.Count)];
     }

@@ -123,6 +123,7 @@ public class StageManager : MonoBehaviour
 
             print(idx);
 
+            idx += 50;
             if(idx < 50)
             {
                 canDrop = false; 
@@ -131,14 +132,14 @@ public class StageManager : MonoBehaviour
             {
                 rarity = Rarity.Normal;  
             }
-            else if( 84 < idx && idx < 98)
+            else if( 84 < idx)// && idx < 98)
             {
                 rarity = Rarity.Rare;
             }
-            else if(97 < idx && idx < 100)
-            {
-                rarity = Rarity.Unique;
-            }
+            //else if(97 < idx )//&& idx < 100)
+            //{
+            //    rarity = Rarity.Unique;
+            //}
 
 
             if (canDrop)
