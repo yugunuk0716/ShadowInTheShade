@@ -32,7 +32,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         set
         {
-            print("나한테 왜그래요");
             currHP = value;
             CheckHP();
         }
@@ -146,7 +145,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
-            isShadow = !isShadow;
+            isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
             MyRend.enabled = !isShadow;
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
@@ -156,8 +155,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void OnEnable()
     {
-        isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
-        MyRend.enabled = !isShadow;
+        if (GameManager.Instance != null)
+        {
+            isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
+            MyRend.enabled = !isShadow;
+        }
         currHP = enemyData.maxHealth;
         MyRend.color = originColor;
         isDie = false;
@@ -208,6 +210,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
 
 
+        print("asd3");
         yield return new WaitForSeconds(.3f);
 
     }

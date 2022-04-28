@@ -93,27 +93,6 @@ public class StageManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (curStageEnemys.Count > 0)
-            {
-                print(curStageEnemys.Count);
-                foreach (Enemy e in curStageEnemys)
-                {
-                    if(e != null)
-                    {
-                        e.CurrHP = (int)0;
-                    }
-                    else
-                    {
-                        print("¾¾¹ß");
-                    }
-                }
-            }
-        }
-    }
     public void ClearCheck()
     {
         if (curStageEnemys.Count > 0)

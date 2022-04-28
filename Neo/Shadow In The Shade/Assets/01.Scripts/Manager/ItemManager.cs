@@ -41,7 +41,6 @@ public class ItemManager : MonoBehaviour
 
             }
         }
-        print(pickedItems.Count);
 
         return pickedItems[Random.Range(0, pickedItems.Count)];
     }

@@ -4,14 +4,37 @@ using UnityEngine;
 
 public class Boss_Dice : Enemy
 {
+    private readonly float attackDistance = 0f;
+
+    Attack_Dice attack;
+
     protected override void Awake()
     {
+
+        dicState[State.Default] = gameObject.AddComponent<Idle_Dice>();
+
+
+        //chase = gameObject.AddComponent<Move_Chase>();
+        //chase.speed = 2f;
+
+        //dicState[State.Move] = chase;
+
+        attack = gameObject.AddComponent<Attack_Dice>();
+
+        dicState[State.Attack] = attack;
+
+        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
         base.Awake();
     }
 
     protected override void Start()
     {
         base.Start();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
     }
 
     protected override void SetDefaultState(State state)
@@ -31,7 +54,33 @@ public class Boss_Dice : Enemy
 
     protected override IEnumerator LifeTime()
     {
-        return base.LifeTime();
+
+        while (true)
+        {
+            print($"{IsDisarmed}, {isAttack}");
+            print("asd1");
+            if (!isAttack)
+            {
+                print("asd2");
+                if (GameManager.Instance != null)
+                {
+
+                    if ((GameManager.Instance.player.position - transform.position).magnitude < attackDistance)
+                    {
+                        SetState(State.Attack);
+                    }
+
+                    else
+                    {
+                        print("asd");
+                        SetState(State.Default);
+                    }
+                }
+
+            }
+            yield return null;
+            //return base.LifeTime();
+        }
     }
 
     protected override void CheckHP()
