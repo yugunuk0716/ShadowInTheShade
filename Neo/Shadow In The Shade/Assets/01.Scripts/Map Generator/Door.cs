@@ -45,7 +45,7 @@ public class Door : MonoBehaviour
     {
         //IsOpen = true;
 
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
         {
             normalDoor.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
         });
