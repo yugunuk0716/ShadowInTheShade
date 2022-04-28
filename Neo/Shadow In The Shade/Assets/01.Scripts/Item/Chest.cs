@@ -10,7 +10,6 @@ public class Chest : Interactable
     private BoxCollider2D boxCol;
     private Animator anim;
     private Rigidbody2D rigid;
-    private Rarity rarity;
     private ItemSO targetItem;
 
     private bool canUse = false;
@@ -46,6 +45,7 @@ public class Chest : Interactable
         Item item = PoolManager.Instance.Pop("Item Temp") as Item;
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
         item.transform.DOMove(transform.position - new Vector3(1, 1), 1f);
+        item.canUse = true;
         item.Init(rarity);
         Invoke(nameof(PushChestInPool), 3f);
     }

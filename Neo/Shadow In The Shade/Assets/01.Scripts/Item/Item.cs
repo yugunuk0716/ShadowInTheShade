@@ -11,7 +11,7 @@ public class Item : Interactable
     private Animator anim;
     private Rigidbody2D rigid;
 
-    private bool canUse = false;
+    public bool canUse = false;
 
 
     private SpriteRenderer sr;
@@ -49,12 +49,16 @@ public class Item : Interactable
     {
         if (!canUse || used)
         {
-            print("¿ÀÇÂ ½ÇÆÐ");
+            print("¾ÆÀÌÅÛ¿ÀÇÂ ½ÇÆÐ");
             return;
         }
 
-        print("¿ÀÇÂ");
+        print("¾ÆÀÌÅÛ¿ÀÇÂ");
         used = true;
+        canUse = false;
+
+        ItemManager.Instance.AddingItem(itemSO);
+        PoolManager.Instance.Push(this);
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
