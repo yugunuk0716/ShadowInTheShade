@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Chest : Interactable
 {
+    public Rarity rarity;
+
     private BoxCollider2D boxCol;
     private Animator anim;
     private Rigidbody2D rigid;

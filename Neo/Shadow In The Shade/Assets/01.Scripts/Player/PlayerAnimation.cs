@@ -8,7 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerInput playerInput;
     private Vector2 moveDir;
     private Animator playerAnimator;
-    private Animator playerTypeChangeEffcetAnimator;
+    public Animator playerTypeChangeEffcetAnimator;
     private GameObject playerSprite;
 
     private void Start()
