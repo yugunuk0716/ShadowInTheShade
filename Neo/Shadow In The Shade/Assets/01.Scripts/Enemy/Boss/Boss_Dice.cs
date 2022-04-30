@@ -3,76 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Boss_Dice : PoolableMono, IDamagable
+public class Boss_Dice : Enemy
 {
-    private readonly float attackDistance = 0f;
+    private readonly float attackDistance = 2f;
+    private readonly float dist = 4f;
 
     Attack_Dice attack;
-
-    private int currHP = 0;
-    public int CurrHP
-    {
-        get
-        {
-            return currHP;
-        }
-
-        set
-        {
-            currHP = value;
-            CheckHP();
-        }
-    }
-
-    private bool isHit = false;
-    public bool IsHit
-    {
-        get
-        {
-            return isHit;
-        }
-        set
-        {
-            isHit = value;
-        }
-    }
-
-    private bool isDisarmed = false;
-    public bool IsDisarmed
-    {
-        get
-        {
-            return isDisarmed;
-        }
-        set
-        {
-            if (!value)
-                move.rigid.velocity = Vector2.zero;
-            isDisarmed = value;
-        }
-    }
-
-    [Space(10)]
-    public bool isAttack = false;
-    public bool isDie = false;
-
-    [field: SerializeField]
-    public UnityEvent OnDie { get; set; }
-    [field: SerializeField]
-    public UnityEvent OnHit { get; set; }
-    [field: SerializeField]
-    public UnityEvent OnReset { get; set; }
-
-    [HideInInspector]
-    public AudioClip slimeHitClip;
-
-    public AgentMove move;
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
 
-    protected  void Awake()
+    protected override void Awake()
     {
 
         dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
@@ -83,41 +25,32 @@ public class Boss_Dice : PoolableMono, IDamagable
         dicState[EnemyState.Attack] = attack;
 
         dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
-
+        base.Awake();
     }
 
-    protected Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
-
-    protected void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
-    protected void OnEnable()
+    protected override void OnEnable()
     {
-        
+        base.OnEnable();
     }
 
-    protected void SetDefaultState(EnemyState state)
-    {
-        
-    }
-
-    protected void SetState(EnemyState state)
-    {
-       
-    }
-
-    protected void PlayState(EnemyState state)
-    {
-        
-    }
-
-    protected IEnumerator LifeTime()
+    protected override IEnumerator LifeTime()
     {
 
         while (true)
         {
+            yield return new WaitUntil(() => !IsDisarmed);
+
+            if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
+            {
+                Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
+                sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            }
+
             if (!isAttack)
             {
                 if (GameManager.Instance != null)
@@ -135,22 +68,22 @@ public class Boss_Dice : PoolableMono, IDamagable
                 }
 
             }
-            yield return null;
+            yield return new WaitForSeconds(.3f);
             //return base.LifeTime();
         }
     }
 
-    protected void CheckHP()
+    protected override void CheckHP()
     {
-        
+        base.CheckHP();
     }
 
-    public void GetHit(int damage)
+    public override void GetHit(int damage)
     {
-        
+        base.GetHit(damage);
     }
 
-    public IEnumerator Dead()
+    public override IEnumerator Dead()
     {
         yield return null;
     }
@@ -169,8 +102,5 @@ public class Boss_Dice : PoolableMono, IDamagable
 
     }
 
-    public void KnockBack(Vector2 direction, float power, float duration)
-    {
-        throw new System.NotImplementedException();
-    }
+  
 }
