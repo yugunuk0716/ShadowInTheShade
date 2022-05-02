@@ -10,15 +10,17 @@ public class PhaseInfo
     public float hp;
 }
 
+public enum EnemyState
+{
+    Default,    // 아무것도 없는 상태
+    Move,       // 움직일 때
+    Attack,     // 공격할 때
+    Die         // 죽을 때
+}
+
 public class Enemy : PoolableMono, IAgent, IDamagable
 {
-    protected enum State
-    {
-        Default,    // 아무것도 없는 상태
-        Move,       // 움직일 때
-        Attack,     // 공격할 때
-        Die         // 죽을 때
-    }
+    
 
     public EnemyDataSO enemyData;
 
@@ -32,7 +34,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         set
         {
-            print("나한테 왜그래요");
             currHP = value;
             CheckHP();
         }
@@ -41,6 +42,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [Space(10)]
     public bool isAttack = false;
     public bool isDie = false;
+
     private bool isDisarmed = false;
     public bool IsDisarmed 
     {
@@ -125,8 +127,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
     [SerializeField]
-    protected State currentState = State.Default;
-    protected Dictionary<State, IState> dicState = new Dictionary<State, IState>();
+    protected EnemyState currentState = EnemyState.Default;
+    protected Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
 
     protected Coroutine lifeTime = null;
 
@@ -146,7 +148,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
-            isShadow = !isShadow;
+            isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
             MyRend.enabled = !isShadow;
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
@@ -156,33 +158,36 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void OnEnable()
     {
-        isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
-        MyRend.enabled = !isShadow;
+        if (GameManager.Instance != null)
+        {
+            isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
+            MyRend.enabled = !isShadow;
+        }
         currHP = enemyData.maxHealth;
         MyRend.color = originColor;
         isDie = false;
         lastAttackTime -= attackCool;
         EnemyManager.Instance.enemyList.Add(this);
 
-        SetDefaultState(State.Default);
+        SetDefaultState(EnemyState.Default);
         lifeTime = StartCoroutine(LifeTime());
         //PoolManager.Instance.enemies.Add(this);
     }
     
-    protected virtual void SetDefaultState(State state)     // 초기 행동 설정
+    protected virtual void SetDefaultState(EnemyState state)     // 초기 행동 설정
     {
         currentState = state;
         dicState[currentState].OnEnter();
     }
 
-    protected virtual void SetState(State state)
+    protected virtual void SetState(EnemyState state)
     {
         dicState[currentState].OnEnd();
         currentState = state;
         dicState[currentState].OnEnter();
     }
 
-    protected virtual void PlayState(State state)
+    protected virtual void PlayState(EnemyState state)
     {
         dicState[state].OnEnter();
     }
@@ -207,7 +212,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
 
-
         yield return new WaitForSeconds(.3f);
 
     }
@@ -221,7 +225,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         if (currHP <= 0)
         {
             StopCoroutine(lifeTime);
-            SetState(State.Die);
+            SetState(EnemyState.Die);
             //StageManager.Instance.curStageEnemys.Remove(this);
             isDie = true;
             StartCoroutine(Dead());
@@ -253,7 +257,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isCritical = true;
         }
 
-        if (currentState.Equals(State.Die)) return;
+        if (currentState.Equals(EnemyState.Die)) return;
 
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
@@ -303,7 +307,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         Anim.ResetTrigger("isDie");
         Anim.Rebind();
         EnemyManager.Instance.enemyList.Remove(this);
-        currentState = State.Default;
+        currentState = EnemyState.Default;
         isDie = false;
         isAttack = false;
         //myRend.enabled = true;
