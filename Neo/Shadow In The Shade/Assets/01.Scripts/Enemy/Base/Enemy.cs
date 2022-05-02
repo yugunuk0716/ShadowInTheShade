@@ -91,7 +91,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     }
 
     private SpriteRenderer myRend;
-    protected SpriteRenderer MyRend
+    public SpriteRenderer MyRend
     {
         get
         {
@@ -203,8 +203,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected virtual IEnumerator LifeTime()
     {
         yield return new WaitUntil(() => !IsDisarmed);
-
-        float distance = (GameManager.Instance.player.position - transform.position).magnitude;
 
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
