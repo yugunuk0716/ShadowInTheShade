@@ -119,7 +119,7 @@ public class Slime_Mucus : Enemy
         }
     }
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         if (isAttack)
             return;

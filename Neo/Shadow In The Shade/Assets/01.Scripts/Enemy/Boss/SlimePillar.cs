@@ -11,8 +11,8 @@ public class SlimePillar : PoolableMono, IDamagable
     public AudioClip slimeHitClip;
 
 
-    private int currHP = 2;
-    public int CurrHP
+    private float currHP = 2;
+    public float CurrHP
     {
         get
         {
@@ -104,7 +104,7 @@ public class SlimePillar : PoolableMono, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void GetHit(int damage)
+    public virtual void GetHit(float damage)
     {
         if (isHit)
             return;

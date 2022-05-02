@@ -152,7 +152,7 @@ public class Slime_Shadow : Enemy, ITacklable
     }
 
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

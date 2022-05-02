@@ -123,7 +123,7 @@ public class Slime_Beaker : Enemy, ITacklable
     }
 
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
 
         base.GetHit(damage);
