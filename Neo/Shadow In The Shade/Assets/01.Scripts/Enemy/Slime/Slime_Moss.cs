@@ -71,7 +71,7 @@ public class Slime_Moss : Enemy
         }
     }
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

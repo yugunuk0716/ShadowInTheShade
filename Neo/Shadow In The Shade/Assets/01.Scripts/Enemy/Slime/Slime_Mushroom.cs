@@ -107,7 +107,7 @@ public class Slime_Mushroom : Enemy, IDamagable
     }
 
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

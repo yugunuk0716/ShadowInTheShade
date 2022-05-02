@@ -80,7 +80,7 @@ public class Boss_Dice : Enemy
         base.CheckHP();
     }
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

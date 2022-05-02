@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IDamagable 
 {
     public bool IsHit { get; set; }
-    public void GetHit(int damage);
+    public void GetHit(float damage);
 
     void KnockBack(Vector2 direction, float power, float duration);
 }

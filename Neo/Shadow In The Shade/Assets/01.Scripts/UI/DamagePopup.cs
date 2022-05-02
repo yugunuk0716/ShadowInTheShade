@@ -17,7 +17,7 @@ public class DamagePopup : PoolableMono
         _tmp.fontSize = _normalTextSize;
     }
 
-    public void SetText(int damageAmount, Vector3 pos, bool isCritical)
+    public void SetText(float damageAmount, Vector3 pos, bool isCritical)
     {
 
         transform.position = new Vector3(pos.x, pos.y, -7f);

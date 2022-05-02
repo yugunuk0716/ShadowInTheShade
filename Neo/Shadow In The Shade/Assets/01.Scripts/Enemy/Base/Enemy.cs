@@ -24,8 +24,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public EnemyDataSO enemyData;
 
-    protected int currHP = 0;
-    public int CurrHP
+    protected float currHP = 0;
+    public float CurrHP
     {
         get
         {
@@ -240,7 +240,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void GetHit(int damage)
+    public virtual void GetHit(float damage)
     {
         if (isDie || isHit)
             return;
@@ -251,7 +251,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
         {
-            damage *= 2; //2배 데미지
+            damage *= GameManager.Instance.playerSO.attackStats.CTD; //2배 데미지
             isCritical = true;
         }
 

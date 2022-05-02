@@ -1497,7 +1497,7 @@ Transform:
   - {fileID: 808197716}
   - {fileID: 893409838}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &392841700
 GameObject:
@@ -4838,7 +4838,7 @@ Transform:
   m_Children:
   - {fileID: 1789509712}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &991323501
 GameObject:
@@ -6834,6 +6834,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+<<<<<<< HEAD
 --- !u!1 &1514017822
 GameObject:
   m_ObjectHideFlags: 0
@@ -6862,7 +6863,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2046426149}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1514017824
@@ -6892,6 +6893,9 @@ BoxCollider2D:
   m_Size: {x: 0.75320053, y: 0.13953793}
   m_EdgeRadius: 0
 --- !u!1 &1520585847
+=======
+--- !u!1 &1544293181
+>>>>>>> origin/main
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8677,7 +8681,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3426a5df878164d94da1ec3c359fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   imegeContent: {fileID: 401863004}
+=======
+  imegeContent: {fileID: 0}
+>>>>>>> origin/main
   playerHasItems: []
 --- !u!114 &1789509723
 MonoBehaviour:
@@ -9317,7 +9325,7 @@ Transform:
   - {fileID: 1889737238}
   - {fileID: 165536280}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1922607192
 GameObject:
@@ -10713,6 +10721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+<<<<<<< HEAD
 --- !u!224 &2521482758892329928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10977,7 +10986,7 @@ Transform:
   m_Children:
   - {fileID: 4176752545207010782}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4176752545140028312
 SpriteRenderer:
@@ -11134,3 +11143,5 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+=======
+>>>>>>> origin/main
