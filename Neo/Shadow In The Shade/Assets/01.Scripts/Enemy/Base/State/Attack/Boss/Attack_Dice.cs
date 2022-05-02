@@ -106,10 +106,13 @@ public class Attack_Dice : MonoBehaviour, IState
         dice.Anim.SetFloat("MoveX", dir.x);
         dice.Anim.SetFloat("MoveY", dir.y);
         dice.Anim.SetBool("isCrash", true);
+
+        yield return new WaitForSeconds(1.2f);
         if (IsInSight(dir, attackDir))
         {
             //print("시야에 있어용..");
             IDamagable d = GameManager.Instance.player.GetComponent<IDamagable>();
+            GameManager.Instance.feedBackPlayer.PlayFeedback();
             d.GetHit(2);
             d.KnockBack(-dir, 2f, .1f);
         }
