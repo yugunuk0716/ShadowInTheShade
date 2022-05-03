@@ -108,6 +108,7 @@ public class Attack_Dice : MonoBehaviour, IState
         dice.Anim.SetBool("isCrash", true);
 
         yield return new WaitForSeconds(1.2f);
+        dir =  (playerPos - gameObject.transform.position).normalized;
         if (IsInSight(dir, attackDir))
         {
             //print("시야에 있어용..");
@@ -125,10 +126,10 @@ public class Attack_Dice : MonoBehaviour, IState
   
     private bool IsInSight(Vector3 targetDir, Vector3 lookDir)
     {
-        //print($"{lookDir} & {targetDir}");
-        float dot = Vector3.Dot(lookDir, targetDir);
+        print($"{lookDir} & {targetDir}");
+        float dot = Vector3.Dot(targetDir, -lookDir);
         float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
-        //print($"{dot} , {theta}, {(transform.position - GameManager.Instance.player.position).sqrMagnitude}");
+        print($"{dot} , {theta}, {(transform.position - GameManager.Instance.player.position).sqrMagnitude}");
 
         
 

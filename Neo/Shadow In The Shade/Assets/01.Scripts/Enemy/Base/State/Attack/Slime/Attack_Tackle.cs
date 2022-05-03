@@ -32,7 +32,7 @@ public class Attack_Tackle : MonoBehaviour, IState
         }
         originLayer = enemy.gameObject.layer;
         enemy.gameObject.layer = targetLayer;
-        enemy.move.rigid.velocity = Vector3.zero;
+        enemy.Move.rigid.velocity = Vector3.zero;
 
         StartCoroutine(TackleRoutine());
 
@@ -67,10 +67,10 @@ public class Attack_Tackle : MonoBehaviour, IState
 
             enemy.Anim.SetFloat("MoveX", vec.x); // Mathf.Clamp(vec.x, -1f, 1f));
             enemy.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
-            enemy.move.OnMove(vec.normalized, 10f);
+            enemy.Move.OnMove(vec.normalized, 10f);
 
             yield return new WaitForSeconds(.5f);
-            enemy.move.rigid.velocity = Vector2.zero;
+            enemy.Move.rigid.velocity = Vector2.zero;
             
             enemy.Anim.SetBool("isTackle", true);
         }
