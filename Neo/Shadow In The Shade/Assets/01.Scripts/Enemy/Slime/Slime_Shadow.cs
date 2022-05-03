@@ -73,17 +73,21 @@ public class Slime_Shadow : Enemy, ITacklable
         attack.gameObject.SetActive(false);
         Vector2 playerTrm = GameManager.Instance.player.position;
         Vector2 randValue = Vector2.zero;
-        randValue.Set(Random.Range(3f, 3.5f) + playerTrm.x, Random.Range(3f, 3.5f) + playerTrm.y);
 
-        if (Random.Range(0, 2) == 0)
-        {
-            randValue.Set(randValue.x * -1, randValue.y);
-        }
+        int randX = Random.Range(0, 2) == 0 ? 1 : -1;
+        int randY = Random.Range(0, 2) == 0 ? 1 : -1;
 
-        if (Random.Range(0, 2) == 0)
-        {
-            randValue.Set(randValue.x, randValue.y * -1);
-        }
+        randValue.Set(Random.Range(3f, 3.5f) * randX + playerTrm.x, Random.Range(3f, 3.5f) * randY + playerTrm.y);
+
+        //if (Random.Range(0, 2) == 0)
+        //{
+        //    randValue.Set(randValue.x * -1, randValue.y);
+        //}
+
+        //if (Random.Range(0, 2) == 0)
+        //{
+        //    randValue.Set(randValue.x, randValue.y * -1);
+        //}
 
         Sr.DOFade(0, 1f).OnComplete(() => 
         {

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DamagableEnemy : DamagableObject
 {
-    public Enemy enemy;
+    RaycastHit2D hit2D;
+
+    private Enemy enemy;
     public Enemy Enemy
     {
         get
@@ -17,14 +19,19 @@ public class DamagableEnemy : DamagableObject
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (enemy.isAttack)
+        if (Enemy.isAttack)
         {
             if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
             {
-                IDamagable d = collision.GetComponent<IDamagable>();
-                if (d.IsHit)
-                    return;
-                base.OnTriggerEnter2D(collision);
+                hit2D = Physics2D.Raycast(transform.position, transform.position - collision.transform.position, 2f, LayerMask.GetMask("Wall"));
+                if (hit2D.collider == null)
+                {
+                    IDamagable d = collision.GetComponent<IDamagable>();
+                    if (d.IsHit)
+                        return;
+                    base.OnTriggerEnter2D(collision);
+                }
+
                 
             }
         }
@@ -32,13 +39,16 @@ public class DamagableEnemy : DamagableObject
         {
             if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
             {
-                IDamagable d = collision.GetComponent<IDamagable>();
-                if (d.IsHit)
-                    return;
+                hit2D = Physics2D.Raycast(transform.position, transform.position - collision.transform.position, 2f, LayerMask.GetMask("Wall"));
+                if (hit2D.collider == null)
+                {
+                    IDamagable d = collision.GetComponent<IDamagable>();
+                    if (d.IsHit)
+                        return;
 
-                d?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower / 2, dObjData.knockBackDelay);
-                d?.GetHit(dObjData.damage / 2);
-
+                    d?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower / 2, dObjData.knockBackDelay);
+                    d?.GetHit(dObjData.damage / 2);
+                }
                 //base.OnTriggerEnter2D(collision);
             }
         }

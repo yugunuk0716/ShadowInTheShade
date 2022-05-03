@@ -10,7 +10,6 @@ public class Attack_Fire : MonoBehaviour, IState
 
     public void OnEnter()
     {
-        print("도꺠비불 온엔터");
         //if (dieParticle == null)
         //{
         //    dieParticle = Resources.Load<GameObject>("Fire Die Effect");
