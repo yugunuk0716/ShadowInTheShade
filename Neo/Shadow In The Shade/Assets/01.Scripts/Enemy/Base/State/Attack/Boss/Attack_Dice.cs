@@ -22,7 +22,22 @@ public class Attack_Dice : MonoBehaviour, IState
         if (dice == null)
             dice = GetComponent<Boss_Dice>();
 
-       
+        switch (dice.diceType)
+        {
+            case DiceType.Mk1:
+                attackAngle = 60f;
+                attackDist = 6f;
+                break;
+            case DiceType.Mk2:
+                attackAngle = 30f;
+                attackDist = 3f;
+                break;
+            case DiceType.Mk3:
+                attackAngle = 15f;
+                attackDist = 1.5f;
+                break;
+        }
+
 
         if(crashRoutine == null)
         {
@@ -114,8 +129,8 @@ public class Attack_Dice : MonoBehaviour, IState
             //print("시야에 있어용..");
             IDamagable d = GameManager.Instance.player.GetComponent<IDamagable>();
             GameManager.Instance.feedBackPlayer.PlayFeedback();
-            d.GetHit(2);
-            d.KnockBack(-dir, 2f, .1f);
+            d.GetHit(dice.enemyData.damage);
+            d.KnockBack(-dir, 10f, .1f);
         }
 
 
