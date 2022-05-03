@@ -233,7 +233,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         {
             StopCoroutine(lifeTime);
             SetState(EnemyState.Die);
-            //StageManager.Instance.curStageEnemys.Remove(this);
+            StageManager.Instance.curStageEnemys.Remove(this);
             isDie = true;
             StartCoroutine(Dead());
             OnDie?.Invoke();
@@ -260,7 +260,17 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
         {
-            damage *= GameManager.Instance.playerSO.attackStats.CTD; //2배 데미지
+            float overPoint = 0;
+            if (GameManager.Instance.playerSO.attackStats.CTP > 100)
+            {
+                overPoint = GameManager.Instance.playerSO.attackStats.CTP - 100;
+            }
+
+            Debug.Log(damage);
+
+            damage *= (GameManager.Instance.playerSO.attackStats.CTD + overPoint) / 100;
+
+            Debug.Log(damage);
             isCritical = true;
         }
 

@@ -11,11 +11,12 @@ public class PlayerWeapon : DamagableObject
     public void Start()
     {
         dObjData.damage = 0;
-        dObjData.damage += GameManager.Instance.playerSO.attackStats.ATK;
+        dObjData.damage = GameManager.Instance.playerSO.attackStats.ATK;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        dObjData.damage = GameManager.Instance.playerSO.attackStats.ATK;
 
         Debug.DrawRay(transform.position, playerAnim.lastMoveDir, Color.white, 1f);
 
