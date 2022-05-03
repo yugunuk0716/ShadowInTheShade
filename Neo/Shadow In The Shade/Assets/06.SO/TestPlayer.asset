@@ -16,19 +16,24 @@ MonoBehaviour:
   canChangePlayerType: 1
   playerStates: 1
   playerInputState: 0
+  mainStats:
+    STR: 20
+    DEX: 0
+    AGI: 0
+    SPL: 0
   moveStats:
     SPD: 7
     DSP: 100
     DRT: 0.2
     DST: 10
-    DSS: 2
+    DSS: 1
     MDS: 2
   attackStats:
-    ATK: 100
-    ASD: 150
+    ATK: 500
+    ASD: 100
     CTP: 0
-    CTD: 0
+    CTD: 200
     SCD: 0
   ectStats:
-    TCT: 1
-    PMH: 10
+    EXP: 0
+    PMH: 1400

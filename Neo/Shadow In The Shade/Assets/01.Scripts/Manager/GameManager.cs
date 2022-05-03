@@ -62,10 +62,21 @@ public class GameManager : MonoBehaviour
 
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Shadow;
-        playerSO.moveStats.SPD = playerSpeed;
         playerSO.moveStats.DSS = 1;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
+
+        playerSO.mainStats.STR = 0f;
+        playerSO.mainStats.DEX = 0f;
+        playerSO.mainStats.AGI = 0f;
+        playerSO.mainStats.SPL = 0f;
+
+        playerSO.attackStats.ATK = 100f;
+        playerSO.moveStats.SPD = 7f;
+        playerSO.attackStats.ASD = 100f;
+        playerSO.attackStats.CTP = 0f;
+        playerSO.attackStats.CTD = 200f;
+
 
         foreach (PoolableMono p in poollingList.list)
         {
@@ -79,6 +90,47 @@ public class GameManager : MonoBehaviour
 
 
 
+    }
+
+    public void InitMainStatPoint(int statsIndex)
+    {
+        switch(statsIndex)
+        {
+            case 1:
+                float tempSTR = playerSO.mainStats.STR - 1;
+
+                playerSO.attackStats.ATK -= tempSTR * 20f;
+
+                playerSO.attackStats.ATK += playerSO.mainStats.STR * 20f;
+                break;
+            case 2:
+                float tempDEX = playerSO.mainStats.DEX - 1;
+
+                playerSO.moveStats.SPD -= tempDEX * .2f;
+                playerSO.attackStats.ASD -= tempDEX * 6f;
+
+                playerSO.moveStats.SPD += playerSO.mainStats.DEX * .2f;
+                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 6f;
+                break;
+            case 3:
+                float tempAGI = playerSO.mainStats.AGI - 1;
+
+                playerSO.attackStats.CTP -= tempAGI * 10;
+
+                playerSO.attackStats.CTP += playerSO.mainStats.AGI * 10;
+
+
+                break;
+            case 4:
+                float tempSPL = playerSO.mainStats.SPL - 1;
+
+                playerSO.ectStats.PMH -= tempSPL * 50f;
+
+                playerSO.ectStats.PMH += playerSO.mainStats.SPL * 50f;
+
+                break;
+
+        }
     }
 
 }

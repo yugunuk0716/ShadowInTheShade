@@ -21,9 +21,34 @@ public class SliderScripts : MonoBehaviour
         fill.fillAmount = slider.value;
     }
 
-    public void StatUIPlus()
+    public void StatUIPlus(int input)
     {
-        slider.value += 0.05f;
-        FillSlider();
+        if (slider.value < 1f)
+        {
+            slider.value += 0.05f;
+            FillSlider();
+
+            switch (input)
+            {
+                case 1:
+                    GameManager.Instance.playerSO.mainStats.STR += 1;
+                    GameManager.Instance.InitMainStatPoint(1);
+                    break;
+                case 2:
+                    GameManager.Instance.playerSO.mainStats.DEX += 1;
+                    GameManager.Instance.InitMainStatPoint(2);
+                    break;
+                case 3:
+                    GameManager.Instance.playerSO.mainStats.AGI += 1;
+                    GameManager.Instance.InitMainStatPoint(3);
+                    break;
+                case 4:
+                    GameManager.Instance.playerSO.mainStats.SPL += 1;
+                    GameManager.Instance.InitMainStatPoint(4);
+                    break;
+            }
+        }
+
+        
     }
 }

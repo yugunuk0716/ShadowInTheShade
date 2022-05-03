@@ -40,22 +40,19 @@ public class PlayerInput : MonoBehaviour
                         //isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Use:
-                        if (!EventSystem.current.IsPointerOverGameObject())
-                        {
-                            isUse = Input.GetButtonDown("Use");
-                        }
+                        isUse = Input.GetButtonDown("Use");
                         break;
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
+                        moveDir.x = Input.GetAxisRaw("Horizontal");
+                        moveDir.y = Input.GetAxisRaw("Vertical");
+                        //isChangePlayerType = Input.GetButtonDown("Change");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            moveDir.x = Input.GetAxisRaw("Horizontal");
-                            moveDir.y = Input.GetAxisRaw("Vertical");
-                            //isChangePlayerType = Input.GetButtonDown("Change");
                             isDash = Input.GetButtonDown("Fire1");
-                            isUse = Input.GetButtonDown("Use");
                         }
+                        isUse = Input.GetButtonDown("Use");
                         break;
                 }
                 break;
@@ -73,21 +70,18 @@ public class PlayerInput : MonoBehaviour
                         //isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
-                        if (!EventSystem.current.IsPointerOverGameObject())
-                        {
-                            moveDir = Vector2.zero;
-                            isAttack = Input.GetButtonDown("Fire2");
-                        }
+                        moveDir = Vector2.zero;
+                        isAttack = Input.GetButtonDown("Fire2");
                         break;
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
+                        moveDir.x = Input.GetAxisRaw("Horizontal");
+                        moveDir.y = Input.GetAxisRaw("Vertical");
+                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isAttack = Input.GetButtonDown("Fire2");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            moveDir.x = Input.GetAxisRaw("Horizontal");
-                            moveDir.y = Input.GetAxisRaw("Vertical");
-                            //isChangePlayerType = Input.GetButtonDown("Change");
-                            isAttack = Input.GetButtonDown("Fire2");
                             isDash = Input.GetButtonDown("Fire1");
                         }
                         break;
