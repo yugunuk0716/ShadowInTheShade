@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
   canChangePlayerType: 1
-  playerStates: 0
+  playerStates: 1
   playerInputState: 0
   moveStats:
     SPD: 7
     DSP: 100
     DRT: 0.2
     DST: 10
-    DSS: 0
+    DSS: 2
     MDS: 2
   attackStats:
-    ATK: 2
-    ASD: 0
+    ATK: 100
+    ASD: 150
     CTP: 0
     CTD: 0
     SCD: 0

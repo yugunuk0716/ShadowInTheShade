@@ -66,12 +66,28 @@ public struct PlayerAttackStats
 [System.Serializable]
 public struct PlayerECTStats
 {
-    [Header("타입 변경 시간")]
-    public float TCT;
+    [Header("플레이어 경험치")]
+    public float EXP;
 
     [Header("플레이어 체력")]
     public float PMH;
 
+}
+
+[System.Serializable]
+public struct PlayerMainStats
+{
+    [Header("힘")]
+    public float STR;
+
+    [Header("민첩")]
+    public float DEX;
+
+    [Header("욕망")]
+    public float AGI;
+
+    [Header("정신")]
+    public float SPL;
 }
 
 
@@ -86,6 +102,9 @@ public class PlayerSO : ScriptableObject
     public PlayerStates playerStates;
     public PlayerInputState playerInputState;
 
+
+    [Header("플레이어의 4개 기본 스탯")]
+    public PlayerMainStats mainStats;
 
 
     [Header("플레이어의 이동스탯")]
