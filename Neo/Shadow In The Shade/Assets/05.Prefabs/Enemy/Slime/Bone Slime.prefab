@@ -114,7 +114,6 @@ MonoBehaviour:
   <OnReset>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  move: {fileID: 0}
   slimeHitClip: {fileID: 0}
   isShadow: 0
   speed: 3
@@ -294,7 +293,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.015457869, y: -0.0077287555}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -305,7 +304,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.82996607, y: 0.62901676}
   m_EdgeRadius: 0
 --- !u!114 &5561456638516436754
 MonoBehaviour:
@@ -323,4 +322,3 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   dObjData: {fileID: 11400000, guid: a74d74af8f879f04cb3b97ffbe63ac50, type: 2}
-  enemy: {fileID: 2582680548563717326}

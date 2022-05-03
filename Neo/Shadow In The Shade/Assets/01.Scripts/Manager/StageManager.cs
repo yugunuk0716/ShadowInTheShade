@@ -120,8 +120,6 @@ public class StageManager : MonoBehaviour
             int idx = Random.Range(0, 100);
             bool canDrop = true;
 
-            print(idx);
-
             idx += 50;
             if(idx < 50)
             {

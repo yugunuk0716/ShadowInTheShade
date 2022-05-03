@@ -10,7 +10,7 @@ public class Slime_Mucus : Enemy
 
     private SpriteRenderer sr;
 
-    private readonly float attackDistance = 1f;
+    private readonly float attackDistance = 0.5f;
     private readonly float chaseDistance = 5f;
 
 

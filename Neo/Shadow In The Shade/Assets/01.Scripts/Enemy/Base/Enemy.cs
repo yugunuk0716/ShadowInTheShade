@@ -73,6 +73,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set
         {
             isHit = value;
+            //IsDisarmed = isHit;
         }
     }
 

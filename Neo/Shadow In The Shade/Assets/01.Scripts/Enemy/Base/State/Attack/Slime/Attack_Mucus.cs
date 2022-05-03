@@ -9,10 +9,14 @@ public class Attack_Mucus : MonoBehaviour, IState
     public bool isStateEnter = false;
 
     int originLayer;
-    readonly int targetLayer = 9;
 
-
+    private RaycastHit2D hit2D;
+    [SerializeField]
+    private LayerMask whatIsWall;
     private Vector2 attachPosition = new Vector2(0f, -0.45f);
+
+    private readonly int targetLayer = 9;
+
 
     Slime_Mucus mucus;
 
@@ -21,6 +25,11 @@ public class Attack_Mucus : MonoBehaviour, IState
 
         if (mucus == null)
             mucus = GetComponent<Slime_Mucus>();
+
+        if(whatIsWall == default(LayerMask))
+        {
+            whatIsWall = LayerMask.GetMask("Wall");
+        }
 
         originLayer = mucus.gameObject.layer;
         mucus.gameObject.layer = targetLayer;
@@ -34,7 +43,7 @@ public class Attack_Mucus : MonoBehaviour, IState
 
     public void OnEnd()
     {
-        mucus.gameObject.layer = originLayer;
+       
     }
 
     private void Update()
@@ -53,16 +62,44 @@ public class Attack_Mucus : MonoBehaviour, IState
         GameManager.Instance.playerSO.moveStats.SPD = Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD - slowAmount, 0, spd);
         yield return new WaitForSeconds(attachTime);
         GameManager.Instance.playerSO.moveStats.SPD += slowAmount;
-        transform.SetParent(null);
-        Vector3 randDir = new Vector3(Random.Range(1f, 2f), Random.Range(1f, 2f));
+        transform.SetParent(PoolManager.Instance.transform);
+        transform.position = GameManager.Instance.player.position;
+        mucus.gameObject.layer = originLayer;
+
+        Vector3 randDir = new Vector3(Random.Range(1f, 1.5f), Random.Range(1f, 1.5f));
+        Vector3 origin = transform.position;
         int idx = Random.Range(0, 2);
-        if ( idx == 0)
+        if (idx == 0)
         {
             randDir *= -1f;
         }
-        transform.position = transform.position + randDir;
-        mucus.SetMucus(false);
-        isStateEnter = false;
+
+        hit2D = Physics2D.Raycast(transform.position, origin + randDir, 2f, LayerMask.GetMask("Wall"));
+        if (hit2D.collider == null)
+        {
+            randDir *= -1;
+        }
+
+        print("?");
+        //transform.position = transform.position + randDir;
+        print(origin + randDir);
+        float t = 0f;
+        while (true)
+        {
+            t += Time.deltaTime;
+            if (t >= 0.9f)
+            {
+                mucus.SetMucus(false);
+                isStateEnter = false;
+                transform.position = Vector3.Lerp(origin, origin + randDir, 1);
+                yield break;
+            }
+            transform.position = Vector3.Lerp(origin, origin + randDir, t);
+
+            yield return null;
+        }
+
+
 
     }
 

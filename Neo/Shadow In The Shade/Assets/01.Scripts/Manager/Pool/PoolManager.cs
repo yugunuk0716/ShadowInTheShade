@@ -14,6 +14,7 @@ public class PoolManager : MonoBehaviour
             {
                 GameObject obj = new GameObject("PoolManager");
                 obj.AddComponent<PoolManager>();
+                obj.transform.position = new Vector3(1000f, 1000f);
                 instance = obj.GetComponent<PoolManager>();
             }
 
