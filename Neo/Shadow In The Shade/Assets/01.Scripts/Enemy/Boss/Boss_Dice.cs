@@ -5,14 +5,10 @@ using UnityEngine.Events;
 
 public class Boss_Dice : Enemy
 {
-    private readonly float attackDistance = 2f;
+    private readonly float attackDistance = 3f;
     private readonly float dist = 4f;
-
+    public bool isAttacking = false;
     Attack_Dice attack;
-
-    private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
-    private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
-
 
     protected override void Awake()
     {
@@ -56,12 +52,12 @@ public class Boss_Dice : Enemy
                 if (GameManager.Instance != null)
                 {
 
-                    if ((GameManager.Instance.player.position - transform.position).magnitude < attackDistance)
+                    if ((GameManager.Instance.player.position - transform.position).sqrMagnitude < Mathf.Pow(attackDistance, 2f) && attackCool + lastAttackTime < Time.time)
                     {
+                        lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
                     }
-
-                    else
+                    else if(!isAttacking)
                     {
                         SetState(EnemyState.Default);
                     }
@@ -72,6 +68,12 @@ public class Boss_Dice : Enemy
             //return base.LifeTime();
         }
     }
+
+    public void SetCrashEnd()
+    {
+        isAttacking = false;
+    }
+
 
     protected override void CheckHP()
     {
@@ -102,5 +104,20 @@ public class Boss_Dice : Enemy
 
     }
 
-  
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (UnityEditor.Selection.activeObject == gameObject)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, attackDistance);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, dist);
+            Gizmos.color = Color.white;
+        }
+    }
+#endif
+
+
 }
