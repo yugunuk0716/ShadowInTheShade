@@ -72,6 +72,8 @@ public struct PlayerECTStats
     [Header("플레이어 체력")]
     public float PMH;
 
+    [Header("플레이어 레벨")]
+    public float LEV;
 }
 
 [System.Serializable]

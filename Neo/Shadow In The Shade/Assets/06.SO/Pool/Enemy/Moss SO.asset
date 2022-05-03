@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyName: Moss Slime
   prefab: {fileID: 1755863238491838206, guid: 39ba0743754207a4d8c465ad5b0e48ce, type: 3}
   poolPrefab: {fileID: 1755863238491838080, guid: 39ba0743754207a4d8c465ad5b0e48ce, type: 3}
-  <maxHealth>k__BackingField: 5
-  <damage>k__BackingField: 1
+  <maxHealth>k__BackingField: 450
+  <damage>k__BackingField: 80
+  <exprencepoint>k__BackingField: 40

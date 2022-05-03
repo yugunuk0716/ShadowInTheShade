@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyName: Bone Slime
   prefab: {fileID: 2582680548563717361, guid: 7ff0f4fcab2369b44bfc421c2b364fc6, type: 3}
   poolPrefab: {fileID: 2582680548563717326, guid: 7ff0f4fcab2369b44bfc421c2b364fc6, type: 3}
-  <maxHealth>k__BackingField: 5
-  <damage>k__BackingField: 1
+  <maxHealth>k__BackingField: 400
+  <damage>k__BackingField: 100
+  <exprencepoint>k__BackingField: 50

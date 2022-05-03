@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyName: Mushroom Slime
   prefab: {fileID: 945484190645815882, guid: 3f04652947c3a584a947f4dd35637614, type: 3}
   poolPrefab: {fileID: 945484190645815902, guid: 3f04652947c3a584a947f4dd35637614, type: 3}
-  <maxHealth>k__BackingField: 5
-  <damage>k__BackingField: 1
+  <maxHealth>k__BackingField: 300
+  <damage>k__BackingField: 100
+  <exprencepoint>k__BackingField: 50

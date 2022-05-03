@@ -15,7 +15,7 @@ public class Slime_Bone : Enemy, ITacklable
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
 
-    int defaultDamage;
+    float defaultDamage;
     readonly int damageIncreaseAmout = 2;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
