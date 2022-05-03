@@ -6,11 +6,11 @@ public class Slime_Fire : Enemy, IDamagable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    private readonly float attackDistance = 1f;
     private readonly float chaseDistance = 5f;
 
     private Move_Chase chase = null;
     private Attack_Fire attack = null;
+
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -77,16 +77,13 @@ public class Slime_Fire : Enemy, IDamagable
 
             if(dist < chaseDistance)
             {
-                if (dist > attackDistance)
-                {
-                    SetState(EnemyState.Move);
-                }
+                
+                SetState(EnemyState.Move);
+                
 
-                if (dist < attackDistance && !isAttack)
-                {
-                    SetState(EnemyState.Attack);
+                
 
-                }
+                
             }
             else
             {
@@ -99,6 +96,15 @@ public class Slime_Fire : Enemy, IDamagable
         }
     }
 
+    
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+
+        if (collider.CompareTag("Player"))
+        {
+            SetState(EnemyState.Attack);
+        }
+    }
 
     public override void GetHit(float damage)
     {

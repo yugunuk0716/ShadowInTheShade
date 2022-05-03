@@ -5,19 +5,30 @@ using UnityEngine.Events;
 
 public class Boss_Dice : Enemy
 {
+    public bool isAttacking = false;
+    public bool isMoving = false;
+
+    private Attack_Dice attack;
+    private Move_Dice moveDice;
+    private  float lastMoveTime = 0f;
+    private float moveCool = 5f;
+
     private readonly float attackDistance = 3f;
     private readonly float dist = 4f;
-    public bool isAttacking = false;
-    Attack_Dice attack;
+    
 
     protected override void Awake()
     {
 
+        attackCool = 3f;
+
         dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
+
+        moveDice = gameObject.AddComponent<Move_Dice>();
+        dicState[EnemyState.Move] = moveDice;
 
 
         attack = gameObject.AddComponent<Attack_Dice>();
-
         dicState[EnemyState.Attack] = attack;
 
         dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
@@ -33,6 +44,7 @@ public class Boss_Dice : Enemy
     {
         base.OnEnable();
     }
+
 
     protected override IEnumerator LifeTime()
     {
@@ -52,12 +64,21 @@ public class Boss_Dice : Enemy
                 if (GameManager.Instance != null)
                 {
 
-                    if ((GameManager.Instance.player.position - transform.position).sqrMagnitude < Mathf.Pow(attackDistance, 2f) && attackCool + lastAttackTime < Time.time)
+                    if ( !isMoving && (GameManager.Instance.player.position - transform.position).sqrMagnitude < Mathf.Pow(attackDistance, 2f) && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
                     }
-                    else if(!isAttacking)
+
+                    else if(!isAttacking && moveCool + lastMoveTime < Time.time)
+                    {
+                        //lastAttackTime = Time.time;
+                        print("???");
+                        lastMoveTime = Time.time;
+                        SetState(EnemyState.Move);
+                    }
+
+                    else if(!isAttacking && !isMoving)
                     {
                         SetState(EnemyState.Default);
                     }
@@ -73,6 +94,7 @@ public class Boss_Dice : Enemy
     {
         isAttacking = false;
     }
+
 
 
     protected override void CheckHP()

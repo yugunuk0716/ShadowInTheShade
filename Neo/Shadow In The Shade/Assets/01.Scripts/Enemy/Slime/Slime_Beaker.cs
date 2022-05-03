@@ -165,6 +165,7 @@ public class Slime_Beaker : Enemy, ITacklable
         chase.speed = 0f;
         IsHit = false;
         reincarnationIdx = 0;
+        lastHitTime = Time.time;
         Anim.SetBool("isReincarnation", false);
     }
 

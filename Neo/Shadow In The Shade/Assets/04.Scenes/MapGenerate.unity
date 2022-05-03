@@ -1052,6 +1052,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dice Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 1505834431152634966, guid: fa75d4c85a907a14d87817caea782119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa75d4c85a907a14d87817caea782119, type: 3}
 --- !u!1 &283683459

@@ -53,7 +53,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set 
         {
             if (!value)
-                move.rigid.velocity = Vector2.zero;
+                Move.rigid.velocity = Vector2.zero;
             isDisarmed = value; 
         }
     }
@@ -104,6 +104,16 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
+    private AgentMove move;
+    public AgentMove Move
+    {
+        get 
+        {
+            if(move == null)
+                move = GetComponent<AgentMove>();
+            return move;
+        } 
+    }
 
 
 
@@ -114,7 +124,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [field: SerializeField]
     public UnityEvent OnReset { get; set; }
 
-    public AgentMove move;
 
     [HideInInspector]
     public AudioClip slimeHitClip;
@@ -144,7 +153,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected virtual void Start()
     {
         //currHp = enemyData.maxHealth;
-        move = GetComponent<AgentMove>();
 
         GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
@@ -279,7 +287,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (isHit || isDie)
             return;
-        move.KnockBack(direction, power, duration);
+        Move.KnockBack(direction, power, duration);
     }
 
     public virtual IEnumerator Dead()
