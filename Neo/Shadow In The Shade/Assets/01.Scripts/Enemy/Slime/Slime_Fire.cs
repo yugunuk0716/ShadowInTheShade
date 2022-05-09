@@ -6,11 +6,11 @@ public class Slime_Fire : Enemy, IDamagable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    private readonly float attackDistance = 1f;
     private readonly float chaseDistance = 5f;
 
     private Move_Chase chase = null;
     private Attack_Fire attack = null;
+
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -19,19 +19,19 @@ public class Slime_Fire : Enemy, IDamagable
 
     protected override void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
 
         chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
 
-        dicState[State.Move] = chase;
+        dicState[EnemyState.Move] = chase;
 
         attack = gameObject.AddComponent<Attack_Fire>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         base.Awake();
     }
@@ -45,17 +45,17 @@ public class Slime_Fire : Enemy, IDamagable
         base.OnEnable();
     }
 
-    protected override void SetDefaultState(State state)
+    protected override void SetDefaultState(EnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(State state)
+    protected override void SetState(EnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(State state)
+    protected override void PlayState(EnemyState state)
     {
         base.PlayState(state);
     }
@@ -77,20 +77,17 @@ public class Slime_Fire : Enemy, IDamagable
 
             if(dist < chaseDistance)
             {
-                if (dist > attackDistance)
-                {
-                    SetState(State.Move);
-                }
+                
+                SetState(EnemyState.Move);
+                
 
-                if (dist < attackDistance && !isAttack)
-                {
-                    SetState(State.Attack);
+                
 
-                }
+                
             }
             else
             {
-                SetState(State.Default);
+                SetState(EnemyState.Default);
             }
 
             
@@ -99,8 +96,17 @@ public class Slime_Fire : Enemy, IDamagable
         }
     }
 
+    
+    void OnTriggerEnter2D(Collider2D collider)
+    {
 
-    public override void GetHit(int damage)
+        if (collider.CompareTag("Player"))
+        {
+            SetState(EnemyState.Attack);
+        }
+    }
+
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

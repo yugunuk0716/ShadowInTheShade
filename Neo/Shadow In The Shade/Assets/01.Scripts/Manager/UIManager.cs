@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     private Image playerEXPBar;
 
 
+    #region UI Popup
     public Transform popupParent;
     public OptionPopup optionPopupPrefab;
 
@@ -38,14 +39,16 @@ public class UIManager : MonoBehaviour
 
     public Dictionary<string, Popup> popupDic = new Dictionary<string, Popup>();
     private Stack<Popup> popupStack = new Stack<Popup>();
+    #endregion
 
     #region Fade
     float a = 1;
     public Image fadeImage;
     #endregion
 
-    public RectTransform tooltipTextTrm;
     public Text tooltipText;
+    public Image tooltipIcon;
+    public Image tooltipBG;
 
     private CanvasGroup tooltipCG;
     private Vector3 initPosition;
@@ -53,6 +56,8 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        tooltipCG = tooltipBG.GetComponent<CanvasGroup>();
     }
 
     private void Start()
@@ -136,9 +141,7 @@ public class UIManager : MonoBehaviour
         while (true)
         {
             a -= 0.01f;
-            print($"fadeOuting {a}");
             fadeImage.color = new Color(0, 0, 0, a);
-            print($"fadeOuting {fadeImage.color}");
             yield return new WaitForSeconds(0.01f);
             if (a <= 0)
                 break;
@@ -196,15 +199,22 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowToolTip(string text)
+    public void ShowToolTip(string text, Sprite icon)
     {
         tooltipText.text = text;
+        tooltipIcon.sprite = icon;
 
-        Sequence seq = DOTween.Sequence();
-        CanvasGroup cg = instance.tooltipCG;
-        seq.Append(DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f));
-        float y = instance.initPosition.y;
-        seq.Join(instance.tooltipTextTrm.DOLocalMoveY(y + 120f, 0.5f));
+        CanvasGroup cg = tooltipCG;
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f);
+    }
+
+
+    public void CloseTooltip()
+    {
+        DOTween.Clear(); //모든 트윈을 종료시키고 
+        
+        CanvasGroup cg = tooltipCG;
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
     }
 
 

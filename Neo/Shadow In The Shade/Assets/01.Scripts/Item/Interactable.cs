@@ -9,21 +9,27 @@ public abstract class Interactable : PoolableMono
     public abstract void Use(GameObject target);
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (used) return;
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //여기서 UI 띄우고
-        }
+        
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //UI 지우고
-        }
+        
     }
+
+    public virtual void PushChestInPool()
+    {
+        PoolManager.Instance.Push(this);
+    }
+
+    public virtual void Popup(Vector3 pos)// 이 함수는 스테이지 클리어시 풀에서 상자 꺼내서 실행하면 됨
+    {
+        
+    }
+
+  
 
 }

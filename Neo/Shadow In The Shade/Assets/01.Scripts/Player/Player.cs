@@ -154,7 +154,7 @@ public class Player : MonoBehaviour, IDamagable
 
    
 
-    public void GetHit(int damage)
+    public void GetHit(float damage)
     {
 
         if (IsDie || IsHit || playerDash.isDash || isInvincibility)

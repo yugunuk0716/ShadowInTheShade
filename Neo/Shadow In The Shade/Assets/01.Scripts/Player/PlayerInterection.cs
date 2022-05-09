@@ -18,10 +18,7 @@ public class PlayerInterection : MonoBehaviour
         {
             thing.Use(gameObject);
         }
-        else
-        {
-            print(thing != null);
-        }
+      
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

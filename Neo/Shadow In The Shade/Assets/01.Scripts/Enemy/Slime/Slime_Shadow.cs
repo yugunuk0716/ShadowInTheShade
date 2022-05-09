@@ -36,19 +36,19 @@ public class Slime_Shadow : Enemy, ITacklable
 
     protected override void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
 
         chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
 
-        dicState[State.Move] = chase;
+        dicState[EnemyState.Move] = chase;
 
         attack = gameObject.GetComponentInChildren<Attack_Tackle>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         base.Awake();
     }
@@ -73,17 +73,21 @@ public class Slime_Shadow : Enemy, ITacklable
         attack.gameObject.SetActive(false);
         Vector2 playerTrm = GameManager.Instance.player.position;
         Vector2 randValue = Vector2.zero;
-        randValue.Set(Random.Range(3f, 3.5f) + playerTrm.x, Random.Range(3f, 3.5f) + playerTrm.y);
 
-        if (Random.Range(0, 2) == 0)
-        {
-            randValue.Set(randValue.x * -1, randValue.y);
-        }
+        int randX = Random.Range(0, 2) == 0 ? 1 : -1;
+        int randY = Random.Range(0, 2) == 0 ? 1 : -1;
 
-        if (Random.Range(0, 2) == 0)
-        {
-            randValue.Set(randValue.x, randValue.y * -1);
-        }
+        randValue.Set(Random.Range(3f, 3.5f) * randX + playerTrm.x, Random.Range(3f, 3.5f) * randY + playerTrm.y);
+
+        //if (Random.Range(0, 2) == 0)
+        //{
+        //    randValue.Set(randValue.x * -1, randValue.y);
+        //}
+
+        //if (Random.Range(0, 2) == 0)
+        //{
+        //    randValue.Set(randValue.x, randValue.y * -1);
+        //}
 
         Sr.DOFade(0, 1f).OnComplete(() => 
         {
@@ -99,17 +103,17 @@ public class Slime_Shadow : Enemy, ITacklable
 
 
 
-    protected override void SetDefaultState(State state)
+    protected override void SetDefaultState(EnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(State state)
+    protected override void SetState(EnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(State state)
+    protected override void PlayState(EnemyState state)
     {
         base.PlayState(state);
     }
@@ -133,18 +137,18 @@ public class Slime_Shadow : Enemy, ITacklable
                 {
                     if (dist > attackDistance)
                     {
-                        SetState(State.Move);
+                        SetState(EnemyState.Move);
                     }
 
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
-                        SetState(State.Attack);
+                        SetState(EnemyState.Attack);
                     }
                 }
                 else
                 {
-                    SetState(State.Default);
+                    SetState(EnemyState.Default);
                 }
             }
             yield return base.LifeTime();
@@ -152,7 +156,7 @@ public class Slime_Shadow : Enemy, ITacklable
     }
 
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

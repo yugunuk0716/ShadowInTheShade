@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyName: Smong Slime
   prefab: {fileID: 3636983364782968676, guid: 4f112e1c0cc68b54aab7072b9dda41f0, type: 3}
   poolPrefab: {fileID: 3636983364782968675, guid: 4f112e1c0cc68b54aab7072b9dda41f0, type: 3}
-  <maxHealth>k__BackingField: 5
-  <damage>k__BackingField: 1
+  <maxHealth>k__BackingField: 300
+  <damage>k__BackingField: 120
+  <exprencepoint>k__BackingField: 50

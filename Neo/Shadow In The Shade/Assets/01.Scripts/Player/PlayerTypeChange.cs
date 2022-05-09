@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerTypeChange : MonoBehaviour
 {
+    public PlayerAnimation playerAnim;
     private PlayerInput playerInput;
+   
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
+        playerAnim = GameManager.Instance.player.GetComponentInChildren<PlayerAnimation>();
         GameManager.Instance.onPlayerChangingType.AddListener(ChangeType);
     }
 
@@ -50,7 +53,8 @@ public class PlayerTypeChange : MonoBehaviour
 
 
             GameManager.Instance.playerSO.playerStates = _ps;
-            GameManager.Instance.onPlayerChangeType?.Invoke();
+            GameManager.Instance.player.GetComponentInChildren<PlayerAnimation>().StartCoChangePlayerTypeAnimation();
+           // GameManager.Instance.onPlayerChangeType?.Invoke();
             GameManager.Instance.playerSO.canChangePlayerType = false;
         }
     }

@@ -18,6 +18,6 @@ public class AttackArea : PoolableMono
 
     public override void Reset()
     {
-
+        Lr.widthMultiplier = 0.5f;
     }
 }

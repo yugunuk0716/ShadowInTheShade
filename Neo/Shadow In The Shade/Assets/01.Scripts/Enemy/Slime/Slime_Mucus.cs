@@ -10,7 +10,7 @@ public class Slime_Mucus : Enemy
 
     private SpriteRenderer sr;
 
-    private readonly float attackDistance = 1f;
+    private readonly float attackDistance = 0.5f;
     private readonly float chaseDistance = 5f;
 
 
@@ -29,7 +29,7 @@ public class Slime_Mucus : Enemy
 
     protected override void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
@@ -38,15 +38,15 @@ public class Slime_Mucus : Enemy
         chase.speed = 2f;
 
 
-        dicState[State.Move] = chase;
+        dicState[EnemyState.Move] = chase;
 
         // °ø°Ý
         attack = gameObject.AddComponent<Attack_Mucus>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
         // Á×À½
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         originColor = sr.color;
         attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
@@ -69,17 +69,17 @@ public class Slime_Mucus : Enemy
         isAttack = on;
     }
 
-    protected override void SetDefaultState(State state)
+    protected override void SetDefaultState(EnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(State state)
+    protected override void SetState(EnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(State state)
+    protected override void PlayState(EnemyState state)
     {
         base.PlayState(state);
     }
@@ -101,25 +101,25 @@ public class Slime_Mucus : Enemy
             {
                 if (dist > attackDistance)
                 {
-                    SetState(State.Move);
+                    SetState(EnemyState.Move);
                 }
 
 
                 if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
                 {
-                    SetState(State.Attack);
+                    SetState(EnemyState.Attack);
                 }
             }
             else if(!attack.isStateEnter)
             {
-                SetState(State.Default);
+                SetState(EnemyState.Default);
             }
 
             yield return base.LifeTime();
         }
     }
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         if (isAttack)
             return;

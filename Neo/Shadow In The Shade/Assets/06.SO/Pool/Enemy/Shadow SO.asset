@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyName: Shadow Slime
   prefab: {fileID: 6195469673180801998, guid: 8d5e6c2113bcc6a48a0abf7e5707cf3f, type: 3}
   poolPrefab: {fileID: 6195469673180801996, guid: 8d5e6c2113bcc6a48a0abf7e5707cf3f, type: 3}
-  <maxHealth>k__BackingField: 5
-  <damage>k__BackingField: 1
+  <maxHealth>k__BackingField: 600
+  <damage>k__BackingField: 150
+  <exprencepoint>k__BackingField: 70

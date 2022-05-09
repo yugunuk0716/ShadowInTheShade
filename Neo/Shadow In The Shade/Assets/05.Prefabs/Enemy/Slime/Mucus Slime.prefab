@@ -153,7 +153,6 @@ MonoBehaviour:
   <OnReset>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  move: {fileID: 3081107059394197498}
   slimeHitClip: {fileID: 0}
   isShadow: 0
   speed: 3
@@ -184,7 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442ca27f0cae8b94d9a8723f70ad71b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateOnce: 0
 --- !u!61 &4797123640107004185
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -221,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996934904508192317}
   - component: {fileID: 9214371171998871647}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Movement Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

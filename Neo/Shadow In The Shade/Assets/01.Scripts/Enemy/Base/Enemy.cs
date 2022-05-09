@@ -10,20 +10,23 @@ public class PhaseInfo
     public float hp;
 }
 
+public enum EnemyState
+{
+    Default,    // 아무것도 없는 상태
+    Move,       // 움직일 때
+    Attack,     // 공격할 때
+    Die         // 죽을 때
+}
+
 public class Enemy : PoolableMono, IAgent, IDamagable
 {
-    protected enum State
-    {
-        Default,    // 아무것도 없는 상태
-        Move,       // 움직일 때
-        Attack,     // 공격할 때
-        Die         // 죽을 때
-    }
+    
 
     public EnemyDataSO enemyData;
 
-    protected int currHP = 0;
-    public int CurrHP
+    [field:SerializeField]
+    protected float currHP = 0;
+    public float CurrHP
     {
         get
         {
@@ -40,6 +43,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [Space(10)]
     public bool isAttack = false;
     public bool isDie = false;
+
     private bool isDisarmed = false;
     public bool IsDisarmed 
     {
@@ -50,7 +54,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set 
         {
             if (!value)
-                move.rigid.velocity = Vector2.zero;
+                Move.rigid.velocity = Vector2.zero;
             isDisarmed = value; 
         }
     }
@@ -70,6 +74,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set
         {
             isHit = value;
+            //IsDisarmed = isHit;
         }
     }
 
@@ -88,7 +93,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     }
 
     private SpriteRenderer myRend;
-    protected SpriteRenderer MyRend
+    public SpriteRenderer MyRend
     {
         get
         {
@@ -101,6 +106,16 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
+    private AgentMove move;
+    public AgentMove Move
+    {
+        get 
+        {
+            if(move == null)
+                move = GetComponent<AgentMove>();
+            return move;
+        } 
+    }
 
 
 
@@ -111,7 +126,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [field: SerializeField]
     public UnityEvent OnReset { get; set; }
 
-    public AgentMove move;
 
     [HideInInspector]
     public AudioClip slimeHitClip;
@@ -124,8 +138,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
     [SerializeField]
-    protected State currentState = State.Default;
-    protected Dictionary<State, IState> dicState = new Dictionary<State, IState>();
+    protected EnemyState currentState = EnemyState.Default;
+    protected Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
 
     protected Coroutine lifeTime = null;
 
@@ -141,47 +155,55 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected virtual void Start()
     {
         //currHp = enemyData.maxHealth;
-        move = GetComponent<AgentMove>();
 
-        GameManager.Instance.onPlayerChangeType.AddListener(() => 
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
-            isShadow = !isShadow;
-            MyRend.enabled = !isShadow;
+            isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
+            //MyRend.enabled = !isShadow;
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
+        });
+
+        OnDie.AddListener(() =>
+        {
+            AddingEXP();
+            GameManager.Instance.onPlayerGetEXP?.Invoke();
         });
        
     }
 
     protected virtual void OnEnable()
     {
-        isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
-        MyRend.enabled = !isShadow;
+        if (GameManager.Instance != null)
+        {
+            isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
+            MyRend.enabled = !isShadow;
+        }
         currHP = enemyData.maxHealth;
         MyRend.color = originColor;
         isDie = false;
         lastAttackTime -= attackCool;
         EnemyManager.Instance.enemyList.Add(this);
 
-        SetDefaultState(State.Default);
+        SetDefaultState(EnemyState.Default);
         lifeTime = StartCoroutine(LifeTime());
         //PoolManager.Instance.enemies.Add(this);
     }
     
-    protected virtual void SetDefaultState(State state)     // 초기 행동 설정
+    protected virtual void SetDefaultState(EnemyState state)     // 초기 행동 설정
     {
         currentState = state;
         dicState[currentState].OnEnter();
     }
 
-    protected virtual void SetState(State state)
+    protected virtual void SetState(EnemyState state)
     {
         dicState[currentState].OnEnd();
         currentState = state;
         dicState[currentState].OnEnter();
     }
 
-    protected virtual void PlayState(State state)
+    protected virtual void PlayState(EnemyState state)
     {
         dicState[state].OnEnter();
     }
@@ -194,18 +216,20 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
+    private void AddingEXP()
+    {
+        GameManager.Instance.playerSO.ectStats.EXP += enemyData.exprencepoint;
+    }
+
     protected virtual IEnumerator LifeTime()
     {
         yield return new WaitUntil(() => !IsDisarmed);
-
-        float distance = (GameManager.Instance.player.position - transform.position).magnitude;
 
         if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
         {
             Shadow_Mode_Effect sme = PoolManager.Instance.Pop("Shadow Purse") as Shadow_Mode_Effect;
             sme.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
-
 
         yield return new WaitForSeconds(.3f);
 
@@ -217,10 +241,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void CheckHP()
     {
-        if (currHP <= 0f)
+        if (currHP <= 0)
         {
             StopCoroutine(lifeTime);
-            SetState(State.Die);
+            SetState(EnemyState.Die);
             StageManager.Instance.curStageEnemys.Remove(this);
             isDie = true;
             StartCoroutine(Dead());
@@ -237,7 +261,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void GetHit(int damage)
+    public virtual void GetHit(float damage)
     {
         if (isDie || isHit)
             return;
@@ -248,11 +272,21 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
         {
-            damage *= 2; //2배 데미지
+            float overPoint = 0;
+            if (GameManager.Instance.playerSO.attackStats.CTP > 100)
+            {
+                overPoint = GameManager.Instance.playerSO.attackStats.CTP - 100;
+            }
+
+            Debug.Log(damage);
+
+            damage *= (GameManager.Instance.playerSO.attackStats.CTD + overPoint) / 100;
+
+            Debug.Log(damage);
             isCritical = true;
         }
 
-        if (currentState.Equals(State.Die)) return;
+        if (currentState.Equals(EnemyState.Die)) return;
 
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
@@ -272,11 +306,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     }
 
-    public void KnockBack(Vector2 direction, float power, float duration)
+    public virtual void KnockBack(Vector2 direction, float power, float duration)
     {
         if (isHit || isDie)
             return;
-        move.KnockBack(direction, power, duration);
+        Move.KnockBack(direction, power, duration);
     }
 
     public virtual IEnumerator Dead()
@@ -289,7 +323,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
-    public void PushInPool()
+    public virtual void PushInPool()
     {
         PoolManager.Instance.Push(this);
     }
@@ -302,7 +336,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         Anim.ResetTrigger("isDie");
         Anim.Rebind();
         EnemyManager.Instance.enemyList.Remove(this);
-        currentState = State.Default;
+        currentState = EnemyState.Default;
         isDie = false;
         isAttack = false;
         //myRend.enabled = true;

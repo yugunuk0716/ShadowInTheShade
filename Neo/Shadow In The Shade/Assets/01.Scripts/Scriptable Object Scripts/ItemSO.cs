@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
-public enum ItemRarity
-{
-    Normal,
-    Rare,
-    Legendary
-}
 
 
 [CreateAssetMenu(menuName = "SO/Item/ItemDataSO")]
@@ -18,7 +11,7 @@ public class ItemSO : ScriptableObject
     [Header("아이템 기본 정보")]
     public string itemName;
     public Sprite itemSprite;
-    public ItemRarity rarity;
+    public Rarity rarity;
 
     [Header("아이템 설명")]
     public string itemAbility;

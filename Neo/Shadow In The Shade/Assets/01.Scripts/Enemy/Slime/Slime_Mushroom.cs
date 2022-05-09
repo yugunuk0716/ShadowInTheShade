@@ -20,20 +20,20 @@ public class Slime_Mushroom : Enemy, IDamagable
 
     protected override void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = -2f;
 
-        dicState[State.Move] = chase;
+        dicState[EnemyState.Move] = chase;
 
         attack = gameObject.AddComponent<Attack_Mushroom>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         attackCool *= 2;
 
@@ -54,17 +54,17 @@ public class Slime_Mushroom : Enemy, IDamagable
         isAttack = on;
     }
 
-    protected override void SetDefaultState(State state)
+    protected override void SetDefaultState(EnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(State state)
+    protected override void SetState(EnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(State state)
+    protected override void PlayState(EnemyState state)
     {
         base.PlayState(state);
     }
@@ -87,17 +87,17 @@ public class Slime_Mushroom : Enemy, IDamagable
             {
                 if (dist > attackDistance)
                 {
-                    SetState(State.Move);
+                    SetState(EnemyState.Move);
                 }
                 if (dist < attackDistance && lastAttackTime + attackCool < Time.time)
                 {
                     lastAttackTime = Time.time;
-                    SetState(State.Attack);
+                    SetState(EnemyState.Attack);
                 }
             }
             else
             {
-                SetState(State.Default);
+                SetState(EnemyState.Default);
             }
 
             
@@ -107,7 +107,7 @@ public class Slime_Mushroom : Enemy, IDamagable
     }
 
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

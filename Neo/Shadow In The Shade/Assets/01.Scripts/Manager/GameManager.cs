@@ -32,9 +32,10 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onPlayerDash; //플레이어가 대쉬할 때 쓰는 이벤트
     public UnityEvent<int> onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
-    public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
+    public UnityEvent onPlayerTypeChanged; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
     public UnityEvent onPlayerChangingType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
     public UnityEvent onPlayerHit;
+    public UnityEvent onPlayerGetEXP;
 
 
     public FeedBackPlayer feedBackPlayer;
@@ -55,17 +56,31 @@ public class GameManager : MonoBehaviour
     {
         onPlayerDash = new UnityEvent();
         onPlayerAttack = new UnityEvent<int>();
-        onPlayerChangeType = new UnityEvent();
+        onPlayerTypeChanged = new UnityEvent();
         onPlayerChangingType = new UnityEvent();
         onPlayerHit = new UnityEvent();
 
 
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Shadow;
-        playerSO.moveStats.SPD = playerSpeed;
         playerSO.moveStats.DSS = 1;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
+
+        playerSO.mainStats.STR = 0f;
+        playerSO.mainStats.DEX = 0f;
+        playerSO.mainStats.AGI = 0f;
+        playerSO.mainStats.SPL = 0f;
+
+        playerSO.attackStats.ATK = 100f;
+        playerSO.moveStats.SPD = 7f;
+        playerSO.attackStats.ASD = 100f;
+        playerSO.attackStats.CTP = 0f;
+        playerSO.attackStats.CTD = 200f;
+
+        playerSO.ectStats.LEV = 0;
+        playerSO.ectStats.EXP = 0;
+
 
         foreach (PoolableMono p in poollingList.list)
         {
@@ -79,6 +94,47 @@ public class GameManager : MonoBehaviour
 
 
 
+    }
+
+    public void InitMainStatPoint(int statsIndex)
+    {
+        switch(statsIndex)
+        {
+            case 1:
+                float tempSTR = playerSO.mainStats.STR - 1;
+
+                playerSO.attackStats.ATK -= tempSTR * 20f;
+
+                playerSO.attackStats.ATK += playerSO.mainStats.STR * 20f;
+                break;
+            case 2:
+                float tempDEX = playerSO.mainStats.DEX - 1;
+
+                playerSO.moveStats.SPD -= tempDEX * .2f;
+                playerSO.attackStats.ASD -= tempDEX * 6f;
+
+                playerSO.moveStats.SPD += playerSO.mainStats.DEX * .2f;
+                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 6f;
+                break;
+            case 3:
+                float tempAGI = playerSO.mainStats.AGI - 1;
+
+                playerSO.attackStats.CTP -= tempAGI * 10;
+
+                playerSO.attackStats.CTP += playerSO.mainStats.AGI * 10;
+
+
+                break;
+            case 4:
+                float tempSPL = playerSO.mainStats.SPL - 1;
+
+                playerSO.ectStats.PMH -= tempSPL * 50f;
+
+                playerSO.ectStats.PMH += playerSO.mainStats.SPL * 50f;
+
+                break;
+
+        }
     }
 
 }

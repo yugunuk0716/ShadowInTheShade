@@ -15,7 +15,7 @@ public class Slime_Bone : Enemy, ITacklable
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
 
-    int defaultDamage;
+    float defaultDamage;
     readonly int damageIncreaseAmout = 2;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
@@ -24,20 +24,20 @@ public class Slime_Bone : Enemy, ITacklable
 
     protected override void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = 2f;
 
-        dicState[State.Move] = chase;
+        dicState[EnemyState.Move] = chase;
 
         attack = gameObject.GetComponentInChildren<Attack_Tackle>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         defaultDamage = enemyData.damage;
         base.Awake();
@@ -65,17 +65,17 @@ public class Slime_Bone : Enemy, ITacklable
     }
 
    
-    protected override void SetDefaultState(State state)
+    protected override void SetDefaultState(EnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(State state)
+    protected override void SetState(EnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(State state)
+    protected override void PlayState(EnemyState state)
     {
         base.PlayState(state);
     }
@@ -99,18 +99,18 @@ public class Slime_Bone : Enemy, ITacklable
                 {
                     if (dist > attackDistance)
                     {
-                        SetState(State.Move);
+                        SetState(EnemyState.Move);
                     }
 
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
-                        SetState(State.Attack);
+                        SetState(EnemyState.Attack);
                     }
                 }
                 else
                 {
-                    SetState(State.Default);
+                    SetState(EnemyState.Default);
                 }
             }
           
@@ -120,7 +120,7 @@ public class Slime_Bone : Enemy, ITacklable
     }
 
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         hitCount++;
         base.GetHit(damage);

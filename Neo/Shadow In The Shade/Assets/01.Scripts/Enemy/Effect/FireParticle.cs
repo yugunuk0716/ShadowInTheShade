@@ -9,7 +9,7 @@ public class FireParticle : PoolableMono
     private void Awake()
     {
         myRend = GetComponent<ParticleSystemRenderer>();
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
         {
             
             myRend.enabled = !PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);

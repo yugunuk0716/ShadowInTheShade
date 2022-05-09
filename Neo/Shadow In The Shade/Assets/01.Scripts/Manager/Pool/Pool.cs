@@ -28,6 +28,7 @@ class Pool<T> where T : PoolableMono
         if (_pool.Count <= 0)
         {
             obj = GameObject.Instantiate(_prefab, _parent);
+            obj.gameObject.SetActive(true);
             obj.gameObject.name = obj.gameObject.name.Replace("(Clone)", "");
 
         }

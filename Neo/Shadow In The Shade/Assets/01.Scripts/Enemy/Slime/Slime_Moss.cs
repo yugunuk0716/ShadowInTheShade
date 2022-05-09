@@ -18,7 +18,7 @@ public class Slime_Moss : Enemy
 
     protected override void Awake()
     {
-        dicState[State.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
@@ -26,10 +26,10 @@ public class Slime_Moss : Enemy
         // °ø°Ý
         attack = gameObject.AddComponent<Attack_Moss>();
 
-        dicState[State.Attack] = attack;
+        dicState[EnemyState.Attack] = attack;
 
         // Á×À½
-        dicState[State.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         base.Awake();
 
@@ -43,17 +43,17 @@ public class Slime_Moss : Enemy
         base.OnEnable();
     }
 
-    protected override void SetDefaultState(State state)
+    protected override void SetDefaultState(EnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(State state)
+    protected override void SetState(EnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(State state)
+    protected override void PlayState(EnemyState state)
     {
         base.PlayState(state);
     }
@@ -64,14 +64,14 @@ public class Slime_Moss : Enemy
         {
             yield return null;
             
-            SetState(State.Attack);
-            SetState(State.Default);
+            SetState(EnemyState.Attack);
+            SetState(EnemyState.Default);
 
             yield return base.LifeTime();
         }
     }
 
-    public override void GetHit(int damage)
+    public override void GetHit(float damage)
     {
         base.GetHit(damage);
     }

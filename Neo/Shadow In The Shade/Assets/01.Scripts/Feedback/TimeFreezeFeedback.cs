@@ -23,6 +23,7 @@ public class TimeFreezeFeedback : Feedback
         TimeManager.Instance.ModifyTimeScale(_timeFreezeValue, _freezeTimeDelay, () =>
         {
             TimeManager.Instance.ModifyTimeScale(1, _unFreezeTimeDelay);
+            print("½½·Î¿ì!");
         });
     }
 }

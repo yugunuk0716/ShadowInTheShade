@@ -75,7 +75,7 @@ public class StageManager : MonoBehaviour
         });
 
 
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
         {
             if (currentRoom != null)
             {
@@ -92,7 +92,6 @@ public class StageManager : MonoBehaviour
 
 
     }
-
 
     public void ClearCheck()
     {
@@ -114,15 +113,14 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
-        if (isBattle)
+        if (isBattle && (!currentRoom.name.Contains("Boss") || !currentRoom.name.Contains("End")))
         {
             onBattleEnd?.Invoke();
             Rarity rarity = Rarity.Normal;
             int idx = Random.Range(0, 100);
             bool canDrop = true;
 
-            print(idx);
-
+            idx += 50;
             if(idx < 50)
             {
                 canDrop = false; 
@@ -131,19 +129,18 @@ public class StageManager : MonoBehaviour
             {
                 rarity = Rarity.Normal;  
             }
-            else if( 84 < idx && idx < 98)
+            else if( 84 < idx)// && idx < 98)
             {
                 rarity = Rarity.Rare;
             }
-            else if(97 < idx && idx < 100)
-            {
-                rarity = Rarity.Unique;
-            }
+            //else if(97 < idx )//&& idx < 100)
+            //{
+            //    rarity = Rarity.Unique;
+            //}
 
 
             if (canDrop)
             {
-
                 Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
                 c.Popup(currentRoom.transform.position);
             }

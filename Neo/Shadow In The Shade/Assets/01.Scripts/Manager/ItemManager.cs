@@ -38,14 +38,17 @@ public class ItemManager : MonoBehaviour
             if(a.rarity.Equals(_rarity))
             {
                 pickedItems.Add(a);
+
             }
         }
+
+       // return items[0];
 
         return pickedItems[Random.Range(0, pickedItems.Count)];
     }
 
     public void AddingItem(ItemSO item)
     {
-        GameManager.Instance.player.GetComponent<PlayerItem>().getItme = item;
+        GameManager.Instance.player.GetComponent<PlayerItem>().AddingItem(item);
     }
 }

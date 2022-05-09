@@ -8,7 +8,7 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerInput playerInput;
     private Vector2 moveDir;
     private Animator playerAnimator;
-    private Animator playerTypeChangeEffcetAnimator;
+    public Animator playerTypeChangeEffcetAnimator;
     private GameObject playerSprite;
 
     private void Start()
@@ -18,7 +18,7 @@ public class PlayerAnimation : MonoBehaviour
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
-        GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
+        //GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
         GameManager.Instance.onPlayerDash.AddListener(() => 
         {
@@ -27,6 +27,12 @@ public class PlayerAnimation : MonoBehaviour
                 StartCoroutine(PlayerDashAnimation());
             }
         });
+    }
+
+    public void StartCoChangePlayerTypeAnimation()
+    {
+        //Debug.Log("?");
+        StartCoroutine(ChangePlayerTypeAnimation());
     }
 
     private void Update()
@@ -67,20 +73,22 @@ public class PlayerAnimation : MonoBehaviour
             playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", true);
             yield return new WaitForSeconds(.2f);
             playerAnimator.SetBool("IsShadow", false);
+            yield return new WaitForSeconds(.2f);
         }
         else
         {
             playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", true);
             yield return new WaitForSeconds(.1f);
             playerAnimator.SetBool("IsShadow", true);
+            yield return new WaitForSeconds(.9f);
         }
 
+       
+        GameManager.Instance.onPlayerTypeChanged?.Invoke();
+        GameManager.Instance.playerSO = so;
         playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", false);
         playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", false);
-
-        yield return new WaitForSeconds(so.ectStats.TCT);
         so.canChangePlayerType = true;
-        GameManager.Instance.playerSO = so;
     }
 
 
@@ -88,7 +96,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds((500 - GameManager.Instance.playerSO.attackStats.ASD)/1000);
         playerAnimator.SetBool("IsAttack", false);
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
     }
