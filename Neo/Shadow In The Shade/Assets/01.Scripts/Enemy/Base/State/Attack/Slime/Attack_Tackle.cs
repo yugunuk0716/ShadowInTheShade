@@ -14,6 +14,8 @@ public class Attack_Tackle : MonoBehaviour, IState
     private Collider2D coll;
     AttackArea atkArea;
 
+    Coroutine routine;
+
     public void OnEnter()
     {
         if (enemy == null)
@@ -30,11 +32,26 @@ public class Attack_Tackle : MonoBehaviour, IState
         {
             tacklable = GetComponentInParent<ITacklable>();
         }
+
+        if (!tacklable.CanAttack && routine != null)
+        {
+            StopCoroutine(routine);
+            tacklable.SetTackle(false);
+            enemy.Anim.SetBool("isTackle", false);
+            enemy.Anim.SetFloat("MoveX", 0);
+            enemy.Anim.SetFloat("MoveY", 0);
+            enemy.gameObject.layer = originLayer;
+            PoolManager.Instance.Push(atkArea);
+            enemy.IsHit = false;
+        }
+
         originLayer = enemy.gameObject.layer;
         enemy.gameObject.layer = targetLayer;
         enemy.Move.rigid.velocity = Vector3.zero;
+        
+        if(routine == null)
+            routine = StartCoroutine(TackleRoutine());
 
-        StartCoroutine(TackleRoutine());
 
        
     }

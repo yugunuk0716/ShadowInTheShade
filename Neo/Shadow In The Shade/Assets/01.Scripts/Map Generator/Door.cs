@@ -58,9 +58,6 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.CompareTag("Player"));
-        print(!RoomManager.Instance.isMoving);
-        print(isOpen);
 
         if (collision.CompareTag("Player") && !RoomManager.Instance.isMoving && isOpen)
         {
