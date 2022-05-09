@@ -94,7 +94,16 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(GameManager.Instance.defaultShadowGaugeSpeed);
+            if(gaugeState == GaugeState.Human)
+            {
+                yield return new WaitForSeconds(GameManager.Instance.defaultShadowGaugeSpeed / 2);
+
+            }
+            else
+            {
+                yield return new WaitForSeconds(GameManager.Instance.defaultShadowGaugeSpeed);
+            }
+
             if (StageManager.Instance.isBattle)
             {
                 DecreaseGauge(gaugeState);

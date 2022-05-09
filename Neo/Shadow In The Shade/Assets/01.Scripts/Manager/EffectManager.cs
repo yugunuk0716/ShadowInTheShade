@@ -38,6 +38,9 @@ public class EffectManager : MonoBehaviour
     private Sprite slimeBlood;
     private Sprite defaultBlood;
 
+    private Sprite enemyHitEffect;
+    private Sprite enemyHitCriticalEffect;
+
     public GameObject minimapCamObj;
     public CinemachineVirtualCamera cinemachineCamObj;
     [HideInInspector]
@@ -60,10 +63,11 @@ public class EffectManager : MonoBehaviour
         cinemachineCamConfiner = cinemachineCamObj.GetComponent<CinemachineConfiner>();
         cinemachineCam = cinemachineCamObj.GetComponent<CinemachineVirtualCamera>();
         cmPerlin = cinemachineCamObj.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
         CameraPerlinInit();
 
     }
+
+
 
    
 
