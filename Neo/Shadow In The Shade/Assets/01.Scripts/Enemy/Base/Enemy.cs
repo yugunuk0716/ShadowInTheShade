@@ -268,7 +268,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         isHit = true;
         lastHitTime = Time.time;
-        float critical = Random.value;
+        float critical = Random.value * 100;
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
         {
