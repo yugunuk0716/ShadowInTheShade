@@ -148,13 +148,14 @@ public class RoomManager : MonoBehaviour
         if (loadRoomQueue.Count == 0)
         {
 
-            Room bossRoom = loadedRooms[loadedRooms.Count - 1];
+            Room bossRoom = loadedRooms[ 1];
             int x = bossRoom.X;
             int y = bossRoom.Y;
             Destroy(bossRoom.gameObject);
             Room roomToRemove = loadedRooms.Single(r => r.X == x && r.Y == y);
             loadedRooms.Remove(roomToRemove);
             LoadRoom("End", x, y);
+            LoadRoom("Boss", x * 100, y * 100);
 
         }
     }
@@ -321,6 +322,7 @@ public class RoomManager : MonoBehaviour
         Room room = PoolManager.Instance.Pop($"{currentStageName} {info.name}") as Room;
         if (room.name.Contains("End"))
         {
+            room.isClear = true;
             room.RemoveUnconnectedDoors();
             foreach (Room r in loadedRooms)
             {

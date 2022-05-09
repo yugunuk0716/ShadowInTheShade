@@ -141,9 +141,7 @@ public class UIManager : MonoBehaviour
         while (true)
         {
             a -= 0.01f;
-            print($"fadeOuting {a}");
             fadeImage.color = new Color(0, 0, 0, a);
-            print($"fadeOuting {fadeImage.color}");
             yield return new WaitForSeconds(0.01f);
             if (a <= 0)
                 break;

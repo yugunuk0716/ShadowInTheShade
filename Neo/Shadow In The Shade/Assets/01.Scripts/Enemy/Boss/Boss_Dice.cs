@@ -117,6 +117,10 @@ public class Boss_Dice : Enemy
             //SetDisable();
         }
     }
+    public override void KnockBack(Vector2 direction, float power, float duration)
+    {
+        return;
+    }
 
     public override void GetHit(float damage)
     {
@@ -126,12 +130,17 @@ public class Boss_Dice : Enemy
     public override void PushInPool()
     {
         SetState(EnemyState.Die);
+        isAttacking = false;
+        isMoving = false;
+        attack.OnEnd();
+        moveDice.OnEnd();
+        Move.rigid.velocity = Vector2.zero;
         base.PushInPool();
     }
 
     public override IEnumerator Dead()
     {
-        
+       
         yield return base.Dead();
     }
 
@@ -146,7 +155,7 @@ public class Boss_Dice : Enemy
         //currentState = State.Default;
         //isDie = false;
         //isAttack = false;
-
+        base.Reset();
     }
 
 
