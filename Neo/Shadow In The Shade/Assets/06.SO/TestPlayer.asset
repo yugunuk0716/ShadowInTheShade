@@ -15,9 +15,9 @@ MonoBehaviour:
   playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
   canChangePlayerType: 1
   playerStates: 0
-  playerInputState: 0
+  playerInputState: 1
   mainStats:
-    STR: 1
+    STR: 0
     DEX: 0
     AGI: 0
     SPL: 0
@@ -26,10 +26,10 @@ MonoBehaviour:
     DSP: 100
     DRT: 0.2
     DST: 10
-    DSS: 1
+    DSS: 5
     MDS: 2
   attackStats:
-    ATK: 120
+    ATK: 10000
     ASD: 100
     CTP: 0
     CTD: 200
@@ -37,4 +37,4 @@ MonoBehaviour:
   ectStats:
     EXP: 0
     PMH: 1000
-    LEV: 1
+    LEV: 0
