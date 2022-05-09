@@ -10,10 +10,13 @@ public class SliderScripts : MonoBehaviour
     public Slider slider;
     public Image fill;
 
+    public ExpSlider exp;
+
     private void Start()
     {
         slider.value = 0f;
         FillSlider();
+        
     }
 
     public void FillSlider()
@@ -47,6 +50,9 @@ public class SliderScripts : MonoBehaviour
                     GameManager.Instance.InitMainStatPoint(4);
                     break;
             }
+
+            exp.statPoint--;
+            exp.StatPointCheck();
         }
 
         

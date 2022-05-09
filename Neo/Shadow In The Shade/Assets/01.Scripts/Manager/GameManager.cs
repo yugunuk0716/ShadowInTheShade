@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerTypeChanged; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
     public UnityEvent onPlayerChangingType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
     public UnityEvent onPlayerHit;
+    public UnityEvent onPlayerGetEXP;
 
 
     public FeedBackPlayer feedBackPlayer;
@@ -76,6 +77,9 @@ public class GameManager : MonoBehaviour
         playerSO.attackStats.ASD = 100f;
         playerSO.attackStats.CTP = 0f;
         playerSO.attackStats.CTD = 200f;
+
+        playerSO.ectStats.LEV = 0;
+        playerSO.ectStats.EXP = 0;
 
 
         foreach (PoolableMono p in poollingList.list)

@@ -42,9 +42,9 @@ public class ItemManager : MonoBehaviour
             }
         }
 
-        return items[0];
+       // return items[0];
 
-        //return pickedItems[Random.Range(0, pickedItems.Count)];
+        return pickedItems[Random.Range(0, pickedItems.Count)];
     }
 
     public void AddingItem(ItemSO item)

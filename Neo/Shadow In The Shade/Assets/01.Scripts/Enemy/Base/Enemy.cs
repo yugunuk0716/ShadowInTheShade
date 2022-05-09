@@ -163,6 +163,12 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
         });
+
+        OnDie.AddListener(() =>
+        {
+            AddingEXP();
+            GameManager.Instance.onPlayerGetEXP?.Invoke();
+        });
        
     }
 
@@ -208,6 +214,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         {
             IsHit = false;
         }
+    }
+
+    private void AddingEXP()
+    {
+        GameManager.Instance.playerSO.ectStats.EXP += enemyData.exprencepoint;
     }
 
     protected virtual IEnumerator LifeTime()
