@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IDamagable
 {
@@ -246,8 +247,10 @@ public class Player : MonoBehaviour, IDamagable
         {
             Anim.SetTrigger("isDie");
             yield return null;
-            
+
             //나중에 여기서 게임오버 패널 띄우는 함수 실행하면 될 듯
+
+            SceneManager.LoadScene(0);
         }
     }
 
