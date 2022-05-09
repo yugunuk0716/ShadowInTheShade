@@ -14,8 +14,20 @@ public class ExpSlider : MonoBehaviour
     [SerializeField]
     private List<float> needExpPointPerLever;
 
-    public void Start()
+    public float statPoint = 0;
+
+    public void ResetSlider()
     {
-        
+        expSlider.value = GameManager.Instance.playerSO.ectStats.EXP / needExpPointPerLever[(int)GameManager.Instance.playerSO.ectStats.LEV];
+    }
+
+    public void CheckExp()
+    {
+        if (GameManager.Instance.playerSO.ectStats.EXP >= needExpPointPerLever[(int)GameManager.Instance.playerSO.ectStats.LEV])
+        {
+            GameManager.Instance.playerSO.ectStats.LEV++;
+            GameManager.Instance.playerSO.ectStats.EXP = 0;
+            statPoint++;
+        }
     }
 }
