@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,10 @@ public class Die_Dice : MonoBehaviour, IState
                             break;
                     }
                 }
+                break;
+            case DiceType.Mk3:
+                DOTween.To(() => UIManager.Instance.bossHPBarCG.alpha, value => UIManager.Instance.bossHPBarCG.alpha = value, 0, 0.8f);
+                
                 break;
         }
 

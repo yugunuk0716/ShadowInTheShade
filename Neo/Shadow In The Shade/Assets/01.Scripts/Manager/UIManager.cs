@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image playerEXPBar;
 
+    public CanvasGroup bossHPBarCG;
+
 
     #region UI Popup
     public Transform popupParent;

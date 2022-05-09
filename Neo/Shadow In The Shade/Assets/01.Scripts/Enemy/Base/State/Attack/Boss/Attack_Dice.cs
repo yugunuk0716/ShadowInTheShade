@@ -141,10 +141,8 @@ public class Attack_Dice : MonoBehaviour, IState
   
     private bool IsInSight(Vector3 targetDir, Vector3 lookDir)
     {
-        print($"{lookDir} & {targetDir}");
         float dot = Vector3.Dot(targetDir, -lookDir);
         float theta = Mathf.Acos(dot) * Mathf.Rad2Deg;
-        print($"{dot} , {theta}, {(transform.position - GameManager.Instance.player.position).sqrMagnitude}");
 
         
 

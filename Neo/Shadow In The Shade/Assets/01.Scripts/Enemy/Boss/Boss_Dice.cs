@@ -51,6 +51,7 @@ public class Boss_Dice : Enemy
 
     protected override void OnEnable()
     {
+        OnHit.AddListener(() => { GameManager.Instance.onBossHpSend.Invoke(currHP, diceType); });
         base.OnEnable();
     }
 

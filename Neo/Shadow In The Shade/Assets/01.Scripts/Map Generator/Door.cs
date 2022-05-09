@@ -185,5 +185,6 @@ public class Door : MonoBehaviour
         GameManager.Instance.timeScale = 1f;
         //StageManager.Instance.currentRoom.EnterRoom();
         bossRoom.SpawnEnemies();
+        DOTween.To(() => UIManager.Instance.bossHPBarCG.alpha, value => UIManager.Instance.bossHPBarCG.alpha = value, 1, 0.8f);
     }
 }

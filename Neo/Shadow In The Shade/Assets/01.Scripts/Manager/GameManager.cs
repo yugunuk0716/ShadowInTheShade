@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerChangingType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
     public UnityEvent onPlayerHit;
     public UnityEvent onPlayerGetEXP;
+    public UnityEvent<float, DiceType> onBossHpSend;
 
 
     public FeedBackPlayer feedBackPlayer;
