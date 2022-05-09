@@ -670,6 +670,9 @@ MonoBehaviour:
   onPlayerHit:
     m_PersistentCalls:
       m_Calls: []
+  onPlayerGetEXP:
+    m_PersistentCalls:
+      m_Calls: []
   feedBackPlayer: {fileID: 2125583446}
   playerSO: {fileID: 11400000, guid: fb0957e86690ff147bbc284e30d108b6, type: 2}
   poollingList: {fileID: 11400000, guid: 66bda91266499e844bb76383cce0aed5, type: 2}
@@ -2274,9 +2277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7df350654137d34880e49f813d2fe11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _freezeTimeDelay: 0.05
-  _unFreezeTimeDelay: 0.02
-  _timeFreezeValue: 0.5
+  _freezeTimeDelay: 0
+  _unFreezeTimeDelay: 0.1
+  _timeFreezeValue: 0.3
 --- !u!1 &579835169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3784,6 +3787,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855713031}
   m_CullTransparentMesh: 1
+--- !u!114 &860230395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+  m_PrefabInstance: {fileID: 2521482758557649482}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &878622522
 GameObject:
   m_ObjectHideFlags: 0
@@ -5881,6 +5895,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206346299}
   m_CullTransparentMesh: 1
+--- !u!114 &1221866713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+  m_PrefabInstance: {fileID: 1567429102}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1246596155
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,6 +6487,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364036926}
   m_CullTransparentMesh: 1
+--- !u!114 &1369778560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+  m_PrefabInstance: {fileID: 1567413002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1388829863
 GameObject:
   m_ObjectHideFlags: 0
@@ -6892,6 +6928,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520585847}
   m_CullTransparentMesh: 1
+--- !u!114 &1526526978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+  m_PrefabInstance: {fileID: 2128417708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1544293181
 GameObject:
   m_ObjectHideFlags: 0
@@ -7271,6 +7318,10 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2521482758491189323, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: exp
+      value: 
+      objectReference: {fileID: 2521482758306128257}
     - target: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
       propertyPath: m_Interactable
       value: 0
@@ -7417,6 +7468,10 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2521482758491189323, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: exp
+      value: 
+      objectReference: {fileID: 2521482758306128257}
     - target: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
       propertyPath: m_Interactable
       value: 0
@@ -10330,6 +10385,10 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2521482758491189323, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: exp
+      value: 
+      objectReference: {fileID: 2521482758306128257}
     - target: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
       propertyPath: m_Interactable
       value: 0
@@ -10601,6 +10660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dice Mk1 Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 1505834431152634966, guid: fa75d4c85a907a14d87817caea782119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa75d4c85a907a14d87817caea782119, type: 3}
 --- !u!1 &2521482758306128256
@@ -10654,6 +10717,12 @@ MonoBehaviour:
   - 4900
   - 5500
   - 6000
+  StatButtons:
+  - {fileID: 860230395}
+  - {fileID: 1526526978}
+  - {fileID: 1221866713}
+  - {fileID: 1369778560}
+  statPoint: 0
 --- !u!224 &2521482758306128263
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10780,6 +10849,10 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2521482758491189323, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: exp
+      value: 
+      objectReference: {fileID: 2521482758306128257}
     - target: {fileID: 2521482758723834638, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
       propertyPath: m_Interactable
       value: 0
