@@ -9,6 +9,9 @@ public class ExpSlider : MonoBehaviour
     private Slider expSlider;
 
     [SerializeField]
+    private Text expPoint;
+
+    [SerializeField]
     private Text expLevel;
 
     [SerializeField]
@@ -39,6 +42,7 @@ public class ExpSlider : MonoBehaviour
         {
             GameManager.Instance.playerSO.ectStats.LEV++;
             GameManager.Instance.playerSO.ectStats.EXP = 0;
+            expLevel.text = GameManager.Instance.playerSO.ectStats.LEV.ToString();
             statPoint++;
             StatPointCheck();
         }
@@ -62,6 +66,6 @@ public class ExpSlider : MonoBehaviour
             statbtns.interactable = canuse;
         }
 
-        expLevel.text = statPoint.ToString();
+        expPoint.text = statPoint.ToString();
     }
 }
