@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Slime_Bone : Enemy, ITacklable
 {
+
+    public bool CanAttack
+    {
+        get
+        {
+            IsHit = isAttack && isDie;
+            return !isAttack && !isDie;
+        }
+    }
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
     private SpriteRenderer sr;
@@ -17,6 +26,8 @@ public class Slime_Bone : Enemy, ITacklable
 
     float defaultDamage;
     readonly int damageIncreaseAmout = 2;
+
+
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -92,7 +103,7 @@ public class Slime_Bone : Enemy, ITacklable
                 yield return null;
                 continue;
             }
-
+            print(CanAttack);
             if (!isAttack)
             {
                 if (dist < chaseDistance)

@@ -7,7 +7,14 @@ public class Slime_Shadow : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-
+    public bool CanAttack
+    {
+        get
+        {
+            IsHit = isAttack && isDie;
+            return !isAttack && !isDie;
+        }
+    }
 
     private SpriteRenderer sr;
     public SpriteRenderer Sr
@@ -129,7 +136,7 @@ public class Slime_Shadow : Enemy, ITacklable
                 continue;
             }
 
-
+            print(CanAttack);
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (!isAttack)
             {

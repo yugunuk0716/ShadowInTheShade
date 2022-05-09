@@ -20,6 +20,18 @@ public class Slime_Beaker : Enemy, ITacklable
 
     private int reincarnationIdx = 0;
 
+    public bool CanAttack 
+    {
+        get 
+        {
+            if (!Anim.GetBool("isReincarnation") && !isAttack && !isDie)
+            {
+                IsHit = false;
+            }
+            return !Anim.GetBool("isReincarnation") && !isAttack && !isDie;
+        }
+    }
+
     protected override void Awake()
     {
         dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
@@ -89,11 +101,12 @@ public class Slime_Beaker : Enemy, ITacklable
             //    continue;
 
 
-            if (IsHit)
+            if (IsHit || Anim.GetBool("isReincarnation"))
             {
                 yield return null;
                 continue;
             }
+            print(CanAttack);
 
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 

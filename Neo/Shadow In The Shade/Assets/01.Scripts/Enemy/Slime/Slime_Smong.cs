@@ -6,6 +6,17 @@ public class Slime_Smong : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
+    public bool CanAttack
+    {
+        get
+        {
+            if (!isAttack && !isDie)
+            {
+                IsHit = false;
+            }
+            return  !isAttack && !isDie;
+        }
+    }
 
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
@@ -85,7 +96,7 @@ public class Slime_Smong : Enemy, ITacklable
                 yield return null;
                 continue;
             }
-
+            print(CanAttack);
 
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
