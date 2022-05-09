@@ -113,7 +113,7 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
-        if (isBattle)
+        if (isBattle && (!currentRoom.name.Contains("Boss") || !currentRoom.name.Contains("End")))
         {
             onBattleEnd?.Invoke();
             Rarity rarity = Rarity.Normal;

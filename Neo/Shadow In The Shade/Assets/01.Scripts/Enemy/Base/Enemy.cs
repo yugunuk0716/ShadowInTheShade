@@ -306,7 +306,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     }
 
-    public void KnockBack(Vector2 direction, float power, float duration)
+    public virtual void KnockBack(Vector2 direction, float power, float duration)
     {
         if (isHit || isDie)
             return;

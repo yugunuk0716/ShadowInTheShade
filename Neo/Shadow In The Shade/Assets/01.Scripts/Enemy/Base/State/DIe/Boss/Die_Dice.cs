@@ -56,10 +56,6 @@ public class Die_Dice : MonoBehaviour, IState
     }
 
 
-    private void SpawnChild()
-    {
-        
-    }
    
 
    

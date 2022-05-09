@@ -11,7 +11,7 @@ public class Move_Dice : MonoBehaviour, IState
 
     Coroutine dashRoutine;
     AttackArea atkArea;
-
+    Vector3 originPos;
 
     private LayerMask whatIsCollisionable;
     Vector3 v;
@@ -97,6 +97,7 @@ public class Move_Dice : MonoBehaviour, IState
             dice.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
             dice.Anim.SetBool("isDash", true);
             PoolManager.Instance.Push(atkArea);
+            originPos = transform.position;
             dice.Move.OnMove(vec.normalized, 10f);
             yield return new WaitForSeconds(1f);
             //canCollision = true;
@@ -117,6 +118,9 @@ public class Move_Dice : MonoBehaviour, IState
                     }
                     break;
                 }
+
+                if ((transform.position - originPos).sqrMagnitude > 25)
+                    break;
                 
                 yield return new WaitForSeconds(.5f);
             }
