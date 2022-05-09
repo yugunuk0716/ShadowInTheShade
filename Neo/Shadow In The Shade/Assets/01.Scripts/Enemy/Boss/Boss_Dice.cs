@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum DiceType
+{
+    Mk1,
+    Mk2,
+    Mk3,
+}
+
 public class Boss_Dice : Enemy
 {
+
     public bool isAttacking = false;
     public bool isMoving = false;
+    public DiceType diceType;
 
     private Attack_Dice attack;
     private Move_Dice moveDice;
     private  float lastMoveTime = 0f;
-    private float moveCool = 5f;
+    private float moveCool = 4f;
 
     private readonly float attackDistance = 3f;
     private readonly float dist = 4f;
@@ -73,7 +82,6 @@ public class Boss_Dice : Enemy
                     else if(!isAttacking && moveCool + lastMoveTime < Time.time)
                     {
                         //lastAttackTime = Time.time;
-                        print("???");
                         lastMoveTime = Time.time;
                         SetState(EnemyState.Move);
                     }

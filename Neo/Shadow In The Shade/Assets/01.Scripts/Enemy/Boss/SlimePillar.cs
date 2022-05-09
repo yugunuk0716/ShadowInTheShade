@@ -10,6 +10,7 @@ public class SlimePillar : PoolableMono, IDamagable
     [HideInInspector]
     public AudioClip slimeHitClip;
 
+    public readonly int healAmount = 2;
 
     private float currHP = 2;
     public float CurrHP
@@ -56,7 +57,6 @@ public class SlimePillar : PoolableMono, IDamagable
     protected float hitCool = 0.5f;
     protected float lastHitTime = 0f;
 
-    private readonly int healAmount = 2;
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
 
@@ -66,28 +66,26 @@ public class SlimePillar : PoolableMono, IDamagable
     }
 
 
-    
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if((1 << collision.gameObject.layer & whatIsHealable) > 0)
+        if ((1 << collision.gameObject.layer & whatIsHealable) > 0)
         {
             Boss_Dice dice = collision.gameObject.GetComponent<Boss_Dice>();
-            if(dice != null)
+            if (dice != null)
             {
-                dice.CurrHP += healAmount;
-                PoolManager.Instance.Push(this);
+                if (!dice.diceType.Equals(DiceType.Mk3))
+                {
+                    dice.CurrHP += healAmount;
+                    PoolManager.Instance.Push(this);
+                }
             }
 
-            Boss_Dice_Mk2 mk2 = collision.gameObject.GetComponent<Boss_Dice_Mk2>();
-            if(mk2 != null)
-            {
-                mk2.CurrHP += healAmount;
-                PoolManager.Instance.Push(this);
-            }
+           
         }
     }
+
+
+
 
     protected virtual void CheckHP()
     {

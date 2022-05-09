@@ -119,11 +119,14 @@ public class Door : MonoBehaviour
         Sequence playerMove = DOTween.Sequence();
 
         playerMove.Append(playerSprite.DOColor(Color.white, 1.5f)).OnComplete(() => { agentMove.rigid.velocity = Vector2.zero; collision.GetComponent<Rigidbody2D>().velocity = agentMove.rigid.velocity; });
-        playerMove.Join(collision.transform.DOLocalMove(adjacentRoom.GetSpawnPoint(doorType), .5f));
+        playerMove.Join(collision.transform.DOLocalMove(adjacentRoom.GetSpawnPoint(doorType), .1f)).OnComplete(() => 
+        {
+            EffectManager.Instance.minimapCamObj.transform.position = adjacentRoom.transform.position + new Vector3(0f, 0f, -10f);
+            EffectManager.Instance.SetCamBound(adjacentRoom.camBound);
+        });
         playerMove.Insert(1f, playerSprite.DOFade(1, 1f));
 
-        EffectManager.Instance.minimapCamObj.transform.position = adjacentRoom.transform.position + new Vector3(0f, 0f, -10f);
-        EffectManager.Instance.SetCamBound(adjacentRoom.camBound);
+        
         yield return new WaitForSeconds(2f);
         RoomManager.Instance.OnMoveRoomEvent?.Invoke();
         RoomManager.Instance.isMoving = false;

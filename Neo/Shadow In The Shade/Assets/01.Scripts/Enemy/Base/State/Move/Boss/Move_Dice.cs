@@ -7,13 +7,14 @@ public class Move_Dice : MonoBehaviour, IState
 
     Boss_Dice dice;
 
+    RaycastHit2D hit2D;
+
     Coroutine dashRoutine;
     AttackArea atkArea;
 
-    private bool isCollision = false;
-    private bool canCollision = false;
 
-    private readonly LayerMask whatIsCollisionable = LayerMask.GetMask("Wall");
+    private LayerMask whatIsCollisionable;
+    Vector3 v;
 
     public void OnEnter()
     {
@@ -28,8 +29,12 @@ public class Move_Dice : MonoBehaviour, IState
             dashRoutine = StartCoroutine(DashRoutine());
         }
 
-        canCollision = true;
-        isCollision = false;
+        if(whatIsCollisionable == default(LayerMask))
+        {
+            whatIsCollisionable = LayerMask.GetMask("Wall");
+        }
+
+
 
     }
 
@@ -46,28 +51,13 @@ public class Move_Dice : MonoBehaviour, IState
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        print($"{canCollision} {collision.gameObject.CompareTag("Wall")} {collision.gameObject.name}");
-        if (canCollision && collision.gameObject.CompareTag("Wall"))
-        {
-            print("들어와여...");
-            isCollision = true;
-            canCollision = false; 
-        }
-      
-       
-    }
-
     //void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    if (canCollision && collision.gameObject.CompareTag("Wall"))
+    //    hit2D = Physics2D.Raycast(transform.position, transform.position - collision.transform.position, 0.01f, LayerMask.GetMask("Wall"));
+    //    if (hit2D.collider == null)
     //    {
-    //        print("들어와여...");
     //        isCollision = true;
-    //        canCollision = false;
     //    }
-
 
     //}
 
@@ -80,8 +70,8 @@ public class Move_Dice : MonoBehaviour, IState
             Vector3 vec = GameManager.Instance.player.position - transform.position;
             atkArea = PoolManager.Instance.Pop("AttackArea") as AttackArea;
             atkArea.transform.position = transform.position;
+            atkArea.Lr.widthMultiplier = 3f;
             atkArea.Lr.SetPosition(0, Vector3.zero);
-            print("????왜 나에대한 기준만 엄격한건데!!!!!??");
             dice.isMoving = true;
             if (vec.x > vec.y && vec.x > 0)
             {
@@ -106,21 +96,51 @@ public class Move_Dice : MonoBehaviour, IState
             dice.Anim.SetFloat("MoveX", vec.x); // Mathf.Clamp(vec.x, -1f, 1f));
             dice.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
             dice.Anim.SetBool("isDash", true);
-            dice.Move.OnMove(vec.normalized, 8f);
-            yield return new WaitForSeconds(.1f);
+            PoolManager.Instance.Push(atkArea);
+            dice.Move.OnMove(vec.normalized, 10f);
+            yield return new WaitForSeconds(1f);
             //canCollision = true;
-            print(canCollision && isCollision);
-            yield return new WaitUntil(() => isCollision);
+            //print(canCollision && isCollision);
+
+             v = (Vector3)dice.Move.rigid.velocity.normalized;
+            while (true)
+            {
+                Collider2D coll = Physics2D.OverlapBox(transform.position + v, new Vector2(4f, 4f), 45, whatIsCollisionable);
+                if(coll != null)
+                {
+                    SlimePillar sp = coll.GetComponent<SlimePillar>();
+
+                    if(sp != null)
+                    {
+                        dice.CurrHP += sp.healAmount;
+                        PoolManager.Instance.Push(sp);
+                    }
+                    break;
+                }
+                
+                yield return new WaitForSeconds(.5f);
+            }
+
 
 
             dice.isMoving = false;
             dice.Anim.SetBool("isDash", false);
             dice.Move.rigid.velocity = Vector2.zero;
-            PoolManager.Instance.Push(atkArea);
             
         }
     }
 
 
-    
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if(dice != null)
+        {
+            Gizmos.DrawWireCube(transform.position + (Vector3)dice.Move.rigid.velocity.normalized, new Vector2(4f, 4f));
+        }
+    }
+#endif
+
+
 }
