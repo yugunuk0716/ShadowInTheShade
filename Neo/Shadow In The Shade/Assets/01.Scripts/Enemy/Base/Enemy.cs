@@ -24,6 +24,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public EnemyDataSO enemyData;
 
+    [field:SerializeField]
     protected float currHP = 0;
     public float CurrHP
     {
@@ -158,7 +159,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
             isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
-            MyRend.enabled = !isShadow;
+            //MyRend.enabled = !isShadow;
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
         });
@@ -311,7 +312,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         }
     }
 
-    public void PushInPool()
+    public virtual void PushInPool()
     {
         PoolManager.Instance.Push(this);
     }

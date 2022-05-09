@@ -40,7 +40,7 @@ public class Boss_Dice : Enemy
         attack = gameObject.AddComponent<Attack_Dice>();
         dicState[EnemyState.Attack] = attack;
 
-        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Dice>();
         base.Awake();
     }
 
@@ -107,7 +107,15 @@ public class Boss_Dice : Enemy
 
     protected override void CheckHP()
     {
-        base.CheckHP();
+        if (currHP <= 0)
+        {
+            StopCoroutine(lifeTime);
+            StageManager.Instance.curStageEnemys.Remove(this);
+            isDie = true;
+            StartCoroutine(Dead());
+            OnDie?.Invoke();
+            //SetDisable();
+        }
     }
 
     public override void GetHit(float damage)
@@ -115,9 +123,16 @@ public class Boss_Dice : Enemy
         base.GetHit(damage);
     }
 
+    public override void PushInPool()
+    {
+        SetState(EnemyState.Die);
+        base.PushInPool();
+    }
+
     public override IEnumerator Dead()
     {
-        yield return null;
+        
+        yield return base.Dead();
     }
 
 
