@@ -27,6 +27,7 @@ public class PlayerItem : MonoBehaviour
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
         image.GetComponent<Image>().sprite = item.itemSprite;
+        image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
         itemUIObjs.Add(image.gameObject);
         ActiveItem();
         return;
@@ -50,6 +51,10 @@ public class PlayerItem : MonoBehaviour
                 {
                     GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
                     itemObj.name = playerHasItems[i].name + "CallBackObj";
+                }
+                else
+                {
+
                 }
                // itemUIObjs[i].AddComponent<>();
                 playerHasItems[i].isActived = true;
