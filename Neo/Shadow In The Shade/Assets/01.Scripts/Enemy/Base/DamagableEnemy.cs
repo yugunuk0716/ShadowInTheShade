@@ -13,9 +13,11 @@ public class DamagableEnemy : DamagableObject
         {
             if (enemy == null)
                 enemy = GetComponentInParent<Enemy>();
+            dObjData.damage = enemy.enemyData.damage;
             return enemy;
         }
     }
+
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
