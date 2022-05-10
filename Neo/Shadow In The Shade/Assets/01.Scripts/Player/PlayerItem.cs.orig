@@ -39,8 +39,13 @@ public class PlayerItem : MonoBehaviour
 
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
+<<<<<<< HEAD
         image.GetComponent<Image>().sprite = item.itemSprite;
         image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
+=======
+        image.ItemImg.sprite = item.itemSprite;
+        image.itemSO = item;
+>>>>>>> origin/main
         itemUIObjs.Add(image.gameObject);
         ActiveItem();
 

@@ -5,9 +5,6 @@ using DG.Tweening;
 
 public class Slime_Shadow : Enemy, ITacklable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-  
     private SpriteRenderer sr;
     public SpriteRenderer Sr
     {
@@ -20,21 +17,13 @@ public class Slime_Shadow : Enemy, ITacklable
     }
 
     private readonly float attackDistance = 2f;
-    private readonly float chaseDistance = 5f;
+    private readonly float chaseDistance = 7f;
 
     private bool isInvincibility = false;
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
     private Idle_Patrol idle = null;
-
-
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
-
-
 
     protected override void Awake()
     {

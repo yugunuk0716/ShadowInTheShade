@@ -5,15 +5,10 @@ using UnityEngine;
 
 public class Slime_Mucus : Enemy
 {
-
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
     private SpriteRenderer sr;
 
     private readonly float attackDistance = 0.5f;
     private readonly float chaseDistance = 5f;
-
-
 
     [Range(0f, 1f)]
     [SerializeField]
@@ -22,10 +17,6 @@ public class Slime_Mucus : Enemy
 
     private Move_Chase chase = null;
     private Attack_Mucus attack = null;
-
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
 
     protected override void Awake()
     {
