@@ -7,15 +7,7 @@ public class Slime_Shadow : Enemy, ITacklable
 {
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
-    public bool CanAttack
-    {
-        get
-        {
-            IsHit = isAttack && isDie;
-            return !isAttack && !isDie;
-        }
-    }
-
+  
     private SpriteRenderer sr;
     public SpriteRenderer Sr
     {
@@ -30,8 +22,11 @@ public class Slime_Shadow : Enemy, ITacklable
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
+    private bool isInvincibility = false;
+
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
+    private Idle_Patrol idle = null;
 
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
@@ -43,11 +38,12 @@ public class Slime_Shadow : Enemy, ITacklable
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
+        idle = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = idle;
 
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
+        speed = 2f;
 
         dicState[EnemyState.Move] = chase;
 
@@ -78,23 +74,14 @@ public class Slime_Shadow : Enemy, ITacklable
     {
         attack.TackleEnd();
         attack.gameObject.SetActive(false);
+        isInvincibility = true;
         Vector2 playerTrm = GameManager.Instance.player.position;
         Vector2 randValue = Vector2.zero;
 
-        int randX = Random.Range(0, 2) == 0 ? 1 : -1;
-        int randY = Random.Range(0, 2) == 0 ? 1 : -1;
+        int randX = StageManager.Instance.currentRoom.transform.position.x > transform.position.x ? 1 : -1;
+        int randY = StageManager.Instance.currentRoom.transform.position.y > transform.position.y ? 1 : -1;
 
         randValue.Set(Random.Range(3f, 3.5f) * randX + playerTrm.x, Random.Range(3f, 3.5f) * randY + playerTrm.y);
-
-        //if (Random.Range(0, 2) == 0)
-        //{
-        //    randValue.Set(randValue.x * -1, randValue.y);
-        //}
-
-        //if (Random.Range(0, 2) == 0)
-        //{
-        //    randValue.Set(randValue.x, randValue.y * -1);
-        //}
 
         Sr.DOFade(0, 1f).OnComplete(() => 
         {
@@ -102,6 +89,7 @@ public class Slime_Shadow : Enemy, ITacklable
             {
                 Sr.DOFade(1, 1f);
                 attack.gameObject.SetActive(true);
+                isInvincibility = false;
             }); 
         });
 
@@ -136,26 +124,29 @@ public class Slime_Shadow : Enemy, ITacklable
                 continue;
             }
 
-            print(CanAttack);
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
             if (!isAttack)
             {
                 if (dist < chaseDistance)
                 {
-                    if (dist > attackDistance)
-                    {
-                        SetState(EnemyState.Move);
-                    }
-
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
+                        attack.canAttack = true;
+                        chase.canTrace = false;
+                        idle.canMove = false;
+                    }
+                    else if (dist < chaseDistance)
+                    {
+                        SetState(EnemyState.Move);
+                        chase.canTrace = true;
                     }
                 }
                 else
                 {
                     SetState(EnemyState.Default);
+                    idle.canMove = true;
                 }
             }
             yield return base.LifeTime();
@@ -165,6 +156,8 @@ public class Slime_Shadow : Enemy, ITacklable
 
     public override void GetHit(float damage)
     {
+        if (isInvincibility)
+            return;
         base.GetHit(damage);
     }
 

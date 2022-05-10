@@ -15,13 +15,14 @@ GameObject:
   - component: {fileID: 1505834431152634965}
   - component: {fileID: 1505834431152634964}
   - component: {fileID: 2480667139027909169}
+  - component: {fileID: 3682976390513271525}
   m_Layer: 6
   m_Name: Dice Mk1 Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1505834431152634944
 Transform:
   m_ObjectHideFlags: 0
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 908ee43c17930b24dac39af9ce3c4956, type: 2}
+  currHP: 0
   isAttack: 0
   isDie: 0
   <OnDie>k__BackingField:
@@ -198,6 +200,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
+--- !u!114 &3682976390513271525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505834431152634966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0ec059143ce8c498966cad1b232c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  dObjData: {fileID: 11400000, guid: d12dcd04333ca5e4c967773b873c6d10, type: 2}
 --- !u!1 &1505834431219616264
 GameObject:
   m_ObjectHideFlags: 0

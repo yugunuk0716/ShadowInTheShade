@@ -148,7 +148,7 @@ public class RoomManager : MonoBehaviour
         if (loadRoomQueue.Count == 0)
         {
 
-            Room bossRoom = loadedRooms[ 1];
+            Room bossRoom = loadedRooms[loadedRooms.Count - 1];
             int x = bossRoom.X;
             int y = bossRoom.Y;
             Destroy(bossRoom.gameObject);

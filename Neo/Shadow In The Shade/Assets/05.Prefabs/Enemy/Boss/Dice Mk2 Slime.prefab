@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 4909707044804048575}
   - component: {fileID: 4017437905082197238}
   - component: {fileID: 8627249424527264037}
+  - component: {fileID: 5936917502484695099}
   m_Layer: 6
   m_Name: Dice Mk2 Slime
   m_TagString: Untagged
@@ -256,3 +257,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
+--- !u!114 &5936917502484695099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4909707044804048574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e0ec059143ce8c498966cad1b232c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 8
+  dObjData: {fileID: 11400000, guid: d12dcd04333ca5e4c967773b873c6d10, type: 2}

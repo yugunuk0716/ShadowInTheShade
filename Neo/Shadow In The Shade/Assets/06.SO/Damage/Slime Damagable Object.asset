@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf0ed053b2053fc43b63984a31ea6c4b, type: 3}
-  m_Name: Enemy Damagable Object SO
+  m_Name: Slime Damagable Object
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 10
   knockBackPower: 10
   knockBackDelay: 0.1

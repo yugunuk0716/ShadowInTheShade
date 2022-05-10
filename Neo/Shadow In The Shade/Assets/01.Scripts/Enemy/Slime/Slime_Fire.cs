@@ -7,6 +7,7 @@ public class Slime_Fire : Enemy, IDamagable
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
     private readonly float chaseDistance = 5f;
+    private readonly float attackDistance = 2f;
 
     private Move_Chase chase = null;
     private Attack_Fire attack = null;
@@ -81,7 +82,10 @@ public class Slime_Fire : Enemy, IDamagable
                 SetState(EnemyState.Move);
                 
 
-                
+                if(dist < attackDistance)
+                {
+                    SetState(EnemyState.Attack);
+                }
 
                 
             }
@@ -93,16 +97,6 @@ public class Slime_Fire : Enemy, IDamagable
             
 
             yield return base.LifeTime();
-        }
-    }
-
-    
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-
-        if (collider.CompareTag("Player"))
-        {
-            SetState(EnemyState.Attack);
         }
     }
 

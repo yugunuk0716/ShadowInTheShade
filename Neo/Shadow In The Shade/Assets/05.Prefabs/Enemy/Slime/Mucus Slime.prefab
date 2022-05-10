@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 43597817dbf19724b90c4f224e66205c, type: 2}
+  currHP: 0
   isAttack: 0
   isDie: 0
   <OnDie>k__BackingField:

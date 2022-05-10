@@ -5,9 +5,11 @@ using UnityEngine;
 public class Idle_Patrol : MonoBehaviour, IState
 {
     public float speed = 1.5f;
+    public bool canMove = true;
 
     private AgentMove agentMove;
     private Vector2 originPos = Vector2.zero;
+
 
     Coroutine moveRoutine;
 
@@ -15,6 +17,10 @@ public class Idle_Patrol : MonoBehaviour, IState
     {
         if (agentMove == null)
             agentMove = GetComponent<AgentMove>();
+        ITacklable t = GetComponent<ITacklable>();
+        if (t == null)
+            canMove = true;
+
         originPos = this.transform.position;
         moveRoutine = StartCoroutine(IdleCoroutine());
     }
