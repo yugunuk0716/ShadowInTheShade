@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerHit;
     public UnityEvent onPlayerGetEXP;
     public UnityEvent<float, DiceType> onBossHpSend;
+    public UnityEvent onPlayerGetItem;
 
 
     public FeedBackPlayer feedBackPlayer;
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
 
         playerSO.ectStats.LEV = 0;
         playerSO.ectStats.EXP = 0;
+        playerSO.ectStats.PMH = 400f;
 
 
         foreach (PoolableMono p in poollingList.list)
