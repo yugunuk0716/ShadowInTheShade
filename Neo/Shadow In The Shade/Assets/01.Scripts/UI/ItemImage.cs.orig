@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+<<<<<<< HEAD
+=======
 using UnityEngine.EventSystems;
+>>>>>>> origin/main
 
 public class ItemImage : PoolableMono, IPointerEnterHandler, IPointerExitHandler
 {
-
+<<<<<<< HEAD
     public List<Sprite> rarityOutLines = new List<Sprite>();
 
     public Image itemOutLine;
@@ -15,7 +18,7 @@ public class ItemImage : PoolableMono, IPointerEnterHandler, IPointerExitHandler
     {
         itemOutLine.sprite = rarityOutLines[a];
     }
-
+=======
     private Image itemImg; 
     public Image ItemImg 
     {
@@ -28,10 +31,11 @@ public class ItemImage : PoolableMono, IPointerEnterHandler, IPointerExitHandler
     }
 
     public ItemSO itemSO;
+>>>>>>> origin/main
 
     public override void Reset()
     {
-       // throw new System.NotImplementedException();
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
