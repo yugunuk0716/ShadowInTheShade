@@ -70,12 +70,11 @@ public class PlayerInput : MonoBehaviour
                         //isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
-                        moveDir = Vector2.zero;
-                        isAttack = Input.GetButtonDown("Fire2");
-                        break;
+                       // moveDir = Vector2.zero;
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
+                        isAttack = Input.GetButtonDown("Fire2");
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
                         //isChangePlayerType = Input.GetButtonDown("Change");

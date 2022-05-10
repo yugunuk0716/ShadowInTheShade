@@ -10,6 +10,8 @@ public class PlayerItem : MonoBehaviour
 
     public List<ItemSO> playerHasItems = new List<ItemSO>();
 
+    private List<GameObject> itemUIObjs = new List<GameObject>();
+
 /*    private void Update()
     {
         if(getItme != null)
@@ -20,22 +22,41 @@ public class PlayerItem : MonoBehaviour
 
     public void AddingItem(ItemSO item)
     {
-        print("??");
-        PlayerSO pSo = GameManager.Instance.playerSO;
-
-        pSo.attackStats.ATK += item.attackPoint;
-        pSo.ectStats.PMH += item.maxHpPoint;
-        pSo.attackStats.ASD += item.attackSpeedPoint;
-        pSo.moveStats.SPD += item.moveSpeedPoint;
-        pSo.attackStats.CTP += item.criticalPercentagePoint;
-        pSo.attackStats.CTD += item.criticalPowerPoint;
-
-        GameManager.Instance.playerSO = pSo;
-        //iSo.shadowGaugePoint 애는 나중에 만들면 될듯
+        playerHasItems.Add(item);
 
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
         image.GetComponent<Image>().sprite = item.itemSprite;
+        itemUIObjs.Add(image.gameObject);
+        ActiveItem();
         return;
+    }
+
+    public void ActiveItem()
+    {
+        PlayerSO pSo = GameManager.Instance.playerSO;
+        for(int i = 0; i< playerHasItems.Count;i++)
+        {
+            if(playerHasItems[i].isActived == false)
+            {
+                pSo.attackStats.ATK += playerHasItems[i].attackPoint;
+                pSo.ectStats.PMH += playerHasItems[i].maxHpPoint;
+                pSo.attackStats.ASD += playerHasItems[i].attackSpeedPoint;
+                pSo.moveStats.SPD += playerHasItems[i].moveSpeedPoint;
+                pSo.attackStats.CTP += playerHasItems[i].criticalPercentagePoint;
+                pSo.attackStats.CTD += playerHasItems[i].criticalPowerPoint;
+
+                if(playerHasItems[i].itemCallBack != null)
+                {
+                    GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
+                    itemObj.name = playerHasItems[i].name + "CallBackObj";
+                }
+               // itemUIObjs[i].AddComponent<>();
+                playerHasItems[i].isActived = true;
+                GameManager.Instance.onPlayerGetItem?.Invoke();
+            }
+        }
+
+        GameManager.Instance.playerSO = pSo;
     }
 }
