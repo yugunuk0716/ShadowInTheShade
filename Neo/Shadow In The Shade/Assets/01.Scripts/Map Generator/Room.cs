@@ -170,22 +170,38 @@ public class Room : PoolableMono
                 case DirType.Right:
                     Room adjacentRightRoom = GetRight();
                     if (adjacentRightRoom != null)
+                    {
+                        if (adjacentRightRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentRightRoom;
+                    }
                     break;
                 case DirType.Left:
                     Room adjacentLeftRoom = GetLeft();
                     if (adjacentLeftRoom != null)
+                    {
+                        if (adjacentLeftRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentLeftRoom;
+                    }
                     break;
                 case DirType.Top:
                     Room adjacentTopRoom = GetTop();
                     if (adjacentTopRoom != null)
+                    {
+                        if (adjacentTopRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentTopRoom;
+                    }
                     break;
                 case DirType.Bottom:
                     Room adjacentBottomRoom = GetBottom();
                     if (adjacentBottomRoom != null)
+                    {
+                        if (adjacentBottomRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentBottomRoom;
+                    }
                     break;
             }
         }
