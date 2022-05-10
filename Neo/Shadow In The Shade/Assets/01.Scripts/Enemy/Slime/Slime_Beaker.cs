@@ -12,6 +12,7 @@ public class Slime_Beaker : Enemy, ITacklable
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
+    private Idle_Patrol idle = null;
 
     private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
     private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
@@ -22,19 +23,14 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public bool CanAttack 
     {
-        get 
-        {
-            if (!Anim.GetBool("isReincarnation") && !isAttack && !isDie)
-            {
-                IsHit = false;
-            }
-            return !Anim.GetBool("isReincarnation") && !isAttack && !isDie;
-        }
+        get;
+    
     }
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
+        idle = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = idle;
 
 
         chase = gameObject.AddComponent<Move_Chase>();
@@ -97,9 +93,6 @@ public class Slime_Beaker : Enemy, ITacklable
         yield return null;
         while (true)
         {
-            //if (!Anim.GetBool("isReincarnation"))
-            //    continue;
-
 
             if (IsHit || Anim.GetBool("isReincarnation"))
             {
@@ -117,18 +110,25 @@ public class Slime_Beaker : Enemy, ITacklable
                     if (dist < chaseDistance && dist > attackDistance)
                     {
                         SetState(EnemyState.Move);
+                        chase.canTrace = true;
                     }
                  
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
+                        attack.canAttack = true;
                     }
                 }
                 else if (!isDie)
                 {
                     SetState(EnemyState.Default);
+                    idle.canMove = true;
                 }
+            }
+            else
+            {
+                chase.canTrace = false;
             }
 
             yield return base.LifeTime();
@@ -185,7 +185,6 @@ public class Slime_Beaker : Enemy, ITacklable
     public void ReincarnationEnd()
     {
         isAttack = false;
-        gameObject.layer = 6;
         dicState[EnemyState.Move].OnEnd();
         chase.speed = 3f;
         //dicState[State.Move].OnEnter();

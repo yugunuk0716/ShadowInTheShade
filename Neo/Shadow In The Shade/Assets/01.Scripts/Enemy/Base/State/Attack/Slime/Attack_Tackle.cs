@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Attack_Tackle : MonoBehaviour, IState
 {
+    public bool canAttack;
+
     Enemy enemy;
     ITacklable tacklable;
 
-    int originLayer;
-    readonly int targetLayer = 9;
+    //int originLayer;
+   // readonly int targetLayer = 9;
 
     private Collider2D coll;
     AttackArea atkArea;
@@ -40,13 +42,13 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Anim.SetBool("isTackle", false);
             enemy.Anim.SetFloat("MoveX", 0);
             enemy.Anim.SetFloat("MoveY", 0);
-            enemy.gameObject.layer = originLayer;
+            //enemy.gameObject.layer = originLayer;
             PoolManager.Instance.Push(atkArea);
             enemy.IsHit = false;
         }
 
-        originLayer = enemy.gameObject.layer;
-        enemy.gameObject.layer = targetLayer;
+        //originLayer = enemy.gameObject.layer;
+        //enemy.gameObject.layer = targetLayer;
         enemy.Move.rigid.velocity = Vector3.zero;
         
         if(routine == null)
@@ -76,9 +78,11 @@ public class Attack_Tackle : MonoBehaviour, IState
                 a += 0.02f;
                 atkArea.Lr.SetPosition(1, vec.normalized * a);
                 yield return new WaitForSeconds(0.001f);
+                if (!canAttack)
+                    yield break;
 
             }
-            
+         
 
             yield return new WaitForSeconds(.1f);
 
@@ -102,7 +106,7 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Anim.SetBool("isTackle", false);
             enemy.Anim.SetFloat("MoveX", 0);
             enemy.Anim.SetFloat("MoveY", 0);
-            enemy.gameObject.layer = originLayer;
+            //enemy.gameObject.layer = originLayer;
             PoolManager.Instance.Push(atkArea);
         }
     }
@@ -110,6 +114,7 @@ public class Attack_Tackle : MonoBehaviour, IState
     void AttackReset()
     {
         tacklable.SetTackle(false);
+        canAttack = false;
     }
 
 

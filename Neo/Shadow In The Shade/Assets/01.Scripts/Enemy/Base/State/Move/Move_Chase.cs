@@ -39,7 +39,6 @@ public class Move_Chase : MonoBehaviour, IState
         }
 
 
-        canTrace = true;
         chaseCoroutine = StartCoroutine(TrackingPlayer());
     }
 
@@ -62,7 +61,7 @@ public class Move_Chase : MonoBehaviour, IState
             {
                 if (canTrace)
                 {
-                Vector2 dir = target.transform.position - this.gameObject.transform.position;
+                    Vector2 dir = target.transform.position - this.gameObject.transform.position;
 
                     if (agentMove != null)
                     {
