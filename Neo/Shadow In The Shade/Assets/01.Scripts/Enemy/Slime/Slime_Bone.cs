@@ -5,14 +5,7 @@ using UnityEngine;
 public class Slime_Bone : Enemy, ITacklable
 {
 
-    public bool CanAttack
-    {
-        get
-        {
-            IsHit = isAttack && isDie;
-            return !isAttack && !isDie;
-        }
-    }
+   
     private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
 
     private SpriteRenderer sr;
@@ -23,6 +16,7 @@ public class Slime_Bone : Enemy, ITacklable
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
+    private Idle_Patrol idle = null;
 
     float defaultDamage;
     readonly int damageIncreaseAmout = 2;
@@ -35,13 +29,12 @@ public class Slime_Bone : Enemy, ITacklable
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
-
+        idle = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = idle;
         sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
-
+        speed = 2f;
         dicState[EnemyState.Move] = chase;
 
         attack = gameObject.GetComponentInChildren<Attack_Tackle>();
@@ -103,25 +96,28 @@ public class Slime_Bone : Enemy, ITacklable
                 yield return null;
                 continue;
             }
-            print(CanAttack);
             if (!isAttack)
             {
                 if (dist < chaseDistance)
                 {
-                    if (dist > attackDistance)
-                    {
-                        SetState(EnemyState.Move);
-                    }
-
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
+                        attack.canAttack = true;
+                        chase.canTrace = false;
+                        idle.canMove = false;
+                    }
+                    else if (dist < chaseDistance)
+                    {
+                        SetState(EnemyState.Move);
+                        chase.canTrace = true;
                     }
                 }
                 else
                 {
                     SetState(EnemyState.Default);
+                    idle.canMove = true;
                 }
             }
           

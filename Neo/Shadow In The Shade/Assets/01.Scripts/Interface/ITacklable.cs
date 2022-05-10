@@ -4,6 +4,5 @@ using UnityEngine;
 
 public interface ITacklable
 {
-    public bool CanAttack { get; }
     public void SetTackle(bool on);
 }

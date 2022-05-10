@@ -7,7 +7,6 @@ public class Move_Chase : MonoBehaviour, IState
 {
     public float speed = 3f;
 
-    public bool isStateEnter = false;
     public bool canTrace = false;
 
     private Coroutine chaseCoroutine;
@@ -18,14 +17,11 @@ public class Move_Chase : MonoBehaviour, IState
 
     public void OnEnter()
     {
-        if (isStateEnter)
-            return;
 
         if (enemy == null)
             enemy = GetComponent<Enemy>();
 
         speed = enemy.speed;
-        isStateEnter = true;
 
         if (target == null)
             target = GameManager.Instance.player;
@@ -46,8 +42,7 @@ public class Move_Chase : MonoBehaviour, IState
     {
         if (chaseCoroutine != null)
         {
-            isStateEnter = false;
-            canTrace = false;
+            //canTrace = false;
             //StopCoroutine(chaseCoroutine);
             //agentMove.rigid.velocity = Vector3.zero;
         }

@@ -21,11 +21,7 @@ public class Slime_Beaker : Enemy, ITacklable
 
     private int reincarnationIdx = 0;
 
-    public bool CanAttack 
-    {
-        get;
     
-    }
 
     protected override void Awake()
     {
@@ -34,7 +30,7 @@ public class Slime_Beaker : Enemy, ITacklable
 
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
+        speed = 2f;
 
         dicState[EnemyState.Move] = chase;
 
@@ -99,7 +95,6 @@ public class Slime_Beaker : Enemy, ITacklable
                 yield return null;
                 continue;
             }
-            print(CanAttack);
 
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
@@ -107,18 +102,22 @@ public class Slime_Beaker : Enemy, ITacklable
             {
                 if (dist < chaseDistance )
                 {
-                    if (dist < chaseDistance && dist > attackDistance)
-                    {
-                        SetState(EnemyState.Move);
-                        chase.canTrace = true;
-                    }
-                 
+
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
                         attack.canAttack = true;
+                        chase.canTrace = false;
+                        idle.canMove = false;
                     }
+                    else if (dist < chaseDistance)
+                    {
+                        SetState(EnemyState.Move);
+                        chase.canTrace = true;
+                    }
+                 
+                   
                 }
                 else if (!isDie)
                 {

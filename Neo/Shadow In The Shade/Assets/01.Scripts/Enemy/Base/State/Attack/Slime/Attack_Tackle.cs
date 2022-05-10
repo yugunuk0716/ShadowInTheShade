@@ -35,7 +35,7 @@ public class Attack_Tackle : MonoBehaviour, IState
             tacklable = GetComponentInParent<ITacklable>();
         }
 
-        if (!tacklable.CanAttack && routine != null)
+        if (routine != null)
         {
             StopCoroutine(routine);
             tacklable.SetTackle(false);
@@ -43,7 +43,7 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Anim.SetFloat("MoveX", 0);
             enemy.Anim.SetFloat("MoveY", 0);
             //enemy.gameObject.layer = originLayer;
-            PoolManager.Instance.Push(atkArea);
+           
             enemy.IsHit = false;
         }
 
@@ -85,7 +85,7 @@ public class Attack_Tackle : MonoBehaviour, IState
          
 
             yield return new WaitForSeconds(.1f);
-
+            PoolManager.Instance.Push(atkArea);
             enemy.Anim.SetFloat("MoveX", vec.x); // Mathf.Clamp(vec.x, -1f, 1f));
             enemy.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
             enemy.Move.OnMove(vec.normalized, 10f);
