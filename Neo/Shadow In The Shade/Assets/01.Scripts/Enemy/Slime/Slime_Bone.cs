@@ -5,12 +5,7 @@ using UnityEngine;
 public class Slime_Bone : Enemy, ITacklable
 {
 
-   
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-    private SpriteRenderer sr;
-
-    private readonly float attackDistance = 2f;
+    private readonly float attackDistance = 1f;
     private readonly float chaseDistance = 5f;
     private int hitCount = 0;
 
@@ -23,15 +18,10 @@ public class Slime_Bone : Enemy, ITacklable
 
 
 
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
     protected override void Awake()
     {
         idle = gameObject.AddComponent<Idle_Patrol>();
         dicState[EnemyState.Default] = idle;
-        sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
         speed = 2f;

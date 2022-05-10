@@ -20,7 +20,6 @@ public class PlayerItem : MonoBehaviour
 
     public void AddingItem(ItemSO item)
     {
-        print("??");
         PlayerSO pSo = GameManager.Instance.playerSO;
 
         pSo.attackStats.ATK += item.attackPoint;
@@ -35,7 +34,8 @@ public class PlayerItem : MonoBehaviour
 
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
-        image.GetComponent<Image>().sprite = item.itemSprite;
+        image.itemSO = item;
+        image.ItemImg.sprite = item.itemSprite;
         return;
     }
 }

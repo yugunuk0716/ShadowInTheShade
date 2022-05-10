@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class Slime_Fire : Enemy, IDamagable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
     private readonly float chaseDistance = 5f;
     private readonly float attackDistance = 2f;
 
     private Move_Chase chase = null;
     private Attack_Fire attack = null;
-
-
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
 
     protected override void Awake()
     {
@@ -24,7 +16,6 @@ public class Slime_Fire : Enemy, IDamagable
 
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
 
         dicState[EnemyState.Move] = chase;
 

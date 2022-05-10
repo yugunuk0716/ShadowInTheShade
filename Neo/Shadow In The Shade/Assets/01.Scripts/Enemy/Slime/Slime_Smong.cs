@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Slime_Smong : Enemy, ITacklable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-
-
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
@@ -15,11 +11,6 @@ public class Slime_Smong : Enemy, ITacklable
     private Idle_Patrol idle = null;
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
-
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
 
     protected override void Awake()
     {
