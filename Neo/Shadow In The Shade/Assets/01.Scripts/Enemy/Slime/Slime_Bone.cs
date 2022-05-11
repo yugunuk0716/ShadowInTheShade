@@ -100,8 +100,8 @@ public class Slime_Bone : Enemy, ITacklable
                     }
                     else if (dist < chaseDistance)
                     {
-                        SetState(EnemyState.Move);
                         chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                 }
                 else
