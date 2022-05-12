@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Attack_Tackle : MonoBehaviour, IState
 {
@@ -17,6 +18,11 @@ public class Attack_Tackle : MonoBehaviour, IState
     AttackArea atkArea;
 
     Coroutine routine;
+
+    AIDestinationSetter destinationSetter;
+    Seeker seeker;
+    AIPath path;
+
 
     public void OnEnter()
     {
@@ -35,8 +41,19 @@ public class Attack_Tackle : MonoBehaviour, IState
             tacklable = GetComponentInParent<ITacklable>();
         }
 
+        if (destinationSetter == null)
+            destinationSetter = GetComponentInParent<AIDestinationSetter>();
+
+        if (seeker == null)
+            seeker = GetComponentInParent<Seeker>();
+
+        if (path == null)
+            path = GetComponentInParent<AIPath>();
+
         if (routine != null)
         {
+            destinationSetter.target = null;
+            SetAttack(false);
             StopCoroutine(routine);
             tacklable.SetTackle(false);
             enemy.Anim.SetBool("isTackle", false);
@@ -47,11 +64,15 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.IsHit = false;
         }
 
+
         //originLayer = enemy.gameObject.layer;
         //enemy.gameObject.layer = targetLayer;
         enemy.Move.rigid.velocity = Vector3.zero;
-        
-        if(routine == null)
+
+        destinationSetter.target = null;
+        SetAttack(false);
+
+        if (routine == null)
             routine = StartCoroutine(TackleRoutine());
 
 
@@ -98,6 +119,13 @@ public class Attack_Tackle : MonoBehaviour, IState
 
     }
 
+    public void SetAttack(bool value)
+    {
+        path.enabled = value;
+        seeker.enabled = value;
+        destinationSetter.enabled = value;
+    }
+
     public void TackleEnd() 
     {
         if (enemy != null)
@@ -106,6 +134,7 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Anim.SetBool("isTackle", false);
             enemy.Anim.SetFloat("MoveX", 0);
             enemy.Anim.SetFloat("MoveY", 0);
+         
             //enemy.gameObject.layer = originLayer;
             PoolManager.Instance.Push(atkArea);
         }
@@ -113,6 +142,9 @@ public class Attack_Tackle : MonoBehaviour, IState
 
     void AttackReset()
     {
+        destinationSetter.target = GameManager.Instance.player;
+        SetAttack(true);
+
         tacklable.SetTackle(false);
         canAttack = false;
     }

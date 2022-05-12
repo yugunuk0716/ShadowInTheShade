@@ -23,21 +23,15 @@ public class Move_Chase : MonoBehaviour, IState
             destinationSetter = GetComponent<AIDestinationSetter>();
 
 
-        if(canTrace)
+        if (canTrace)
         {
             destinationSetter.target = target;
-        }
-        else
-        {
-            OnEnd();
         }
     }
 
     public void OnEnd()
     {
-
         destinationSetter.target = null;
-
     }
 
 

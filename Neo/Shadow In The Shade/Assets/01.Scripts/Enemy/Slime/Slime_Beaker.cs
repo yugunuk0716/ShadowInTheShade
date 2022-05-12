@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Slime_Beaker : Enemy, ITacklable
 {
-    private readonly float attackDistance = 1f;
+    private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
     private Move_Chase chase = null;
