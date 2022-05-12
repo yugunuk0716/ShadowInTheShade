@@ -119,6 +119,19 @@ public class Attack_Tackle : MonoBehaviour, IState
 
     }
 
+    public void StartKockBack()
+    {
+        StartCoroutine(SetKockBack());
+    }
+
+    IEnumerator SetKockBack()
+    {
+        SetAttack(false);
+        yield return new WaitForSeconds(1f);
+        SetAttack(true);
+
+    }
+
     public void SetAttack(bool value)
     {
         path.enabled = value;

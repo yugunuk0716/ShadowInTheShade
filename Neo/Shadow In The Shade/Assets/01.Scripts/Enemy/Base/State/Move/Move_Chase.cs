@@ -27,6 +27,10 @@ public class Move_Chase : MonoBehaviour, IState
         {
             destinationSetter.target = target;
         }
+        else
+        {
+            OnEnd();
+        }
     }
 
     public void OnEnd()

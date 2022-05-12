@@ -11,8 +11,6 @@ public class Slime_Beaker : Enemy, ITacklable
     private Attack_Tackle attack = null;
     private Idle_Patrol idle = null;
 
-
-
     private int reincarnationIdx = 0;
 
     
@@ -142,6 +140,7 @@ public class Slime_Beaker : Enemy, ITacklable
             chase.speed = 0f;
             currHP = enemyData.maxHealth / 2;
             IsHit = false;
+            chase.canTrace = false;
             Anim.SetBool("isReincarnation", true);
             return;
         }

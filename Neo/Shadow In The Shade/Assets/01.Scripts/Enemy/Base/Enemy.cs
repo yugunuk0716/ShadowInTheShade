@@ -124,6 +124,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [field: SerializeField]
     public UnityEvent OnHit { get; set; }
     [field: SerializeField]
+    public UnityEvent OnKockBack { get; set; }
+    [field: SerializeField]
     public UnityEvent OnReset { get; set; }
 
 
@@ -150,6 +152,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
         originColor = MyRend.color;
+        OnKockBack = new UnityEvent();
     }
 
     protected virtual void Start()
@@ -310,6 +313,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (isHit || isDie)
             return;
+        OnKockBack?.Invoke();
         Move.KnockBack(direction, power, duration);
     }
 
