@@ -157,6 +157,11 @@ public class RoomManager : MonoBehaviour
             LoadRoom("End", x, y);
             LoadRoom("Boss", x * 100, y * 100);
 
+            foreach (Room r in loadedRooms)
+            {
+                r.ConnectRoom();
+            }
+
             //float xValue = StageManager.Instance.currentRoom.Width;
             //float yValue = StageManager.Instance.currentRoom.Height;
             AstarPath.active.Scan();
@@ -331,10 +336,10 @@ public class RoomManager : MonoBehaviour
         {
             room.isClear = true;
             room.RemoveUnconnectedDoors();
-            foreach (Room r in loadedRooms)
-            {
-                r.ConnectRoom();
-            }
+            //foreach (Room r in loadedRooms)
+            //{
+            //    r.ConnectRoom();
+            //}
         }
         else if (!room.name.Contains($"Start") && room.name.Contains(currentStageName))
         {
