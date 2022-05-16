@@ -12,29 +12,38 @@ public class DamagableEnemy : DamagableObject
         get
         {
             if (enemy == null)
+            {
                 enemy = GetComponentInParent<Enemy>();
-            dObjData.damage = enemy.enemyData.damage;
+                
+            }
             return enemy;
         }
+    }
+
+    private void OnEnable()
+    {
+        print(dObjData.damage);
+        dObjData.damage = Enemy.enemyData.damage;
     }
 
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+      
         if (Enemy.isAttack)
-        {
-            if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
             {
-                hit2D = Physics2D.Raycast(transform.position, transform.position - collision.transform.position, 2f, LayerMask.GetMask("Wall"));
-                if (hit2D.collider == null)
+                if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
                 {
-                    IDamagable d = collision.GetComponent<IDamagable>();
-                    if (d.IsHit)
-                        return;
-                    base.OnTriggerEnter2D(collision);
-                }
+                    hit2D = Physics2D.Raycast(transform.position, transform.position - collision.transform.position, 2f, LayerMask.GetMask("Wall"));
+                    if (hit2D.collider == null)
+                    {
+                        IDamagable d = collision.GetComponent<IDamagable>();
+                        if (d.IsHit)
+                            return;
+                        base.OnTriggerEnter2D(collision);
+                    }
 
-                
+
             }
         }
         else
@@ -54,5 +63,6 @@ public class DamagableEnemy : DamagableObject
                 //base.OnTriggerEnter2D(collision);
             }
         }
+
     }
 }

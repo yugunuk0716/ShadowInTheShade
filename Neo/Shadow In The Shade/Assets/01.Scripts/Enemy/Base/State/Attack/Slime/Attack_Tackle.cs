@@ -54,7 +54,6 @@ public class Attack_Tackle : MonoBehaviour, IState
 
         if (tackleRoutine != null)
         {
-            enemy.destinationSetter.target = null;
             enemy.SetAttack(true);
             StopCoroutine(tackleRoutine);
             tacklable.SetTackle(false);
@@ -71,7 +70,6 @@ public class Attack_Tackle : MonoBehaviour, IState
         //enemy.gameObject.layer = targetLayer;
         enemy.Move.rigid.velocity = Vector3.zero;
 
-        enemy.destinationSetter.target = null;
         enemy.SetAttack(false);
 
         if (tackleRoutine == null)
@@ -142,7 +140,6 @@ public class Attack_Tackle : MonoBehaviour, IState
 
     void AttackReset()
     {
-        enemy.destinationSetter.target = GameManager.Instance.player;
         enemy.SetAttack(true);
 
         tacklable.SetTackle(false);
