@@ -147,6 +147,7 @@ public class Slime_Shadow : Enemy, ITacklable
     {
         if (isInvincibility)
             return;
+        attack.TackleEnd();
         base.GetHit(damage);
     }
 

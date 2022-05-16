@@ -129,7 +129,7 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public override void GetHit(float damage)
     {
-
+        attack.TackleEnd();
         base.GetHit(damage);
     }
 
@@ -181,6 +181,7 @@ public class Slime_Beaker : Enemy, ITacklable
         chase.speed = 3f;
         //dicState[State.Move].OnEnter();
     }
+
 
     public override void Reset()
     {
