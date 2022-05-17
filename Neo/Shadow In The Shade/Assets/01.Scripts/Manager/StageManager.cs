@@ -133,14 +133,14 @@ public class StageManager : MonoBehaviour
             {
                 rarity = Rarity.Rare;
             }
-            else if (97 < idx && idx < 80)
+         /*   else if (97 < idx && idx < 80)
             {
                 rarity = Rarity.Unique;
             }
             else
             {
                 rarity = Rarity.Legendary;
-            }
+            }*/
 
 
             if (canDrop)

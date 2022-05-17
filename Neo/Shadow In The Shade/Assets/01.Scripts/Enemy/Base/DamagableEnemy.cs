@@ -22,7 +22,7 @@ public class DamagableEnemy : DamagableObject
 
     private void OnEnable()
     {
-        print(dObjData.damage);
+        //print(dObjData.damage);
         dObjData.damage = Enemy.enemyData.damage;
     }
 
