@@ -30,8 +30,11 @@ public class DamageEffect : PoolableMono
         {
             playerAnim = GameManager.Instance.player.GetComponentInChildren<PlayerAnimation>();
         }
-        Anim.SetBool("isCritical", isCritical);
-        transform.position = pos + (dir.normalized * -1.2f);
+        if (isCritical)
+        {
+            Anim.SetTrigger("isCritical");
+        }
+        transform.position = pos + (dir.normalized * -1.1f);
         print(playerAnim.lastMoveDir);
         float a = 0;
         float b = 0;

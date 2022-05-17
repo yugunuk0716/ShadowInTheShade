@@ -126,12 +126,6 @@ public class Attack_Tackle : MonoBehaviour, IState
 
     }
 
-
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-    }
-
     public void TackleEnd() 
     {
         if (enemy != null)

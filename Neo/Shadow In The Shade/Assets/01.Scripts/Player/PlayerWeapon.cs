@@ -27,8 +27,6 @@ public class PlayerWeapon : DamagableObject
             {
 
                 GameManager.Instance.feedBackPlayer.PlayFeedback();
-                DamageEffect effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
-                effect.SetDamageEffect(collision.transform.position, (GameManager.Instance.player.position - collision.transform.position).normalized, true);
                 base.OnTriggerEnter2D(collision);
             }
             
