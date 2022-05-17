@@ -126,9 +126,6 @@ public class Attack_Tackle : MonoBehaviour, IState
 
     }
 
- 
-
-
     public void TackleEnd() 
     {
         if (enemy != null)

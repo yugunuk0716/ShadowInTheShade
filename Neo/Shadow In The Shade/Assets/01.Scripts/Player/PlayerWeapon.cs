@@ -27,7 +27,6 @@ public class PlayerWeapon : DamagableObject
             {
 
                 GameManager.Instance.feedBackPlayer.PlayFeedback();
-
                 base.OnTriggerEnter2D(collision);
             }
             
