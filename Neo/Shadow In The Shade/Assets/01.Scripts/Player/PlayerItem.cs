@@ -22,7 +22,7 @@ public class PlayerItem : MonoBehaviour
 
     public void AddingItem(ItemSO item)
     {
-        PlayerSO pSo = GameManager.Instance.playerSO;
+       /* PlayerSO pSo = GameManager.Instance.playerSO;
 
         pSo.attackStats.ATK += item.attackPoint;
         pSo.ectStats.PMH += item.maxHpPoint;
@@ -31,7 +31,7 @@ public class PlayerItem : MonoBehaviour
         pSo.attackStats.CTP += item.criticalPercentagePoint;
         pSo.attackStats.CTD += item.criticalPowerPoint;
 
-        GameManager.Instance.playerSO = pSo;
+        GameManager.Instance.playerSO = pSo;*/
         //iSo.shadowGaugePoint 애는 나중에 만들면 될듯
 
 
@@ -50,6 +50,7 @@ public class PlayerItem : MonoBehaviour
 
     public void ActiveItem()
     {
+        Debug.Log("ActiveItem");
         PlayerSO pSo = GameManager.Instance.playerSO;
         for(int i = 0; i< playerHasItems.Count;i++)
         {
@@ -64,6 +65,7 @@ public class PlayerItem : MonoBehaviour
 
                 if(playerHasItems[i].itemCallBack != null)
                 {
+                  // Debug.Log("adding CallBack");
                     GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
                     itemObj.name = playerHasItems[i].name + "CallBackObj";
                 }
@@ -71,12 +73,20 @@ public class PlayerItem : MonoBehaviour
                 {
 
                 }
-               // itemUIObjs[i].AddComponent<>();
+                // itemUIObjs[i].AddComponent<>();
+                StartCoroutine(CallingItemCallBack());
                 playerHasItems[i].isActived = true;
                
             }
         }
-        GameManager.Instance.onPlayerGetItem.Invoke();
+      
         GameManager.Instance.playerSO = pSo;
+    }
+
+    public IEnumerator CallingItemCallBack()
+    {
+        yield return new WaitForSeconds(.01f);
+        Debug.Log("Calling");
+        GameManager.Instance.onPlayerGetItem.Invoke();
     }
 }

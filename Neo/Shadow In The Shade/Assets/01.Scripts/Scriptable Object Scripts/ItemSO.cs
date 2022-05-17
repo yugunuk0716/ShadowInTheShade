@@ -27,7 +27,7 @@ public class ItemSO : ScriptableObject
     public float shadowGaugePoint;
 
     [Header("아이템 적용 여부")]
-    public bool isActived;
+    public bool isActived = false;
 
     [Header("아이템 특수효과 스크립트")]
     public GameObject itemCallBack;

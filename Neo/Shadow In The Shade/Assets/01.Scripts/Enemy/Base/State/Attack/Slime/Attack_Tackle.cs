@@ -79,6 +79,11 @@ public class Attack_Tackle : MonoBehaviour, IState
        
     }
 
+    public void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     public void OnEnd()
     {
 
