@@ -56,13 +56,13 @@ public class PlayerItem : MonoBehaviour
         {
             if(playerHasItems[i].isActived == false)
             {
-                pSo.attackStats.ATK += playerHasItems[i].attackPoint;
+             /*   pSo.attackStats.ATK += playerHasItems[i].attackPoint;
                 pSo.ectStats.PMH += playerHasItems[i].maxHpPoint;
                 pSo.attackStats.ASD += playerHasItems[i].attackSpeedPoint;
                 pSo.moveStats.SPD += playerHasItems[i].moveSpeedPoint;
                 pSo.attackStats.CTP += playerHasItems[i].criticalPercentagePoint;
                 pSo.attackStats.CTD += playerHasItems[i].criticalPowerPoint;
-
+*/
                 if(playerHasItems[i].itemCallBack != null)
                 {
                   // Debug.Log("adding CallBack");

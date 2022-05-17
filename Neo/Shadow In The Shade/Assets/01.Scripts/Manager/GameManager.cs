@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent<float, DiceType> onBossHpSend;
     public UnityEvent onPlayerGetItem;
 
+    public UnityEvent onEnemyHit;
+
 
     public FeedBackPlayer feedBackPlayer;
 

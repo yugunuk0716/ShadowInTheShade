@@ -331,6 +331,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         CheckHP();
 
         OnHit?.Invoke();
+        GameManager.Instance.onEnemyHit?.Invoke();
 
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
