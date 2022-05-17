@@ -141,6 +141,8 @@ public class Slime_Beaker : Enemy, ITacklable
             currHP = enemyData.maxHealth / 2;
             IsHit = false;
             chase.canTrace = false;
+            destinationSetter.target = null;
+            SetAttack(false);
             Anim.SetBool("isReincarnation", true);
             return;
         }
@@ -179,9 +181,18 @@ public class Slime_Beaker : Enemy, ITacklable
         isAttack = false;
         dicState[EnemyState.Move].OnEnd();
         chase.speed = 3f;
+        SetAttack(true);
         //dicState[State.Move].OnEnter();
     }
 
+    public override void KnockBack(Vector2 direction, float power, float duration)
+    {
+        if (Anim.GetBool("isReincarnation"))
+        {
+            return;
+        }
+        base.KnockBack(direction, power, duration);
+    }
 
     public override void Reset()
     {

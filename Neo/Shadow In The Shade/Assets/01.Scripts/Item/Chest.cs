@@ -40,7 +40,7 @@ public class Chest : Interactable
         print("오픈");
         used = true;
         anim.SetTrigger("open");
-
+        boxCol.enabled = false;
         //여기서 아이템 받아와서 드랍
         Item item = PoolManager.Instance.Pop("Item Temp") as Item;
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
@@ -77,6 +77,7 @@ public class Chest : Interactable
     {
         canUse = false;
         used = false;
+        boxCol.enabled = true;
         anim.ResetTrigger("open");
     }
 }

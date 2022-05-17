@@ -159,10 +159,15 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     {
         if (path != null && seeker != null && destinationSetter != null)
         {
+            if (!value)
+                destinationSetter.target = null;
             path.enabled = value;
             seeker.enabled = value;
             destinationSetter.enabled = value;
+            if (value)
+                destinationSetter.target = GameManager.Instance.player;
         }
+       
     }
 
     protected virtual void Awake()
@@ -170,9 +175,9 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
         originColor = MyRend.color;
         OnKockBack = new UnityEvent();
-        destinationSetter = GetComponentInParent<AIDestinationSetter>();
-        seeker = GetComponentInParent<Seeker>();
-        path = GetComponentInParent<AIPath>();
+        destinationSetter = GetComponent<AIDestinationSetter>();
+        seeker = GetComponent<Seeker>();
+        path = GetComponent<AIPath>();
     }
 
     protected virtual void Start()
@@ -343,6 +348,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         SetAttack(false);
         yield return new WaitForSeconds(1f);
         SetAttack(true);
+        kockbackRoutine = null;
 
     }
 

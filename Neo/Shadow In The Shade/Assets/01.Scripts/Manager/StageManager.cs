@@ -14,7 +14,7 @@ public class StageManager : MonoBehaviour
         {
             if (instance == null)
             {
-                GameObject obj = new GameObject("RoomManager");
+                GameObject obj = new GameObject("StageManager");
                 obj.AddComponent<StageManager>();
                 instance = obj.GetComponent<StageManager>();
             }
@@ -121,22 +121,26 @@ public class StageManager : MonoBehaviour
             bool canDrop = true;
 
             idx += 50;
-            if(idx < 50)
+            if(idx < 20)
             {
                 canDrop = false; 
             }
-            else if(49 < idx && idx < 85 )
+            else if(19 < idx && idx < 40 )
             {
                 rarity = Rarity.Normal;  
             }
-            else if( 84 < idx)// && idx < 98)
+            else if( 39 < idx && idx < 60)
             {
                 rarity = Rarity.Rare;
             }
-            //else if(97 < idx )//&& idx < 100)
-            //{
-            //    rarity = Rarity.Unique;
-            //}
+            else if (97 < idx && idx < 80)
+            {
+                rarity = Rarity.Unique;
+            }
+            else
+            {
+                rarity = Rarity.Legendary;
+            }
 
 
             if (canDrop)
