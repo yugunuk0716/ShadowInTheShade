@@ -118,7 +118,6 @@ public class UIManager : MonoBehaviour
 
     public void StartFadeOut()
     {
-        print("fadeOut");
         StartCoroutine(FadeOut());
     }
 

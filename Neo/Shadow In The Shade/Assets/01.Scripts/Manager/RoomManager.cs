@@ -148,7 +148,7 @@ public class RoomManager : MonoBehaviour
         if (loadRoomQueue.Count == 0)
         {
 
-            Room bossRoom = loadedRooms[loadedRooms.Count - 1];
+            Room bossRoom = loadedRooms[ 1];
             int x = bossRoom.X;
             int y = bossRoom.Y;
             Destroy(bossRoom.gameObject);
@@ -157,10 +157,7 @@ public class RoomManager : MonoBehaviour
             LoadRoom("End", x, y);
             LoadRoom("Boss", x * 100, y * 100);
 
-            foreach (Room r in loadedRooms)
-            {
-                r.ConnectRoom();
-            }
+        
 
             //float xValue = StageManager.Instance.currentRoom.Width;
             //float yValue = StageManager.Instance.currentRoom.Height;
@@ -336,10 +333,10 @@ public class RoomManager : MonoBehaviour
         {
             room.isClear = true;
             room.RemoveUnconnectedDoors();
-            //foreach (Room r in loadedRooms)
-            //{
-            //    r.ConnectRoom();
-            //}
+            foreach (Room r in loadedRooms)
+            {
+                r.ConnectRoom();
+            }
         }
         else if (!room.name.Contains($"Start") && room.name.Contains(currentStageName))
         {

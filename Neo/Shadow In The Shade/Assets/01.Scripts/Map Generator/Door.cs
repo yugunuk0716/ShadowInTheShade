@@ -76,7 +76,6 @@ public class Door : MonoBehaviour
                 Room bossRoom = RoomManager.Instance.loadedRooms.Find(r => r.name.Contains("Boss"));
                 if(bossRoom != null)
                 {
-                    print("?");
                     StageManager.Instance.CurEnemySPList.Clear();
                     StageManager.Instance.currentRoom = bossRoom;
                     StartCoroutine(MoveBossRoomCoroutine(collision, bossRoom));

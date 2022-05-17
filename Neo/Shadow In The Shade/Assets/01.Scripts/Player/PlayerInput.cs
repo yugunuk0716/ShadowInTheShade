@@ -37,7 +37,7 @@ public class PlayerInput : MonoBehaviour
                         {
                             isDash = Input.GetButtonDown("Fire1");
                         }
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Use:
                         isUse = Input.GetButtonDown("Use");
@@ -47,7 +47,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Change:
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
                             isDash = Input.GetButtonDown("Fire1");
@@ -67,7 +67,7 @@ public class PlayerInput : MonoBehaviour
                         {
                             isDash = Input.GetButtonDown("Fire1");
                         }
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
                        // moveDir = Vector2.zero;
@@ -77,7 +77,7 @@ public class PlayerInput : MonoBehaviour
                         isAttack = Input.GetButtonDown("Fire2");
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         isAttack = Input.GetButtonDown("Fire2");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {

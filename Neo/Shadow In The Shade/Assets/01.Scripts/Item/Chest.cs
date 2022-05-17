@@ -22,11 +22,7 @@ public class Chest : Interactable
         canUse = false;
     }
 
-    private void Start()
-    {
-        StageManager.Instance.onBattleEnd.AddListener(() => {  });
-    }
-
+   
  
 
     public override void Use(GameObject target)

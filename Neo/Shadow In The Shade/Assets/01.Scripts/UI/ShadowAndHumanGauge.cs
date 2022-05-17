@@ -26,6 +26,17 @@ public class ShadowAndHumanGauge : MonoBehaviour
     [SerializeField]
     private Image humanGauge;
 
+    private PlayerInput input;
+    public PlayerInput Input
+    {
+        get 
+        { 
+            if(input == null)
+                input = GameManager.Instance.player.GetComponent<PlayerInput>();
+            return input; 
+        }
+    }
+
     //private Sequence GaugeChangeSeq;
 
     public float shadowGaugeAmount = 0;
@@ -33,11 +44,11 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
     void Start()
     {
-        /*        GaugeChangeSeq = DOTween.Sequence();
-                shadowGaugeAmount = .5f;
-                humanGaugeAmount = 1.5f;
-                GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
-                GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);*/
+        /*  GaugeChangeSeq = DOTween.Sequence();
+            shadowGaugeAmount = .5f;
+            humanGaugeAmount = 1.5f;
+            GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
+            GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);*/
         GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
         StageManager.Instance.onBattleEnd.AddListener(() => 
         {
@@ -63,29 +74,42 @@ public class ShadowAndHumanGauge : MonoBehaviour
         humanGaugeAmount = 1.5f;
         gaugeState = GaugeState.Shadow;
         DecreaseGauge(gaugeState);
+        GotoHuman();
         StartCoroutine(DefaultDecreaseGauge());
     }
 
     void Update()
     {
 
+
         if (gaugeState.Equals(GaugeState.Shadow))
         {
 
-            if ((shadowGaugeAmount < 0.5f && humanGaugeAmount > 1.5f))
+            if (shadowGaugeAmount < 0.1f && humanGaugeAmount > 1.9f)
             {
                 GotoHuman();
+                Input.isChangePlayerType = false;
             }
 
         }
-        else if (gaugeState.Equals(GaugeState.Human))
+
+        if (Input.isChangePlayerType)
         {
-
-            if ((humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f))
+            if (gaugeState.Equals(GaugeState.Human))
             {
-                GotoShadow();
-            }
 
+                if (humanGaugeAmount < 0.5f && shadowGaugeAmount > 1.5f)
+                {
+                    GotoShadow();
+                    Input.isChangePlayerType = false;
+                }
+
+            }
+            //else if (shadowGaugeAmount > 0.1f && humanGaugeAmount < 1.9f)
+            //{
+            //    GotoHuman();
+            //    Input.isChangePlayerType = false;
+            //}
         }
 
     }
@@ -115,13 +139,19 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         if (state.Equals(GaugeState.Shadow))
         {
-            shadowGaugeAmount += -.01f;
-            humanGaugeAmount += .01f;
+            if (humanGaugeAmount <= 2f)
+            {
+                shadowGaugeAmount += -.01f;
+                humanGaugeAmount += .01f;
+            }
         }
         else if (state.Equals(GaugeState.Human))
         {
-            shadowGaugeAmount += .01f;
-            humanGaugeAmount += -.01f;
+            if (shadowGaugeAmount <= 2f)
+            {
+                shadowGaugeAmount += .01f;
+                humanGaugeAmount += -.01f;
+            }
         }
 
         shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
@@ -137,16 +167,16 @@ public class ShadowAndHumanGauge : MonoBehaviour
     public void GotoHuman()
     {
         gaugeState = GaugeState.Human;
-        spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
+        //spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
           
-        GameManager.Instance.onPlayerChangingType?.Invoke();
+        GameManager.Instance.onPlayerChangeType?.Invoke();
        
     }
 
     public void GotoShadow()
     {
         gaugeState = GaugeState.Shadow;
-        spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
-        GameManager.Instance.onPlayerChangingType?.Invoke();
+        //spliter.transform.localPosition = new Vector3(-274f, spliter.transform.localPosition.y);
+        GameManager.Instance.onPlayerChangeType?.Invoke();
     }
 }
