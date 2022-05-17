@@ -82,8 +82,15 @@ public class Slime_Beaker : Enemy, ITacklable
         while (true)
         {
 
-            if (IsHit || Anim.GetBool("isReincarnation"))
+            if (IsHit)
             {
+                yield return null;
+                continue;
+            }
+
+            if (Anim.GetBool("isReincarnation"))
+            {
+                SetAttack(false);
                 yield return null;
                 continue;
             }
@@ -106,6 +113,7 @@ public class Slime_Beaker : Enemy, ITacklable
                     else if (dist < chaseDistance)
                     {
                         chase.canTrace = true;
+                        SetAttack(true);
                         SetState(EnemyState.Move);
                     }
                  
@@ -181,7 +189,7 @@ public class Slime_Beaker : Enemy, ITacklable
         isAttack = false;
         dicState[EnemyState.Move].OnEnd();
         chase.speed = 3f;
-        SetAttack(true);
+        //SetAttack(true);
         //dicState[State.Move].OnEnter();
     }
 
