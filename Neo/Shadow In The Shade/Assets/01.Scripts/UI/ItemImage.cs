@@ -25,9 +25,23 @@ public class ItemImage : PoolableMono, IPointerEnterHandler, IPointerExitHandler
                 itemImg = GetComponent<Image>();
             return itemImg;
         }
+      
     }
 
-    public ItemSO itemSO;
+    private ItemSO itemSO;
+    public ItemSO ItemSO
+    {
+        get 
+        {
+            return itemSO;
+        }
+        set 
+        {
+            itemSO = value;
+            SetRarity((int)value.rarity);
+        }
+    }
+
 
     public override void Reset()
     {

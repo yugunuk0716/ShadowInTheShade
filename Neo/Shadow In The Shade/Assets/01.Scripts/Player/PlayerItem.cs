@@ -39,8 +39,9 @@ public class PlayerItem : MonoBehaviour
 
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
-        image.GetComponent<Image>().sprite = item.itemSprite;
-        image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
+        image.ItemImg.sprite = item.itemSprite;
+        image.ItemSO = item;
+        //image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
         itemUIObjs.Add(image.gameObject);
         ActiveItem();
 
@@ -72,10 +73,10 @@ public class PlayerItem : MonoBehaviour
                 }
                // itemUIObjs[i].AddComponent<>();
                 playerHasItems[i].isActived = true;
-                GameManager.Instance.onPlayerGetItem?.Invoke();
+               
             }
         }
-
+        GameManager.Instance.onPlayerGetItem.Invoke();
         GameManager.Instance.playerSO = pSo;
     }
 }

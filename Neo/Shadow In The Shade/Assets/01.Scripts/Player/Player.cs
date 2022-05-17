@@ -51,7 +51,7 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-
+    [SerializeField]
     private float currHP = 0f;
     public float CurrHP
     {

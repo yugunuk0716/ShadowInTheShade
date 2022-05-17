@@ -6,12 +6,14 @@ public class RedPillCallBack : ItemCallBack
 {
     public void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(CallBack);
+        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
     }
 
 
-    public override void CallBack()
+    public override void ItemSpecialCallBack()
     {
+        Debug.Log("?");
         GameManager.Instance.player.GetComponent<Player>().CurrHP += 10f;
+        base.ItemSpecialCallBack();
     }
 }

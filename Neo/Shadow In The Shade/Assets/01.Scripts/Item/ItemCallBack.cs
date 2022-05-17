@@ -4,7 +4,12 @@ using UnityEngine;
 
 public abstract class ItemCallBack : MonoBehaviour
 {
-    public virtual void CallBack()
+    public virtual void ItemSpecialCallBack()
+    {
+
+    }
+
+    public virtual void ItemNestingCallBack()
     {
 
     }
