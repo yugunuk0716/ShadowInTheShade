@@ -94,8 +94,8 @@ public class Slime_Smong : Enemy, ITacklable
                     }
                     else if (dist < chaseDistance)
                     {
-                        SetState(EnemyState.Move);
                         chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                 }
                 else
@@ -112,6 +112,7 @@ public class Slime_Smong : Enemy, ITacklable
    
     public override void GetHit(float damage)
     {
+        attack.TackleEnd();
         base.GetHit(damage);
     }
 

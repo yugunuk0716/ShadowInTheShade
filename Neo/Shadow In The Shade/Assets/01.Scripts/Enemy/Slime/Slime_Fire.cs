@@ -5,7 +5,7 @@ using UnityEngine;
 public class Slime_Fire : Enemy, IDamagable
 {
     private readonly float chaseDistance = 5f;
-    private readonly float attackDistance = 2f;
+    private readonly float attackDistance = 1f;
 
     private Move_Chase chase = null;
     private Attack_Fire attack = null;

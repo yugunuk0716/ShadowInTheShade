@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -124,6 +125,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [field: SerializeField]
     public UnityEvent OnHit { get; set; }
     [field: SerializeField]
+    public UnityEvent OnKockBack { get; set; }
+    [field: SerializeField]
     public UnityEvent OnReset { get; set; }
 
 
@@ -136,6 +139,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
+    private Coroutine kockbackRoutine;
 
     [SerializeField]
     protected EnemyState currentState = EnemyState.Default;
@@ -144,12 +148,31 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected Coroutine lifeTime = null;
 
 
+
     protected Color originColor;
+
+    public AIDestinationSetter destinationSetter;
+    public Seeker seeker;
+    public AIPath path;
+
+    public void SetAttack(bool value)
+    {
+        if (path != null && seeker != null && destinationSetter != null)
+        {
+            path.enabled = value;
+            seeker.enabled = value;
+            destinationSetter.enabled = value;
+        }
+    }
 
     protected virtual void Awake()
     {
         slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
         originColor = MyRend.color;
+        OnKockBack = new UnityEvent();
+        destinationSetter = GetComponentInParent<AIDestinationSetter>();
+        seeker = GetComponentInParent<Seeker>();
+        path = GetComponentInParent<AIPath>();
     }
 
     protected virtual void Start()
@@ -168,8 +191,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         {
             AddingEXP();
             GameManager.Instance.onPlayerGetEXP?.Invoke();
+            SetAttack(false);
         });
-       
+
+        OnKockBack.AddListener(StartKockBack);
+
     }
 
     protected virtual void OnEnable()
@@ -306,10 +332,25 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     }
 
+    public void StartKockBack()
+    {
+        if(kockbackRoutine == null)
+            kockbackRoutine = StartCoroutine(SetKockBack());
+    }
+
+    IEnumerator SetKockBack()
+    {
+        SetAttack(false);
+        yield return new WaitForSeconds(1f);
+        SetAttack(true);
+
+    }
+
     public virtual void KnockBack(Vector2 direction, float power, float duration)
     {
         if (isHit || isDie)
             return;
+        OnKockBack?.Invoke();
         Move.KnockBack(direction, power, duration);
     }
 

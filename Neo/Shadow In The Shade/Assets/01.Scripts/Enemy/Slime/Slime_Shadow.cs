@@ -128,8 +128,8 @@ public class Slime_Shadow : Enemy, ITacklable
                     }
                     else if (dist < chaseDistance)
                     {
-                        SetState(EnemyState.Move);
                         chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                 }
                 else
@@ -147,6 +147,7 @@ public class Slime_Shadow : Enemy, ITacklable
     {
         if (isInvincibility)
             return;
+        attack.TackleEnd();
         base.GetHit(damage);
     }
 

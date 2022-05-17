@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Slime_Beaker : Enemy, ITacklable
 {
-    private readonly float attackDistance = 1f;
+    private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
     private Idle_Patrol idle = null;
-
-
 
     private int reincarnationIdx = 0;
 
@@ -107,8 +105,8 @@ public class Slime_Beaker : Enemy, ITacklable
                     }
                     else if (dist < chaseDistance)
                     {
-                        SetState(EnemyState.Move);
                         chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                  
                    
@@ -131,7 +129,7 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public override void GetHit(float damage)
     {
-
+        attack.TackleEnd();
         base.GetHit(damage);
     }
 
@@ -142,6 +140,7 @@ public class Slime_Beaker : Enemy, ITacklable
             chase.speed = 0f;
             currHP = enemyData.maxHealth / 2;
             IsHit = false;
+            chase.canTrace = false;
             Anim.SetBool("isReincarnation", true);
             return;
         }
@@ -182,6 +181,7 @@ public class Slime_Beaker : Enemy, ITacklable
         chase.speed = 3f;
         //dicState[State.Move].OnEnter();
     }
+
 
     public override void Reset()
     {

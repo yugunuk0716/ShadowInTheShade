@@ -1,75 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using Pathfinding;
 
 public class Move_Chase : MonoBehaviour, IState
 {
     public float speed = 3f;
+    public bool canTrace = true;
 
-    public bool canTrace = false;
-
-    private Coroutine chaseCoroutine;
     private Transform target;
-    private AgentMove agentMove;
 
-    private Enemy enemy;
+    AIDestinationSetter destinationSetter;
 
     public void OnEnter()
     {
 
-        if (enemy == null)
-            enemy = GetComponent<Enemy>();
-
-        speed = enemy.speed;
 
         if (target == null)
             target = GameManager.Instance.player;
 
-        if(agentMove == null)
-            agentMove = GetComponent<AgentMove>();
+        if (destinationSetter == null)
+            destinationSetter = GetComponent<AIDestinationSetter>();
 
-        if(chaseCoroutine != null) 
+
+        if (canTrace)
         {
-            StopCoroutine(chaseCoroutine);
+            destinationSetter.target = target;
         }
-
-
-        chaseCoroutine = StartCoroutine(TrackingPlayer());
+        else
+        {
+            OnEnd();
+        }
     }
 
     public void OnEnd()
     {
-        if (chaseCoroutine != null)
-        {
-            //canTrace = false;
-            //StopCoroutine(chaseCoroutine);
-            //agentMove.rigid.velocity = Vector3.zero;
-        }
+        destinationSetter.target = null;
     }
 
-    IEnumerator TrackingPlayer()
-    {
-        //while (true)
-        //{
-            if (target != null)
-            {
-                if (canTrace)
-                {
-                    Vector2 dir = target.transform.position - this.gameObject.transform.position;
 
-                    if (agentMove != null)
-                    {
-                        agentMove.OnMove(dir.normalized, speed);
-                    }
-                }
-            }
-
-
-
-            yield return null;
-        //}
-    }
-
-    
 }

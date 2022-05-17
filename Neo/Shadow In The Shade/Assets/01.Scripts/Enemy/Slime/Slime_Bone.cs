@@ -5,7 +5,7 @@ using UnityEngine;
 public class Slime_Bone : Enemy, ITacklable
 {
 
-    private readonly float attackDistance = 1f;
+    private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
     private int hitCount = 0;
 
@@ -100,8 +100,8 @@ public class Slime_Bone : Enemy, ITacklable
                     }
                     else if (dist < chaseDistance)
                     {
-                        SetState(EnemyState.Move);
                         chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                 }
                 else
@@ -120,6 +120,7 @@ public class Slime_Bone : Enemy, ITacklable
     public override void GetHit(float damage)
     {
         hitCount++;
+        attack.TackleEnd();
         base.GetHit(damage);
     }
 
