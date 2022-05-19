@@ -177,6 +177,9 @@ MonoBehaviour:
   <OnHit>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <OnKockBack>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
   <OnReset>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -184,9 +187,14 @@ MonoBehaviour:
   isShadow: 0
   speed: 3
   currentState: 0
+  destinationSetter: {fileID: 0}
+  seeker: {fileID: 0}
+  path: {fileID: 0}
   isAttacking: 0
   isMoving: 0
   diceType: 0
+  slimePillars: []
+  bossFeedBack: {fileID: 0}
 --- !u!114 &2480667139027909169
 MonoBehaviour:
   m_ObjectHideFlags: 0

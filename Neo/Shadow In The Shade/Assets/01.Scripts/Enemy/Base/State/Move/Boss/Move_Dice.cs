@@ -12,6 +12,8 @@ public class Move_Dice : MonoBehaviour, IState
     Coroutine dashRoutine;
     AttackArea atkArea;
     Vector3 originPos;
+    Collider2D lastColl;
+
 
     private LayerMask whatIsCollisionable;
     Vector3 v;
@@ -67,7 +69,9 @@ public class Move_Dice : MonoBehaviour, IState
     {
         if (dice != null)
         {
-            Vector3 vec = GameManager.Instance.player.position - transform.position;
+            Vector3 playerPos = GameManager.Instance.player.position;
+            Vector3 vec = playerPos - transform.position;
+            Vector3 attackDir = Vector3.zero;
             atkArea = PoolManager.Instance.Pop("AttackArea") as AttackArea;
             atkArea.transform.position = transform.position;
             atkArea.Lr.widthMultiplier = 3f;
@@ -81,11 +85,34 @@ public class Move_Dice : MonoBehaviour, IState
             {
                 dice.MyRend.flipX = false;
             }
+            if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y))
+            {
+                if (transform.position.x < playerPos.x)
+                {
+                    attackDir = Vector2.right;
+                }
+                else
+                {
+                    attackDir = Vector2.left;
+                }
+            }
+            else
+            {
+                if (transform.position.y < playerPos.y)
+                {
+                    attackDir = Vector2.up;
+                }
+                else
+                {
+                    attackDir = Vector2.down;
+                }
+            }
+
             float a = 0;
             while (a <= 4)
             {
                 a += 0.02f;
-                atkArea.Lr.SetPosition(1, vec.normalized * a);
+                atkArea.Lr.SetPosition(1, attackDir * a);
                 yield return new WaitForSeconds(0.001f);
 
             }
@@ -98,17 +125,27 @@ public class Move_Dice : MonoBehaviour, IState
             dice.Anim.SetBool("isDash", true);
             PoolManager.Instance.Push(atkArea);
             originPos = transform.position;
-            dice.Move.OnMove(vec.normalized, 10f);
-            yield return new WaitForSeconds(1f);
+            dice.Move.OnMove(attackDir, 10f);
+            //yield return new WaitForSeconds(2f);
             //canCollision = true;
             //print(canCollision && isCollision);
 
-             v = (Vector3)dice.Move.rigid.velocity.normalized;
+            v = (Vector3)dice.Move.rigid.velocity.normalized;
             while (true)
             {
                 Collider2D coll = Physics2D.OverlapBox(transform.position + v, new Vector2(4f, 4f), 45, whatIsCollisionable);
                 if(coll != null)
                 {
+                    if(lastColl != null)
+                    {
+                        if (coll == lastColl)
+                        {
+                            yield return null;
+                            continue;
+                        }
+                    }
+
+                    lastColl = coll;
                     SlimePillar sp = coll.GetComponent<SlimePillar>();
 
                     if(sp != null)
@@ -116,15 +153,16 @@ public class Move_Dice : MonoBehaviour, IState
                         dice.CurrHP += sp.healAmount;
                         PoolManager.Instance.Push(sp);
                     }
+                    GameManager.Instance.feedBackPlayer.PlayFeedback();
                     break;
                 }
 
-                if ((transform.position - originPos).sqrMagnitude > 25)
-                    break;
-                
+                //if ((transform.position - originPos).sqrMagnitude > 100)
+                //    break;
+
                 yield return new WaitForSeconds(.5f);
             }
-
+            
 
 
             dice.isMoving = false;

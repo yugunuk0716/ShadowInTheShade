@@ -589,7 +589,7 @@ MonoBehaviour:
   onPlayerTypeChanged:
     m_PersistentCalls:
       m_Calls: []
-  onPlayerChangingType:
+  onPlayerChangeType:
     m_PersistentCalls:
       m_Calls: []
   onPlayerHit:
@@ -1498,7 +1498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &431983933
 RectTransform:
   m_ObjectHideFlags: 0

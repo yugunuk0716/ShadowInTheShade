@@ -48,9 +48,6 @@ public class Attack_Dice : MonoBehaviour, IState
     public void OnEnd()
     {
         
-        //dice.Anim.SetFloat("MoveX", 0);
-        //dice.Anim.SetFloat("MoveY", 0);
-
         if(crashRoutine != null && !dice.isAttacking)
         {
             dice.Anim.SetBool("isCrash", false);
@@ -72,8 +69,8 @@ public class Attack_Dice : MonoBehaviour, IState
         atkArea = PoolManager.Instance.Pop("AttackArea") as AttackArea;
         atkArea.Lr.widthMultiplier = 5f;
         atkArea.transform.position = transform.position;
-        atkArea.Lr.SetPosition(0, new Vector3(0f ,-1f));
-        atkArea.Lr.SetPosition(1, new Vector3(0f ,-1f));
+        atkArea.Lr.SetPosition(0, Vector2.zero);
+        atkArea.Lr.SetPosition(1, Vector2.zero);
 
         if (dir.x > dir.y && dir.x > 0)
         {
@@ -123,6 +120,7 @@ public class Attack_Dice : MonoBehaviour, IState
         dice.Anim.SetBool("isCrash", true);
 
         yield return new WaitForSeconds(1.2f);
+        GameManager.Instance.feedBackPlayer.PlayFeedback();
         dir =  (playerPos - gameObject.transform.position).normalized;
         if (IsInSight(dir, attackDir))
         {
