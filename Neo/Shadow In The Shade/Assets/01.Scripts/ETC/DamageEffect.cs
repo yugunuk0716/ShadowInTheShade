@@ -35,11 +35,10 @@ public class DamageEffect : PoolableMono
             Anim.SetTrigger("isCritical");
         }
         transform.position = pos + (dir.normalized * -1.1f);
-        print(playerAnim.lastMoveDir);
-        float a = 0;
-        float b = 0;
-        a = GameManager.Instance.player.position.y + 0.5f < pos.y  ? -1 : 0;
-        b = GameManager.Instance.player.position.x < pos.x ? 1 : 0;
+
+
+        float a = GameManager.Instance.player.position.y + 0.5f < pos.y  ? -1 : 0;
+        float b = GameManager.Instance.player.position.x < pos.x ? 1 : 0;
         transform.rotation = Quaternion.Euler(0,0, (Mathf.Acos(Vector3.Dot(playerAnim.lastMoveDir, dir )) + a + b) * Mathf.Rad2Deg);
     }
 

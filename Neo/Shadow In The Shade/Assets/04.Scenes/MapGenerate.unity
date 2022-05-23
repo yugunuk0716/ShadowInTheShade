@@ -604,6 +604,9 @@ MonoBehaviour:
   onPlayerGetItem:
     m_PersistentCalls:
       m_Calls: []
+  onEnemyHit:
+    m_PersistentCalls:
+      m_Calls: []
   feedBackPlayer: {fileID: 2125583446}
   playerSO: {fileID: 11400000, guid: fb0957e86690ff147bbc284e30d108b6, type: 2}
   poollingList: {fileID: 11400000, guid: 66bda91266499e844bb76383cce0aed5, type: 2}
@@ -1495,7 +1498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &431983933
 RectTransform:
   m_ObjectHideFlags: 0

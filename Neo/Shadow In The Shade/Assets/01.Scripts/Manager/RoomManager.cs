@@ -51,6 +51,8 @@ public class RoomManager : MonoBehaviour
     RoomInfo currentLoadRoomData;
     RoomListSO spawnableRoomData;
 
+    ArrayList al = new ArrayList();
+
 
     readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
 
@@ -321,6 +323,7 @@ public class RoomManager : MonoBehaviour
         roomInfo.name = name;
         roomInfo.X = x;
         roomInfo.Y = y;
+
 
         loadRoomQueue.Enqueue(roomInfo);
 
