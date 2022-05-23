@@ -604,6 +604,9 @@ MonoBehaviour:
   onPlayerGetItem:
     m_PersistentCalls:
       m_Calls: []
+  onEnemyHit:
+    m_PersistentCalls:
+      m_Calls: []
   feedBackPlayer: {fileID: 2125583446}
   playerSO: {fileID: 11400000, guid: fb0957e86690ff147bbc284e30d108b6, type: 2}
   poollingList: {fileID: 11400000, guid: 66bda91266499e844bb76383cce0aed5, type: 2}
@@ -2229,7 +2232,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6258859794596794636, guid: 9e8a1eaca6612974e9dc8e21c7dcb88f, type: 3}
       propertyPath: m_Name
-      value: A_
+      value: A*
       objectReference: {fileID: 0}
     - target: {fileID: 6258859794596794642, guid: 9e8a1eaca6612974e9dc8e21c7dcb88f, type: 3}
       propertyPath: m_RootOrder
