@@ -26,7 +26,7 @@ public class PlayerHardAttack : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetButton("Dash"))
         {
             GameManager.Instance.playerSO.moveStats.SPD = 
                 Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD -= Time.deltaTime * timeSlowSpeed, 1f, 7f);
@@ -40,8 +40,12 @@ public class PlayerHardAttack : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetButtonUp("Dash"))
         {
+
+            chargeEffect.gameObject.SetActive(false);
+            chargeEffect.GetComponent<ParticleSystem>().Stop();
+
             //GameManager.Instance.playerSO.moveStats.SPD = 0f;
             if (isCharging && GameManager.Instance.playerSO.moveStats.SPD <= 3f)
             {
