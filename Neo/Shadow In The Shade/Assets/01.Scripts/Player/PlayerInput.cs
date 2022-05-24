@@ -35,7 +35,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Dash:
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
                         isChangePlayerType = Input.GetButtonDown("Change");
                         break;
@@ -50,7 +50,7 @@ public class PlayerInput : MonoBehaviour
                         isChangePlayerType = Input.GetButtonDown("Change");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
                         isUse = Input.GetButtonDown("Use");
                         break;
@@ -65,7 +65,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Dash:
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
                         isChangePlayerType = Input.GetButtonDown("Change");
                         break;
@@ -74,14 +74,14 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
-                        isAttack = Input.GetButtonDown("Fire2");
+                        isAttack = Input.GetButtonDown("Attack");
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
                         isChangePlayerType = Input.GetButtonDown("Change");
-                        isAttack = Input.GetButtonDown("Fire2");
+                        isAttack = Input.GetButtonDown("Attack");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
                         break;
                 }
