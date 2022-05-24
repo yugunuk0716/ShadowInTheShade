@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NeoRoomManager : MonoBehaviour
@@ -27,7 +28,7 @@ public class NeoRoomManager : MonoBehaviour
     private void Awake()
     {
         
-
+        instance = this;
     }
 
 
@@ -40,8 +41,7 @@ public class NeoRoomManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            int idx = Random.Range(0, spawnableRoomData.roomList.Count);
-            LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
+            
         }
     }
 
@@ -54,10 +54,22 @@ public class NeoRoomManager : MonoBehaviour
 
         
         Room room = PoolManager.Instance.Pop($"{currentStageName} {s}") as Room;
-
+        room.transform.position = Vector3.zero;
+        GameManager.Instance.player.position = room.spawnPointTrm.position;
+        UIManager.Instance.StartFadeOut();
         StageManager.Instance.currentRoom = room;
+        StageManager.Instance.EnterRoom();
+        
+      
     }
-    
+
+    public void LoadNextRoom()
+    {
+        int idx = Random.Range(0, spawnableRoomData.roomList.Count);
+        LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
+    }
+
+
 
 
 

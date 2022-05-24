@@ -25,12 +25,13 @@ public class Item : Interactable
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         anim = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
+        base.Awake();
     }
 
     private void OnEnable()
@@ -57,6 +58,8 @@ public class Item : Interactable
         used = true;
         canUse = false;
 
+        NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
+        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position;
         ItemManager.Instance.AddingItem(itemSO);
         PoolManager.Instance.Push(this);
     }
@@ -70,7 +73,6 @@ public class Item : Interactable
             {
                 UIManager.Instance.ShowToolTip($"{itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
             }
-            base.OnTriggerEnter2D(collision);
         }
     }
 
@@ -81,7 +83,6 @@ public class Item : Interactable
 
             //UI Ãâ·Â
             UIManager.Instance.CloseTooltip();
-            base.OnTriggerExit2D(collision);
         }
     }
 

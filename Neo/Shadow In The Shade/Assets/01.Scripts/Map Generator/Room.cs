@@ -24,6 +24,10 @@ public class Room : PoolableMono
     public Vector2 topSpawnPoint;
     public Vector2 bottomSpawnPoint;
 
+    public Transform spawnPointTrm;
+    public Transform endPointTrm;
+    public Transform chestPointTrm;
+
     public Collider2D camBound;
 
     public GameObject miniPlayerSprite;
@@ -58,9 +62,11 @@ public class Room : PoolableMono
 
     }
 
-    private void Awake()
-    {
-    }
+    //private void Awake()
+    //{
+    //    spawnPointTrm.position.Set(Random.Range(0f, 1f), Random.Range(0f, 1f), 0);
+    //    spawnPointTrm.position.Set(Random.Range(0f, 1f), Random.Range(0f, 1f), 0);
+    //}
 
     private void OnEnable()
     {

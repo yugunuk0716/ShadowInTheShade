@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 using UnityEngine.Experimental.Rendering.Universal;
+using System.Linq;
 
 public class StageManager : MonoBehaviour
 {
@@ -59,8 +60,10 @@ public class StageManager : MonoBehaviour
         RoomManager.Instance.OnMoveRoomEvent.AddListener(() =>
         {
             //currentRoom.isClear = false;
+                print("a");
             if (!currentRoom.isClear)
             {
+                print("b");
                 isBattle = true;
                 globalLight.intensity = 0.45f;
                 globalLight.color = shadowColor;
@@ -93,6 +96,22 @@ public class StageManager : MonoBehaviour
 
     }
 
+    public void EnterRoom()
+    {
+        CurEnemySPList.Clear();
+        currentRoom.currentESPList = currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
+        currentRoom.EnterRoom();
+        if (!currentRoom.isClear)
+        {
+            isBattle = true;
+            globalLight.intensity = 0.45f;
+            globalLight.color = shadowColor;
+            DOTween.To(() => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize, f => EffectManager.Instance.cinemachineCamObj.m_Lens.OrthographicSize = f, 6f, 1f);
+        }
+
+       
+    }
+
     public void ClearCheck()
     {
         if (curStageEnemys.Count > 0)
@@ -113,7 +132,7 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         currentRoom.isClear = true;
-        if (isBattle && (!currentRoom.name.Contains("Boss") || !currentRoom.name.Contains("End")))
+        if (isBattle && (!currentRoom.name.Contains("Boss") || !currentRoom.name.Contains("End") || !currentRoom.name.Contains("Start")))
         {
             onBattleEnd?.Invoke();
             Rarity rarity = Rarity.Normal;
@@ -146,7 +165,7 @@ public class StageManager : MonoBehaviour
             if (canDrop)
             {
                 Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
-                c.Popup(currentRoom.transform.position);
+                c.Popup(currentRoom.chestPointTrm.position);
             }
         }
         isBattle = false;
@@ -158,6 +177,9 @@ public class StageManager : MonoBehaviour
             d.IsOpen = true;
             d.shadowDoor.SetActive(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow) && currentRoom.isClear);
         });
+
+       
+        
         PlayDoorSound();
     }
 
