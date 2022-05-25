@@ -171,11 +171,7 @@ public class Player : MonoBehaviour, IDamagable
         {
             CurrHP -= damage;
         }
-        else if(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
-        {
-            //여기서 그림자
-            print("그림자 피격");
-        }
+     
 
         StartCoroutine(Blinking());
         StartCoroutine(StateRoutine());

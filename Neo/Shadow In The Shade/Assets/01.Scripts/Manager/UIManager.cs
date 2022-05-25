@@ -51,14 +51,19 @@ public class UIManager : MonoBehaviour
     public Text tooltipText;
     public Image tooltipIcon;
     public Image tooltipBG;
+    public Image guideImage;
 
+    private CanvasGroup guideCG;
     private CanvasGroup tooltipCG;
     private Vector3 initPosition;
+
+    private bool isShowing = false;
 
     private void Awake()
     {
         instance = this;
 
+        guideCG = guideImage.GetComponent<CanvasGroup>();
         tooltipCG = tooltipBG.GetComponent<CanvasGroup>();
     }
 
@@ -212,9 +217,30 @@ public class UIManager : MonoBehaviour
 
     public void CloseTooltip()
     {
-        DOTween.Clear(); //모든 트윈을 종료시키고 
-        
+        DOTween.Clear(); 
         CanvasGroup cg = tooltipCG;
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
+    }
+
+    public void ShowInteractableGuideImage(Vector3 worldPos)
+    {
+        if (isShowing)
+            return;
+        //켜져 있는지 확인 하던중
+
+        isShowing = true;
+        guideImage.rectTransform.position = worldPos;// + new Vector3(100f, 100f, 0);
+
+        CanvasGroup cg = guideCG;
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f);
+    }
+
+    public void CloseInteractableGuideImage()
+    {
+
+        isShowing = false;
+        DOTween.Clear();
+        CanvasGroup cg = guideCG;
         DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
     }
 

@@ -34,13 +34,22 @@ public class DamageEffect : PoolableMono
         {
             Anim.SetTrigger("isCritical");
         }
-        transform.position = pos + (dir.normalized * -1.1f);
-        print(playerAnim.lastMoveDir);
+        transform.position = pos;
+
+
+        //float a = GameManager.Instance.player.position.y < pos.y + 0.2f  ? -1 : 0;
+        //print($"{Mathf.Abs(GameManager.Instance.player.position.y - pos.y - 0.2f) }& { Mathf.Abs(GameManager.Instance.player.position.x - pos.x)}");
+        //if (Mathf.Abs(GameManager.Instance.player.position.y - pos.y - 0.2f) < Mathf.Abs(GameManager.Instance.player.position.x - pos.x))
+        //{
+        //    a = GameManager.Instance.player.position.x < pos.x ? 1 : 0;
+        //}
+        Vector2 v2 = (GameManager.Instance.player.position - pos).normalized;
         float a = 0;
-        float b = 0;
-        a = GameManager.Instance.player.position.y + 0.5f < pos.y  ? -1 : 0;
-        b = GameManager.Instance.player.position.x < pos.x ? 1 : 0;
-        transform.rotation = Quaternion.Euler(0,0, (Mathf.Acos(Vector3.Dot(playerAnim.lastMoveDir, dir )) + a + b) * Mathf.Rad2Deg);
+        if(GameManager.Instance.player.position.y < pos.y + 0.1f)// || GameManager.Instance.player.position.x < pos.x)
+        {
+            a = -1;
+        }
+        transform.rotation = Quaternion.Euler(0, 0,  (Mathf.Acos(Vector3.Dot(playerAnim.lastMoveDir, dir)) - v2.x + v2.y + a) * Mathf.Rad2Deg);
     }
 
     public virtual void PushInPool()
