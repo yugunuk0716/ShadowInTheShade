@@ -72,7 +72,7 @@ public class Attack_Tackle : MonoBehaviour, IState
 
         enemy.SetAttack(false);
 
-        if (tackleRoutine == null && this.enabled)
+        if (tackleRoutine == null && this.gameObject.activeSelf)
         {
             tackleRoutine = StartCoroutine(TackleRoutine());
         }

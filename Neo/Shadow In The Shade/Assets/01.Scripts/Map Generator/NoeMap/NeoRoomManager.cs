@@ -37,18 +37,12 @@ public class NeoRoomManager : MonoBehaviour
         LoadNextRoom("Start");
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            
-        }
-    }
-
     public void LoadNextRoom(string s)
     {
-        if (StageManager.Instance.currentRoom != null)
+        if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
         {
+            print(StageManager.Instance.currentRoom.name);
+            print(s);
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
         }
 
