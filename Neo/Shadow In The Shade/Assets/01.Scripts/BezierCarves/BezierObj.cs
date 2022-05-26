@@ -44,6 +44,7 @@ public class BezierObj : PoolableMono
         {
             if(value >= 1)
             {
+                GameManager.Instance.onPlayerGetShadowOrb?.Invoke();
                 Reseting();
             }
             transform.position = DOCurve.CubicBezier.GetPointOnSegment(origin.transform.position, VP1, target.transform.position, VP2, value);
