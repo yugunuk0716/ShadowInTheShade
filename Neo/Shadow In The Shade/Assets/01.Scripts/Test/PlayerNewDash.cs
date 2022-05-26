@@ -105,36 +105,73 @@ public class PlayerNewDash : MonoBehaviour
     {
         isCharging = false;
     }
+    float lastDP;
 
     public IEnumerator Dashing(float dashPower)
     {
         //Debug.Log(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP);
-       // gameObject.layer = 9;
+        gameObject.layer = 9;
+        lastDP = dashPower;
         rigd.AddForce(lateDir * GameManager.Instance.playerSO.moveStats.DSP * dashPower, ForceMode2D.Impulse);
+        //RaycastHit2D[] hit2Ds = Physics2D.RaycastAll(transform.position, lateDir, GameManager.Instance.playerSO.moveStats.DSP, LayerMask.GetMask("Enemy"));
+        Collider2D[] coll2Ds = Physics2D.OverlapBoxAll(transform.position  + (Vector3)lateDir, Vector3.one + (Vector3)lateDir * dashPower, 0f, LayerMask.GetMask("Enemy"));
+        print(lateDir * dashPower);
+        //foreach (RaycastHit2D hit2D in hit2Ds)
+        foreach (Collider2D coll2D in coll2Ds)
+        {
+            //if (coll2D != null)
+            {
+                print(coll2D.gameObject.layer);
+                //if (coll2D.gameObject.layer == 6)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        print(coll2D.name);
+                        GameObject e = PoolManager.Instance.Pop("ShadowEffect").gameObject;
+                        e.transform.position = coll2D.transform.position;
+                    }
+                    StartCoroutine(CallonHumanDashCrossEnemy(coll2D));
+                }
+            }
+        }
+       
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         rigd.velocity = Vector2.zero;
         ResetCharging();
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
-        //gameObject.layer = 3;
+        gameObject.layer = 3;
         GameManager.Instance.playerSO.moveStats.SPD = 7f;
     }
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (UnityEditor.Selection.activeObject == gameObject)
+        {
+            //Gizmos.color = Color.yellow;
+            //Gizmos.DrawLine(lateDir, transform.position);
+            Gizmos.color = Color.red;
+            //Gizmos.DrawWireCube(transform.position + (Vector3)lateDir, (Vector3.one + (Vector3)lateDir) *  lastDP);
+            Gizmos.DrawWireCube(transform.position + (Vector3)lateDir, Vector3.one + (Vector3)lateDir * lastDP);
+        }
+    }
+#endif
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer.Equals(6) && 
-            GameManager.Instance.playerSO.playerInputState == PlayerInputState.Dash)
-        {
-            Debug.Log("pl");
-            for (int i = 0; i < 5; i++)
-            {
-                GameObject e;
-                e = PoolManager.Instance.Pop("ShadowEffect").gameObject;
-/*                e.SetActive(true);
-                e.GetComponent<BezierObj>().origin = collision.gameObject;*/
-            }
+//        if(collision.gameObject.layer.Equals(6) && 
+//            GameManager.Instance.playerSO.playerInputState == PlayerInputState.Dash)
+//        {
+//            Debug.Log("pl");
+//            for (int i = 0; i < 5; i++)
+//            {
+//                GameObject e;
+//                e = PoolManager.Instance.Pop("ShadowEffect").gameObject;
+///*                e.SetActive(true);
+//                e.GetComponent<BezierObj>().origin = collision.gameObject;*/
+//            }
 
-            StartCoroutine(CallonHumanDashCrossEnemy(collision));
-        }
+//            StartCoroutine(CallonHumanDashCrossEnemy(collision));
+//        }
     }
 
     public IEnumerator CallonHumanDashCrossEnemy(Collider2D collision)

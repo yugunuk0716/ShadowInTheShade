@@ -59,6 +59,12 @@ public class ShadowAndHumanGauge : MonoBehaviour
             }
         });
 
+        GameManager.Instance.onPlayerGetShadowOrb.AddListener(() =>
+        {
+            shadowGaugeAmount += .05f;
+            humanGaugeAmount += -.05f;
+        });
+
         shadowGaugeAmount = .5f;
         humanGaugeAmount = 1.5f;
         gaugeState = GaugeState.Shadow;
@@ -120,8 +126,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
         }
         else if (state.Equals(GaugeState.Human))
         {
-            shadowGaugeAmount += .01f;
-            humanGaugeAmount += -.01f;
+            //shadowGaugeAmount += .01f;
+            //humanGaugeAmount += -.01f;
         }
 
         shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
