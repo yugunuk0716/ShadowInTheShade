@@ -62,7 +62,7 @@ public class BezierObj : PoolableMono
     {
         value = 0;
         isBeziering = false;
-        transform.gameObject.SetActive(false);
+        PoolManager.Instance.Push(this);
     }
 
     public override void Reset()
