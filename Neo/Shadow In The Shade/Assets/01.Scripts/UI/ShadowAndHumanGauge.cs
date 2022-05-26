@@ -61,8 +61,11 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
         GameManager.Instance.onPlayerGetShadowOrb.AddListener(() =>
         {
-            shadowGaugeAmount += .05f;
-            humanGaugeAmount += -.05f;
+            if (gaugeState.Equals(GaugeState.Human))
+            {
+                shadowGaugeAmount += .1f;
+                humanGaugeAmount += -.1f;
+            }
         });
 
         shadowGaugeAmount = .5f;

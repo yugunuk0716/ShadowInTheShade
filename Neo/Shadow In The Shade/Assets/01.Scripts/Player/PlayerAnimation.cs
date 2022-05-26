@@ -9,7 +9,12 @@ public class PlayerAnimation : MonoBehaviour
     private Vector2 moveDir;
     private Animator playerAnimator;
     public Animator playerTypeChangeEffcetAnimator;
+    //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
+
+
+    private float deX;
+    private float deY;
 
     private void Start()
     {
@@ -17,7 +22,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
-       // playerDashEffcetAnimator = GameObject.Find("PlayerDashEffectObj").GetComponent<Animator>();
+        //playerDashEffcetAnimator = GameObject.Find("PlayerDashEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
         //GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
@@ -62,11 +67,16 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetFloat("AnimLastMoveX", lastMoveDir.x);
         playerAnimator.SetFloat("AnimLastMoveY", lastMoveDir.y);
 
-      /*  if (!playerDashEffcetAnimator.GetBool("isDash"))
+        //if (!playerDashEffcetAnimator.GetBool("isDash"))
+        //{
+        //    playerDashEffcetAnimator.SetFloat("MoveX", lastMoveDir.x);
+        //    playerDashEffcetAnimator.SetFloat("MoveY", lastMoveDir.y);
+        //}
+        if (!playerAnimator.GetBool("IsDash"))
         {
-            playerDashEffcetAnimator.SetFloat("MoveX", lastMoveDir.x);
-            playerDashEffcetAnimator.SetFloat("MoveY", lastMoveDir.y);
-        }*/
+            deX = lastMoveDir.x;
+            deY = lastMoveDir.y;
+        }
     }
 
     public IEnumerator ChangePlayerTypeAnimation()
@@ -128,8 +138,8 @@ public class PlayerAnimation : MonoBehaviour
         if (GameManager.Instance.playerSO.playerStates == PlayerStates.Shadow && !playerDashEffcetAnimator.GetBool("isDash"))
         {
             playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
-            playerDashEffcetAnimator.SetFloat("MoveX", lastMoveDir.x);
-            playerDashEffcetAnimator.SetFloat("MoveY", lastMoveDir.y);
+            playerDashEffcetAnimator.SetFloat("MoveX", deX);
+            playerDashEffcetAnimator.SetFloat("MoveY", deY);
             playerDashEffcetAnimator.SetInteger("DashPower", dashPower);
             playerDashEffcetAnimator.SetBool("isDash", true);
             yield return new WaitForSeconds(0.6f);

@@ -116,7 +116,32 @@ public class PlayerNewDash : MonoBehaviour
         lastDP = dashPower;
         rigd.AddForce(lateDir * GameManager.Instance.playerSO.moveStats.DSP * dashPower, ForceMode2D.Impulse);
         //RaycastHit2D[] hit2Ds = Physics2D.RaycastAll(transform.position, lateDir, GameManager.Instance.playerSO.moveStats.DSP, LayerMask.GetMask("Enemy"));
-        Collider2D[] coll2Ds = Physics2D.OverlapBoxAll(transform.position  + (Vector3)lateDir, Vector3.one + (Vector3)lateDir * dashPower, 0f, LayerMask.GetMask("Enemy"));
+        float x = 1f;
+        float y = 1f;
+
+        if(rigd.velocity.x > 0)
+        {
+            x = 5f;
+        }
+        if (rigd.velocity.x < 0)
+        {
+            x = -5f;
+        }
+        if (rigd.velocity.y > 0)
+        {
+            y = 5f;
+        }
+        if (rigd.velocity.y < 0)
+        {
+            y = -5f;
+        }
+
+        if(x < 0 && y < 0)
+        {
+
+        }
+
+        Collider2D[] coll2Ds = Physics2D.OverlapBoxAll(transform.position + (Vector3)rigd.velocity.normalized, new Vector2(x,y), 0f, LayerMask.GetMask("Enemy"));
         print(lateDir * dashPower);
         //foreach (RaycastHit2D hit2D in hit2Ds)
         foreach (Collider2D coll2D in coll2Ds)
@@ -153,8 +178,30 @@ public class PlayerNewDash : MonoBehaviour
             //Gizmos.color = Color.yellow;
             //Gizmos.DrawLine(lateDir, transform.position);
             Gizmos.color = Color.red;
+            float x = 1f;
+            float y = 1f;
+
+            if (rigd.velocity.x > 0)
+            {
+                x = 5f;
+            }
+            if (rigd.velocity.x < 0)
+            {
+                x = -5f;
+            }
+            if (rigd.velocity.y > 0)
+            {
+                y = 5f;
+            }
+            if (rigd.velocity.y < 0)
+            {
+                y = -5f;
+            }
             //Gizmos.DrawWireCube(transform.position + (Vector3)lateDir, (Vector3.one + (Vector3)lateDir) *  lastDP);
-            Gizmos.DrawWireCube(transform.position + (Vector3)lateDir, Vector3.one + (Vector3)lateDir * lastDP);
+            if (rigd != null)
+            {
+                Gizmos.DrawWireCube(transform.position + (Vector3)rigd.velocity.normalized, new Vector2(x, y));
+            }
         }
     }
 #endif
