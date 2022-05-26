@@ -142,11 +142,10 @@ public class PlayerNewDash : MonoBehaviour
         }
 
         Collider2D[] coll2Ds = Physics2D.OverlapBoxAll(transform.position + (Vector3)rigd.velocity.normalized, new Vector2(x,y), 0f, LayerMask.GetMask("Enemy"));
-        print(lateDir * dashPower);
         //foreach (RaycastHit2D hit2D in hit2Ds)
         foreach (Collider2D coll2D in coll2Ds)
         {
-            //if (coll2D != null)
+            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
             {
                 print(coll2D.gameObject.layer);
                 //if (coll2D.gameObject.layer == 6)
