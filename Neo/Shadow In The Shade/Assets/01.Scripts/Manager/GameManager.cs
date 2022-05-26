@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     public Transform player;
     public bool isInvincible = false;
     public float defaultShadowGaugeSpeed = 1f;
-    private float playerSpeed = 7f;
 
     [Range(0f, 1f)]
     public float timeScale = 1f;
@@ -38,6 +37,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerGetEXP;
     public UnityEvent<float, DiceType> onBossHpSend;
     public UnityEvent onPlayerGetItem;
+    public UnityEvent onPlayerGetShadowOrb;
 
     public UnityEvent onEnemyHit;
 
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
         onPlayerTypeChanged = new UnityEvent();
         onPlayerChangeType = new UnityEvent();
         onPlayerHit = new UnityEvent();
+        onPlayerGetShadowOrb = new UnityEvent();
 
 
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
