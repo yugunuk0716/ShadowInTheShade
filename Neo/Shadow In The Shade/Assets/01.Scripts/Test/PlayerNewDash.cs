@@ -13,6 +13,7 @@ public class PlayerNewDash : MonoBehaviour
     private Rigidbody2D rigd;
     private float effectRunTime;
     private Vector2 lateDir;
+    private PlayerAnimation playerAnimation;
 
     public void Start()
     {
@@ -25,6 +26,7 @@ public class PlayerNewDash : MonoBehaviour
         isCharging = false;
         effectRunTime = 0f;
         spd = GameManager.Instance.playerSO.moveStats.SPD;
+        playerAnimation = GetComponentInChildren<PlayerAnimation>();
     }
 
 
@@ -135,6 +137,7 @@ public class PlayerNewDash : MonoBehaviour
             }
         }
        
+        playerAnimation.CallShadowDashAnime(dashPower >= 2.5 ? 2 : dashPower >= 1.5f ? 1 : 0);
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         rigd.velocity = Vector2.zero;
         ResetCharging();
