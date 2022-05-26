@@ -1,0 +1,276 @@
+fileFormatVersion: 2
+guid: 082cd2f528d8e1746954c182466af0b0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6603322637510722928
+    second: player_dashAttack_sheet_32x64_0
+  - first:
+      213: -9178578864716642792
+    second: player_dashAttack_sheet_32x64_1
+  - first:
+      213: -3547867372430245477
+    second: player_dashAttack_sheet_32x64_2
+  - first:
+      213: 5652673828512227990
+    second: player_dashAttack_sheet_32x64_3
+  - first:
+      213: -5561802095609448483
+    second: player_dashAttack_sheet_32x64_4
+  - first:
+      213: 1309167173721812908
+    second: player_dashAttack_sheet_32x64_5
+  - first:
+      213: -6854824796389266273
+    second: player_dashAttack_sheet_32x64_6
+  - first:
+      213: -5759039163302153814
+    second: player_dashAttack_sheet_32x64_7
+  - first:
+      213: -4123758066871719003
+    second: player_dashAttack_sheet_32x64_8
+  - first:
+      213: 3470092571510660845
+    second: player_dashAttack_sheet_32x64_9
+  - first:
+      213: -5065080628648533071
+    second: player_dashAttack_sheet_32x64_10
+  - first:
+      213: 5639981337288904563
+    second: player_dashAttack_sheet_32x64_11
+  - first:
+      213: -2279456943647369919
+    second: player_dashAttack_sheet_32x64_12
+  - first:
+      213: -6527733076097974389
+    second: player_dashAttack_sheet_32x64_13
+  - first:
+      213: -4643795837411782867
+    second: player_dashAttack_sheet_32x64_14
+  - first:
+      213: -5215515987150413065
+    second: player_dashAttack_sheet_32x64_15
+  - first:
+      213: -6360558774929561180
+    second: player_dashAttack_sheet_32x64_16
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: player_dashAttack_sheet_32x64_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09ab0ed0c094c54a0800000000000000
+      internalID: -6603322637510722928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dashAttack_sheet_32x64_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 192
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81608a917232f9080800000000000000
+      internalID: -9178578864716642792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dashAttack_sheet_32x64_2
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 192
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b91c8141c6173cec0800000000000000
+      internalID: -3547867372430245477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dashAttack_sheet_32x64_3
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 192
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6926e9bd5e4527e40800000000000000
+      internalID: 5652673828512227990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dashAttack_sheet_32x64_4
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 192
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd7fc24367280d2b0800000000000000
+      internalID: -5561802095609448483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

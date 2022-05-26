@@ -15,11 +15,11 @@ public class PlayerMove : AgentMove
 
     public void Update()
     {
-        if (playerInput.isHit)
+  /*      if (playerInput.isHit)
         {
-            playerAxis = Vector2.zero;
+           // playerAxis = Vector2.zero;
             return;
-        }
+        }*/
 
         if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash))
         {
