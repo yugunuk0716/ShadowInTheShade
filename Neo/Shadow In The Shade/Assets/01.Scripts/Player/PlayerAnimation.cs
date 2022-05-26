@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private Vector2 moveDir;
     private Animator playerAnimator;
     public Animator playerTypeChangeEffcetAnimator;
+    public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
 
     private void Start()
@@ -17,6 +18,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
+        playerDashEffcetAnimator = GameObject.Find("PlayerDashEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
         //GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
         GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
@@ -60,6 +62,12 @@ public class PlayerAnimation : MonoBehaviour
         lastMoveDir = moveDir;
         playerAnimator.SetFloat("AnimLastMoveX", lastMoveDir.x);
         playerAnimator.SetFloat("AnimLastMoveY", lastMoveDir.y);
+
+        if (!playerDashEffcetAnimator.GetBool("isDash"))
+        {
+            playerDashEffcetAnimator.SetFloat("MoveX", lastMoveDir.x);
+            playerDashEffcetAnimator.SetFloat("MoveY", lastMoveDir.y);
+        }
     }
 
     public IEnumerator ChangePlayerTypeAnimation()
@@ -101,11 +109,28 @@ public class PlayerAnimation : MonoBehaviour
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
     }
 
-    public IEnumerator PlayerDashAnimation()
+    private IEnumerator PlayerDashAnimation()
     {
         playerAnimator.SetBool("IsDash", true);
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         playerAnimator.SetBool("IsDash", false);
+    }
+
+    public void CallShadowDashAnime(int dashPower)
+    {
+        StartCoroutine(ShadowDashEffectAnimation(dashPower));
+    }
+
+    public IEnumerator ShadowDashEffectAnimation(int dashPower)
+    {
+        if(GameManager.Instance.playerSO.playerStates == PlayerStates.Shadow && !playerDashEffcetAnimator.GetBool("isDash"))
+        {
+            playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
+            playerDashEffcetAnimator.SetInteger("DashPower", dashPower);
+            playerDashEffcetAnimator.SetBool("isDash", true);
+            yield return new WaitForSeconds(1f);
+            playerDashEffcetAnimator.SetBool("isDash", false);
+        }
     }
 
     public void SetFalse()
