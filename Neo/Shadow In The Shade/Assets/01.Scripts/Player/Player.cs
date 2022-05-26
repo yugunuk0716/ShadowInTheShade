@@ -166,7 +166,7 @@ public class Player : MonoBehaviour, IDamagable
         IsHit = true;
         isInvincibility = true;
 
-        Rigid.velocity = Vector2.zero;
+        //Rigid.velocity = Vector2.zero;
         if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
         {
             CurrHP -= damage;
@@ -202,9 +202,9 @@ public class Player : MonoBehaviour, IDamagable
     {
         if (IsHit || IsDie || isInvincibility || playerDash.isDash)
             return;
-        if (move == null)
+        if (move == null) { }
       
-        move.KnockBack(direction, power, duration);
+        //move.KnockBack(direction, power, duration);
     }
 
     private IEnumerator Blinking()
