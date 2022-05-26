@@ -63,7 +63,13 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
 
-        guideCG = guideImage.GetComponent<CanvasGroup>();
+
+        if(guideImage != null)
+        {
+            guideCG = guideImage.GetComponent<CanvasGroup>();
+        }
+
+        
         tooltipCG = tooltipBG.GetComponent<CanvasGroup>();
     }
 

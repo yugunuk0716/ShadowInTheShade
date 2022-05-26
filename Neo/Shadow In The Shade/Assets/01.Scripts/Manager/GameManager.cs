@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent onEnemyHit;
 
+    public UnityEvent<GameObject> onHumanDashCrossEnemy;
+
 
     public FeedBackPlayer feedBackPlayer;
 
