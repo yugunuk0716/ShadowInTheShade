@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerInput playerInput;
-    private int attackStack;
+    private bool attackStack;
 
     private AudioClip attackAudioClip;
 
     private void Start()
     {
-        attackStack = 0;
+        attackStack = true;
         playerInput = GetComponent<PlayerInput>();
 
         attackAudioClip = Resources.Load<AudioClip>("Sounds/PlayerAttack");
@@ -29,11 +29,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        if (attackStack <= 0)
-            attackStack++;
-        else
-            attackStack = 0;
+        attackStack = !attackStack;
         SoundManager.Instance.GetAudioSource(attackAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-        GameManager.Instance.onPlayerAttack.Invoke(attackStack);
+        GameManager.Instance.onPlayerAttack.Invoke(attackStack ? 1 : 0);
     }
 }

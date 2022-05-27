@@ -70,15 +70,19 @@ public class PlayerInput : MonoBehaviour
                         isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
-                       // moveDir = Vector2.zero;
+                        moveDir = Vector2.zero;
+                        break;
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
+                      /*  if(GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+                        {
+
+                        }*/
                         isAttack = Input.GetButtonDown("Attack");
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
                         isChangePlayerType = Input.GetButtonDown("Change");
-                        isAttack = Input.GetButtonDown("Attack");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
                             isDash = Input.GetButtonDown("Dash");
