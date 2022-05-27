@@ -38,9 +38,12 @@ public class DamagableEnemy : DamagableObject
                     if (hit2D.collider == null)
                     {
                         IDamagable d = collision.GetComponent<IDamagable>();
-                        if (d.IsHit)
+                        if (d != null)
+                        {
+                            if (d.IsHit)
                             return;
-                        base.OnTriggerEnter2D(collision);
+                        }
+                    base.OnTriggerEnter2D(collision);
                     }
 
 
@@ -54,8 +57,11 @@ public class DamagableEnemy : DamagableObject
                 if (hit2D.collider == null)
                 {
                     IDamagable d = collision.GetComponent<IDamagable>();
-                    if (d.IsHit)
-                        return;
+                    if(d != null)
+                    {
+                        if (d.IsHit)
+                            return;
+                    }
 
                     d?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower / 2, dObjData.knockBackDelay);
                     d?.GetHit(dObjData.damage / 2);

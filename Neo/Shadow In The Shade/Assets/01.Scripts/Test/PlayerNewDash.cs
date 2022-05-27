@@ -14,6 +14,7 @@ public class PlayerNewDash : MonoBehaviour
     private float effectRunTime;
     private Vector2 lateDir;
     private PlayerAnimation playerAnimation;
+    private PlayerDashCollider dashCollider;
 
     public void Start()
     {
@@ -27,6 +28,7 @@ public class PlayerNewDash : MonoBehaviour
         effectRunTime = 0f;
         spd = GameManager.Instance.playerSO.moveStats.SPD;
         playerAnimation = GetComponentInChildren<PlayerAnimation>();
+        dashCollider = GetComponentInChildren<PlayerDashCollider>();    
     }
 
 
@@ -107,60 +109,17 @@ public class PlayerNewDash : MonoBehaviour
     {
         isCharging = false;
     }
-    float lastDP;
 
     public IEnumerator Dashing(float dashPower)
     {
         //Debug.Log(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP);
         gameObject.layer = 9;
-        lastDP = dashPower;
         rigd.AddForce(lateDir * GameManager.Instance.playerSO.moveStats.DSP * dashPower, ForceMode2D.Impulse);
-        //RaycastHit2D[] hit2Ds = Physics2D.RaycastAll(transform.position, lateDir, GameManager.Instance.playerSO.moveStats.DSP, LayerMask.GetMask("Enemy"));
-        float x = 1f;
-        float y = 1f;
 
-        if(rigd.velocity.x > 0)
-        {
-            x = 5f;
-        }
-        if (rigd.velocity.x < 0)
-        {
-            x = -5f;
-        }
-        if (rigd.velocity.y > 0)
-        {
-            y = 5f;
-        }
-        if (rigd.velocity.y < 0)
-        {
-            y = -5f;
-        }
 
-        if(x < 0 && y < 0)
-        {
+        dashCollider.isDashing = true;
 
-        }
 
-        Collider2D[] coll2Ds = Physics2D.OverlapBoxAll(transform.position + (Vector3)rigd.velocity.normalized, new Vector2(x,y), 0f, LayerMask.GetMask("Enemy"));
-        //foreach (RaycastHit2D hit2D in hit2Ds)
-        foreach (Collider2D coll2D in coll2Ds)
-        {
-            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
-            {
-                print(coll2D.gameObject.layer);
-                //if (coll2D.gameObject.layer == 6)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        print(coll2D.name);
-                        GameObject e = PoolManager.Instance.Pop("ShadowEffect").gameObject;
-                        e.transform.position = coll2D.transform.position;
-                    }
-                    StartCoroutine(CallonHumanDashCrossEnemy(coll2D));
-                }
-            }
-        }
-       
         playerAnimation.CallShadowDashAnime(dashPower >= 2.5 ? 2 : dashPower >= 1.5f ? 1 : 0);
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         rigd.velocity = Vector2.zero;
@@ -168,42 +127,9 @@ public class PlayerNewDash : MonoBehaviour
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
         gameObject.layer = 3;
         GameManager.Instance.playerSO.moveStats.SPD = 7f;
+        dashCollider.isDashing = false;
     }
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        if (UnityEditor.Selection.activeObject == gameObject)
-        {
-            //Gizmos.color = Color.yellow;
-            //Gizmos.DrawLine(lateDir, transform.position);
-            Gizmos.color = Color.red;
-            float x = 1f;
-            float y = 1f;
 
-            if (rigd.velocity.x > 0)
-            {
-                x = 5f;
-            }
-            if (rigd.velocity.x < 0)
-            {
-                x = -5f;
-            }
-            if (rigd.velocity.y > 0)
-            {
-                y = 5f;
-            }
-            if (rigd.velocity.y < 0)
-            {
-                y = -5f;
-            }
-            //Gizmos.DrawWireCube(transform.position + (Vector3)lateDir, (Vector3.one + (Vector3)lateDir) *  lastDP);
-            if (rigd != null)
-            {
-                Gizmos.DrawWireCube(transform.position + (Vector3)rigd.velocity.normalized, new Vector2(x, y));
-            }
-        }
-    }
-#endif
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -223,10 +149,53 @@ public class PlayerNewDash : MonoBehaviour
 //        }
     }
 
-    public IEnumerator CallonHumanDashCrossEnemy(Collider2D collision)
-    {
-        yield return null;
-        GameManager.Instance.onHumanDashCrossEnemy.Invoke(collision.gameObject);
-
-    }
+  
 }
+#region ÁÖ¼®
+//RaycastHit2D[] hit2Ds = Physics2D.RaycastAll(transform.position, lateDir, GameManager.Instance.playerSO.moveStats.DSP, LayerMask.GetMask("Enemy"));
+//float x = 1f;
+//float y = 1f;
+
+//if(rigd.velocity.x > 0)
+//{
+//    x = 5f;
+//}
+//if (rigd.velocity.x < 0)
+//{
+//    x = -5f;
+//}
+//if (rigd.velocity.y > 0)
+//{
+//    y = 5f;
+//}
+//if (rigd.velocity.y < 0)
+//{
+//    y = -5f;
+//}
+
+//if(x < 0 && y < 0)
+//{
+
+//}
+
+//Collider2D[] coll2Ds = Physics2D.OverlapBoxAll(transform.position + (Vector3)rigd.velocity.normalized, new Vector2(x,y), 0f, LayerMask.GetMask("Enemy"));
+////foreach (RaycastHit2D hit2D in hit2Ds)
+//foreach (Collider2D coll2D in coll2Ds)
+//{
+//    if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+//    {
+//        print(coll2D.gameObject.layer);
+//        //if (coll2D.gameObject.layer == 6)
+//        {
+//            for (int i = 0; i < 5; i++)
+//            {
+//                print(coll2D.name);
+//                GameObject e = PoolManager.Instance.Pop("ShadowEffect").gameObject;
+//                e.transform.position = coll2D.transform.position;
+//            }
+//            StartCoroutine(CallonHumanDashCrossEnemy(coll2D));
+//        }
+//    }
+//}
+
+#endregion

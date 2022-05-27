@@ -11,7 +11,6 @@ public class DashEffectScript : PoolableMono
     {
         foreach (GameObject item in bases)
         {
-            item.transform.SetPositionAndRotation(Vector3.zero, Quaternion.Euler(0f, 0f, 0f));
             item.transform.localScale = Vector3.one;
         }
     }
@@ -19,7 +18,13 @@ public class DashEffectScript : PoolableMono
 
     void Start()
     {
-        
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        {
+            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+            {
+                PoolManager.Instance.Push(this);
+            }
+        });
     }
 
     void Update()
