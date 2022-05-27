@@ -70,8 +70,8 @@ public class PlayerInput : MonoBehaviour
                         isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
-                        moveDir = Vector2.zero;
-                        break;
+                        /*moveDir = Vector2.zero;
+                        break;*/
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:

@@ -22,7 +22,7 @@ public class PlayerMove : AgentMove
         }*/
         
 
-        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash) && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash)/* && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack)*/)
         {
             /* if (GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Move) &&  //움직이고 있는데 상태가 Move가 아니면서 Attack일때도 아니고 Dashㄷ 아닐때
               !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack ) )

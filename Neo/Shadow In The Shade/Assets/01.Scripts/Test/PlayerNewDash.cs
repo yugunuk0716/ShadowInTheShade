@@ -63,8 +63,6 @@ public class PlayerNewDash : MonoBehaviour
 
             chargeEffect.gameObject.SetActive(false);
             chargeEffect.GetComponent<ParticleSystem>().Stop();
-            GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
-
             //GameManager.Instance.playerSO.moveStats.SPD = 0f;
             if (isCharging)
             {
@@ -113,6 +111,7 @@ public class PlayerNewDash : MonoBehaviour
     public IEnumerator Dashing(float dashPower)
     {
         //Debug.Log(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP);
+        GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
         gameObject.layer = 9;
         rigd.AddForce(lateDir * GameManager.Instance.playerSO.moveStats.DSP * dashPower, ForceMode2D.Impulse);
 
