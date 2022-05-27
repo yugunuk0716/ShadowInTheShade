@@ -18,17 +18,14 @@ public class DashEffectScript : PoolableMono
 
     void Start()
     {
-        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
         {
-            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
+            if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
             {
                 PoolManager.Instance.Push(this);
             }
         });
     }
 
-    void Update()
-    {
-        
-    }
+ 
 }
