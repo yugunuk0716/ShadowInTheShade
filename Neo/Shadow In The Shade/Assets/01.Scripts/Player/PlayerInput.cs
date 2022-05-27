@@ -75,13 +75,12 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
-                      /*  if(GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+                        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
                         {
-
-                        }*/
-                        isAttack = Input.GetButtonDown("Attack");
-                        moveDir.x = Input.GetAxisRaw("Horizontal");
-                        moveDir.y = Input.GetAxisRaw("Vertical");
+                            isAttack = Input.GetButtonDown("Attack");
+                            moveDir.x = Input.GetAxisRaw("Horizontal");
+                            moveDir.y = Input.GetAxisRaw("Vertical");
+                        }
                         isChangePlayerType = Input.GetButtonDown("Change");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {

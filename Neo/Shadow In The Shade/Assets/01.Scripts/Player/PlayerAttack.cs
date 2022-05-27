@@ -21,9 +21,12 @@ public class PlayerAttack : MonoBehaviour
     {
         if(playerInput.isAttack && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
         {
-            GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
-            Attack();
-            playerInput.isAttack = false;
+            if(Mathf.Abs(playerInput.moveDir.normalized.x) != Mathf.Abs(playerInput.moveDir.normalized.y))
+            {
+                GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
+                Attack();
+                playerInput.isAttack = false;
+            }
         }
     }
 
