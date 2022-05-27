@@ -114,14 +114,17 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
 
-        if(attackStack == 0)
+
+        yield return new WaitForSeconds((1170 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
+
+/*
+        if (attackStack == 0)
         {
-            yield return new WaitForSeconds((1200 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
         }
         else
         {
             yield return new WaitForSeconds((500 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
-        }
+        }*/
         playerAnimator.SetBool("IsAttack", false);
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
     }

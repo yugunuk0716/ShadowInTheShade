@@ -17,15 +17,24 @@ public class PlayerAttack : MonoBehaviour
         attackAudioClip = Resources.Load<AudioClip>("Sounds/PlayerAttack");
     }
 
-    void Update()
+    void Update() // 지금 문제 멈춰서 때리면 안나가서 수정했지만 이러면 이제 공격 딜레이가 없음
     {
         if(playerInput.isAttack && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
         {
-            if(Mathf.Abs(playerInput.moveDir.normalized.x) != Mathf.Abs(playerInput.moveDir.normalized.y))
+            if(GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Idle))
             {
                 GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
                 Attack();
                 playerInput.isAttack = false;
+            }
+            else
+            {
+                if (Mathf.Abs(playerInput.moveDir.normalized.x) != Mathf.Abs(playerInput.moveDir.normalized.y))
+                {
+                    GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
+                    Attack();
+                    playerInput.isAttack = false;
+                }
             }
         }
     }
