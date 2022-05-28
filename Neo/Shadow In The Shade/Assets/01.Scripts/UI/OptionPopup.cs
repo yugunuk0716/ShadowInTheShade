@@ -135,6 +135,7 @@ public class OptionPopup : Popup
 
     private void ApplyCurrentResolution()
     {
+        print(currentResolution);
         ApplyResolution(resolutions[currentResolution]);
     }
 
