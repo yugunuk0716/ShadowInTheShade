@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282082921220299375}
   - component: {fileID: 282082921220299372}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: base_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2.5}
+  m_Size: {x: 0.64, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282082921429415776}
   - component: {fileID: 282082921429415777}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: base_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,9 @@ GameObject:
   - component: {fileID: 282082921624679264}
   - component: {fileID: 282082921624679265}
   - component: {fileID: 282082921624679294}
-  m_Layer: 0
+  - component: {fileID: 1914718529512858002}
+  - component: {fileID: 3392958330057689792}
+  m_Layer: 3
   m_Name: PlayerDashEffectObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,6 +290,48 @@ MonoBehaviour:
   - {fileID: 282082922775502023}
   - {fileID: 282082921220299374}
   - {fileID: 282082922427423840}
+--- !u!61 &1914718529512858002
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282082921624679266}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.0001, y: 0.0001}
+  m_EdgeRadius: 0
+--- !u!114 &3392958330057689792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282082921624679266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ada39d2fb9388145b28d43003cf414e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsTarget:
+    serializedVersion: 2
+    m_Bits: 64
+  dObjData: {fileID: 11400000, guid: d63d7b11691784542b792a5d61d231d6, type: 2}
 --- !u!1 &282082922427423840
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282082922427423841}
   - component: {fileID: 282082922427423870}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: base_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 282082922775502020}
   - component: {fileID: 282082922775502021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: base_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
