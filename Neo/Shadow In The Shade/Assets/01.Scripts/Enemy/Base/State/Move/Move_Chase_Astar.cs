@@ -23,7 +23,10 @@ public class Move_Chase_Astar : MonoBehaviour, IState
 
 
 
-        destinationSetter.target = target;
+        if (Vector2.Distance(target.position, this.transform.position) > 0.5f)
+        {
+            destinationSetter.target = target;
+        }
     }
 
     public void OnEnd()

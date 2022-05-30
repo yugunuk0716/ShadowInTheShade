@@ -62,7 +62,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
-    protected float hitCool = 0.5f;
+    protected float hitCool = 0.1f;
     protected float lastHitTime = 0f;
 
     private bool isHit = false;
@@ -336,9 +336,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
-
-       
-       
 
     }
 

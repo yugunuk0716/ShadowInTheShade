@@ -88,6 +88,7 @@ public class PlayerNewDash : MonoBehaviour
                 {
                     Invoke("ResetCharging", .2f);
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
+                    rigd.velocity = Vector2.zero;
                     return;
                 }
 
@@ -98,6 +99,7 @@ public class PlayerNewDash : MonoBehaviour
             {
                 Invoke("ResetCharging", .2f);
                 GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
+                rigd.velocity = Vector2.zero;
             }
 
             DOTween.To(() => GameManager.Instance.playerSO.moveStats.SPD, x => GameManager.Instance.playerSO.moveStats.SPD = x, 7, .1f);

@@ -57,13 +57,15 @@ public class Player : MonoBehaviour, IDamagable
     {
         get 
         {
+            if (currHP == 0 && !IsDie)
+                currHP = GameManager.Instance.playerSO.ectStats.PMH;
             return currHP;
         }
 
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP /  GameManager.Instance.playerSO.ectStats.PMH);
+            UIManager.Instance.SetBar(currHP / GameManager.Instance.playerSO.ectStats.PMH);
         }
     }
 
@@ -126,7 +128,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 50;
         playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
     }

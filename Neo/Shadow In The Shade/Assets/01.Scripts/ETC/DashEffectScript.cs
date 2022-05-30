@@ -22,6 +22,7 @@ public class DashEffectScript : PoolableMono
         {
             if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
             {
+                this.gameObject.SetActive(false);
                 PoolManager.Instance.Push(this);
             }
         });

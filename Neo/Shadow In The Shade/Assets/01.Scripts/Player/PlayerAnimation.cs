@@ -159,6 +159,7 @@ public class PlayerAnimation : MonoBehaviour
                 yield return new WaitForSeconds(0.6f);
                 playerDashEffcetAnimator.SetBool("isDash", false);
             }
+            playerDashEffcet.gameObject.SetActive(false);
             PoolManager.Instance.Push(playerDashEffcet);
            
         }

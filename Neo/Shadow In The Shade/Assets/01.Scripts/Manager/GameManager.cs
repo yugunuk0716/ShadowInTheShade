@@ -75,6 +75,10 @@ public class GameManager : MonoBehaviour
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 
+        playerSO.ectStats.LEV = 0;
+        playerSO.ectStats.EXP = 0;
+        playerSO.ectStats.PMH = 400f;
+
         playerSO.mainStats.STR = 0f;
         playerSO.mainStats.DEX = 0f;
         playerSO.mainStats.AGI = 0f;
@@ -85,10 +89,6 @@ public class GameManager : MonoBehaviour
         playerSO.attackStats.ASD = 100f;
         playerSO.attackStats.CTP = 0f;
         playerSO.attackStats.CTD = 200f;
-
-        playerSO.ectStats.LEV = 0;
-        playerSO.ectStats.EXP = 0;
-        playerSO.ectStats.PMH = 400f;
 
 
         foreach (PoolableMono p in poollingList.list)

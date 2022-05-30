@@ -75,7 +75,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
-                        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+                        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack) || !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Dash))
                         {
                             isAttack = Input.GetButtonDown("Attack");
                             moveDir.x = Input.GetAxisRaw("Horizontal");
