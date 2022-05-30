@@ -26,11 +26,11 @@ public class PoolManager : MonoBehaviour
 
 
 
-    public void CreatePool(PoolableMono prefab, string name = null)
+    public void CreatePool(PoolableMono prefab, string name = null, int count = 2)
     {
         if (name == null)
             name = prefab.gameObject.name;
-        Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, transform);
+        Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, transform, count);
         pools.Add(name, pool);
     }
 

@@ -93,12 +93,12 @@ public class GameManager : MonoBehaviour
 
         foreach (PoolableMono p in poollingList.list)
         {
-            PoolManager.Instance.CreatePool(p);
+            PoolManager.Instance.CreatePool(p, null, p.count);
         }
 
         foreach (EnemyDataSO so in enemyList.enemyList)
         {
-            PoolManager.Instance.CreatePool(so.poolPrefab, so.enemyName); //Ç®¿ë ÇÁ¸®ÆÕ
+            PoolManager.Instance.CreatePool(so.poolPrefab, so.enemyName, so.poolPrefab.count); //Ç®¿ë ÇÁ¸®ÆÕ
         }
 
 
