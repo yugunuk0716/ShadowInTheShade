@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 282082921624679265}
   - component: {fileID: 282082921624679294}
   - component: {fileID: 1914718529512858002}
-  - component: {fileID: 3392958330057689792}
+  - component: {fileID: 6113002116937188111}
   m_Layer: 3
   m_Name: PlayerDashEffectObj
   m_TagString: Untagged
@@ -316,7 +316,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
---- !u!114 &3392958330057689792
+--- !u!114 &6113002116937188111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 282082921624679266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ada39d2fb9388145b28d43003cf414e, type: 3}
+  m_Script: {fileID: 11500000, guid: 651fcfba8a06b024a86bedc59058fa15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatIsTarget:

@@ -69,21 +69,25 @@ public class PlayerNewDash : MonoBehaviour
                 if(effectRunTime >= 1.1f)
                 {
                     StartCoroutine(Dashing(2.5f));
+                    GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power3;
                     Debug.Log("DashMax");
                 }
                 else if(effectRunTime > .7f)
                 {
                     StartCoroutine(Dashing(1.5f));
+                    GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power2;
                     Debug.Log("DashHalf");
                 }
                 else if(effectRunTime > .2f)
                 {
                     StartCoroutine(Dashing(1f));
+                    GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power1;
                     Debug.Log("DashMin");
                 }
                 else
                 {
                     Invoke("ResetCharging", .2f);
+                    GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
                     return;
                 }
 
@@ -93,6 +97,7 @@ public class PlayerNewDash : MonoBehaviour
             else
             {
                 Invoke("ResetCharging", .2f);
+                GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
             }
 
             DOTween.To(() => GameManager.Instance.playerSO.moveStats.SPD, x => GameManager.Instance.playerSO.moveStats.SPD = x, 7, .1f);
@@ -127,6 +132,7 @@ public class PlayerNewDash : MonoBehaviour
         gameObject.layer = 3;
         GameManager.Instance.playerSO.moveStats.SPD = 7f;
         dashCollider.isDashing = false;
+        GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
     }
 
 

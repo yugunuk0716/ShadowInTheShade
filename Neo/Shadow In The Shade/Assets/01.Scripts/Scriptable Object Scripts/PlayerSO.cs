@@ -20,6 +20,14 @@ public enum PlayerInputState // 플레이어 인풋 상태
     Hit
 }
 
+public enum PlayerDashState // 플레이어 대쉬 상태
+{
+    Default,
+    Power1,
+    Power2,
+    Power3,
+}
+
 [System.Serializable]
 public struct PlayerMoveStats
 {
@@ -102,6 +110,7 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어 현제 상태")]
     public bool canChangePlayerType;
     public PlayerStates playerStates;
+    public PlayerDashState playerDashState;
     public PlayerInputState playerInputState;
 
 
