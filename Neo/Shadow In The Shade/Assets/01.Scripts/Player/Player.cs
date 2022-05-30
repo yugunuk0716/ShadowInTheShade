@@ -52,13 +52,11 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     [SerializeField]
-    private float currHP = 0f;
+    private float currHP;
     public float CurrHP
     {
         get 
         {
-            if (currHP == 0 && !IsDie)
-                currHP = GameManager.Instance.playerSO.ectStats.PMH;
             return currHP;
         }
 
@@ -128,7 +126,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 50;
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 2;
         playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
     }
@@ -171,7 +169,9 @@ public class Player : MonoBehaviour, IDamagable
         //Rigid.velocity = Vector2.zero;
         if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
         {
+            print(damage);
             CurrHP -= damage;
+            print(CurrHP);
         }
      
 
@@ -232,6 +232,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         if (CurrHP <= 0f)
         {
+            print(CurrHP);
             IsDie = true;
             StartCoroutine(Dead());
             OnDie?.Invoke();
