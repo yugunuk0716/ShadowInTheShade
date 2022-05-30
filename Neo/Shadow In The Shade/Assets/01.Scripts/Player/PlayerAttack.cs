@@ -17,13 +17,12 @@ public class PlayerAttack : MonoBehaviour
         attackAudioClip = Resources.Load<AudioClip>("Sounds/PlayerAttack");
     }
 
-    void Update() // 지금 문제 멈춰서 때리면 안나가서 수정했지만 이러면 이제 공격 딜레이가 없음
+    void Update()
     {
         if(playerInput.isAttack && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
         {
             if(GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Idle))
             {
-                GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
                 Attack();
                 playerInput.isAttack = false;
             }
@@ -31,7 +30,6 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (Mathf.Abs(playerInput.moveDir.normalized.x) != Mathf.Abs(playerInput.moveDir.normalized.y))
                 {
-                    GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
                     Attack();
                     playerInput.isAttack = false;
                 }
@@ -41,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
+        GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
         attackStack = !attackStack;
         SoundManager.Instance.GetAudioSource(attackAudioClip, false, SoundManager.Instance.BaseVolume).Play();
         GameManager.Instance.onPlayerAttack.Invoke(attackStack ? 1 : 0);

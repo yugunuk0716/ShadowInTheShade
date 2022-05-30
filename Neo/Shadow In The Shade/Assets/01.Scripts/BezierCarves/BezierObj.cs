@@ -53,8 +53,8 @@ public class BezierObj : PoolableMono
 
     public void Active()
     {
-        DOTween.To(() => value, x => value = x, 1, 2f).SetEase(ease);
-        VP1 = new Vector3(origin.transform.position.x + Random.Range(-5, 1), Random.Range(-10, 10), 0);
+        DOTween.To(() => value, x => value = x, 1, 1.5f).SetEase(Ease.Linear);
+        VP1 = new Vector3(origin.transform.position.x + Random.Range(-15,15), Random.Range(-15, 15), 0);
         VP2 = new Vector3(target.transform.position.x, 0, 0);
     }
 

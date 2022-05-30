@@ -115,7 +115,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetInteger("AttackCount", attackStack);
 
 
-        yield return new WaitForSeconds((1170 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
+        yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
 
 /*
         if (attackStack == 0)

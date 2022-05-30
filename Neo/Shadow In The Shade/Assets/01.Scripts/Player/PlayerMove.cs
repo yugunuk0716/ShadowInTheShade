@@ -29,7 +29,6 @@ public class PlayerMove : AgentMove
             {
                 playerAxis = playerInput.moveDir.normalized;
 
-
                 if (playerInput.moveDir == Vector2.zero)
                 {
                     GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
@@ -50,14 +49,6 @@ public class PlayerMove : AgentMove
             }
 
            // playerAxis = playerInput.moveDir.normalized;
-
-            if (playerInput.moveDir == Vector2.zero)
-            {
-                GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
-                playerAxis = Vector2.zero;
-            }
-
-
             OnMove(playerAxis, GameManager.Instance.playerSO.moveStats.SPD);
         }
     }
