@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d76dd057de41034b92a24d552980fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 5
   enemyData: {fileID: 11400000, guid: 43597817dbf19724b90c4f224e66205c, type: 2}
   currHP: 0
   isAttack: 0
@@ -154,6 +155,9 @@ MonoBehaviour:
   <OnHit>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <OnKockBack>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
   <OnReset>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -161,6 +165,9 @@ MonoBehaviour:
   isShadow: 0
   speed: 3
   currentState: 0
+  destinationSetter: {fileID: 0}
+  seeker: {fileID: 0}
+  path: {fileID: 0}
   spriteAlpha: 0.43
 --- !u!114 &3081107059394197498
 MonoBehaviour:

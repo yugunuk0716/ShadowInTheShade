@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e9a69109b52ca44825361544793311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 2
+  pairDoor: {fileID: 0}
+  roomType: 0
 --- !u!61 &9079640363485816285
 BoxCollider2D:
   m_ObjectHideFlags: 0

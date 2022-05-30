@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004337223e6bf474eb4c6f77bdc8df71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 5
   enemyData: {fileID: 11400000, guid: a391eaaa9299497488efb37e5f44759a, type: 2}
   currHP: 0
   isAttack: 0
@@ -194,6 +195,9 @@ MonoBehaviour:
   isShadow: 0
   speed: 3
   currentState: 0
+  destinationSetter: {fileID: 0}
+  seeker: {fileID: 0}
+  path: {fileID: 0}
 --- !u!114 &3400119870738968992
 MonoBehaviour:
   m_ObjectHideFlags: 0

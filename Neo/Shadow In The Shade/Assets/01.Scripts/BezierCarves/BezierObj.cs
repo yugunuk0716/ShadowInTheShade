@@ -8,13 +8,12 @@ public class BezierObj : PoolableMono
     public GameObject origin;
     public GameObject target;
     public float value;
-
+    
     private Vector3 VP1;
     private Vector3 VP2;
     private bool isBeziering = false;
 
     public AnimationCurve ease;
-
 
     public void OnEnable()
     {
