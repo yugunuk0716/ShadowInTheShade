@@ -63,7 +63,7 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP / GameManager.Instance.playerSO.ectStats.PMH);
+            UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH * 2));
         }
     }
 
@@ -157,6 +157,11 @@ public class Player : MonoBehaviour, IDamagable
 
     public void GetHit(float damage)
     {
+        if (damage > GameManager.Instance.playerSO.ectStats.PMH)
+        {
+            print(damage);
+            return;
+        }   
 
         if (IsDie || IsHit || playerDash.isDash || isInvincibility)
             return;
@@ -169,7 +174,7 @@ public class Player : MonoBehaviour, IDamagable
         //Rigid.velocity = Vector2.zero;
         if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
         {
-            print(damage);
+            //print(damage);
             CurrHP -= damage;
             print(CurrHP);
         }

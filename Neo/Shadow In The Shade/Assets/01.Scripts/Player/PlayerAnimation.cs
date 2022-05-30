@@ -11,6 +11,7 @@ public class PlayerAnimation : MonoBehaviour
     public Animator playerTypeChangeEffcetAnimator;
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
+    private bool isAttacking = false;
 
 
     private float deX;
@@ -81,6 +82,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator ChangePlayerTypeAnimation()
     {
+       
         PlayerSO so = GameManager.Instance.playerSO;
         yield return null;
 
@@ -111,11 +113,17 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator PlayerAttackAnimation(int attackStack)
     {
+        if (isAttacking)
+            yield break;
+
+        isAttacking = true;
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
+        print(GameManager.Instance.playerSO.attackStats.ASD  / 100);
 
-
-        yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
+        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100f;
+        //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
+        yield return new WaitUntil(() => !isAttacking);
 
 /*
         if (attackStack == 0)
@@ -170,5 +178,9 @@ public class PlayerAnimation : MonoBehaviour
         GameManager.Instance.player.gameObject.SetActive(false);
     }
 
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
 
 }
