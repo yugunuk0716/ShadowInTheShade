@@ -8,7 +8,6 @@ public class ShadowDashDamage : DamagableObject
     {
         if(!GameManager.Instance.playerSO.playerDashState.Equals(PlayerDashState.Default) && GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
         {
-            print(GameManager.Instance.playerSO.playerStates);
             if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
             {
                 float damagePerType = 0.5f;

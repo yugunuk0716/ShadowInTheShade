@@ -41,8 +41,6 @@ public class NeoRoomManager : MonoBehaviour
     {
         if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
         {
-            print(StageManager.Instance.currentRoom.name);
-            print(s);
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
         }
 

@@ -320,8 +320,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         if (currentState.Equals(EnemyState.Die)) return;
 
 
-        DamageEffect effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
-        effect.SetDamageEffect(transform.position, (GameManager.Instance.player.position - transform.position).normalized, isCritical);
+        //DamageEffect effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
+        //effect.SetDamageEffect(transform.position, (GameManager.Instance.player.position - transform.position).normalized, isCritical);
 
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;

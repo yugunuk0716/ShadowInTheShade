@@ -143,19 +143,24 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator ShadowDashEffectAnimation(int dashPower)
     {
-        PoolableMono playerDashEffcet = PoolManager.Instance.Pop("PlayerDashEffectObj");
-        Animator playerDashEffcetAnimator = playerDashEffcet.GetComponent<Animator>();
 
-        if (GameManager.Instance.playerSO.playerStates == PlayerStates.Shadow && !playerDashEffcetAnimator.GetBool("isDash"))
+        if (GameManager.Instance.playerSO.playerStates == PlayerStates.Shadow )
         {
-            playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
-            playerDashEffcetAnimator.SetFloat("MoveX", deX);
-            playerDashEffcetAnimator.SetFloat("MoveY", deY);
-            playerDashEffcetAnimator.SetInteger("DashPower", dashPower);
-            playerDashEffcetAnimator.SetBool("isDash", true);
-            yield return new WaitForSeconds(0.6f);
-            playerDashEffcetAnimator.SetBool("isDash", false);
+            PoolableMono playerDashEffcet = PoolManager.Instance.Pop("PlayerDashEffectObj");
+            Animator playerDashEffcetAnimator = playerDashEffcet.GetComponent<Animator>();
+            
+            if (!playerDashEffcetAnimator.GetBool("isDash"))
+            {
+                playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
+                playerDashEffcetAnimator.SetFloat("MoveX", deX);
+                playerDashEffcetAnimator.SetFloat("MoveY", deY);
+                playerDashEffcetAnimator.SetInteger("DashPower", dashPower);
+                playerDashEffcetAnimator.SetBool("isDash", true);
+                yield return new WaitForSeconds(0.6f);
+                playerDashEffcetAnimator.SetBool("isDash", false);
+            }
             PoolManager.Instance.Push(playerDashEffcet);
+           
         }
     }
 
