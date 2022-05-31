@@ -110,12 +110,11 @@ public class Slime_Smong : Enemy, ITacklable
     }
 
    
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
         attack.TackleEnd();
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
-
     protected override void CheckHP()
     {
         base.CheckHP();

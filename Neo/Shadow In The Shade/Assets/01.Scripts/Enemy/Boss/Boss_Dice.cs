@@ -133,9 +133,9 @@ public class Boss_Dice : Enemy
         return;
     }
 
-    public override void GetHit(float damage)
+    public override void GetHit(float damage,int objNum)
     {
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     public override void PushInPool()

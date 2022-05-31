@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerInput playerInput;
+   
     private PlayerAnimation playerAnim;
     private bool attackStack;
 
@@ -15,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
         attackStack = true;
         playerInput = GetComponent<PlayerInput>();
         playerAnim = GetComponentInChildren<PlayerAnimation>();
+      
 
         attackAudioClip = Resources.Load<AudioClip>("Sounds/PlayerAttack");
     }

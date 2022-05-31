@@ -142,13 +142,12 @@ public class Slime_Shadow : Enemy, ITacklable
         }
     }
 
-
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
         if (isInvincibility)
             return;
         attack.TackleEnd();
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

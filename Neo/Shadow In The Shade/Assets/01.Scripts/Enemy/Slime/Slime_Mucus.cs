@@ -110,11 +110,11 @@ public class Slime_Mucus : Enemy
         }
     }
 
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
         if (isAttack)
             return;
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

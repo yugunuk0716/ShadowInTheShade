@@ -12,7 +12,7 @@ public class EnemyDataSO : ScriptableObject
     [Header("적 풀 모노 스크립트")]
     public PoolableMono poolPrefab;
 
-    
+    public int hitNum;
     
     [field: SerializeField, Header("적의 최대 체력")]
     public int maxHealth { get; set; } = 3;

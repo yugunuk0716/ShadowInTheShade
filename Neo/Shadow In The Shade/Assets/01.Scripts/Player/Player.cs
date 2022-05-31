@@ -116,6 +116,8 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    public int LastHitObjNumber { get; set; } = 0;
+
     private bool isInvincibility = false;
 
 
@@ -153,18 +155,21 @@ public class Player : MonoBehaviour, IDamagable
     }
 
 
-   
 
-    public void GetHit(float damage)
+
+    public virtual void GetHit(float damage, int objNum)
     {
+       
         if (damage > GameManager.Instance.playerSO.ectStats.PMH)
         {
             return;
         }   
 
-        if (IsDie || IsHit || playerDash.isDash || isInvincibility)
+        if (IsDie || playerDash.isDash || isInvincibility)
             return;
 
+
+        LastHitObjNumber = objNum;
         lastHitT = currentT;
 
         IsHit = true;
@@ -185,6 +190,8 @@ public class Player : MonoBehaviour, IDamagable
 
         OnHit?.Invoke();
         EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+
+        IsHit = false;
 
     }
 

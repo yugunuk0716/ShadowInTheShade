@@ -54,6 +54,8 @@ public class SlimePillar : PoolableMono, IDamagable
         }
     }
 
+    public int LastHitObjNumber { get; set; } = 0;
+
     protected float hitCool = 0.5f;
     protected float lastHitTime = 0f;
 
@@ -102,11 +104,12 @@ public class SlimePillar : PoolableMono, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void GetHit(float damage)
+    public virtual void GetHit(float damage, int objNum)
     {
-        if (isHit)
+        if (isHit || objNum == LastHitObjNumber)
             return;
 
+        LastHitObjNumber = objNum;
         isHit = true;
         lastHitTime = Time.time;
         float critical = Random.value;
