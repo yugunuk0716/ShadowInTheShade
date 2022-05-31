@@ -27,7 +27,12 @@ public class PlayerWeapon : DamagableObject
             {
 
                 GameManager.Instance.feedBackPlayer.PlayFeedback();
-                base.OnTriggerEnter2D(collision);
+                if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
+                {
+                    IDamagable damagable = collision.GetComponent<IDamagable>();
+                    damagable?.KnockBack((collision.transform.position - GameManager.Instance.player.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
+                    damagable?.GetHit(dObjData.damage);
+                }
             }
             
         }

@@ -38,7 +38,7 @@ public class ShadowAndHumanGauge : MonoBehaviour
                 humanGaugeAmount = 1.5f;
                 GaugeChangeSeq.Append(shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .1f));
                 GaugeChangeSeq.Join(humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .1f)).OnComplete(() => gaugeState = GaugeState.Human);*/
-        GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
+        //GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
         StageManager.Instance.onBattleEnd.AddListener(() =>
         {
             if (gaugeState.Equals(GaugeState.Shadow))
@@ -54,8 +54,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
         {
             if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
             {
-                shadowGaugeAmount -= 0.1f;
-                humanGaugeAmount += 0.1f;
+                shadowGaugeAmount -= 0.05f;
+                humanGaugeAmount += 0.05f;
             }
         });
 
@@ -124,8 +124,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         if (state.Equals(GaugeState.Shadow))
         {
-            shadowGaugeAmount += -.01f;
-            humanGaugeAmount += .01f;
+            shadowGaugeAmount -= 0.008f;
+            humanGaugeAmount += 0.008f;
         }
         else if (state.Equals(GaugeState.Human))
         {

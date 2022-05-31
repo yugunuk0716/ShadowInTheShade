@@ -28,7 +28,6 @@ public class BezierObj : PoolableMono
        
         GameManager.Instance.onHumanDashCrossEnemy.AddListener((x) =>
         {
-            Debug.Log("add");
             origin = x;
             transform.position = origin.transform.position;
             isBeziering = true;

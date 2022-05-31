@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     public Vector2 lastMoveDir;
+    public PlayerMove playerMove;
+    public Animator playerTypeChangeEffcetAnimator;
     private PlayerInput playerInput;
     private Vector2 moveDir;
     private Animator playerAnimator;
-    public Animator playerTypeChangeEffcetAnimator;
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
     private bool isAttacking = false;
@@ -22,6 +23,7 @@ public class PlayerAnimation : MonoBehaviour
         lastMoveDir = Vector2.zero;
         playerAnimator = GetComponent<Animator>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
+        playerMove = GameManager.Instance.player.GetComponent<PlayerMove>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         //playerDashEffcetAnimator = GameObject.Find("PlayerDashEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
@@ -49,6 +51,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private void UpdatePlayerAnimation()
     {
+        //if (playerAnimator.GetBool("IsAttack"))
+        //    return;
         moveDir = playerInput.moveDir.normalized;
         playerAnimator.SetFloat("AnimMoveX", moveDir.x);
         playerAnimator.SetFloat("AnimMoveY", moveDir.y);
@@ -116,15 +120,20 @@ public class PlayerAnimation : MonoBehaviour
         if (isAttacking)
             yield break;
 
+        float originAnimSpeed = playerAnimator.speed;
+
         isAttacking = true;
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
-        print(GameManager.Instance.playerSO.attackStats.ASD  / 100);
 
-        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100f;
+        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100;
+        playerMove.OnMove(lastMoveDir, 10f);
+
+        yield return new WaitForSeconds(.1f);
+
+        playerMove.OnMove(lastMoveDir, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
         yield return new WaitUntil(() => !isAttacking);
-
 /*
         if (attackStack == 0)
         {
@@ -135,6 +144,7 @@ public class PlayerAnimation : MonoBehaviour
         }*/
         playerAnimator.SetBool("IsAttack", false);
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
+        playerAnimator.speed = originAnimSpeed;
     }
 
     private IEnumerator PlayerDashAnimation()
