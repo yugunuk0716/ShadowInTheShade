@@ -287,9 +287,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public virtual void GetHit(float damage, int objNum)
     {
-        print($"{objNum} {LastHitObjNumber}");
         if (objNum == LastHitObjNumber || isDie)
+        {
             return;
+        }
         LastHitObjNumber = objNum;
         isHit = true;
         float critical = Random.value * 100;

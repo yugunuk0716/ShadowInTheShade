@@ -29,7 +29,11 @@ public class PlayerAnimation : MonoBehaviour
         //playerDashEffcetAnimator = GameObject.Find("PlayerDashEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
         //GameManager.Instance.onPlayerChangeType.AddListener(() => { StartCoroutine(ChangePlayerTypeAnimation()); });
-        GameManager.Instance.onPlayerAttack.AddListener((stack) => { StartCoroutine(PlayerAttackAnimation(stack)); });
+        GameManager.Instance.onPlayerAttack.AddListener((stack) => 
+        {
+            weapon.dObjData.hitNum += stack + 2;
+            StartCoroutine(PlayerAttackAnimation(stack)); 
+        });
         GameManager.Instance.onPlayerDash.AddListener(() => 
         {
             if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
@@ -96,7 +100,6 @@ public class PlayerAnimation : MonoBehaviour
         PlayerSO so = GameManager.Instance.playerSO;
         yield return null;
 
-        EndAttack();
 
         if (so.playerStates.Equals(PlayerStates.Human))
         {
@@ -119,6 +122,7 @@ public class PlayerAnimation : MonoBehaviour
         playerTypeChangeEffcetAnimator.SetBool("ShadowToHuman", false);
         playerTypeChangeEffcetAnimator.SetBool("HumanToShadow", false);
         so.canChangePlayerType = true;
+        EndAttack();
     }
 
 
@@ -129,7 +133,7 @@ public class PlayerAnimation : MonoBehaviour
 
         float originAnimSpeed = playerAnimator.speed;
 
-        weapon.dObjData.hitNum += attackStack + 1;
+
 
         Vector3 mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 

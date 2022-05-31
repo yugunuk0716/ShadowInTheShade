@@ -33,7 +33,6 @@ public class PlayerWeapon : DamagableObject
                     IDamagable damagable = collision.GetComponent<IDamagable>();
                     damagable?.KnockBack((collision.transform.position - GameManager.Instance.player.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
 
-                    print(dObjData.hitNum);
                     damagable?.GetHit(dObjData.damage, dObjData.hitNum);
                 }
             }
