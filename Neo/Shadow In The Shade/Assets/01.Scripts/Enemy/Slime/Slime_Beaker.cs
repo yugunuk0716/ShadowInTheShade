@@ -134,11 +134,10 @@ public class Slime_Beaker : Enemy, ITacklable
         }
     }
 
-
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
         attack.TackleEnd();
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()
@@ -180,7 +179,6 @@ public class Slime_Beaker : Enemy, ITacklable
         chase.speed = 0f;
         IsHit = false;
         reincarnationIdx = 0;
-        lastHitTime = Time.time;
         Anim.SetBool("isReincarnation", false);
     }
 

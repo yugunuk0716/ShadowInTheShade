@@ -62,8 +62,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
-    protected float hitCool = 0.1f;
-    protected float lastHitTime = 0f;
 
     private bool isHit = false;
     public bool IsHit
@@ -128,7 +126,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     public UnityEvent OnKockBack { get; set; }
     [field: SerializeField]
     public UnityEvent OnReset { get; set; }
-
+    public int LastHitObjNumber { get; set; } = 0;
 
     [HideInInspector]
     public AudioClip slimeHitClip;
@@ -241,13 +239,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dicState[state].OnEnter();
     }
 
-    private void Update()
-    {
-        if (Time.time - lastHitTime >= hitCool)
-        {
-            IsHit = false;
-        }
-    }
 
     private void AddingEXP()
     {
@@ -294,13 +285,13 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void GetHit(float damage)
+    public virtual void GetHit(float damage, int objNum)
     {
-        if (isDie || isHit)
+        print($"{objNum} {LastHitObjNumber}");
+        if (objNum == LastHitObjNumber || isDie)
             return;
-
+        LastHitObjNumber = objNum;
         isHit = true;
-        lastHitTime = Time.time;
         float critical = Random.value * 100;
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
@@ -328,6 +319,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         Invoke(nameof(PushDamageEffect), 1f);
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
+        IsHit = false;
 
         StartCoroutine(Blinking());
 
@@ -339,6 +331,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
+
 
     }
 

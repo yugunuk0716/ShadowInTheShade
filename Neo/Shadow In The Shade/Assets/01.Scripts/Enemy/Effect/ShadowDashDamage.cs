@@ -19,8 +19,8 @@ public class ShadowDashDamage : DamagableObject
                 }
 
                 IDamagable damagable = collision.GetComponent<IDamagable>();
-                damagable?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
-                damagable?.GetHit(dObjData.damage * damagePerType );
+                damagable?.KnockBack((collision.transform.position - transform.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
+                damagable?.GetHit(dObjData.damage * damagePerType, dObjData.hitNum);
             }
         }
     }

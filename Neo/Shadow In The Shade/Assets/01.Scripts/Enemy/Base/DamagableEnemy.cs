@@ -46,7 +46,7 @@ public class DamagableEnemy : DamagableObject
                         return;
                 }
                 d?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower / 2, dObjData.knockBackDelay);
-                d?.GetHit(dObjData.damage / 2);
+                d?.GetHit(dObjData.damage / 2, dObjData.hitNum);
             }
             //base.OnTriggerEnter2D(collision);
         }
@@ -87,7 +87,7 @@ public class DamagableEnemy : DamagableObject
                             return;
                     }
                     d?.KnockBack((collision.transform.position - this.transform.position).normalized, dObjData.knockBackPower / 2, dObjData.knockBackDelay);
-                    d?.GetHit(dObjData.damage / 2);
+                    d?.GetHit(dObjData.damage / 2, dObjData.hitNum);
                 }
                 //base.OnTriggerEnter2D(collision);
             }

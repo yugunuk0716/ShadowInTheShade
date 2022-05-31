@@ -116,12 +116,11 @@ public class Slime_Bone : Enemy, ITacklable
         }
     }
 
-
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
         hitCount++;
         attack.TackleEnd();
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

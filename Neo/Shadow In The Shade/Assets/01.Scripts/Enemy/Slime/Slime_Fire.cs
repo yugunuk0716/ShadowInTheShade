@@ -91,9 +91,9 @@ public class Slime_Fire : Enemy, IDamagable
         }
     }
 
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

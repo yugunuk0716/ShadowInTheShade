@@ -12,6 +12,7 @@ public class PlayerWeapon : DamagableObject
     {
         dObjData.damage = 0;
         dObjData.damage = GameManager.Instance.playerSO.attackStats.ATK;
+        dObjData.hitNum = 1;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -31,7 +32,9 @@ public class PlayerWeapon : DamagableObject
                 {
                     IDamagable damagable = collision.GetComponent<IDamagable>();
                     damagable?.KnockBack((collision.transform.position - GameManager.Instance.player.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
-                    damagable?.GetHit(dObjData.damage);
+
+                    print(dObjData.hitNum);
+                    damagable?.GetHit(dObjData.damage, dObjData.hitNum);
                 }
             }
             

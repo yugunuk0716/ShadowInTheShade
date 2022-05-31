@@ -127,7 +127,7 @@ public class Attack_Dice : MonoBehaviour, IState
             //print("시야에 있어용..");
             IDamagable d = GameManager.Instance.player.GetComponent<IDamagable>();
             GameManager.Instance.feedBackPlayer.PlayFeedback();
-            d.GetHit(dice.enemyData.damage);
+            d.GetHit(dice.enemyData.damage, dice.enemyData.hitNum);
             d.KnockBack(-dir, 10f, .1f);
         }
 

@@ -10,6 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerInput playerInput;
     private Vector2 moveDir;
     private Animator playerAnimator;
+    private PlayerWeapon weapon;
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
     private bool isAttacking = false;
@@ -36,6 +37,8 @@ public class PlayerAnimation : MonoBehaviour
                 StartCoroutine(PlayerDashAnimation());
             }
         });
+
+        weapon = GetComponentInChildren<PlayerWeapon>();
     }
 
     public void StartCoChangePlayerTypeAnimation()
@@ -125,6 +128,8 @@ public class PlayerAnimation : MonoBehaviour
             yield break;
 
         float originAnimSpeed = playerAnimator.speed;
+
+        weapon.dObjData.hitNum += attackStack + 1;
 
         Vector3 mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
