@@ -175,7 +175,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100;
         playerMove.OnMove(mousePos, 10f);
 
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.05f);
 
         playerMove.OnMove(mousePos, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);

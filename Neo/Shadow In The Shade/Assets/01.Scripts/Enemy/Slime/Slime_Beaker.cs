@@ -195,10 +195,6 @@ public class Slime_Beaker : Enemy, ITacklable
 
     public override void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (Anim.GetBool("isReincarnation"))
-        {
-            return;
-        }
         base.KnockBack(direction, power, duration);
     }
 

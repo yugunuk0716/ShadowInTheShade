@@ -159,7 +159,6 @@ public class Player : MonoBehaviour, IDamagable
     {
         if (damage > GameManager.Instance.playerSO.ectStats.PMH)
         {
-            print(damage);
             return;
         }   
 
@@ -176,7 +175,6 @@ public class Player : MonoBehaviour, IDamagable
         {
             //print(damage);
             CurrHP -= damage;
-            print(CurrHP);
         }
      
 

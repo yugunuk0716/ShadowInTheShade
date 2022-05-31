@@ -51,7 +51,6 @@ public class PlayerAttack : MonoBehaviour
         {
             IDamagable d = col.GetComponent<IDamagable>();
 
-            print(playerAnim.lastMoveDir.normalized);
             d?.KnockBack(playerAnim.lastMoveDir.normalized, 8f, 0.1f);
         }
 
