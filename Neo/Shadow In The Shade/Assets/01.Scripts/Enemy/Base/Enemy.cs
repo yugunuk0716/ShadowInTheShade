@@ -141,6 +141,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
     private Coroutine kockbackRoutine;
 
+    private DamageEffect effect;
+
     [SerializeField]
     protected EnemyState currentState = EnemyState.Default;
     protected Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
@@ -320,9 +322,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         if (currentState.Equals(EnemyState.Die)) return;
 
 
-        //DamageEffect effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
+        effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
+        effect.transform.position = transform.position;
         //effect.SetDamageEffect(transform.position, (GameManager.Instance.player.position - transform.position).normalized, isCritical);
-
+        Invoke(nameof(PushDamageEffect), 1f);
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
 
@@ -377,6 +380,13 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         PoolManager.Instance.Push(this);
     }
 
+    private void PushDamageEffect()
+    {
+        if(effect != null)
+        {
+            PoolManager.Instance.Push(effect);
+        }
+    }
 
     public override void Reset()
     {

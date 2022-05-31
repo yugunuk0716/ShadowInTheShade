@@ -80,7 +80,6 @@ public class Attack_Mucus : MonoBehaviour, IState
             randDir *= -1;
         }
 
-        print(origin + randDir);
         float t = 0f;
         while (true)
         {

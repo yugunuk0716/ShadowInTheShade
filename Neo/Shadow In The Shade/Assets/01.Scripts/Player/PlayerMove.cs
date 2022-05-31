@@ -56,7 +56,6 @@ public class PlayerMove : AgentMove
 
     public override void OnMove(Vector2 dir, float speed)
     {
-        print("?");
         base.OnMove(dir, speed);
     }
 }

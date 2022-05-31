@@ -126,10 +126,10 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
 
-        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100;
-        playerMove.OnMove(lastMoveDir, 10f);
+        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 80;
+        playerMove.OnMove(lastMoveDir, 20f);
 
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.05f);
 
         playerMove.OnMove(lastMoveDir, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);

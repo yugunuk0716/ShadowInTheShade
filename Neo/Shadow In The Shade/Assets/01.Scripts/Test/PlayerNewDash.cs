@@ -179,7 +179,6 @@ public class PlayerNewDash : MonoBehaviour
 
         float dist = Vector3.Distance(mousePos, transform.position);
 
-        Debug.Log(dist);
 
         if (dist > 15)
         {
