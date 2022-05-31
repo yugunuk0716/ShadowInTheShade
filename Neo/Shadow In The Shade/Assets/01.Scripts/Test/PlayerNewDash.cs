@@ -15,10 +15,16 @@ public class PlayerNewDash : MonoBehaviour
     private Vector2 lateDir;
     private PlayerAnimation playerAnimation;
     private PlayerDashCollider dashCollider;
+    private Camera cam;
+    private Vector3 mousePos;
+
+    internal bool isDash;
+    private SpriteRenderer sr;
+    private float dashTime = 0.15f;
 
     public void Start()
     {
-        lateDir = Vector2.zero;
+       // lateDir = Vector2.zero;
         rigd = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         chargeEffect.gameObject.SetActive(false);
@@ -28,22 +34,31 @@ public class PlayerNewDash : MonoBehaviour
         effectRunTime = 0f;
         spd = GameManager.Instance.playerSO.moveStats.SPD;
         playerAnimation = GetComponentInChildren<PlayerAnimation>();
-        dashCollider = GetComponentInChildren<PlayerDashCollider>();    
+        dashCollider = GetComponentInChildren<PlayerDashCollider>();
+        //cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
 
+/*    public void LateUpdate()
+    {
+        
+    }
+*/
 
     public void Update()
     {
-        if(playerInput.moveDir.normalized != Vector2.zero)
-        {
-            lateDir = playerInput.moveDir.normalized;
-        }
+        /*    if(playerInput.moveDir.normalized != Vector2.zero)
+            {
+                lateDir = playerInput.moveDir.normalized;
+            }
+    */
 
         if (Input.GetButton("Dash"))
         {
             GameManager.Instance.playerSO.moveStats.SPD = 
                 Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD -= Time.deltaTime * timeSlowSpeed, 1f, 7f);
 
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (isCharging == false)
             {
@@ -66,13 +81,13 @@ public class PlayerNewDash : MonoBehaviour
             //GameManager.Instance.playerSO.moveStats.SPD = 0f;
             if (isCharging)
             {
-                if(effectRunTime >= 1.1f)
+                if(effectRunTime >= .6f)
                 {
                     StartCoroutine(Dashing(2.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power3;
                     Debug.Log("DashMax");
                 }
-                else if(effectRunTime > .7f)
+                else if(effectRunTime > .4f)
                 {
                     StartCoroutine(Dashing(1.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power2;
@@ -117,16 +132,87 @@ public class PlayerNewDash : MonoBehaviour
 
     public IEnumerator Dashing(float dashPower)
     {
-        //Debug.Log(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP);
+        yield return new WaitForEndOfFrame();
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
-        gameObject.layer = 9;
-        rigd.AddForce(lateDir * GameManager.Instance.playerSO.moveStats.DSP * dashPower, ForceMode2D.Impulse);
-
-
         dashCollider.isDashing = true;
+            
+
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+          //  SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
+            float time = 0;
+            float afterTime = 0;
+            float targetTime = Random.Range(0.02f, 0.06f);
+
+            while (isDash)
+            {
+                time += Time.deltaTime;
+                afterTime += Time.deltaTime;
+
+                if (afterTime >= targetTime)
+                {
+                    AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
+                    if (ai != null && sr != null)
+                    {
+                        ai.SetSprite(sr.sprite, transform.position);
+                    }
+
+                    targetTime = Random.Range(0.02f, 0.06f);
+                    afterTime = 0;
+                }
 
 
+                if (time >= dashTime)
+                {
+                    isDash = false;
+                }
+                yield return null;
+            }
+        }
+
+        //Debug.Log(playerInput.moveDir.normalized * GameManager.Instance.playerSO.moveStats.DSP);
+        gameObject.layer = 9;
+        // rigd.AddForce(lateDir * GameManager.Instance.playerSO.moveStats.DSP * dashPower, ForceMode2D.Impulse);
+
+        //Debug.Log(mousePos.normalized * GameManager.Instance.playerSO.moveStats.DSP * dashPower);
+        float ast = 2f;
+
+        float dist = Vector3.Distance(mousePos, transform.position);
+
+        Debug.Log(dist);
+
+        if (dist > 15)
+        {
+            ast = 1.5f;
+        }
+        else if(dist > 13.3f)
+        {
+            ast = 2.5f;
+        }
+        else if (dist > 13.2f)
+        {
+            ast = 4f;
+        }
+        else if (dist > 13.1f)
+        {
+            ast = 6f;
+        }
+        else if (dist > 13.05f)
+        {
+            ast = 7f;
+        }
+        else if(dist > 13f)
+        {
+            ast = 10f;
+        }
+
+
+        GameManager.Instance.onPlayerDash?.Invoke();
+
+        rigd.AddForce((mousePos - transform.position).normalized *  GameManager.Instance.playerSO.moveStats.DSP * dashPower * ast, ForceMode2D.Impulse);
         playerAnimation.CallShadowDashAnime(dashPower >= 2.5 ? 2 : dashPower >= 1.5f ? 1 : 0);
+
+
         yield return new WaitForSeconds(GameManager.Instance.playerSO.moveStats.DRT);
         rigd.velocity = Vector2.zero;
         ResetCharging();
