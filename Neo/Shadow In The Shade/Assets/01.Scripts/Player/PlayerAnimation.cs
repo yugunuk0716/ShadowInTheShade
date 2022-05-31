@@ -93,10 +93,10 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator ChangePlayerTypeAnimation()
     {
-       
         PlayerSO so = GameManager.Instance.playerSO;
         yield return null;
 
+        EndAttack();
 
         if (so.playerStates.Equals(PlayerStates.Human))
         {
