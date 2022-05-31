@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         playerSO.attackStats.ATK = 100f;
         playerSO.moveStats.SPD = 7f;
-        playerSO.attackStats.ASD = 150f;
+        playerSO.attackStats.ASD = 2f;
         playerSO.attackStats.CTP = 0f;
         playerSO.attackStats.CTD = 200f;
 
@@ -120,10 +120,10 @@ public class GameManager : MonoBehaviour
                 float tempDEX = playerSO.mainStats.DEX - 1;
 
                 playerSO.moveStats.SPD -= tempDEX * .2f;
-                playerSO.attackStats.ASD -= tempDEX * 6f;
+                playerSO.attackStats.ASD -= tempDEX * 0.15f;
 
                 playerSO.moveStats.SPD += playerSO.mainStats.DEX * .2f;
-                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 6f;
+                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 0.15f;
                 break;
             case 3:
                 float tempAGI = playerSO.mainStats.AGI - 1;

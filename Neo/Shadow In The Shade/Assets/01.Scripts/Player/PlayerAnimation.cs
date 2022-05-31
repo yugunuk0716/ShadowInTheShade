@@ -128,36 +128,35 @@ public class PlayerAnimation : MonoBehaviour
 
         Vector3 mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
-        if (mousePos.x >= .1f)
+
+
+        if(Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
         {
-            mousePos.x = 1f;
-        }
-        else if(mousePos.x <= -.1f)
-        {
-            mousePos.x = -1f;
+            if (mousePos.x < 0)
+            {
+                mousePos = Vector3.left;
+            }
+            else
+            {
+                mousePos = Vector3.right;
+            }
         }
         else
         {
-            mousePos.x = 0f;
-        }
-
-        if (mousePos.y >= .1f)
-        {
-            mousePos.y = 1f;
-        }
-        else if (mousePos.y <= -.1f)
-        {
-            mousePos.y = -1f;
-        }
-        else
-        {
-            mousePos.y = 0f;
+            if (mousePos.y < 0)
+            {
+                mousePos = Vector3.down;
+            }
+            else
+            {
+                mousePos = Vector3.up;
+            }
         }
 
 
-      //  Debug.Log(mousePos);
+        Debug.Log(mousePos);
 
-        if (Mathf.Abs(mousePos.x) == Mathf.Abs(mousePos.y))
+        if (Mathf.Abs(mousePos.x) + Mathf.Abs(mousePos.y) == 2)
         {
             GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
             playerAnimator.SetBool("IsAttack", false);
@@ -172,7 +171,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
 
-        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100;
+        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD;
         playerMove.OnMove(mousePos, 10f);
 
         yield return new WaitForSeconds(.05f);
