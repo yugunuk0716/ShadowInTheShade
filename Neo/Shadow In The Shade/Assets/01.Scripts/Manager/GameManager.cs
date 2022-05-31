@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         playerSO.attackStats.ATK = 100f;
         playerSO.moveStats.SPD = 7f;
-        playerSO.attackStats.ASD = 100f;
+        playerSO.attackStats.ASD = 150f;
         playerSO.attackStats.CTP = 0f;
         playerSO.attackStats.CTD = 200f;
 

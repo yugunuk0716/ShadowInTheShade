@@ -46,6 +46,7 @@ public class PlayerMove : AgentMove
             else if (GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))//움직이고 있는데 상태가 Attack일때 움직이는거 중지
             {
                 playerAxis = Vector2.zero;
+                return;
             }
 
            // playerAxis = playerInput.moveDir.normalized;
@@ -55,6 +56,7 @@ public class PlayerMove : AgentMove
 
     public override void OnMove(Vector2 dir, float speed)
     {
+        print("?");
         base.OnMove(dir, speed);
     }
 }

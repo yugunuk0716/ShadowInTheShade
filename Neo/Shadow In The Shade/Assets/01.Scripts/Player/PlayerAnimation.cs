@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     public Vector2 lastMoveDir;
+    public PlayerMove playerMove;
+    public Animator playerTypeChangeEffcetAnimator;
     private PlayerInput playerInput;
     private Vector2 moveDir;
     private Animator playerAnimator;
-    public Animator playerTypeChangeEffcetAnimator;
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
+    private bool isAttacking = false;
 
 
     private float deX;
@@ -21,6 +23,7 @@ public class PlayerAnimation : MonoBehaviour
         lastMoveDir = Vector2.zero;
         playerAnimator = GetComponent<Animator>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
+        playerMove = GameManager.Instance.player.GetComponent<PlayerMove>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
         //playerDashEffcetAnimator = GameObject.Find("PlayerDashEffectObj").GetComponent<Animator>();
         playerSprite = this.gameObject;
@@ -48,6 +51,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private void UpdatePlayerAnimation()
     {
+        //if (playerAnimator.GetBool("IsAttack"))
+        //    return;
         moveDir = playerInput.moveDir.normalized;
         playerAnimator.SetFloat("AnimMoveX", moveDir.x);
         playerAnimator.SetFloat("AnimMoveY", moveDir.y);
@@ -81,6 +86,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator ChangePlayerTypeAnimation()
     {
+       
         PlayerSO so = GameManager.Instance.playerSO;
         yield return null;
 
@@ -111,12 +117,23 @@ public class PlayerAnimation : MonoBehaviour
 
     public IEnumerator PlayerAttackAnimation(int attackStack)
     {
+        if (isAttacking)
+            yield break;
+
+        float originAnimSpeed = playerAnimator.speed;
+
+        isAttacking = true;
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
 
+        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD / 100;
+        playerMove.OnMove(lastMoveDir, 10f);
 
-        yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
+        yield return new WaitForSeconds(.1f);
 
+        playerMove.OnMove(lastMoveDir, 0f);
+        //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
+        yield return new WaitUntil(() => !isAttacking);
 /*
         if (attackStack == 0)
         {
@@ -127,6 +144,7 @@ public class PlayerAnimation : MonoBehaviour
         }*/
         playerAnimator.SetBool("IsAttack", false);
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
+        playerAnimator.speed = originAnimSpeed;
     }
 
     private IEnumerator PlayerDashAnimation()
@@ -170,5 +188,9 @@ public class PlayerAnimation : MonoBehaviour
         GameManager.Instance.player.gameObject.SetActive(false);
     }
 
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
 
 }
