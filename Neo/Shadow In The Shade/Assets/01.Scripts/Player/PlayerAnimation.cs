@@ -68,19 +68,23 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetLastMove()
     {
-        lastMoveDir = moveDir;
-        playerAnimator.SetFloat("AnimLastMoveX", lastMoveDir.x);
-        playerAnimator.SetFloat("AnimLastMoveY", lastMoveDir.y);
-
-        //if (!playerDashEffcetAnimator.GetBool("isDash"))
-        //{
-        //    playerDashEffcetAnimator.SetFloat("MoveX", lastMoveDir.x);
-        //    playerDashEffcetAnimator.SetFloat("MoveY", lastMoveDir.y);
-        //}
-        if (!playerAnimator.GetBool("IsDash"))
+        if(!isAttacking)
         {
-            deX = lastMoveDir.x;
-            deY = lastMoveDir.y;
+
+            lastMoveDir = moveDir;
+            playerAnimator.SetFloat("AnimLastMoveX", lastMoveDir.x);
+            playerAnimator.SetFloat("AnimLastMoveY", lastMoveDir.y);
+
+            //if (!playerDashEffcetAnimator.GetBool("isDash"))
+            //{
+            //    playerDashEffcetAnimator.SetFloat("MoveX", lastMoveDir.x);
+            //    playerDashEffcetAnimator.SetFloat("MoveY", lastMoveDir.y);
+            //}
+            if (!playerAnimator.GetBool("IsDash"))
+            {
+                deX = lastMoveDir.x;
+                deY = lastMoveDir.y;
+            }
         }
     }
 
@@ -121,6 +125,11 @@ public class PlayerAnimation : MonoBehaviour
             yield break;
 
         float originAnimSpeed = playerAnimator.speed;
+
+        Vector3 mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+
+        playerAnimator.SetFloat("AnimLastMoveX", mousePos.x);
+        playerAnimator.SetFloat("AnimLastMoveY", mousePos.y);
 
         isAttacking = true;
         playerAnimator.SetBool("IsAttack", true);
