@@ -14,11 +14,24 @@ public class PlayerAnimation : MonoBehaviour
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
     private bool isAttacking = false;
-
+    private Vector3 mousePos;
 
     private float deX;
     private float deY;
-
+    
+    private readonly float[] degrees = new float[] { 270f, 315f, 360f, 45f, 90f, 135f, 180f, 225f };
+    //private readonly float[] degrees = new float[] { 90f, 135f, 180f, 225f, 270f, 315f, 0f, 45f };
+    private readonly Vector2[] vectors = new Vector2[]
+    {
+        new Vector2(1f, 0f),
+        new Vector2(.5f, .5f),
+        new Vector2(0f, 1f),
+        new Vector2(-.5f, .5f),
+        new Vector2(-1f, 0f),
+        new Vector2(-.5f, -.5f),
+        new Vector2(0f, -1f),
+        new Vector2(.5f, -.5f)
+    };
     private void Start()
     {
         lastMoveDir = Vector2.zero;
@@ -54,6 +67,11 @@ public class PlayerAnimation : MonoBehaviour
     private void Update()
     {
         UpdatePlayerAnimation();
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            PrintMousePos();
+        }
     }
 
     private void UpdatePlayerAnimation()
@@ -135,7 +153,7 @@ public class PlayerAnimation : MonoBehaviour
 
 
 
-        Vector3 mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+        mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
 
 
@@ -213,6 +231,46 @@ public class PlayerAnimation : MonoBehaviour
         StartCoroutine(ShadowDashEffectAnimation(dashPower));
     }
 
+    private void PrintMousePos()
+    {
+        mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+        float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
+
+        Vector2 deV = Vector2.right;
+        print(thetha);
+
+
+        for (int i = 0; i < 8; i++)
+        {
+            float under = degrees[i];
+            float over = 0f;
+
+            if (degrees.Length > i + 1)
+            {
+                over = degrees[i + 1];
+            }
+            else
+            {
+                under = degrees[i - 1];
+                over = degrees[i];
+            }
+
+
+            print($"{under} < {thetha} < {over}");
+            if (under <= thetha && thetha < over)
+            {
+                deV = vectors[i];
+                break;
+            }
+        }
+
+        print($"{deV.x},{deV.y}");
+        //print(thetha);
+        //deX = Mathf.Cos(thetha);
+        //deY = Mathf.Sin(thetha);
+
+    }
+
     public IEnumerator ShadowDashEffectAnimation(int dashPower)
     {
 
@@ -224,8 +282,63 @@ public class PlayerAnimation : MonoBehaviour
             if (!playerDashEffcetAnimator.GetBool("isDash"))
             {
                 playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
-                playerDashEffcetAnimator.SetFloat("MoveX", deX);
-                playerDashEffcetAnimator.SetFloat("MoveY", deY);
+                mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+                
+                //for (int i = 0; i < 8; i++)
+                //{
+                //    if(i == 0 && 0 <= thetha && thetha < 22.5f)
+                //    {
+                //        print($"{i} && {i * 45f} && {(i * 45f / 2f)}");
+                //        print($"{i * 45f - (i * 45f / 2f)} < {i * 45f + (i * 45f / 2f)}");
+                //        thetha = i * 45f * Mathf.Deg2Rad;
+                //        break;
+                //    }
+                //    if (i * 45 - (i * 45 / 2f) <= thetha && thetha < i * 45 + (i * 45 / 2f))
+                //    {
+                //        print($"{i} && {i * 45f} && {(i * 45f / 2f)}");
+                //        print($"{i * 45f - (i * 45f / 2f)} < {i * 45f + (i * 45f / 2f)}");
+                //        thetha = i * 45f * Mathf.Deg2Rad;
+                //        break;
+                //    }
+                //}
+
+                float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
+                Vector2 deV = Vector2.zero;
+                print(thetha);
+
+
+                for (int i = 0; i < 8; i++)
+                {
+                    float under = degrees[i];
+                    float over = 0f;
+
+                    if (degrees.Length > i + 1)
+                    {
+                        over = degrees[i + 1];
+                    }
+                    else
+                    {
+                        under = degrees[i - 1];
+                        over = degrees[i];
+                    }
+
+
+
+
+                    print($"{under} < {thetha} < {over}");
+                    if (under <= thetha && thetha < over)
+                    {
+                        deV = vectors[i];
+                        break;
+                    }
+
+                    if (thetha < 45f)
+                        deV = vectors[2];
+                }
+
+                print($"{deV.x},{deV.y}");
+                playerDashEffcetAnimator.SetFloat("MoveX", deV.x);
+                playerDashEffcetAnimator.SetFloat("MoveY", deV.y);
                 playerDashEffcetAnimator.SetInteger("DashPower", dashPower);
                 playerDashEffcetAnimator.SetBool("isDash", true);
                 yield return new WaitForSeconds(0.6f);

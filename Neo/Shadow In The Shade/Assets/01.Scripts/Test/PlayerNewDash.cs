@@ -59,7 +59,7 @@ public class PlayerNewDash : MonoBehaviour
                 Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD -= Time.deltaTime * timeSlowSpeed, 1f, 7f);
 
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+            playerInput.mouseDir = mousePos;
             if (isCharging == false)
             {
                 isCharging = true;

@@ -6,12 +6,21 @@ using UnityEngine.EventSystems;
 public class PlayerInput : MonoBehaviour
 {
     public Vector2 moveDir;
+    public Vector2 mouseDir;
     public bool isDash;
     public bool isAttack;
     public bool isUse;
     public bool isChangePlayerType;
     public bool isHit;
     public bool isDie;
+
+
+    private Camera mainCam;
+
+    private void Start()
+    {
+        mainCam = Camera.main;
+    }
 
 
     private void Update()
@@ -75,7 +84,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
-                        if(!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+                        if (!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
                         {
                             isAttack = Input.GetButtonDown("Attack");
                             moveDir.x = Input.GetAxisRaw("Horizontal");
@@ -92,4 +101,6 @@ public class PlayerInput : MonoBehaviour
         }
 
     }
+
+    
 }
