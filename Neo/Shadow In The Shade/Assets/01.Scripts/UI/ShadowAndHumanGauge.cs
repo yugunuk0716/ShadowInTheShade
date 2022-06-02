@@ -41,7 +41,7 @@ public class ShadowAndHumanGauge : MonoBehaviour
         //GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
         StageManager.Instance.onBattleEnd.AddListener(() =>
         {
-            if (gaugeState.Equals(GaugeState.Shadow))
+            //if (gaugeState.Equals(GaugeState.Shadow))
             {
                 GotoHuman();
             }
@@ -147,7 +147,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         gaugeState = GaugeState.Human;
         spliter.transform.localPosition = new Vector3(-120f, spliter.transform.localPosition.y);
-
+        GameManager.Instance.playerSO.playerStates = PlayerStates.Shadow;
+        GameManager.Instance.playerSO.canChangePlayerType = true;
         GameManager.Instance.onPlayerChangeType?.Invoke();
 
     }

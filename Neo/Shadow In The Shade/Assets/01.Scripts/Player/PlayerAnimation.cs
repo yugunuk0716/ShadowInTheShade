@@ -279,7 +279,6 @@ public class PlayerAnimation : MonoBehaviour
 
 
 
-                    print($"{under} < {thetha} < {over}");
                     if (under <= thetha && thetha < over)
                     {
                         deV = vectors[i];
