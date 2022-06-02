@@ -332,6 +332,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
+        
 
 
     }

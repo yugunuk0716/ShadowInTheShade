@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class DamageEffect : PoolableMono
 {
-
-    public void PushInPull()
+    private void OnParticleSystemStopped()
     {
         PoolManager.Instance.Push(this);
     }
-
 
     public override void Reset()
     {

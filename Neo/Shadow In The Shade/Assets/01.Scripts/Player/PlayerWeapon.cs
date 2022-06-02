@@ -12,7 +12,7 @@ public class PlayerWeapon : DamagableObject
     {
         dObjData.damage = 0;
         dObjData.damage = GameManager.Instance.playerSO.attackStats.ATK;
-        dObjData.hitNum = 1;
+        dObjData.hitNum = 100;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

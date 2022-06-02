@@ -202,7 +202,7 @@ public class Player : MonoBehaviour, IDamagable
       
 
             GameManager.Instance.timeScale = 0;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             GameManager.Instance.timeScale = 1;
     
 
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (IsHit || IsDie || isInvincibility || playerDash.isDash)
+        if (IsDie || isInvincibility || playerDash.isDash)
             return;
         if (move == null) { }
       

@@ -127,11 +127,11 @@ public class ShadowAndHumanGauge : MonoBehaviour
             shadowGaugeAmount -= 0.008f;
             humanGaugeAmount += 0.008f;
         }
-        else if (state.Equals(GaugeState.Human))
-        {
-            //shadowGaugeAmount += .01f;
-            //humanGaugeAmount += -.01f;
-        }
+        //else if (state.Equals(GaugeState.Human))
+        //{
+        //    shadowGaugeAmount += .01f;
+        //    humanGaugeAmount += -.01f;
+        //}
 
         shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
         humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .05f);
