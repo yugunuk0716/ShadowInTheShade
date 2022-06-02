@@ -6,13 +6,14 @@ public class Item : Interactable
 {
     public ItemSO itemSO;
 
+    public SpriteRenderer bg;
+    public bool canUse = false;
+
+    private Dictionary<Rarity, Color> colorDic = new Dictionary<Rarity, Color>();
 
     private BoxCollider2D boxCol;
     private Animator anim;
     private Rigidbody2D rigid;
-
-    public bool canUse = false;
-
 
     private SpriteRenderer sr;
     public SpriteRenderer Sr
@@ -25,6 +26,7 @@ public class Item : Interactable
         }
     }
 
+    //989898   0069A3   6E2F8E   FFCD28
     protected override void Awake()
     {
         anim = GetComponent<Animator>();
@@ -32,6 +34,12 @@ public class Item : Interactable
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
         base.Awake();
+
+        colorDic.Add(Rarity.Normal, Color.white);
+        colorDic.Add(Rarity.Rare, new Color(0f, 105f, 163f));
+        colorDic.Add(Rarity.Unique, new Color(110f, 47f, 142f));
+        colorDic.Add(Rarity.Legendary, new Color(255f, 205f, 40f));
+
     }
 
     private void OnEnable()
@@ -42,7 +50,7 @@ public class Item : Interactable
     public void Init(Rarity rarity)
     {
         itemSO = ItemManager.Instance.PickItem(rarity);
-
+        bg.color = colorDic[rarity];
         Sr.sprite = itemSO.itemSprite;
     }
 

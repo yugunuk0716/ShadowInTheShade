@@ -18,6 +18,9 @@ public class PlayerDash : MonoBehaviour
     private int originLayer;
     private readonly int targetLayer = 9;
 
+
+
+
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();

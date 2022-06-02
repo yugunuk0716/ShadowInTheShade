@@ -41,21 +41,20 @@ public class ShadowAndHumanGauge : MonoBehaviour
         //GameManager.Instance.onPlayerDash.AddListener(DashDecrease);
         StageManager.Instance.onBattleEnd.AddListener(() =>
         {
-            //if (gaugeState.Equals(GaugeState.Shadow))
-            {
-                GotoHuman();
-            }
+            GotoHuman();
             shadowGaugeAmount = .5f;
             humanGaugeAmount = 1.5f;
             shadowGauge.rectTransform.DOScaleX(shadowGaugeAmount, .05f);
             humanGauge.rectTransform.DOScaleX(humanGaugeAmount, .05f);
         });
-        GameManager.Instance.onPlayerHit.AddListener(() =>
+        GameManager.Instance.onPlayerHit.AddListener((damage) =>
         {
             if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
             {
-                shadowGaugeAmount -= 0.05f;
-                humanGaugeAmount += 0.05f;
+                //shadowGaugeAmount -= damage / 500f;
+                //humanGaugeAmount += damage / 500f;
+                shadowGaugeAmount -= 0.2f;
+                humanGaugeAmount += 0.2f;
             }
         });
 
@@ -63,8 +62,17 @@ public class ShadowAndHumanGauge : MonoBehaviour
         {
             if (gaugeState.Equals(GaugeState.Human) && shadowGaugeAmount <= 2f)
             {
-                shadowGaugeAmount += .1f;
-                humanGaugeAmount += -.1f;
+                shadowGaugeAmount += .06f;
+                humanGaugeAmount += -.06f;
+            }
+        });
+
+        GameManager.Instance.onPlayerAttackSuccess.AddListener(() => 
+        {
+            if (shadowGaugeAmount <= 2f)
+            {
+                shadowGaugeAmount += .002f;
+                humanGaugeAmount += -.002f;
             }
         });
 
@@ -124,8 +132,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         if (state.Equals(GaugeState.Shadow))
         {
-            shadowGaugeAmount -= 0.008f;
-            humanGaugeAmount += 0.008f;
+            shadowGaugeAmount -= 0.01f;
+            humanGaugeAmount += 0.01f;
         }
         //else if (state.Equals(GaugeState.Human))
         //{

@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image playerEXPBar;
 
+    [SerializeField]
+    private Image dashCoolImage;
+
     public CanvasGroup bossHPBarCG;
 
 
@@ -109,10 +112,10 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    StartFadeOut();
-        //}
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            StartCoroutine(SetDashCool(3f));
+        }
 
         //if (Input.GetKeyDown(KeyCode.J))
         //{
@@ -248,6 +251,26 @@ public class UIManager : MonoBehaviour
         DOTween.Clear();
         CanvasGroup cg = guideCG;
         DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
+    }
+
+
+    public IEnumerator SetDashCool(float coolTime)
+    {
+        float a = 1;
+
+        float startTime = Time.time;
+        while (true)
+        {
+            a -= coolTime / (coolTime * (coolTime/2f) * 100f);
+            dashCoolImage.fillAmount = a;
+            if (a < 0)
+            {
+                print(Time.time - startTime);
+                break;
+            }
+
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
 

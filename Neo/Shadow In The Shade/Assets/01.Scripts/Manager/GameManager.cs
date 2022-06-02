@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent<int> onPlayerAttack; //플레이어가 공격할 때 쓰는 이벤트
     public UnityEvent onPlayerTypeChanged; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
     public UnityEvent onPlayerChangeType; //플레이어가 자신의 상태를 바꾼 후 처리해야할 작업들을 사용할때 쓰는 이벤트
-    public UnityEvent onPlayerHit;
+    public UnityEvent<float> onPlayerHit;
+    public UnityEvent onPlayerAttackSuccess;
     public UnityEvent onPlayerGetEXP;
     public UnityEvent<float, DiceType> onBossHpSend;
     public UnityEvent onPlayerGetItem;
@@ -64,7 +65,8 @@ public class GameManager : MonoBehaviour
         onPlayerAttack = new UnityEvent<int>();
         onPlayerTypeChanged = new UnityEvent();
         onPlayerChangeType = new UnityEvent();
-        onPlayerHit = new UnityEvent();
+        onPlayerHit = new UnityEvent<float>();
+        onPlayerAttackSuccess = new UnityEvent();
         onPlayerGetShadowOrb = new UnityEvent();
 
 
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
                 playerSO.attackStats.ASD -= tempDEX * 0.15f;
 
                 playerSO.moveStats.SPD += playerSO.mainStats.DEX * .2f;
-                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 0.15f;
+                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 0.1f;
                 break;
             case 3:
                 float tempAGI = playerSO.mainStats.AGI - 1;

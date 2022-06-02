@@ -11,7 +11,7 @@ public class Player : MonoBehaviour, IDamagable
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
-    public UnityEvent OnHit { get; set; }
+    public UnityEvent<float> OnHit { get; set; }
 
     private PlayerInput playerInput;
     private PlayerDash playerDash;
@@ -188,7 +188,7 @@ public class Player : MonoBehaviour, IDamagable
 
         CheckHp();
 
-        OnHit?.Invoke();
+        OnHit?.Invoke(damage);
         EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
 
         IsHit = false;

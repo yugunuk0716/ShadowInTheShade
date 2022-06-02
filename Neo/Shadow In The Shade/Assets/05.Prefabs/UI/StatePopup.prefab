@@ -1624,6 +1624,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 6683984459574293141, guid: 35745950c28adda4b9582e1bb04094fb, type: 3}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statAbility
+      value: "\uC815\uC2E0"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statComment
+      value: "\uCD5C\uB300 \uCCB4\uB825 \uC99D\uAC00"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
 --- !u!114 &9143289522597728355 stripped
@@ -1796,6 +1804,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -3148830299055714541, guid: 35745950c28adda4b9582e1bb04094fb, type: 3}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statAbility
+      value: "\uC695\uB9DD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statComment
+      value: "\uCE58\uBA85\uD0C0 \uD655\uB960 \uC99D\uAC00"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
 --- !u!114 &9143289522597712519 stripped
@@ -1980,6 +1996,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2505271346692415089, guid: 35745950c28adda4b9582e1bb04094fb, type: 3}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statAbility
+      value: "\uBBFC\uCCA9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statComment
+      value: "\uACF5\uACA9 \uC18D\uB3C4 \uBC0F \uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
 --- !u!224 &9143289522587150989 stripped
@@ -2143,6 +2167,14 @@ PrefabInstance:
     - target: {fileID: 2521482759494421339, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
       propertyPath: m_FillAmount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statAbility
+      value: "\uD798"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938089229841452024, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
+      propertyPath: statComment
+      value: "\uAE30\uBCF8 \uACF5\uACA9 \uD53C\uD574\uB7C9\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48007786b2e3fa14b8e637714063755d, type: 3}
