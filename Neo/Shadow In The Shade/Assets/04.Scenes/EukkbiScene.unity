@@ -7247,6 +7247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastMoveDir: {x: 0, y: 0}
+  playerMove: {fileID: 0}
   playerTypeChangeEffcetAnimator: {fileID: 0}
 --- !u!95 &1571949945
 Animator:
@@ -8318,6 +8319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDir: {x: 0, y: 0}
+  mouseDir: {x: 0, y: 0}
   isDash: 0
   isAttack: 0
   isUse: 0

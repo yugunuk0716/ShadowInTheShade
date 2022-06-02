@@ -184,7 +184,7 @@ public class Player : MonoBehaviour, IDamagable
      
 
         StartCoroutine(Blinking());
-        StartCoroutine(StateRoutine());
+        //StartCoroutine(StateRoutine());
 
         CheckHp();
 

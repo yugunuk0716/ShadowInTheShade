@@ -68,10 +68,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         UpdatePlayerAnimation();
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            PrintMousePos();
-        }
     }
 
     private void UpdatePlayerAnimation()
@@ -201,7 +197,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD;
         playerMove.OnMove(mousePos, 10f);
 
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.15f);
 
         playerMove.OnMove(mousePos, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
@@ -231,58 +227,6 @@ public class PlayerAnimation : MonoBehaviour
         StartCoroutine(ShadowDashEffectAnimation(dashPower));
     }
 
-    private void PrintMousePos()
-    {
-        mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-        float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
-
-        Vector2 deV = Vector2.right;
-        print(thetha);
-
-
-        for (int i = 0; i < 8; i++)
-        {
-            //float under = degrees[i] - 22.5f;
-            //float over = 0f;
-
-            //if (degrees.Length > i + 1)
-            //{
-            //    over = degrees[i] + 22.5f;
-            //}
-            //else
-            //{
-            //    over = degrees[i] - 22.5f;
-            //    under = degrees[i] + 22.5f - 360f;
-            //}
-
-            float under = degrees[i] - 22.5f;
-            float over = 0f;
-
-            over = degrees[i] + 22.5f;
-
-            if (under <= 0)
-            {
-                under += 360f;
-                (under, over) = (over, under);
-            }
-
-
-
-
-            print($"{under} < {thetha} < {over}");
-            if (under <= thetha && thetha < over)
-            {
-                deV = vectors[i];
-                break;
-            }
-        }
-
-        print($"{deV.x},{deV.y}");
-        //print(thetha);
-        //deX = Mathf.Cos(thetha);
-        //deY = Mathf.Sin(thetha);
-
-    }
 
     public IEnumerator ShadowDashEffectAnimation(int dashPower)
     {

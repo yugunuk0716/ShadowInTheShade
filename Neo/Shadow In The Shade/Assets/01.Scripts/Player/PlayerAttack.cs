@@ -8,6 +8,8 @@ public class PlayerAttack : MonoBehaviour
    
     private PlayerAnimation playerAnim;
     private bool attackStack;
+    private float lastAttackTime = 0f;
+    private float attackStackHoldingTime = .8f;
 
     private AudioClip attackAudioClip;
 
@@ -39,6 +41,11 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
         }
+        if (Time.time > lastAttackTime + attackStackHoldingTime)
+        {
+            attackStack = false;
+        }
+
     }
 
     private void Attack()
@@ -46,18 +53,20 @@ public class PlayerAttack : MonoBehaviour
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Attack;
         attackStack = !attackStack;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, .3f, LayerMask.GetMask("Enemy"));
+        //Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, .3f, LayerMask.GetMask("Enemy"));
 
 
-        foreach (Collider2D col in hits) 
-        {
-            IDamagable d = col.GetComponent<IDamagable>();
+        //foreach (Collider2D col in hits) 
+        //{
+        //    IDamagable d = col.GetComponent<IDamagable>();
 
-            d?.KnockBack(playerAnim.lastMoveDir.normalized, 8f, 0.1f);
-        }
+        //    d?.KnockBack(playerAnim.lastMoveDir.normalized, 8f, 0.1f);
+        //}
+
+        lastAttackTime = Time.time;
 
         SoundManager.Instance.GetAudioSource(attackAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-        GameManager.Instance.onPlayerAttack.Invoke(attackStack ? 1 : 0);
+        GameManager.Instance.onPlayerAttack.Invoke(attackStack ?  0 : 1);
     }
 
 #if UNITY_EDITOR

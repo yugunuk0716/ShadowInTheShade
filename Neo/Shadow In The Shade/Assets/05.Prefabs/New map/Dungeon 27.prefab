@@ -9306,6 +9306,8 @@ GameObject:
   - component: {fileID: 1916464690040278145}
   - component: {fileID: 1916464690040278147}
   - component: {fileID: 1916464690040278146}
+  - component: {fileID: 684646945471826667}
+  - component: {fileID: 7836861260320050635}
   m_Layer: 0
   m_Name: WallBottom
   m_TagString: Untagged
@@ -10359,6 +10361,44 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!61 &684646945471826667
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916464690040278144}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06450462, y: -10.797018}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 36.84464, y: 1.7786055}
+  m_EdgeRadius: 0
+--- !u!114 &7836861260320050635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916464690040278144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1916464690467344353
 GameObject:
   m_ObjectHideFlags: 0
@@ -25284,6 +25324,8 @@ GameObject:
   - component: {fileID: 3529187608839352313}
   - component: {fileID: 2230749153900409561}
   - component: {fileID: 3759529670923436682}
+  - component: {fileID: 8951097334247801383}
+  - component: {fileID: 4722356341716936765}
   m_Layer: 0
   m_Name: WallBottom
   m_TagString: Untagged
@@ -26787,6 +26829,44 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!61 &8951097334247801383
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817420384969837851}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06450462, y: -10.797018}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 36.84464, y: 1.7786055}
+  m_EdgeRadius: 0
+--- !u!114 &4722356341716936765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817420384969837851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8976609048421153916
 GameObject:
   m_ObjectHideFlags: 0

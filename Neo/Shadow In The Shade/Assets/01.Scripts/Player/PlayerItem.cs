@@ -63,8 +63,23 @@ public class PlayerItem : MonoBehaviour
                    pSo.attackStats.CTP += playerHasItems[i].criticalPercentagePoint;
                    pSo.attackStats.CTD += playerHasItems[i].criticalPowerPoint;
    */
-                GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
-                itemObj.name = playerHasItems[i].name + "CallBackObj";
+                if(playerHasItems[i] != null)
+                {
+                    if(playerHasItems[i].itemCallBack != null)
+                    {
+                        print("안비었는데용");
+                        GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
+                        itemObj.name = playerHasItems[i].name + "CallBackObj";
+                    }
+                    else
+                    {
+                        print("콜백 오브젝트가 빔");
+                    }
+                }
+                else
+                {
+                    print("그냥 오브젝트가 읎어요");
+                }
 
                 // itemUIObjs[i].AddComponent<>();
                 Debug.Log("ActiveItem");

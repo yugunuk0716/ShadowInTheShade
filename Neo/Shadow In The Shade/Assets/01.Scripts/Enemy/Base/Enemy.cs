@@ -73,7 +73,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set
         {
             isHit = value;
-            //IsDisarmed = isHit;
         }
     }
 
@@ -292,7 +291,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             return;
         }
         LastHitObjNumber = objNum;
-        isHit = true;
         float critical = Random.value * 100;
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
@@ -320,7 +318,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         Invoke(nameof(PushDamageEffect), 1f);
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
-        IsHit = false;
 
         StartCoroutine(Blinking());
 
@@ -354,7 +351,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public virtual void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (isHit || isDie)
+        if ( isDie)
             return;
         OnKockBack?.Invoke();
         Move.KnockBack(direction, power, duration);
