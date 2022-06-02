@@ -24,13 +24,13 @@ public class PlayerAnimation : MonoBehaviour
     private readonly Vector2[] vectors = new Vector2[]
     {
         new Vector2(1f, 0f),
-        new Vector2(.5f, .5f),
+        new Vector2(1f, 1f),
         new Vector2(0f, 1f),
-        new Vector2(-.5f, .5f),
+        new Vector2(-1f, 1f),
         new Vector2(-1f, 0f),
-        new Vector2(-.5f, -.5f),
+        new Vector2(-1f, -1f),
         new Vector2(0f, -1f),
-        new Vector2(.5f, -.5f)
+        new Vector2(1f, -1f)
     };
     private void Start()
     {
@@ -242,18 +242,31 @@ public class PlayerAnimation : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            float under = degrees[i];
+            //float under = degrees[i] - 22.5f;
+            //float over = 0f;
+
+            //if (degrees.Length > i + 1)
+            //{
+            //    over = degrees[i] + 22.5f;
+            //}
+            //else
+            //{
+            //    over = degrees[i] - 22.5f;
+            //    under = degrees[i] + 22.5f - 360f;
+            //}
+
+            float under = degrees[i] - 22.5f;
             float over = 0f;
 
-            if (degrees.Length > i + 1)
+            over = degrees[i] + 22.5f;
+
+            if (under <= 0)
             {
-                over = degrees[i + 1];
+                under += 360f;
+                (under, over) = (over, under);
             }
-            else
-            {
-                under = degrees[i - 1];
-                over = degrees[i];
-            }
+
+
 
 
             print($"{under} < {thetha} < {over}");
@@ -309,19 +322,16 @@ public class PlayerAnimation : MonoBehaviour
 
                 for (int i = 0; i < 8; i++)
                 {
-                    float under = degrees[i];
+                    float under = degrees[i] - 22.5f;
                     float over = 0f;
 
-                    if (degrees.Length > i + 1)
-                    {
-                        over = degrees[i + 1];
-                    }
-                    else
-                    {
-                        under = degrees[i - 1];
-                        over = degrees[i];
-                    }
+                    over = degrees[i] + 22.5f;
 
+                    if(under <= 0)
+                    {
+                        under += 360f;
+                        (under, over) = (over, under);
+                    }
 
 
 
