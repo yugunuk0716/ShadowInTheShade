@@ -6,7 +6,9 @@ using UnityEngine;
 public class NeoRoomManager : MonoBehaviour
 {
     string currentStageName = "Dungeon";
-    
+
+    private readonly string[] currentStageNames = new string[] { "Dungeon" };
+
     public static NeoRoomManager instance;
     //public static NeoRoomManager Instance
     //{
@@ -25,9 +27,13 @@ public class NeoRoomManager : MonoBehaviour
 
     public RoomListSO spawnableRoomData;
 
+    public int stageIndex = 0;
+    
+    private int experiencedRoomCount = 0;
+    private bool isExperiencedShop = false;
+
     private void Awake()
     {
-        
         instance = this;
     }
 
@@ -42,10 +48,10 @@ public class NeoRoomManager : MonoBehaviour
         if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
         {
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
+            experiencedRoomCount++;
         }
 
-        
-        Room room = PoolManager.Instance.Pop($"{currentStageName} {s}") as Room;
+        Room room = PoolManager.Instance.Pop($"{currentStageNames[stageIndex]} {s}") as Room;
         room.transform.position = Vector3.zero;
         GameManager.Instance.player.position = room.spawnPointTrm.position;
         UIManager.Instance.StartFadeOut();
@@ -55,12 +61,49 @@ public class NeoRoomManager : MonoBehaviour
       
     }
 
+    public void BossRoomClear() 
+    {
+        stageIndex++;
+        isExperiencedShop = false;
+    }
+
+    public void SpawnDoor()
+    {
+        NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
+        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left;
+
+        NeoDoor nDoor2 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
+        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right;
+        if (!isExperiencedShop) 
+        {
+            //맨 위에서 상점방 넣고
+
+            if(experiencedRoomCount > 10)
+            {
+                //여기서 보스방 확률로 넣고
+            }
+            else if(experiencedRoomCount > 5)
+            {
+                //여기서 상자방 확률로 넣읍시다. 
+            }
+
+
+        }
+        nDoor.pairDoor = nDoor2;
+        nDoor2.pairDoor = nDoor;
+    }
+
     public void LoadNextRoom()
     {
         int idx = Random.Range(0, spawnableRoomData.roomList.Count);
         LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
     }
 
+    public void LoadShop()
+    {
+        isExperiencedShop = true;
+        LoadNextRoom("Shop");
+    }
 
 
 
