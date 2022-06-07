@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -62,6 +63,18 @@ public class PlayerAttack : MonoBehaviour
 
         //    d?.KnockBack(playerAnim.lastMoveDir.normalized, 8f, 0.1f);
         //}
+
+        List<Collider2D> colliderList = new List<Collider2D>();
+
+        Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + Vector3.left, new Vector2(1f, 2f), 0f);
+
+        foreach (Collider2D collider in c1)
+        {
+
+        }
+
+        c1 = Physics2D.OverlapBoxAll(transform.position + Vector3.down, new Vector2(2f, 1f), 0f);
+
 
         lastAttackTime = Time.time;
 
