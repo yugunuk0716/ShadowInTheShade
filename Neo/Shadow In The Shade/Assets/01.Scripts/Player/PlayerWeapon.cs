@@ -44,8 +44,8 @@ public class PlayerWeapon : DamagableObject
                 }
 
                 damagable?.KnockBack(vec, dObjData.knockBackPower, dObjData.knockBackDelay);
-
                 damagable?.GetHit(dObjData.damage, dObjData.hitNum);
+                GameManager.Instance.onPlayerAttackSuccess.Invoke();
 
                 isAttacked = false;
             }
@@ -83,6 +83,7 @@ public class PlayerWeapon : DamagableObject
                     damagable?.KnockBack(vec, dObjData.knockBackPower, dObjData.knockBackDelay);
                     dObjData.hitNum++;
                     damagable?.GetHit(dObjData.damage, dObjData.hitNum);
+                    GameManager.Instance.onPlayerAttackSuccess.Invoke();
                 }
             }
             

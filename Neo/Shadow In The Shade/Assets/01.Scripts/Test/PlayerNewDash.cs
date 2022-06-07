@@ -22,6 +22,11 @@ public class PlayerNewDash : MonoBehaviour
     private SpriteRenderer sr;
     private float dashTime = 0.15f;
 
+    private float coolTime = 3f;
+    private float lastDashTime = 0f;
+    private bool usedDash = false;
+
+
     public void Start()
     {
        // lateDir = Vector2.zero;
@@ -52,12 +57,21 @@ public class PlayerNewDash : MonoBehaviour
                 lateDir = playerInput.moveDir.normalized;
             }
     */
+        if (Time.time > lastDashTime + coolTime)
+        {
+            usedDash = false;
+        }
+
 
         if (Input.GetButton("Dash"))
         {
+
+            if (usedDash)
+                return;
+
             GameManager.Instance.playerSO.moveStats.SPD = 
                 Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD -= Time.deltaTime * timeSlowSpeed, 1f, 7f);
-
+            
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             playerInput.mouseDir = mousePos;
             if (isCharging == false)
@@ -83,18 +97,24 @@ public class PlayerNewDash : MonoBehaviour
             {
                 if(effectRunTime >= .6f)
                 {
+                    lastDashTime = Time.time;
+                    usedDash = true;
                     StartCoroutine(Dashing(2.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power3;
                     Debug.Log("DashMax");
                 }
                 else if(effectRunTime > .4f)
                 {
+                    lastDashTime = Time.time;
+                    usedDash = true;
                     StartCoroutine(Dashing(1.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power2;
                     Debug.Log("DashHalf");
                 }
                 else if(effectRunTime > .2f)
                 {
+                    lastDashTime = Time.time;
+                    usedDash = true;
                     StartCoroutine(Dashing(1f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power1;
                     Debug.Log("DashMin");

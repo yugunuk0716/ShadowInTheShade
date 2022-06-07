@@ -240,25 +240,7 @@ public class PlayerAnimation : MonoBehaviour
             {
                 playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
                 mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-                
-                //for (int i = 0; i < 8; i++)
-                //{
-                //    if(i == 0 && 0 <= thetha && thetha < 22.5f)
-                //    {
-                //        print($"{i} && {i * 45f} && {(i * 45f / 2f)}");
-                //        print($"{i * 45f - (i * 45f / 2f)} < {i * 45f + (i * 45f / 2f)}");
-                //        thetha = i * 45f * Mathf.Deg2Rad;
-                //        break;
-                //    }
-                //    if (i * 45 - (i * 45 / 2f) <= thetha && thetha < i * 45 + (i * 45 / 2f))
-                //    {
-                //        print($"{i} && {i * 45f} && {(i * 45f / 2f)}");
-                //        print($"{i * 45f - (i * 45f / 2f)} < {i * 45f + (i * 45f / 2f)}");
-                //        thetha = i * 45f * Mathf.Deg2Rad;
-                //        break;
-                //    }
-                //}
-
+               
                 float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
                 Vector2 deV = Vector2.zero;
                 print(thetha);
