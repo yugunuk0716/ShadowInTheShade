@@ -7,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     public Vector2 lastMoveDir;
     public PlayerMove playerMove;
     public Animator playerTypeChangeEffcetAnimator;
+    public Vector3 mousePos;
     private PlayerInput playerInput;
     private Vector2 moveDir;
     private Animator playerAnimator;
@@ -14,13 +15,11 @@ public class PlayerAnimation : MonoBehaviour
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
     private bool isAttacking = false;
-    private Vector3 mousePos;
 
     private float deX;
     private float deY;
     
     private readonly float[] degrees = new float[] { 270f, 315f, 360f, 45f, 90f, 135f, 180f, 225f };
-    //private readonly float[] degrees = new float[] { 90f, 135f, 180f, 225f, 270f, 315f, 0f, 45f };
     private readonly Vector2[] vectors = new Vector2[]
     {
         new Vector2(1f, 0f),
@@ -177,7 +176,6 @@ public class PlayerAnimation : MonoBehaviour
         }
 
 
-        Debug.Log(mousePos);
 
         if (Mathf.Abs(mousePos.x) + Mathf.Abs(mousePos.y) == 2)
         {
