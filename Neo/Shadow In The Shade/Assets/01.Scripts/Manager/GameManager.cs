@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
         onPlayerHit = new UnityEvent<float>();
         onPlayerAttackSuccess = new UnityEvent();
         onPlayerGetShadowOrb = new UnityEvent();
+        onPlayerGetSameItem = new UnityEvent();
 
 
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;

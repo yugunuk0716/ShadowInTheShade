@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AdrenalineCallBack : ItemCallBack
 {
-    public override void Start()
+    public new void Start()
     {
         base.Start();
     }
@@ -23,7 +23,6 @@ public class AdrenalineCallBack : ItemCallBack
     {
         GameManager.Instance.playerSO.attackStats.ASD += 0.04f;
         base.ItemNestingCallBack();
-
     }
 
     public override void Reset()

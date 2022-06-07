@@ -52,6 +52,14 @@ public class PlayerItem : MonoBehaviour
 
     public void ActiveItem(ItemSO item)
     {
+        if(playerHasItems.Count == 0)
+        {
+            GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
+            itemObj.transform.SetParent(itemUIObjs[0].transform);
+            itemObj.name = item.name + "CallBackObj";
+            item.isActived = true;
+        }
+
         for (int i = 0; i < playerHasItems.Count; i++)
         {
             if (item.isActived == false)
@@ -90,8 +98,16 @@ public class PlayerItem : MonoBehaviour
                 }
             }
         }
-        GameManager.Instance.onPlayerGetItem?.Invoke();
+
+        StartCoroutine(CallGetItem());
         playerHasItems.Add(item);
         return;
+    }
+
+    public IEnumerator CallGetItem()
+    {
+        yield return null;
+      // yield return new WaitForSeconds(.1f);
+        GameManager.Instance.onPlayerGetItem?.Invoke();
     }
 }
