@@ -25,4 +25,9 @@ public class brokenSwordCallBack : ItemCallBack
         GameManager.Instance.playerSO.attackStats.ATK += 20f;
 
     }
+
+    public override void Reset()
+    {
+       // throw new System.NotImplementedException();
+    }
 }

@@ -12,7 +12,7 @@ public class AdrenalineCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ASD += 5;
+        GameManager.Instance.playerSO.attackStats.ASD += 0.05f;
     }
 
     public override void ItemSpecialCallBack()
@@ -22,6 +22,11 @@ public class AdrenalineCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ASD += 4;
+        GameManager.Instance.playerSO.attackStats.ASD += 0.04f;
+    }
+
+    public override void Reset()
+    {
+        //throw new System.NotImplementedException();
     }
 }

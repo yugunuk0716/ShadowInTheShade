@@ -40,6 +40,7 @@ public class PlayerItem : MonoBehaviour
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
         image.ItemImg.sprite = item.itemSprite;
+        image.name = item.name;
         image.ItemSO = item;
         //image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
         itemUIObjs.Add(image.gameObject);
@@ -68,7 +69,8 @@ public class PlayerItem : MonoBehaviour
                     if(playerHasItems[i].itemCallBack != null)
                     {
                         print("안비었는데용");
-                        GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
+                        GameObject itemObj = PoolManager.Instance.Pop(playerHasItems[i].itemCallBack.name).gameObject;
+                        itemObj.transform.SetParent(itemUIObjs[i].transform);
                         itemObj.name = playerHasItems[i].name + "CallBackObj";
                     }
                     else
@@ -81,13 +83,14 @@ public class PlayerItem : MonoBehaviour
                     print("그냥 오브젝트가 읎어요");
                 }
 
-                // itemUIObjs[i].AddComponent<>();
+/*                // itemUIObjs[i].AddComponent<>();
                 Debug.Log("ActiveItem");
-                StartCoroutine(CallingItemCallBack());
+               */
                 playerHasItems[i].isActived = true;
 
             }
         }
+        StartCoroutine(CallingItemCallBack());
 
         GameManager.Instance.playerSO = pSo;
     }

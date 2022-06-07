@@ -24,4 +24,9 @@ public class OldShoseCallBack : ItemCallBack
     {
         GameManager.Instance.playerSO.moveStats.SPD += .2f;
     }
+
+    public override void Reset()
+    {
+        //throw new System.NotImplementedException();
+    }
 }

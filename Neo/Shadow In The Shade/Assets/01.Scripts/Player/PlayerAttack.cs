@@ -21,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
       
 
         attackAudioClip = Resources.Load<AudioClip>("Sounds/PlayerAttack");
+        GameManager.Instance.onEnemyHit.AddListener(EnemyAttackHeal);
     }
 
     void Update()
@@ -68,6 +69,17 @@ public class PlayerAttack : MonoBehaviour
         SoundManager.Instance.GetAudioSource(attackAudioClip, false, SoundManager.Instance.BaseVolume).Play();
         GameManager.Instance.onPlayerAttack.Invoke(attackStack ?  0 : 1);
     }
+
+    public void EnemyAttackHeal()
+    {
+        if(GameManager.Instance.playerSO.ectStats.APH != 0)
+        {
+            GameManager.Instance.player.GetComponent<Player>().CurrHP += GameManager.Instance.playerSO.ectStats.APH;
+            UIManager.Instance.SetBar(
+                GameManager.Instance.player.GetComponent<Player>().CurrHP / GameManager.Instance.playerSO.ectStats.PMH);
+        }
+    }
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
