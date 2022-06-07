@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Shadow;
         playerSO.playerDashState = PlayerDashState.Default;
+        playerSO.playerJobState = PlayerJobState.Default;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 
