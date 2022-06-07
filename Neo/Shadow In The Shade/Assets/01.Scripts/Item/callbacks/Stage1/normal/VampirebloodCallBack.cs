@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class VampireBloodCallBack : ItemCallBack
 {
-    public void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
 
     public override void ItemActiveCallBack()
@@ -23,6 +22,8 @@ public class VampireBloodCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         GameManager.Instance.playerSO.ectStats.APH += 1f;
+        base.ItemNestingCallBack();
+
     }
 
     public override void Reset()

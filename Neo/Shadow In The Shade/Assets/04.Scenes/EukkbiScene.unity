@@ -709,6 +709,9 @@ MonoBehaviour:
   onPlayerGetItem:
     m_PersistentCalls:
       m_Calls: []
+  onPlayerGetSameItem:
+    m_PersistentCalls:
+      m_Calls: []
   onPlayerGetShadowOrb:
     m_PersistentCalls:
       m_Calls: []
@@ -774,24 +777,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 11400000, guid: 1bd1c276c6044ac48beab10f725a4571, type: 2}
-  - {fileID: 11400000, guid: 180532bb2063cde48bbb9cf4c4fea430, type: 2}
-  - {fileID: 11400000, guid: e3efb0a3699d9664d8f79f1c1336f6c3, type: 2}
-  - {fileID: 11400000, guid: 23fa95b57fb9b3b4f943d304384d56c5, type: 2}
-  - {fileID: 11400000, guid: 1c1a4479d493a1b4abe9ed9898dee3d6, type: 2}
-  - {fileID: 11400000, guid: 02dee3b71fc66a04a97131ec684a4b15, type: 2}
-  - {fileID: 11400000, guid: 164b5fb236ce252449bb130fdb79507e, type: 2}
-  - {fileID: 11400000, guid: 53e089991eba92544b3b31eb84fedecc, type: 2}
-  - {fileID: 11400000, guid: 4b13d59d02a322e448deefca70e15d9f, type: 2}
+  - {fileID: 11400000, guid: 16b7e6b67bd03814e80a067cfce61792, type: 2}
   - {fileID: 11400000, guid: 85a5578cb5906e5449b9a57e655baa97, type: 2}
+  - {fileID: 11400000, guid: 1b07493281db3ab42a070392991eeacd, type: 2}
   - {fileID: 11400000, guid: 1b07493281db3ab42a070392991eeacd, type: 2}
   - {fileID: 11400000, guid: 914a558fa422b9642b2a1c63b7035ec3, type: 2}
   - {fileID: 11400000, guid: 57edd886be1ba9945b599cb943268aaf, type: 2}
+  - {fileID: 11400000, guid: e3efb0a3699d9664d8f79f1c1336f6c3, type: 2}
   - {fileID: 11400000, guid: 1a88ecaa97783a245afed5e20f41b5d4, type: 2}
+  - {fileID: 11400000, guid: 23fa95b57fb9b3b4f943d304384d56c5, type: 2}
+  - {fileID: 11400000, guid: 1c1a4479d493a1b4abe9ed9898dee3d6, type: 2}
   - {fileID: 11400000, guid: 9c1deccc3bc69c04ca55d34d6ccd28a9, type: 2}
+  - {fileID: 11400000, guid: 02dee3b71fc66a04a97131ec684a4b15, type: 2}
   - {fileID: 11400000, guid: c0de34dad2906b040b3a848cdb8ae6b9, type: 2}
   - {fileID: 11400000, guid: 52e9573a97d9f2445a185e505599e919, type: 2}
   - {fileID: 11400000, guid: ac8f790ff17024e4ba63dc05fea7a892, type: 2}
+  - {fileID: 11400000, guid: 164b5fb236ce252449bb130fdb79507e, type: 2}
   - {fileID: 11400000, guid: 023b8596769285a4dbef58d786b73305, type: 2}
+  - {fileID: 11400000, guid: 53e089991eba92544b3b31eb84fedecc, type: 2}
+  - {fileID: 11400000, guid: 4b13d59d02a322e448deefca70e15d9f, type: 2}
 --- !u!1 &217390232
 GameObject:
   m_ObjectHideFlags: 0
@@ -8364,7 +8368,6 @@ GameObject:
   - component: {fileID: 1789509717}
   - component: {fileID: 1789509716}
   - component: {fileID: 1789509713}
-  - component: {fileID: 1789509715}
   - component: {fileID: 1789509720}
   - component: {fileID: 1789509714}
   m_Layer: 3
@@ -8437,18 +8440,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8370514, y: 1.0684412}
   m_EdgeRadius: 0
---- !u!114 &1789509715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789509711}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c4215446e96ed34680aeb293159a247, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1789509716
 MonoBehaviour:
   m_ObjectHideFlags: 0

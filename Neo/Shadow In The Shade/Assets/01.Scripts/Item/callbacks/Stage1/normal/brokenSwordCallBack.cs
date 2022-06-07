@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class brokenSwordCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
+        base.Start();
     }
 
     public override void ItemActiveCallBack()
@@ -22,7 +21,9 @@ public class brokenSwordCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ATK += 20f;
+        GameManager.Instance.playerSO.attackStats.ATK += 10f;
+        base.ItemNestingCallBack();
+
 
     }
 

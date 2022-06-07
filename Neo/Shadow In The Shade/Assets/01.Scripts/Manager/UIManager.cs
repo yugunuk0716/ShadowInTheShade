@@ -92,7 +92,10 @@ public class UIManager : MonoBehaviour
         popupDic.Add("option", Instantiate(optionPopupPrefab, popupParent));
 
 
-        GameManager.Instance.onPlayerDash.AddListener(() => { StartCoroutine(SetDashCool(3f)); }); // 1+ 0.5 * 4인듯
+        GameManager.Instance.onPlayerDash.AddListener(() => 
+        {
+            StartCoroutine(SetDashCool(GameManager.Instance.playerSO.moveStats.DCT)); 
+        }); // 1+ 0.5 * 4인듯
 
     }
 

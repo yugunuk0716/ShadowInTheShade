@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class RedPillCallBack : ItemCallBack
 {
-    public void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
-       // Debug.Log("Adding");
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
@@ -27,6 +26,8 @@ public class RedPillCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
+        base.ItemNestingCallBack();
+
     }
 
     public override void Reset()

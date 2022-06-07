@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ThornbushCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-
+        base.Start();
     }
+
 
 
     public override void ItemActiveCallBack()
@@ -17,7 +18,8 @@ public class ThornbushCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        
+        base.ItemNestingCallBack();
+
     }
 
     public override void ItemSpecialCallBack()

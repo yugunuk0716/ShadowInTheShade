@@ -49,6 +49,8 @@ public class PlayerMove : AgentMove
                 return;
             }
 
+            
+
            // playerAxis = playerInput.moveDir.normalized;
             OnMove(playerAxis, GameManager.Instance.playerSO.moveStats.SPD);
         }

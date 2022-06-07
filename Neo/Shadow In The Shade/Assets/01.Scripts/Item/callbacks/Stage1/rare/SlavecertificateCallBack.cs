@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SlavecertificateCallBack : ItemCallBack
 {
-    public void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
@@ -15,6 +16,8 @@ public class SlavecertificateCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
+        base.ItemNestingCallBack();
+
     }
 
     public override void ItemSpecialCallBack()

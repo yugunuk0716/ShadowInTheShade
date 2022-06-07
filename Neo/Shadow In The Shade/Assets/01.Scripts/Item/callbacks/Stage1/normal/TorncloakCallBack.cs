@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TorncloakCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
@@ -26,6 +26,7 @@ public class TorncloakCallBack : ItemCallBack
     {
         //회피 확률 3% 증가
         GameManager.Instance.playerSO.ectStats.EVC += 3f;
+        base.ItemNestingCallBack();
 
     }
 

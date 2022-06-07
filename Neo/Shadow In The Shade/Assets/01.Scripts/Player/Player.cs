@@ -14,7 +14,9 @@ public class Player : MonoBehaviour, IDamagable
     public UnityEvent<float> OnHit { get; set; }
 
     private PlayerInput playerInput;
-    private PlayerDash playerDash;
+    private bool under50p = false;
+    private PlayerSO so;
+    //private PlayerDash playerDash;
 
     public PlayerInput PlayerInput
     {
@@ -129,8 +131,9 @@ public class Player : MonoBehaviour, IDamagable
     private void Start()
     {
         CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 2;
-        playerDash = GetComponent<PlayerDash>();
+       // playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
+        so = GameManager.Instance.playerSO;
     }
 
 
@@ -151,6 +154,28 @@ public class Player : MonoBehaviour, IDamagable
         if (currentT - lastHitT >= hitCool * 3f)
         {
             isInvincibility = false;
+        }
+
+        if (so.moveStats.HSP != 0)
+        {
+            if (currHP <= so.ectStats.PMH /2)
+            {
+                //적용
+                if(!under50p)
+                {
+                    so.attackStats.ASD += so.moveStats.HSP;
+                    under50p = true;
+                }
+            }
+            else
+            {
+                if(under50p)
+                {
+                    so.attackStats.ASD -= so.moveStats.HSP;
+                    under50p = false;
+                }
+                //적용풀기
+            }
         }
     }
 
@@ -174,7 +199,7 @@ public class Player : MonoBehaviour, IDamagable
             return;
         }   
 
-        if (IsDie || playerDash.isDash || isInvincibility)
+        if (IsDie  || isInvincibility)
             return;
 
 
@@ -221,7 +246,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (IsDie || isInvincibility || playerDash.isDash)
+        if (IsDie || isInvincibility )
             return;
         if (move == null) { }
       

@@ -4,28 +4,29 @@ using UnityEngine;
 
 public class FranticherbsCallBack : ItemCallBack
 {
-    public void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
 
     public override void ItemActiveCallBack()
     {
-        throw new System.NotImplementedException();
+        GameManager.Instance.playerSO.attackStats.KAP += 5f;
     }
 
     public override void ItemNestingCallBack()
     {
-        throw new System.NotImplementedException();
+        GameManager.Instance.playerSO.attackStats.KAP += 5f;
+        base.ItemNestingCallBack();
+
     }
 
     public override void ItemSpecialCallBack()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void Reset()
     {
-        throw new System.NotImplementedException();
     }
 }

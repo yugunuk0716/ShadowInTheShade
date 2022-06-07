@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingstoneCallBack : MonoBehaviour
+public class HealingstoneCallBack : ItemCallBack
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ItemActiveCallBack()
     {
-        
+    }
+
+    public override void ItemNestingCallBack()
+    {
+        base.ItemNestingCallBack();
+
+    }
+
+    public override void ItemSpecialCallBack()
+    {
+    }
+
+    public override void Reset()
+    {
     }
 }
