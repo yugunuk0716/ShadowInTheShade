@@ -78,7 +78,8 @@ public class PlayerItem : MonoBehaviour
                         itemObj.name = item.name + "CallBackObj";
                         playerHasItems.Add(item);
                         item.isActived = true;
-
+                        StartCoroutine(CallGetItem());
+                        return;
                     }
                     else
                     {
@@ -105,10 +106,6 @@ public class PlayerItem : MonoBehaviour
                 }
             }
         }
-
-        StartCoroutine(CallGetItem());
-
-        return;
     }
 
     public IEnumerator CallGetItem()
