@@ -24,4 +24,9 @@ public class PoinredbranchCallBack : ItemCallBack
     {
 
     }
+
+    public override void Reset()
+    {
+       // throw new System.NotImplementedException();
+    }
 }

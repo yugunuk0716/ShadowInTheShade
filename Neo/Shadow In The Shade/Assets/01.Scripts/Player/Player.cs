@@ -159,6 +159,15 @@ public class Player : MonoBehaviour, IDamagable
 
     public virtual void GetHit(float damage, int objNum)
     {
+        if(GameManager.Instance.playerSO.ectStats.EVC != 0)
+        {
+            if(Random.Range(0f,100f) < GameManager.Instance.playerSO.ectStats.EVC)
+            {
+                //여기서 회피하면 나올 효과 써주면 될듯?
+                print("응 못때리죠? 빡치죠? 화나죠?");
+                return;
+            }
+        }
        
         if (damage > GameManager.Instance.playerSO.ectStats.PMH)
         {

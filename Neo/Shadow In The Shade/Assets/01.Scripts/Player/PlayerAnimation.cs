@@ -202,14 +202,7 @@ public class PlayerAnimation : MonoBehaviour
         playerMove.OnMove(mousePos, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
         yield return new WaitUntil(() => !isAttacking);
-/*
-        if (attackStack == 0)
-        {
-        }
-        else
-        {
-            yield return new WaitForSeconds((500 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
-        }*/
+
         playerAnimator.SetBool("IsAttack", false);
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
         playerAnimator.speed = originAnimSpeed;

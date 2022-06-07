@@ -23,4 +23,9 @@ public class GoblinBatCallBack : ItemCallBack
     {
         GameManager.Instance.playerSO.attackStats.CTP += 3;
     }
+
+    public override void Reset()
+    {
+      //  throw new System.NotImplementedException();
+    }
 }

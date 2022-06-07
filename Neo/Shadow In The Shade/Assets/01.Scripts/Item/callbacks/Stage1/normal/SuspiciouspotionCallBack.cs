@@ -24,4 +24,9 @@ public class SuspiciouspotionCallBack : ItemCallBack
     {
         //디버프 지속시간 5% 감소
     }
+
+    public override void Reset()
+    {
+       // throw new System.NotImplementedException();
+    }
 }

@@ -2,20 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ItemCallBack : MonoBehaviour
+public abstract class ItemCallBack : PoolableMono
 {
-    public virtual void ItemActiveCallBack()
-    {
-
-    }
-
-    public virtual void ItemSpecialCallBack()
-    {
-
-    }
-
-    public virtual void ItemNestingCallBack()
-    {
-
-    }
+    public abstract void ItemActiveCallBack();
+    public abstract void ItemSpecialCallBack();
+    public abstract void ItemNestingCallBack();
 }

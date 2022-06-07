@@ -12,6 +12,8 @@ public class TorncloakCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
+        GameManager.Instance.playerSO.ectStats.EVC += 3f;
+
         //회피 확률 3% 증가
     }
 
@@ -23,5 +25,12 @@ public class TorncloakCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         //회피 확률 3% 증가
+        GameManager.Instance.playerSO.ectStats.EVC += 3f;
+
+    }
+
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -82,6 +82,12 @@ public struct PlayerECTStats
 
     [Header("플레이어 레벨")]
     public float LEV;
+
+    [Header("타격시 회복량")]
+    public float APH;
+
+    [Header("타격시 회복량")]
+    public float EVC;
 }
 
 [System.Serializable]

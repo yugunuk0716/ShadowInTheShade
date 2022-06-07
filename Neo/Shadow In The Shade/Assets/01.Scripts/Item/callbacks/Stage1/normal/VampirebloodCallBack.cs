@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampirebloodCallBack : ItemCallBack
+public class VampireBloodCallBack : ItemCallBack
 {
-    public float heal = 0;
-
-    void Start()
+    public void Start()
     {
         GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
         GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
@@ -14,22 +12,21 @@ public class VampirebloodCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-        heal += 2;
-        GameManager.Instance.onEnemyHit.AddListener(HealingHp);
+        GameManager.Instance.playerSO.ectStats.APH += 2f;
     }
 
     public override void ItemSpecialCallBack()
     {
+
     }
 
     public override void ItemNestingCallBack()
     {
-        heal += 1;
-       // HealingHp();
+        GameManager.Instance.playerSO.ectStats.APH += 1f;
     }
 
-    public void HealingHp()
+    public override void Reset()
     {
-        GameManager.Instance.player.GetComponent<Player>().CurrHP += heal;
+        
     }
 }
