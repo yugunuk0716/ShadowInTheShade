@@ -17,22 +17,21 @@ public class ItemSO : ScriptableObject
     public string itemAbility;
     public string itemComment;
 
-   /* [Header("아이템 스탯")]
-    public float attackPoint;
-    public float maxHpPoint;
-    public float attackSpeedPoint;
-    public float moveSpeedPoint;
-    public float criticalPercentagePoint;
-    public float criticalPowerPoint;
-    public float shadowGaugePoint;*/
+    /* [Header("아이템 스탯")]
+     public float attackPoint;
+     public float maxHpPoint;
+     public float attackSpeedPoint;
+     public float moveSpeedPoint;
+     public float criticalPercentagePoint;
+     public float criticalPowerPoint;
+     public float shadowGaugePoint;*/
 
     [Header("아이템 적용 여부")]
     public bool isActived = false;
 
     [Header("아이템 특수효과 스크립트")]
     public GameObject itemCallBack;
-
-
+}
 
     /*
 Item()
@@ -57,4 +56,3 @@ this.criticalPercentagePoint = _criticalPercentagePoint;
 this.criticalPowerPoint = _criticalPowerPoint;
 this.shadowGaugePoint = _shadowGaugePoint;
 }*/
-}

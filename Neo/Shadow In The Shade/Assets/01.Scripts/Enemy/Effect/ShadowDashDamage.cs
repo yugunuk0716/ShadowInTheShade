@@ -21,7 +21,15 @@ public class ShadowDashDamage : DamagableObject
                 IDamagable damagable = collision.GetComponent<IDamagable>();
                 dObjData.hitNum += 3;
                 damagable?.KnockBack((collision.transform.position - transform.position).normalized, dObjData.knockBackPower, dObjData.knockBackDelay);
-                damagable?.GetHit((dObjData.damage * damagePerType) * GameManager.Instance.playerSO.ectStats.DPD, dObjData.hitNum);
+                if(GameManager.Instance.playerSO.ectStats.DPD != 0)
+                {
+                    damagable?.GetHit((dObjData.damage * damagePerType) * GameManager.Instance.playerSO.ectStats.DPD, dObjData.hitNum);
+                }
+                else
+                {
+                    damagable?.GetHit(dObjData.damage * damagePerType, dObjData.hitNum);
+
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ public class PlayerItem : MonoBehaviour
 
     public List<ItemSO> playerHasItems = new List<ItemSO>();
 
-    private List<GameObject> itemUIObjs = new List<GameObject>();
+    public List<GameObject> itemUIObjs = new List<GameObject>();
 
     /*    private void Update()
         {
@@ -52,12 +52,15 @@ public class PlayerItem : MonoBehaviour
 
     public void ActiveItem(ItemSO item)
     {
-        if(playerHasItems.Count == 0)
+        if (playerHasItems.Count == 0)
         {
             GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
             itemObj.transform.SetParent(itemUIObjs[0].transform);
             itemObj.name = item.name + "CallBackObj";
+            playerHasItems.Add(item);
             item.isActived = true;
+            StartCoroutine(CallGetItem());
+            return;
         }
 
         for (int i = 0; i < playerHasItems.Count; i++)
@@ -70,8 +73,12 @@ public class PlayerItem : MonoBehaviour
                     {
                         print("안비었는데용");
                         GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
-                        itemObj.transform.SetParent(itemUIObjs[i].transform);
+                        itemObj.SetActive(true);
+                        itemObj.transform.SetParent(itemUIObjs[itemUIObjs.Count -1].transform);
                         itemObj.name = item.name + "CallBackObj";
+                        playerHasItems.Add(item);
+                        item.isActived = true;
+
                     }
                     else
                     {
@@ -82,7 +89,6 @@ public class PlayerItem : MonoBehaviour
                 {
                     print("그냥 오브젝트가 읎어요");
                 }
-               item.isActived = true;
             }
             else
             {
@@ -94,20 +100,20 @@ public class PlayerItem : MonoBehaviour
                     itemObj.GetComponent<ItemCallBack>().CallNesting();
                     item.isActived = true;
                     GameManager.Instance.onPlayerGetSameItem?.Invoke();
+                    playerHasItems.Add(item);
                     return;
                 }
             }
         }
 
         StartCoroutine(CallGetItem());
-        playerHasItems.Add(item);
+
         return;
     }
 
     public IEnumerator CallGetItem()
     {
         yield return null;
-      // yield return new WaitForSeconds(.1f);
         GameManager.Instance.onPlayerGetItem?.Invoke();
     }
 }
