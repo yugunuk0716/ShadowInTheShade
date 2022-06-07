@@ -269,7 +269,6 @@ public class UIManager : MonoBehaviour
             dashCoolImage.fillAmount = a;
             if (a < 0)
             {
-                print(Time.time - startTime);
                 PlayerNewDash.usedDash = false;
                 break;
             }
