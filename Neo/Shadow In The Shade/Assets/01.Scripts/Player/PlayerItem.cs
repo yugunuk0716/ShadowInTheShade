@@ -35,7 +35,6 @@ public class PlayerItem : MonoBehaviour
         //iSo.shadowGaugePoint 애는 나중에 만들면 될듯
 
 
-        playerHasItems.Add(item);
 
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
@@ -44,34 +43,27 @@ public class PlayerItem : MonoBehaviour
         image.ItemSO = item;
         //image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
         itemUIObjs.Add(image.gameObject);
-        ActiveItem();
+
+
+        ActiveItem(item);
 
         return;
     }
 
-    public void ActiveItem()
+    public void ActiveItem(ItemSO item)
     {
-        Debug.Log("ActiveItem");
-        PlayerSO pSo = GameManager.Instance.playerSO;
         for (int i = 0; i < playerHasItems.Count; i++)
         {
-            if (playerHasItems[i].isActived == false)
+            if (item.isActived == false)
             {
-                /*   pSo.attackStats.ATK += playerHasItems[i].attackPoint;
-                   pSo.ectStats.PMH += playerHasItems[i].maxHpPoint;
-                   pSo.attackStats.ASD += playerHasItems[i].attackSpeedPoint;
-                   pSo.moveStats.SPD += playerHasItems[i].moveSpeedPoint;
-                   pSo.attackStats.CTP += playerHasItems[i].criticalPercentagePoint;
-                   pSo.attackStats.CTD += playerHasItems[i].criticalPowerPoint;
-   */
-                if(playerHasItems[i] != null)
+                if (item != null)
                 {
-                    if(playerHasItems[i].itemCallBack != null)
+                    if (item.itemCallBack != null)
                     {
                         print("안비었는데용");
-                        GameObject itemObj = PoolManager.Instance.Pop(playerHasItems[i].itemCallBack.name).gameObject;
+                        GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
                         itemObj.transform.SetParent(itemUIObjs[i].transform);
-                        itemObj.name = playerHasItems[i].name + "CallBackObj";
+                        itemObj.name = item.name + "CallBackObj";
                     }
                     else
                     {
@@ -82,23 +74,24 @@ public class PlayerItem : MonoBehaviour
                 {
                     print("그냥 오브젝트가 읎어요");
                 }
-
-/*                // itemUIObjs[i].AddComponent<>();
-                Debug.Log("ActiveItem");
-               */
-                playerHasItems[i].isActived = true;
-
+               item.isActived = true;
+            }
+            else
+            {
+                if (item.name.Equals(playerHasItems[i].name))
+                {
+                    GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
+                    itemObj.transform.SetParent(itemUIObjs[i].transform);
+                    itemObj.name = item.name + "CallBackObj";
+                    itemObj.GetComponent<ItemCallBack>().CallNesting();
+                    item.isActived = true;
+                    GameManager.Instance.onPlayerGetSameItem?.Invoke();
+                    return;
+                }
             }
         }
-        StartCoroutine(CallingItemCallBack());
-
-        GameManager.Instance.playerSO = pSo;
-    }
-
-    public IEnumerator CallingItemCallBack()
-    {
-        yield return new WaitForSeconds(.02f);
-        Debug.Log("Calling");
-        GameManager.Instance.onPlayerGetItem.Invoke();
+        GameManager.Instance.onPlayerGetItem?.Invoke();
+        playerHasItems.Add(item);
+        return;
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class OldShoseCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
@@ -23,6 +23,8 @@ public class OldShoseCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         GameManager.Instance.playerSO.moveStats.SPD += .2f;
+        base.ItemNestingCallBack();
+
     }
 
     public override void Reset()

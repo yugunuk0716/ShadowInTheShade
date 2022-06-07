@@ -49,6 +49,6 @@ public class ItemManager : MonoBehaviour
 
     public void AddingItem(ItemSO item)
     {
-        GameManager.Instance.player.GetComponent<PlayerItem>().AddingItem(item);
+        GameManager.Instance.player.GetComponent<PlayerItem>().AddingItem(items[0]);
     }
 }

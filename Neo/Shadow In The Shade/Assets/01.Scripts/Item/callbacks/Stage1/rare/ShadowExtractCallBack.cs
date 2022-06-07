@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class ShadowExtractCallBack : ItemCallBack
 {
-    public void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
 
     public override void ItemActiveCallBack()
     {
+        GameManager.Instance.playerSO.moveStats.HSP += .5f;
     }
 
     public override void ItemNestingCallBack()
     {
+        base.ItemNestingCallBack();
+
     }
 
     public override void ItemSpecialCallBack()

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GoblinBatCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
 
     public override void ItemActiveCallBack()
@@ -22,6 +21,8 @@ public class GoblinBatCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         GameManager.Instance.playerSO.attackStats.CTP += 3;
+        base.ItemNestingCallBack();
+
     }
 
     public override void Reset()

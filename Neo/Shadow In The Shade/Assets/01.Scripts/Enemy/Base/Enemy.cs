@@ -364,6 +364,14 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             StageManager.Instance.ClearCheck();
             Anim.SetTrigger("isDie");
             yield return null;
+            PlayerSO so = GameManager.Instance.playerSO;
+            if (so.attackStats.KAP != 0)
+            {
+                float kap = so.attackStats.KAP;
+                so.attackStats.ATK += kap;
+                yield return new WaitForSeconds(2f);
+                so.attackStats.ATK -= kap;
+            }
         }
     }
 

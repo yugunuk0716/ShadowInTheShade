@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdrenalineCallBack : ItemCallBack
+public class BluePillCallBack : ItemCallBack
 {
     public override void Start()
     {
@@ -11,23 +11,20 @@ public class AdrenalineCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ASD += 0.05f;
-    }
-
-    public override void ItemSpecialCallBack()
-    {
-
+        GameManager.Instance.playerSO.ectStats.DPD += 1.1f;
     }
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ASD += 0.04f;
+        GameManager.Instance.playerSO.ectStats.DPD += 0.05f;
         base.ItemNestingCallBack();
+    }
 
+    public override void ItemSpecialCallBack()
+    {
     }
 
     public override void Reset()
     {
-        //throw new System.NotImplementedException();
     }
 }
