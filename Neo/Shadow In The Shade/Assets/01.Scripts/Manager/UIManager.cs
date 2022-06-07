@@ -92,6 +92,11 @@ public class UIManager : MonoBehaviour
         popupDic.Add("option", Instantiate(optionPopupPrefab, popupParent));
 
 
+        GameManager.Instance.onPlayerDash.AddListener(() => 
+        {
+            StartCoroutine(SetDashCool(GameManager.Instance.playerSO.moveStats.DCT)); 
+        }); // 1+ 0.5 * 4¿ŒµÌ
+
     }
 
     private void Update()
@@ -259,13 +264,15 @@ public class UIManager : MonoBehaviour
         float a = 1;
 
         float startTime = Time.time;
+
+        coolTime += 2;
         while (true)
         {
             a -= coolTime / (coolTime * (coolTime/2f) * 100f);
             dashCoolImage.fillAmount = a;
             if (a < 0)
             {
-                print(Time.time - startTime);
+                PlayerNewDash.usedDash = false;
                 break;
             }
 

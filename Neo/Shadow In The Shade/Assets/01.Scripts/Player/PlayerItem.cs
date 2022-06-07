@@ -10,7 +10,7 @@ public class PlayerItem : MonoBehaviour
 
     public List<ItemSO> playerHasItems = new List<ItemSO>();
 
-    private List<GameObject> itemUIObjs = new List<GameObject>();
+    public List<GameObject> itemUIObjs = new List<GameObject>();
 
     /*    private void Update()
         {
@@ -35,41 +35,50 @@ public class PlayerItem : MonoBehaviour
         //iSo.shadowGaugePoint 애는 나중에 만들면 될듯
 
 
-        playerHasItems.Add(item);
 
         ItemImage image = PoolManager.Instance.Pop("ItemUIImage") as ItemImage;
         image.transform.SetParent(imegeContent.transform);
         image.ItemImg.sprite = item.itemSprite;
+        image.name = item.name;
         image.ItemSO = item;
         //image.GetComponent<ItemImage>().SetRarity((int)item.rarity);
         itemUIObjs.Add(image.gameObject);
-        ActiveItem();
+
+
+        ActiveItem(item);
 
         return;
     }
 
-    public void ActiveItem()
+    public void ActiveItem(ItemSO item)
     {
-        Debug.Log("ActiveItem");
-        PlayerSO pSo = GameManager.Instance.playerSO;
+        if (playerHasItems.Count == 0)
+        {
+            GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
+            itemObj.transform.SetParent(itemUIObjs[0].transform);
+            itemObj.name = item.name + "CallBackObj";
+            playerHasItems.Add(item);
+            item.isActived = true;
+            StartCoroutine(CallGetItem());
+            return;
+        }
+
         for (int i = 0; i < playerHasItems.Count; i++)
         {
-            if (playerHasItems[i].isActived == false)
+            if (item.isActived == false)
             {
-                /*   pSo.attackStats.ATK += playerHasItems[i].attackPoint;
-                   pSo.ectStats.PMH += playerHasItems[i].maxHpPoint;
-                   pSo.attackStats.ASD += playerHasItems[i].attackSpeedPoint;
-                   pSo.moveStats.SPD += playerHasItems[i].moveSpeedPoint;
-                   pSo.attackStats.CTP += playerHasItems[i].criticalPercentagePoint;
-                   pSo.attackStats.CTD += playerHasItems[i].criticalPowerPoint;
-   */
-                if(playerHasItems[i] != null)
+                if (item != null)
                 {
-                    if(playerHasItems[i].itemCallBack != null)
+                    if (item.itemCallBack != null)
                     {
                         print("안비었는데용");
-                        GameObject itemObj = Instantiate(playerHasItems[i].itemCallBack, itemUIObjs[i].transform);
-                        itemObj.name = playerHasItems[i].name + "CallBackObj";
+                        GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
+                        itemObj.SetActive(true);
+                        itemObj.transform.SetParent(itemUIObjs[itemUIObjs.Count -1].transform);
+                        itemObj.name = item.name + "CallBackObj";
+                        playerHasItems.Add(item);
+                        item.isActived = true;
+
                     }
                     else
                     {
@@ -80,22 +89,31 @@ public class PlayerItem : MonoBehaviour
                 {
                     print("그냥 오브젝트가 읎어요");
                 }
-
-                // itemUIObjs[i].AddComponent<>();
-                Debug.Log("ActiveItem");
-                StartCoroutine(CallingItemCallBack());
-                playerHasItems[i].isActived = true;
-
+            }
+            else
+            {
+                if (item.name.Equals(playerHasItems[i].name))
+                {
+                    GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
+                    itemObj.transform.SetParent(itemUIObjs[i].transform);
+                    itemObj.name = item.name + "CallBackObj";
+                    itemObj.GetComponent<ItemCallBack>().CallNesting();
+                    item.isActived = true;
+                    GameManager.Instance.onPlayerGetSameItem?.Invoke();
+                    playerHasItems.Add(item);
+                    return;
+                }
             }
         }
 
-        GameManager.Instance.playerSO = pSo;
+        StartCoroutine(CallGetItem());
+
+        return;
     }
 
-    public IEnumerator CallingItemCallBack()
+    public IEnumerator CallGetItem()
     {
-        yield return new WaitForSeconds(.02f);
-        Debug.Log("Calling");
-        GameManager.Instance.onPlayerGetItem.Invoke();
+        yield return null;
+        GameManager.Instance.onPlayerGetItem?.Invoke();
     }
 }

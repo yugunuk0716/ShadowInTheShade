@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class RedPillCallBack : ItemCallBack
 {
-    public void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
-        Debug.Log("Adding");
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.ectStats.PMH += 20f;
-        base.ItemActiveCallBack();
     }
 
 
@@ -25,4 +23,17 @@ public class RedPillCallBack : ItemCallBack
         UIManager.Instance.SetBar(
             GameManager.Instance.player.GetComponent<Player>().CurrHP / GameManager.Instance.playerSO.ectStats.PMH);
     }
+
+    public override void ItemNestingCallBack()
+    {
+        base.ItemNestingCallBack();
+
+    }
+
+    public override void Reset()
+    {
+       // throw new System.NotImplementedException();
+    }
+
+   
 }

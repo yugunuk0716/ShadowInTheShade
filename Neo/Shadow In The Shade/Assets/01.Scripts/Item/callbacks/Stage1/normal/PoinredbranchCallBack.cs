@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PoinredbranchCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
@@ -22,6 +22,12 @@ public class PoinredbranchCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
+        base.ItemNestingCallBack();
 
+    }
+
+    public override void Reset()
+    {
+       // throw new System.NotImplementedException();
     }
 }

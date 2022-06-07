@@ -29,6 +29,14 @@ public class ItemManager : MonoBehaviour
     [Header("아이템 SO 리스트")]
     public List<ItemSO> items;
 
+    public void Start()
+    {
+        for(int i =0; i < items.Count;i++)
+        {
+            items[i].isActived = false;
+        }
+    }
+
     public ItemSO PickItem(Rarity _rarity)
     {
         List<ItemSO> pickedItems = new List<ItemSO>();

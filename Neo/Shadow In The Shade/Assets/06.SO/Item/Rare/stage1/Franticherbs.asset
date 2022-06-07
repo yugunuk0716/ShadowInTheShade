@@ -17,10 +17,5 @@ MonoBehaviour:
   rarity: 1
   itemAbility: "\uC801 \uCC98\uCE58\uC2DC 2\uCD08\uAC04 \uACF5\uACA9\uB825 5\uC99D\uAC00"
   itemComment: 
-  attackPoint: 5
-  maxHpPoint: 0
-  attackSpeedPoint: 0
-  moveSpeedPoint: 0
-  criticalPercentagePoint: 0
-  criticalPowerPoint: 0
-  shadowGaugePoint: 0
+  isActived: 0
+  itemCallBack: {fileID: 0}

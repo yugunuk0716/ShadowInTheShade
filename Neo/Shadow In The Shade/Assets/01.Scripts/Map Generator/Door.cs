@@ -97,8 +97,7 @@ public class Door : MonoBehaviour
         Rigidbody2D rigd = collision.GetComponent<Rigidbody2D>();
 
         if (rigd.velocity.x > 10f || rigd.velocity.x < -10f || 
-            rigd.velocity.y > 10f || rigd.velocity.x < -10f || 
-            collision.GetComponent<PlayerDash>().isDash)
+            rigd.velocity.y > 10f || rigd.velocity.x < -10f)
             yield break;
 
         RoomManager.Instance.isMoving = true;
@@ -152,8 +151,7 @@ public class Door : MonoBehaviour
         Rigidbody2D rigd = collision.GetComponent<Rigidbody2D>();
 
         if (rigd.velocity.x > 10f || rigd.velocity.x < -10f ||
-            rigd.velocity.y > 10f || rigd.velocity.x < -10f ||
-            collision.GetComponent<PlayerDash>().isDash)
+            rigd.velocity.y > 10f || rigd.velocity.x < -10f)
             yield break;
 
         RoomManager.Instance.isMoving = true;

@@ -22,9 +22,8 @@ public class PlayerNewDash : MonoBehaviour
     private SpriteRenderer sr;
     private float dashTime = 0.15f;
 
-    private float coolTime = 3f;
-    private float lastDashTime = 0f;
-    private bool usedDash = false;
+    
+    public static bool usedDash = false;
 
 
     public void Start()
@@ -57,11 +56,6 @@ public class PlayerNewDash : MonoBehaviour
                 lateDir = playerInput.moveDir.normalized;
             }
     */
-        if (Time.time > lastDashTime + coolTime)
-        {
-            usedDash = false;
-        }
-
 
         if (Input.GetButton("Dash"))
         {
@@ -97,7 +91,6 @@ public class PlayerNewDash : MonoBehaviour
             {
                 if(effectRunTime >= .6f)
                 {
-                    lastDashTime = Time.time;
                     usedDash = true;
                     StartCoroutine(Dashing(2.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power3;
@@ -105,7 +98,6 @@ public class PlayerNewDash : MonoBehaviour
                 }
                 else if(effectRunTime > .4f)
                 {
-                    lastDashTime = Time.time;
                     usedDash = true;
                     StartCoroutine(Dashing(1.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power2;
@@ -113,7 +105,6 @@ public class PlayerNewDash : MonoBehaviour
                 }
                 else if(effectRunTime > .2f)
                 {
-                    lastDashTime = Time.time;
                     usedDash = true;
                     StartCoroutine(Dashing(1f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power1;
@@ -155,7 +146,7 @@ public class PlayerNewDash : MonoBehaviour
         yield return new WaitForEndOfFrame();
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Dash;
         dashCollider.isDashing = true;
-            
+        GameManager.Instance.onPlayerDash?.Invoke();
 
         if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
         {

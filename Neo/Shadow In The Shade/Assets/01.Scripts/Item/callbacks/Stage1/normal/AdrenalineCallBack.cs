@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class AdrenalineCallBack : ItemCallBack
 {
-    void Start()
+    public new void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
 
     public override void ItemActiveCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ASD += 5;
+        GameManager.Instance.playerSO.attackStats.ASD += 0.05f;
     }
 
     public override void ItemSpecialCallBack()
@@ -22,6 +21,12 @@ public class AdrenalineCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ASD += 4;
+        GameManager.Instance.playerSO.attackStats.ASD += 0.04f;
+        base.ItemNestingCallBack();
+    }
+
+    public override void Reset()
+    {
+        //throw new System.NotImplementedException();
     }
 }

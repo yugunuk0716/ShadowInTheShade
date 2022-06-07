@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SuspiciouspotionCallBack : ItemCallBack
 {
-    void Start()
+    public override void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        base.Start();
     }
+
 
     public override void ItemActiveCallBack()
     {
@@ -23,5 +23,12 @@ public class SuspiciouspotionCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         //디버프 지속시간 5% 감소
+        base.ItemNestingCallBack();
+
+    }
+
+    public override void Reset()
+    {
+       // throw new System.NotImplementedException();
     }
 }

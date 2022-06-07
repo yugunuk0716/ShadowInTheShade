@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerAttackSuccess;
     public UnityEvent onPlayerGetEXP;
     public UnityEvent<float, DiceType> onBossHpSend;
-    public UnityEvent onPlayerGetItem;
+    public UnityEvent onPlayerGetItem;  
+    public UnityEvent onPlayerGetSameItem;
     public UnityEvent onPlayerGetShadowOrb;
 
     public UnityEvent onEnemyHit;
@@ -68,12 +69,12 @@ public class GameManager : MonoBehaviour
         onPlayerHit = new UnityEvent<float>();
         onPlayerAttackSuccess = new UnityEvent();
         onPlayerGetShadowOrb = new UnityEvent();
+        onPlayerGetSameItem = new UnityEvent();
 
 
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Shadow;
         playerSO.playerDashState = PlayerDashState.Default;
-        playerSO.moveStats.DSS = 1;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 
