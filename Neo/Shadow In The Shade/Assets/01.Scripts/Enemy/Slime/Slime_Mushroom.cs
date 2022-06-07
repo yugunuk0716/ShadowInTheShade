@@ -4,25 +4,17 @@ using UnityEngine;
 
 public class Slime_Mushroom : Enemy, IDamagable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-    private SpriteRenderer sr;
-
     private readonly float attackDistance = 6f;
-    private readonly float chaseDistance = 5f;
+    private readonly float chaseDistance = 3f;
 
     private Move_Chase chase = null;
     private Attack_Mushroom attack = null;
 
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
+   
 
     protected override void Awake()
     {
         dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
-
-        sr = GetComponentInChildren<SpriteRenderer>();
 
         chase = gameObject.AddComponent<Move_Chase>();
         chase.speed = -2f;
@@ -107,9 +99,9 @@ public class Slime_Mushroom : Enemy, IDamagable
     }
 
 
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

@@ -18,10 +18,5 @@ MonoBehaviour:
   itemAbility: "\uCE58\uBA85\uD0C0 \uD655\uB960 5% \uC99D\uAC00"
   itemComment: "\uCE58\uBA85\uD0C0 \uD655\uB960 100% \uCD08\uACFC\uC2DC \uCE58\uBA85\uD0C0
     \uD53C\uD574\uB7C9 \uC99D\uAC00"
-  attackPoint: 0
-  maxHpPoint: 0
-  attackSpeedPoint: 0
-  moveSpeedPoint: 0
-  criticalPercentagePoint: 5
-  criticalPowerPoint: 0
-  shadowGaugePoint: 0
+  isActived: 0
+  itemCallBack: {fileID: 7204924775050632515, guid: 381695c6880533b4e80a4d13c36736f6, type: 3}

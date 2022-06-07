@@ -2,23 +2,35 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Attack_Tackle : MonoBehaviour, IState
 {
+    public bool canAttack;
+
     Enemy enemy;
     ITacklable tacklable;
 
-    int originLayer;
-    readonly int targetLayer = 9;
+    //int originLayer;
+   // readonly int targetLayer = 9;
 
     private Collider2D coll;
     AttackArea atkArea;
 
+    Coroutine tackleRoutine;
+ 
+
+    //AIDestinationSetter destinationSetter;
+    //Seeker seeker;
+    //AIPath path;
+
+    
     public void OnEnter()
     {
         if (enemy == null)
         {
             enemy = GetComponentInParent<Enemy>();
+            enemy.OnReset.AddListener(AttackReset);
         }
 
         if (coll == null)
@@ -30,13 +42,48 @@ public class Attack_Tackle : MonoBehaviour, IState
         {
             tacklable = GetComponentInParent<ITacklable>();
         }
-        originLayer = enemy.gameObject.layer;
-        enemy.gameObject.layer = targetLayer;
+
+        //if (destinationSetter == null)
+        //    destinationSetter = GetComponentInParent<AIDestinationSetter>();
+
+        //if (seeker == null)
+        //    seeker = GetComponentInParent<Seeker>();
+
+        //if (path == null)
+        //    path = GetComponentInParent<AIPath>();
+
+        if (tackleRoutine != null)
+        {
+            enemy.SetAttack(true);
+            StopCoroutine(tackleRoutine);
+            tacklable.SetTackle(false);
+            enemy.Anim.SetBool("isTackle", false);
+            enemy.Anim.SetFloat("MoveX", 0);
+            enemy.Anim.SetFloat("MoveY", 0);
+            //enemy.gameObject.layer = originLayer;
+           
+            enemy.IsHit = false;
+        }
+
+
+        //originLayer = enemy.gameObject.layer;
+        //enemy.gameObject.layer = targetLayer;
         enemy.Move.rigid.velocity = Vector3.zero;
 
-        StartCoroutine(TackleRoutine());
+        enemy.SetAttack(false);
+
+        if (tackleRoutine == null && this.gameObject.activeSelf)
+        {
+            tackleRoutine = StartCoroutine(TackleRoutine());
+        }
+
 
        
+    }
+
+    public void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     public void OnEnd()
@@ -59,12 +106,14 @@ public class Attack_Tackle : MonoBehaviour, IState
                 a += 0.02f;
                 atkArea.Lr.SetPosition(1, vec.normalized * a);
                 yield return new WaitForSeconds(0.001f);
+                if (!canAttack)
+                    yield break;
 
             }
-            
+         
 
             yield return new WaitForSeconds(.1f);
-
+            PoolManager.Instance.Push(atkArea);
             enemy.Anim.SetFloat("MoveX", vec.x); // Mathf.Clamp(vec.x, -1f, 1f));
             enemy.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
             enemy.Move.OnMove(vec.normalized, 10f);
@@ -73,6 +122,8 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Move.rigid.velocity = Vector2.zero;
             
             enemy.Anim.SetBool("isTackle", true);
+            enemy.SetAttack(true);
+            tackleRoutine = null;
         }
 
     }
@@ -85,14 +136,18 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Anim.SetBool("isTackle", false);
             enemy.Anim.SetFloat("MoveX", 0);
             enemy.Anim.SetFloat("MoveY", 0);
-            enemy.gameObject.layer = originLayer;
+         
+            //enemy.gameObject.layer = originLayer;
             PoolManager.Instance.Push(atkArea);
         }
     }
 
     void AttackReset()
     {
+        enemy.SetAttack(true);
+
         tacklable.SetTackle(false);
+        canAttack = false;
     }
 
 

@@ -4,29 +4,25 @@ using UnityEngine;
 
 public class Slime_Beaker : Enemy, ITacklable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
-
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
+    private Idle_Patrol idle = null;
 
     private int reincarnationIdx = 0;
 
+    
+
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
+        idle = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = idle;
 
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
+        speed = 2f;
 
         dicState[EnemyState.Move] = chase;
 
@@ -85,12 +81,16 @@ public class Slime_Beaker : Enemy, ITacklable
         yield return null;
         while (true)
         {
-            //if (!Anim.GetBool("isReincarnation"))
-            //    continue;
-
 
             if (IsHit)
             {
+                yield return null;
+                continue;
+            }
+
+            if (Anim.GetBool("isReincarnation"))
+            {
+                SetAttack(false);
                 yield return null;
                 continue;
             }
@@ -101,32 +101,43 @@ public class Slime_Beaker : Enemy, ITacklable
             {
                 if (dist < chaseDistance )
                 {
-                    if (dist < chaseDistance && dist > attackDistance)
-                    {
-                        SetState(EnemyState.Move);
-                    }
-                 
+
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
+                        attack.canAttack = true;
+                        chase.canTrace = false;
+                        idle.canMove = false;
                     }
+                    else if (dist < chaseDistance)
+                    {
+                        chase.canTrace = true;
+                        SetAttack(true);
+                        SetState(EnemyState.Move);
+                    }
+                 
+                   
                 }
                 else if (!isDie)
                 {
                     SetState(EnemyState.Default);
+                    idle.canMove = true;
                 }
+            }
+            else
+            {
+                chase.canTrace = false;
             }
 
             yield return base.LifeTime();
         }
     }
 
-
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
-
-        base.GetHit(damage);
+        attack.TackleEnd();
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()
@@ -136,6 +147,9 @@ public class Slime_Beaker : Enemy, ITacklable
             chase.speed = 0f;
             currHP = enemyData.maxHealth / 2;
             IsHit = false;
+            chase.canTrace = false;
+            destinationSetter.target = null;
+            SetAttack(false);
             Anim.SetBool("isReincarnation", true);
             return;
         }
@@ -165,17 +179,21 @@ public class Slime_Beaker : Enemy, ITacklable
         chase.speed = 0f;
         IsHit = false;
         reincarnationIdx = 0;
-        lastHitTime = Time.time;
         Anim.SetBool("isReincarnation", false);
     }
 
     public void ReincarnationEnd()
     {
         isAttack = false;
-        gameObject.layer = 6;
         dicState[EnemyState.Move].OnEnd();
         chase.speed = 3f;
+        //SetAttack(true);
         //dicState[State.Move].OnEnter();
+    }
+
+    public override void KnockBack(Vector2 direction, float power, float duration)
+    {
+        base.KnockBack(direction, power, duration);
     }
 
     public override void Reset()

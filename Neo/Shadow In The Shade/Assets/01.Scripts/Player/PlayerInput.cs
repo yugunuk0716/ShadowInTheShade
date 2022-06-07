@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class PlayerInput : MonoBehaviour
 {
     public Vector2 moveDir;
+    public Vector2 mouseDir;
     public bool isDash;
     public bool isAttack;
     public bool isUse;
@@ -14,10 +15,19 @@ public class PlayerInput : MonoBehaviour
     public bool isDie;
 
 
+    private Camera mainCam;
+
+    private void Start()
+    {
+        mainCam = Camera.main;
+    }
+
+
     private void Update()
     {
         if (GameManager.Instance.timeScale <= 0 || isDie)
         {
+            print("??");
             moveDir = Vector2.zero;
             isDash = false;
             isAttack = false;
@@ -35,9 +45,9 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Dash:
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Use:
                         isUse = Input.GetButtonDown("Use");
@@ -47,10 +57,10 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Change:
                         moveDir.x = Input.GetAxisRaw("Horizontal");
                         moveDir.y = Input.GetAxisRaw("Vertical");
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
                         isUse = Input.GetButtonDown("Use");
                         break;
@@ -65,24 +75,26 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Dash:
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
-                        //isChangePlayerType = Input.GetButtonDown("Change");
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         break;
                     case PlayerInputState.Attack:
-                        moveDir = Vector2.zero;
-                        isAttack = Input.GetButtonDown("Fire2");
-                        break;
+                        /*moveDir = Vector2.zero;
+                        break;*/
                     case PlayerInputState.Idle:
                     case PlayerInputState.Move:
                     case PlayerInputState.Change:
-                        moveDir.x = Input.GetAxisRaw("Horizontal");
-                        moveDir.y = Input.GetAxisRaw("Vertical");
-                        //isChangePlayerType = Input.GetButtonDown("Change");
-                        isAttack = Input.GetButtonDown("Fire2");
+                        if (!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+                        {
+                            isAttack = Input.GetButtonDown("Attack");
+                            moveDir.x = Input.GetAxisRaw("Horizontal");
+                            moveDir.y = Input.GetAxisRaw("Vertical");
+                        }
+                        isChangePlayerType = Input.GetButtonDown("Change");
                         if (!EventSystem.current.IsPointerOverGameObject())
                         {
-                            isDash = Input.GetButtonDown("Fire1");
+                            isDash = Input.GetButtonDown("Dash");
                         }
                         break;
                 }
@@ -90,4 +102,6 @@ public class PlayerInput : MonoBehaviour
         }
 
     }
+
+    
 }

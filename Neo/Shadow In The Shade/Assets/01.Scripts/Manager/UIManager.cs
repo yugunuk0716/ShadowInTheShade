@@ -28,6 +28,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image playerEXPBar;
 
+    [SerializeField]
+    private Image dashCoolImage;
+
+    public CanvasGroup bossHPBarCG;
+
 
     #region UI Popup
     public Transform popupParent;
@@ -49,14 +54,25 @@ public class UIManager : MonoBehaviour
     public Text tooltipText;
     public Image tooltipIcon;
     public Image tooltipBG;
+    public Image guideImage;
 
+    private CanvasGroup guideCG;
     private CanvasGroup tooltipCG;
     private Vector3 initPosition;
+
+    private bool isShowing = false;
 
     private void Awake()
     {
         instance = this;
 
+
+        if(guideImage != null)
+        {
+            guideCG = guideImage.GetComponent<CanvasGroup>();
+        }
+
+        
         tooltipCG = tooltipBG.GetComponent<CanvasGroup>();
     }
 
@@ -75,6 +91,11 @@ public class UIManager : MonoBehaviour
 
         popupDic.Add("option", Instantiate(optionPopupPrefab, popupParent));
 
+
+        GameManager.Instance.onPlayerDash.AddListener(() => 
+        {
+            StartCoroutine(SetDashCool(GameManager.Instance.playerSO.moveStats.DCT)); 
+        }); // 1+ 0.5 * 4인듯
 
     }
 
@@ -96,10 +117,10 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    StartFadeOut();
-        //}
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            StartCoroutine(SetDashCool(3f));
+        }
 
         //if (Input.GetKeyDown(KeyCode.J))
         //{
@@ -116,7 +137,6 @@ public class UIManager : MonoBehaviour
 
     public void StartFadeOut()
     {
-        print("fadeOut");
         StartCoroutine(FadeOut());
     }
 
@@ -211,10 +231,53 @@ public class UIManager : MonoBehaviour
 
     public void CloseTooltip()
     {
-        DOTween.Clear(); //모든 트윈을 종료시키고 
-        
+        DOTween.Clear(); 
         CanvasGroup cg = tooltipCG;
         DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
+    }
+
+    public void ShowInteractableGuideImage(Vector3 worldPos)
+    {
+        if (isShowing)
+            return;
+        //켜져 있는지 확인 하던중
+
+        isShowing = true;
+        guideImage.rectTransform.position = worldPos;// + new Vector3(100f, 100f, 0);
+
+        CanvasGroup cg = guideCG;
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f);
+    }
+
+    public void CloseInteractableGuideImage()
+    {
+
+        isShowing = false;
+        DOTween.Clear();
+        CanvasGroup cg = guideCG;
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
+    }
+
+
+    public IEnumerator SetDashCool(float coolTime)
+    {
+        float a = 1;
+
+        float startTime = Time.time;
+
+        coolTime += 2;
+        while (true)
+        {
+            a -= coolTime / (coolTime * (coolTime/2f) * 100f);
+            dashCoolImage.fillAmount = a;
+            if (a < 0)
+            {
+                PlayerNewDash.usedDash = false;
+                break;
+            }
+
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
 

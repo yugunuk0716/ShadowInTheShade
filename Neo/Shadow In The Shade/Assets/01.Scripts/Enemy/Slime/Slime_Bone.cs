@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Slime_Bone : Enemy, ITacklable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-    private SpriteRenderer sr;
 
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
@@ -14,23 +11,20 @@ public class Slime_Bone : Enemy, ITacklable
 
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
+    private Idle_Patrol idle = null;
 
     float defaultDamage;
     readonly int damageIncreaseAmout = 2;
 
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
+
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
-
-        sr = GetComponentInChildren<SpriteRenderer>();
+        idle = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = idle;
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
-
+        speed = 2f;
         dicState[EnemyState.Move] = chase;
 
         attack = gameObject.GetComponentInChildren<Attack_Tackle>();
@@ -92,25 +86,28 @@ public class Slime_Bone : Enemy, ITacklable
                 yield return null;
                 continue;
             }
-
             if (!isAttack)
             {
                 if (dist < chaseDistance)
                 {
-                    if (dist > attackDistance)
-                    {
-                        SetState(EnemyState.Move);
-                    }
-
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
+                        attack.canAttack = true;
+                        chase.canTrace = false;
+                        idle.canMove = false;
+                    }
+                    else if (dist < chaseDistance)
+                    {
+                        chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                 }
                 else
                 {
                     SetState(EnemyState.Default);
+                    idle.canMove = true;
                 }
             }
           
@@ -119,11 +116,11 @@ public class Slime_Bone : Enemy, ITacklable
         }
     }
 
-
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
         hitCount++;
-        base.GetHit(damage);
+        attack.TackleEnd();
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

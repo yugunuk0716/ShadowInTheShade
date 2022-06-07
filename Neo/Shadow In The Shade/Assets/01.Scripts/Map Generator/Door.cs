@@ -58,9 +58,6 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.CompareTag("Player"));
-        print(!RoomManager.Instance.isMoving);
-        print(isOpen);
 
         if (collision.CompareTag("Player") && !RoomManager.Instance.isMoving && isOpen)
         {
@@ -79,7 +76,6 @@ public class Door : MonoBehaviour
                 Room bossRoom = RoomManager.Instance.loadedRooms.Find(r => r.name.Contains("Boss"));
                 if(bossRoom != null)
                 {
-                    print("?");
                     StageManager.Instance.CurEnemySPList.Clear();
                     StageManager.Instance.currentRoom = bossRoom;
                     StartCoroutine(MoveBossRoomCoroutine(collision, bossRoom));
@@ -101,8 +97,7 @@ public class Door : MonoBehaviour
         Rigidbody2D rigd = collision.GetComponent<Rigidbody2D>();
 
         if (rigd.velocity.x > 10f || rigd.velocity.x < -10f || 
-            rigd.velocity.y > 10f || rigd.velocity.x < -10f || 
-            collision.GetComponent<PlayerDash>().isDash)
+            rigd.velocity.y > 10f || rigd.velocity.x < -10f)
             yield break;
 
         RoomManager.Instance.isMoving = true;
@@ -156,8 +151,7 @@ public class Door : MonoBehaviour
         Rigidbody2D rigd = collision.GetComponent<Rigidbody2D>();
 
         if (rigd.velocity.x > 10f || rigd.velocity.x < -10f ||
-            rigd.velocity.y > 10f || rigd.velocity.x < -10f ||
-            collision.GetComponent<PlayerDash>().isDash)
+            rigd.velocity.y > 10f || rigd.velocity.x < -10f)
             yield break;
 
         RoomManager.Instance.isMoving = true;
@@ -188,5 +182,6 @@ public class Door : MonoBehaviour
         GameManager.Instance.timeScale = 1f;
         //StageManager.Instance.currentRoom.EnterRoom();
         bossRoom.SpawnEnemies();
+        DOTween.To(() => UIManager.Instance.bossHPBarCG.alpha, value => UIManager.Instance.bossHPBarCG.alpha = value, 1, 0.8f);
     }
 }

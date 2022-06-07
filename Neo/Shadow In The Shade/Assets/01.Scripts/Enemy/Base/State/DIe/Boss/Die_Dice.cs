@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class Die_Dice : MonoBehaviour, IState
                 for (int i = 0; i < 2; i++)
                 {
                     childDiceList.Add(PoolManager.Instance.Pop("Dice Mk2 Slime") as Boss_Dice);
-                    childDiceList[i].transform.position = i == 0 ? new Vector2(1, 0) : new Vector2(-1, 0);
+                    childDiceList[i].transform.position = i == 0 ? transform.position + new Vector3(1, 0) : transform.position + new Vector3(-1, 0);
                 }
                 break;
             case DiceType.Mk2:
@@ -31,19 +32,23 @@ public class Die_Dice : MonoBehaviour, IState
                     switch (i)
                     {
                         case 0:
-                            childDiceList[i].transform.position = new Vector2(1, 1);
+                            childDiceList[i].transform.position = transform.position + new Vector3(1, 1);
                             break;
                         case 1:
-                            childDiceList[i].transform.position = new Vector2(-1, 1);
+                            childDiceList[i].transform.position = transform.position + new Vector3(-1, 1);
                             break;
                         case 2:
-                            childDiceList[i].transform.position = new Vector2(-1, -1);
+                            childDiceList[i].transform.position = transform.position + new Vector3(-1, -1);
                             break;
                         case 3:
-                            childDiceList[i].transform.position = new Vector2(1, -1);
+                            childDiceList[i].transform.position = transform.position + new Vector3(1, -1);
                             break;
                     }
                 }
+                break;
+            case DiceType.Mk3:
+                DOTween.To(() => UIManager.Instance.bossHPBarCG.alpha, value => UIManager.Instance.bossHPBarCG.alpha = value, 0, 0.8f);
+                
                 break;
         }
 

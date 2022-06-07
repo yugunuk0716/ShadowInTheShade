@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IDamagable
 {
@@ -10,10 +11,12 @@ public class Player : MonoBehaviour, IDamagable
     [field: SerializeField]
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
-    public UnityEvent OnHit { get; set; }
+    public UnityEvent<float> OnHit { get; set; }
 
     private PlayerInput playerInput;
-    private PlayerDash playerDash;
+    private bool under50p = false;
+    private PlayerSO so;
+    //private PlayerDash playerDash;
 
     public PlayerInput PlayerInput
     {
@@ -50,8 +53,8 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
-
-    private float currHP = 0f;
+    [SerializeField]
+    private float currHP;
     public float CurrHP
     {
         get 
@@ -62,7 +65,7 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP /  GameManager.Instance.playerSO.ectStats.PMH);
+            UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH * 2));
         }
     }
 
@@ -115,6 +118,8 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    public int LastHitObjNumber { get; set; } = 0;
+
     private bool isInvincibility = false;
 
 
@@ -125,9 +130,10 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
-        playerDash = GetComponent<PlayerDash>();
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 2;
+       // playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
+        so = GameManager.Instance.playerSO;
     }
 
 
@@ -149,40 +155,77 @@ public class Player : MonoBehaviour, IDamagable
         {
             isInvincibility = false;
         }
+
+        if (so.moveStats.HSP != 0)
+        {
+            if (currHP <= so.ectStats.PMH /2)
+            {
+                //적용
+                if(!under50p)
+                {
+                    so.attackStats.ASD += so.moveStats.HSP;
+                    under50p = true;
+                }
+            }
+            else
+            {
+                if(under50p)
+                {
+                    so.attackStats.ASD -= so.moveStats.HSP;
+                    under50p = false;
+                }
+                //적용풀기
+            }
+        }
     }
 
 
-   
 
-    public void GetHit(float damage)
+
+    public virtual void GetHit(float damage, int objNum)
     {
+        if(GameManager.Instance.playerSO.ectStats.EVC != 0)
+        {
+            if(Random.Range(0f,100f) < GameManager.Instance.playerSO.ectStats.EVC)
+            {
+                //여기서 회피하면 나올 효과 써주면 될듯?
+                print("응 못때리죠? 빡치죠? 화나죠?");
+                return;
+            }
+        }
+       
+        if (damage > GameManager.Instance.playerSO.ectStats.PMH)
+        {
+            return;
+        }   
 
-        if (IsDie || IsHit || playerDash.isDash || isInvincibility)
+        if (IsDie  || isInvincibility)
             return;
 
+
+        LastHitObjNumber = objNum;
         lastHitT = currentT;
 
         IsHit = true;
         isInvincibility = true;
 
-        Rigid.velocity = Vector2.zero;
+        //Rigid.velocity = Vector2.zero;
         if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
         {
+            //print(damage);
             CurrHP -= damage;
         }
-        else if(GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Shadow))
-        {
-            //여기서 그림자
-            print("그림자 피격");
-        }
+     
 
         StartCoroutine(Blinking());
-        StartCoroutine(StateRoutine());
+        //StartCoroutine(StateRoutine());
 
         CheckHp();
 
-        OnHit?.Invoke();
+        OnHit?.Invoke(damage);
         EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+
+        IsHit = false;
 
     }
 
@@ -193,7 +236,7 @@ public class Player : MonoBehaviour, IDamagable
       
 
             GameManager.Instance.timeScale = 0;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             GameManager.Instance.timeScale = 1;
     
 
@@ -203,11 +246,11 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (IsHit || IsDie || isInvincibility || playerDash.isDash)
+        if (IsDie || isInvincibility )
             return;
-        if (move == null)
+        if (move == null) { }
       
-        move.KnockBack(direction, power, duration);
+        //move.KnockBack(direction, power, duration);
     }
 
     private IEnumerator Blinking()
@@ -233,6 +276,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         if (CurrHP <= 0f)
         {
+            print(CurrHP);
             IsDie = true;
             StartCoroutine(Dead());
             OnDie?.Invoke();
@@ -246,8 +290,10 @@ public class Player : MonoBehaviour, IDamagable
         {
             Anim.SetTrigger("isDie");
             yield return null;
-            
+
             //나중에 여기서 게임오버 패널 띄우는 함수 실행하면 될 듯
+
+            SceneManager.LoadScene(0);
         }
     }
 

@@ -6,13 +6,14 @@ public class Item : Interactable
 {
     public ItemSO itemSO;
 
+    public SpriteRenderer bg;
+    public bool canUse = false;
+
+    private Dictionary<Rarity, Color> colorDic = new Dictionary<Rarity, Color>();
 
     private BoxCollider2D boxCol;
     private Animator anim;
     private Rigidbody2D rigid;
-
-    public bool canUse = false;
-
 
     private SpriteRenderer sr;
     public SpriteRenderer Sr
@@ -25,12 +26,20 @@ public class Item : Interactable
         }
     }
 
-    private void Awake()
+    //989898   0069A3   6E2F8E   FFCD28
+    protected override void Awake()
     {
         anim = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
+        base.Awake();
+
+        colorDic.Add(Rarity.Normal, Color.white);
+        colorDic.Add(Rarity.Rare, new Color(0f, 105f, 163f));
+        colorDic.Add(Rarity.Unique, new Color(110f, 47f, 142f));
+        colorDic.Add(Rarity.Legendary, new Color(255f, 205f, 40f));
+
     }
 
     private void OnEnable()
@@ -41,7 +50,7 @@ public class Item : Interactable
     public void Init(Rarity rarity)
     {
         itemSO = ItemManager.Instance.PickItem(rarity);
-
+        bg.color = colorDic[rarity];
         Sr.sprite = itemSO.itemSprite;
     }
 
@@ -57,6 +66,9 @@ public class Item : Interactable
         used = true;
         canUse = false;
 
+        //여기서 상점 갔던 여부 확인하고 안갔다면 2번을 상점으로 설정하고 생성 해주면 되고 다른 방은 랜덤으로 굴리는데 이제 Boss방이 뜰수 있나 없나 이정도로
+
+        NeoRoomManager.instance.SpawnDoor();
         ItemManager.Instance.AddingItem(itemSO);
         PoolManager.Instance.Push(this);
     }
@@ -70,7 +82,6 @@ public class Item : Interactable
             {
                 UIManager.Instance.ShowToolTip($"{itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
             }
-            base.OnTriggerEnter2D(collision);
         }
     }
 
@@ -81,7 +92,6 @@ public class Item : Interactable
 
             //UI 출력
             UIManager.Instance.CloseTooltip();
-            base.OnTriggerExit2D(collision);
         }
     }
 

@@ -18,10 +18,5 @@ MonoBehaviour:
   itemAbility: "\uCCB4\uB825\uC774 50%\uC774\uD558\uC77C \uACBD\uC6B0 \uACF5\uACA9\uC18D\uB3C4
     * \uC99D\uAC00"
   itemComment: 
-  attackPoint: 0
-  maxHpPoint: 0
-  attackSpeedPoint: 0
-  moveSpeedPoint: 0
-  criticalPercentagePoint: 0
-  criticalPowerPoint: 0
-  shadowGaugePoint: 0
+  isActived: 0
+  itemCallBack: {fileID: 0}

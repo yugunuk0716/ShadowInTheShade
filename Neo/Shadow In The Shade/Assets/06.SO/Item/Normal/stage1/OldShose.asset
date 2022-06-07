@@ -17,10 +17,5 @@ MonoBehaviour:
   rarity: 0
   itemAbility: "\uC774\uB3D9\uC18D\uB3C4 0.5 \uC99D\uAC00"
   itemComment: 
-  attackPoint: 0
-  maxHpPoint: 0
-  attackSpeedPoint: 0
-  moveSpeedPoint: 0.5
-  criticalPercentagePoint: 0
-  criticalPowerPoint: 0
-  shadowGaugePoint: 0
+  isActived: 0
+  itemCallBack: {fileID: 7204924775050632515, guid: 63ec84851dd42554e824acdd11da2fd7, type: 3}

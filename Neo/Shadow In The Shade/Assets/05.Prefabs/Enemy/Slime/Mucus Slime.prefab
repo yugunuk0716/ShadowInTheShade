@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: 3081107059394197498}
   - component: {fileID: 4852111015835320877}
   - component: {fileID: 4797123640107004185}
+  - component: {fileID: 2578672455614635772}
+  - component: {fileID: 3417212727327338041}
+  - component: {fileID: 2859092176892914264}
   m_Layer: 6
   m_Name: Mucus Slime
   m_TagString: Untagged
@@ -141,13 +144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d76dd057de41034b92a24d552980fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 5
   enemyData: {fileID: 11400000, guid: 43597817dbf19724b90c4f224e66205c, type: 2}
+  currHP: 0
   isAttack: 0
   isDie: 0
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   <OnHit>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnKockBack>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   <OnReset>k__BackingField:
@@ -157,6 +165,9 @@ MonoBehaviour:
   isShadow: 0
   speed: 3
   currentState: 0
+  destinationSetter: {fileID: 0}
+  seeker: {fileID: 0}
+  path: {fileID: 0}
   spriteAlpha: 0.43
 --- !u!114 &3081107059394197498
 MonoBehaviour:
@@ -209,6 +220,90 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.71216583, y: 0.5100695}
   m_EdgeRadius: 0
+--- !u!114 &2578672455614635772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081107059394197388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &3417212727327338041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081107059394197388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 1
+  height: 1.5
+  canMove: 1
+  maxSpeed: 3
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 1
+  enableRotation: 0
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: 5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 1.2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &2859092176892914264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081107059394197388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
 --- !u!1 &3207012577748249568
 GameObject:
   m_ObjectHideFlags: 0

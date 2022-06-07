@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+using Pathfinding;
 
 public class RoomInfo
 {
@@ -50,6 +50,8 @@ public class RoomManager : MonoBehaviour
 
     RoomInfo currentLoadRoomData;
     RoomListSO spawnableRoomData;
+
+    ArrayList al = new ArrayList();
 
 
     readonly Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
@@ -156,6 +158,15 @@ public class RoomManager : MonoBehaviour
             loadedRooms.Remove(roomToRemove);
             LoadRoom("End", x, y);
             LoadRoom("Boss", x * 100, y * 100);
+
+        
+
+            //float xValue = StageManager.Instance.currentRoom.Width;
+            //float yValue = StageManager.Instance.currentRoom.Height;
+            AstarPath.active.Scan();
+
+            //GameObject g = Instantiate(Resources.Load<GameObject>("A_"));
+            //g.transform.position = new Vector2(higherX / 2f * xValue, higherY / 2f * yValue);
 
         }
     }
@@ -312,6 +323,7 @@ public class RoomManager : MonoBehaviour
         roomInfo.name = name;
         roomInfo.X = x;
         roomInfo.Y = y;
+
 
         loadRoomQueue.Enqueue(roomInfo);
 

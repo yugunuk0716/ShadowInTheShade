@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class Slime_Moss : Enemy
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-    private SpriteRenderer sr;
-
     private readonly float chaseDistance = 5f;
 
     private Attack_Moss attack = null;
 
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
     protected override void Awake()
     {
         dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
-
-        sr = GetComponentInChildren<SpriteRenderer>();
 
 
         // АјАн
@@ -71,9 +61,9 @@ public class Slime_Moss : Enemy
         }
     }
 
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     protected override void CheckHP()

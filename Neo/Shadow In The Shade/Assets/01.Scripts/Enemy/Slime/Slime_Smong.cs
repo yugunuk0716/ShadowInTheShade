@@ -4,29 +4,21 @@ using UnityEngine;
 
 public class Slime_Smong : Enemy, ITacklable
 {
-    private List<PhaseInfo> phaseInfoList = new List<PhaseInfo>();
-
-
     private readonly float attackDistance = 2f;
     private readonly float chaseDistance = 5f;
 
-    
 
+    private Idle_Patrol idle = null;
     private Move_Chase chase = null;
     private Attack_Tackle attack = null;
 
-    private readonly WaitForSeconds halfSecWait = new WaitForSeconds(0.5f);
-    private readonly WaitForSeconds oneSecWait = new WaitForSeconds(1f);
-    private readonly WaitForSeconds threeSecWait = new WaitForSeconds(3f);
-
-
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
-
+        idle = gameObject.AddComponent<Idle_Patrol>();
+        dicState[EnemyState.Default] = idle;
 
         chase = gameObject.AddComponent<Move_Chase>();
-        chase.speed = 2f;
+        speed = 2f;
 
         dicState[EnemyState.Move] = chase;
 
@@ -86,27 +78,30 @@ public class Slime_Smong : Enemy, ITacklable
                 continue;
             }
 
-
             float dist = Vector2.Distance(transform.position, GameManager.Instance.player.position);
 
             if (!isAttack)
             {
                 if (dist < chaseDistance)
                 {
-                    if (dist > attackDistance)
-                    {
-                        SetState(EnemyState.Move);
-                    }
-
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
                         SetState(EnemyState.Attack);
+                        attack.canAttack = true;
+                        chase.canTrace = false;
+                        idle.canMove = false;
+                    }
+                    else if (dist < chaseDistance)
+                    {
+                        chase.canTrace = true;
+                        SetState(EnemyState.Move);
                     }
                 }
                 else
                 {
                     SetState(EnemyState.Default);
+                    idle.canMove = true;
                 }
             }
 
@@ -115,11 +110,11 @@ public class Slime_Smong : Enemy, ITacklable
     }
 
    
-    public override void GetHit(float damage)
+    public override void GetHit(float damage, int objNum)
     {
-        base.GetHit(damage);
+        attack.TackleEnd();
+        base.GetHit(damage, objNum);
     }
-
     protected override void CheckHP()
     {
         base.CheckHP();

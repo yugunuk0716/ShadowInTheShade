@@ -20,11 +20,19 @@ public enum PlayerInputState // 플레이어 인풋 상태
     Hit
 }
 
+public enum PlayerDashState // 플레이어 대쉬 상태
+{
+    Default,
+    Power1,
+    Power2,
+    Power3,
+}
+
 [System.Serializable]
 public struct PlayerMoveStats
 {
     [Header("이동 속도")]
-    
+
     public float SPD;
 
     [Header("대쉬 속도")]
@@ -33,18 +41,15 @@ public struct PlayerMoveStats
     [Header("대쉬 지속 시간")]
     public float DRT;
 
-    [Header("대쉬 스택 추가 시간")]
-    public float DST;
+    [Header("대쉬 쿨타임")]
+    public float DCT;
 
-    [Header("대쉬 스택")]
-    public int DSS;
-
-    [Header("최대 대쉬 스택")]
-    public int MDS;
+    [Header("채력 부족시 추가 이동속도")]
+    public float HSP;
 }
 
 
-[System.Serializable]
+    [System.Serializable]
 public struct PlayerAttackStats
 {
     [Header("공격력")]
@@ -61,6 +66,9 @@ public struct PlayerAttackStats
 
     [Header("스킬 쿨타임")]
     public float SCD;
+
+    [Header("적 처치시 추가 공격력")]
+    public float KAP;
 }
 
 [System.Serializable]
@@ -74,6 +82,15 @@ public struct PlayerECTStats
 
     [Header("플레이어 레벨")]
     public float LEV;
+
+    [Header("타격시 회복량")]
+    public float APH;
+
+    [Header("플레이어 회피 확률")]
+    public float EVC;
+
+    [Header("대쉬 추가 피해")]
+    public float DPD;
 }
 
 [System.Serializable]
@@ -102,6 +119,7 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어 현제 상태")]
     public bool canChangePlayerType;
     public PlayerStates playerStates;
+    public PlayerDashState playerDashState;
     public PlayerInputState playerInputState;
 
 
@@ -118,4 +136,9 @@ public class PlayerSO : ScriptableObject
 
     [Header("플레이어의 기타스탯")]
     public PlayerECTStats ectStats;
+
+
+/*
+    [Header("플레이어의 아이템 효과 확인 Bool")]
+    public bool playerHasFranticherb = false;*/
 }

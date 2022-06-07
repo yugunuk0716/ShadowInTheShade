@@ -17,12 +17,15 @@ public class Boss_Dice : Enemy
     public bool isMoving = false;
     public DiceType diceType;
 
+    public List<SlimePillar> slimePillars = new List<SlimePillar>();
+
+
     private Attack_Dice attack;
     private Move_Dice moveDice;
     private  float lastMoveTime = 0f;
     private float moveCool = 4f;
 
-    private readonly float attackDistance = 3f;
+    private readonly float attackDistance = 5f;
     private readonly float dist = 4f;
     
 
@@ -31,7 +34,14 @@ public class Boss_Dice : Enemy
 
         attackCool = 3f;
 
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
+        if(diceType == DiceType.Mk3)
+        {
+            dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice_Mk3>();
+        }
+        else
+        {
+            dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
+        }
 
         moveDice = gameObject.AddComponent<Move_Dice>();
         dicState[EnemyState.Move] = moveDice;
@@ -51,6 +61,7 @@ public class Boss_Dice : Enemy
 
     protected override void OnEnable()
     {
+        OnHit.AddListener(() => { GameManager.Instance.onBossHpSend.Invoke(currHP, diceType); });
         base.OnEnable();
     }
 
@@ -122,9 +133,9 @@ public class Boss_Dice : Enemy
         return;
     }
 
-    public override void GetHit(float damage)
+    public override void GetHit(float damage,int objNum)
     {
-        base.GetHit(damage);
+        base.GetHit(damage, objNum);
     }
 
     public override void PushInPool()
@@ -140,8 +151,16 @@ public class Boss_Dice : Enemy
 
     public override IEnumerator Dead()
     {
-       
-        yield return base.Dead();
+
+        if (isDie.Equals(true))
+        {
+            if (diceType.Equals(DiceType.Mk3))
+            {
+                StageManager.Instance.ClearCheck();
+            }
+            Anim.SetTrigger("isDie");
+            yield return null;
+        }
     }
 
 

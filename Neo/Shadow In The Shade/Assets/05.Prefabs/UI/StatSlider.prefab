@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 2521482758491189320}
   fill: {fileID: 2521482759494421339}
+  exp: {fileID: 0}
 --- !u!1 &2521482758723834632
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +549,7 @@ GameObject:
   - component: {fileID: 2521482759646830991}
   - component: {fileID: 2521482759646830989}
   - component: {fileID: 2521482759646830988}
+  - component: {fileID: 5938089229841452024}
   m_Layer: 5
   m_Name: StatImage
   m_TagString: Untagged
@@ -612,6 +614,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5938089229841452024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521482759646830990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d97512cd7956cb45b6173e9b1e644e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statAbility: 
+  statComment: 
 --- !u!1 &2521482759869115923
 GameObject:
   m_ObjectHideFlags: 0

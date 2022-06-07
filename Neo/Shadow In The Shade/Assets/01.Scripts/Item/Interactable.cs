@@ -7,17 +7,24 @@ public abstract class Interactable : PoolableMono
     protected bool used = false;
 
     public abstract void Use(GameObject target);
+    private Camera main;
+
+    protected virtual void Awake()
+    {
+        main = Camera.main;
+    }
 
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (used) return;
-        
+
+        //UIManager.Instance.ShowInteractableGuideImage(main.WorldToScreenPoint(transform.position) + main.transform.position);
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        
+        //UIManager.Instance.CloseInteractableGuideImage();
     }
 
     public virtual void PushChestInPool()
@@ -25,7 +32,7 @@ public abstract class Interactable : PoolableMono
         PoolManager.Instance.Push(this);
     }
 
-    public virtual void Popup(Vector3 pos)// 이 함수는 스테이지 클리어시 풀에서 상자 꺼내서 실행하면 됨
+    public virtual void Popup(Vector3 pos)
     {
         
     }

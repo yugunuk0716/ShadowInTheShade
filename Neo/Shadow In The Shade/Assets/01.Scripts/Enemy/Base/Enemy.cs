@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,8 +62,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
-    protected float hitCool = 0.5f;
-    protected float lastHitTime = 0f;
 
     private bool isHit = false;
     public bool IsHit
@@ -74,7 +73,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         set
         {
             isHit = value;
-            //IsDisarmed = isHit;
         }
     }
 
@@ -124,8 +122,10 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     [field: SerializeField]
     public UnityEvent OnHit { get; set; }
     [field: SerializeField]
+    public UnityEvent OnKockBack { get; set; }
+    [field: SerializeField]
     public UnityEvent OnReset { get; set; }
-
+    public int LastHitObjNumber { get; set; } = 0;
 
     [HideInInspector]
     public AudioClip slimeHitClip;
@@ -136,6 +136,9 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
+    private Coroutine kockbackRoutine;
+
+    private DamageEffect effect;
 
     [SerializeField]
     protected EnemyState currentState = EnemyState.Default;
@@ -144,12 +147,36 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     protected Coroutine lifeTime = null;
 
 
+
     protected Color originColor;
+
+    public AIDestinationSetter destinationSetter;
+    public Seeker seeker;
+    public AIPath path;
+
+    public void SetAttack(bool value)
+    {
+        if (path != null && seeker != null && destinationSetter != null)
+        {
+            if (!value)
+                destinationSetter.target = null;
+            path.enabled = value;
+            seeker.enabled = value;
+            destinationSetter.enabled = value;
+            if (value)
+                destinationSetter.target = GameManager.Instance.player;
+        }
+       
+    }
 
     protected virtual void Awake()
     {
         slimeHitClip = Resources.Load<AudioClip>("Sounds/SlimeHit");
         originColor = MyRend.color;
+        OnKockBack = new UnityEvent();
+        destinationSetter = GetComponent<AIDestinationSetter>();
+        seeker = GetComponent<Seeker>();
+        path = GetComponent<AIPath>();
     }
 
     protected virtual void Start()
@@ -168,8 +195,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         {
             AddingEXP();
             GameManager.Instance.onPlayerGetEXP?.Invoke();
+            SetAttack(false);
         });
-       
+
+        OnKockBack.AddListener(StartKockBack);
+
     }
 
     protected virtual void OnEnable()
@@ -208,13 +238,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dicState[state].OnEnter();
     }
 
-    private void Update()
-    {
-        if (Time.time - lastHitTime >= hitCool)
-        {
-            IsHit = false;
-        }
-    }
 
     private void AddingEXP()
     {
@@ -261,14 +284,14 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         MyRend.color = Color.white;
     }
 
-    public virtual void GetHit(float damage)
+    public virtual void GetHit(float damage, int objNum)
     {
-        if (isDie || isHit)
+        if (objNum == LastHitObjNumber || isDie)
+        {
             return;
-
-        isHit = true;
-        lastHitTime = Time.time;
-        float critical = Random.value;
+        }
+        LastHitObjNumber = objNum;
+        float critical = Random.value * 100;
         bool isCritical = false;
         if (critical <= GameManager.Instance.playerSO.attackStats.CTP)
         {
@@ -288,6 +311,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
         if (currentState.Equals(EnemyState.Die)) return;
 
+
+        effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
+        effect.transform.position = transform.position;
+        //effect.SetDamageEffect(transform.position, (GameManager.Instance.player.position - transform.position).normalized, isCritical);
+        Invoke(nameof(PushDamageEffect), 1f);
         SoundManager.Instance.GetAudioSource(slimeHitClip, false, SoundManager.Instance.BaseVolume).Play();
         currHP -= damage;
 
@@ -296,20 +324,36 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         CheckHP();
 
         OnHit?.Invoke();
+        GameManager.Instance.onEnemyHit?.Invoke();
 
         DamagePopup dPopup = PoolManager.Instance.Pop("DamagePopup") as DamagePopup;
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
+        
 
-       
-       
+
+    }
+
+    public void StartKockBack()
+    {
+        if(kockbackRoutine == null)
+            kockbackRoutine = StartCoroutine(SetKockBack());
+    }
+
+    IEnumerator SetKockBack()
+    {
+        SetAttack(false);
+        yield return new WaitForSeconds(1f);
+        SetAttack(true);
+        kockbackRoutine = null;
 
     }
 
     public virtual void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (isHit || isDie)
+        if ( isDie)
             return;
+        OnKockBack?.Invoke();
         Move.KnockBack(direction, power, duration);
     }
 
@@ -320,6 +364,14 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             StageManager.Instance.ClearCheck();
             Anim.SetTrigger("isDie");
             yield return null;
+            PlayerSO so = GameManager.Instance.playerSO;
+            if (so.attackStats.KAP != 0)
+            {
+                float kap = so.attackStats.KAP;
+                so.attackStats.ATK += kap;
+                yield return new WaitForSeconds(2f);
+                so.attackStats.ATK -= kap;
+            }
         }
     }
 
@@ -328,6 +380,13 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         PoolManager.Instance.Push(this);
     }
 
+    private void PushDamageEffect()
+    {
+        if(effect != null)
+        {
+            PoolManager.Instance.Push(effect);
+        }
+    }
 
     public override void Reset()
     {

@@ -24,6 +24,10 @@ public class Room : PoolableMono
     public Vector2 topSpawnPoint;
     public Vector2 bottomSpawnPoint;
 
+    public Transform spawnPointTrm;
+    public Transform endPointTrm;
+    public Transform chestPointTrm;
+
     public Collider2D camBound;
 
     public GameObject miniPlayerSprite;
@@ -58,9 +62,11 @@ public class Room : PoolableMono
 
     }
 
-    private void Awake()
-    {
-    }
+    //private void Awake()
+    //{
+    //    spawnPointTrm.position.Set(Random.Range(0f, 1f), Random.Range(0f, 1f), 0);
+    //    spawnPointTrm.position.Set(Random.Range(0f, 1f), Random.Range(0f, 1f), 0);
+    //}
 
     private void OnEnable()
     {
@@ -170,22 +176,38 @@ public class Room : PoolableMono
                 case DirType.Right:
                     Room adjacentRightRoom = GetRight();
                     if (adjacentRightRoom != null)
+                    {
+                        if (adjacentRightRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentRightRoom;
+                    }
                     break;
                 case DirType.Left:
                     Room adjacentLeftRoom = GetLeft();
                     if (adjacentLeftRoom != null)
+                    {
+                        if (adjacentLeftRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentLeftRoom;
+                    }
                     break;
                 case DirType.Top:
                     Room adjacentTopRoom = GetTop();
                     if (adjacentTopRoom != null)
+                    {
+                        if (adjacentTopRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentTopRoom;
+                    }
                     break;
                 case DirType.Bottom:
                     Room adjacentBottomRoom = GetBottom();
                     if (adjacentBottomRoom != null)
+                    {
+                        if (adjacentBottomRoom.name == this.name)
+                            print("자기가 자기 부르는데용");
                         door.adjacentRoom = adjacentBottomRoom;
+                    }
                     break;
             }
         }
