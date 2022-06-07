@@ -6,10 +6,11 @@ public abstract class ItemCallBack : PoolableMono
 {
     public virtual void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
-        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        GameManager.Instance.onPlayerGetItem.AddListener(() => {
+            ItemSpecialCallBack();
+            ItemActiveCallBack();
+        });
     }
-
     public virtual void CallNesting()
     {
         GameManager.Instance.onPlayerGetSameItem.AddListener(ItemNestingCallBack);

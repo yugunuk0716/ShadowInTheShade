@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class BluePillCallBack : ItemCallBack
 {
-    public override void Start()
+    public new void Start()
     {
         base.Start();
     }
+
+
+
 
     public override void ItemActiveCallBack()
     {
