@@ -30,8 +30,6 @@ public class PlayerWeapon : DamagableObject
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         DisposeDamage(collision);
-        GameManager.Instance.feedBackPlayer.PlayFeedback();
-        dObjData.hitNum++;
     }
 
     public void DisposeDamage(Collider2D collision)
@@ -49,7 +47,7 @@ public class PlayerWeapon : DamagableObject
                 {
                     IDamagable damagable = collision.GetComponent<IDamagable>();
                     Vector2 vec = (collision.transform.position - GameManager.Instance.player.position).normalized;
-
+                    GameManager.Instance.feedBackPlayer.PlayFeedback();
                     if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y))
                     {
                         vec.Set(vec.x, 0);
@@ -60,6 +58,7 @@ public class PlayerWeapon : DamagableObject
                     }
 
                     damagable?.KnockBack(vec, dObjData.knockBackPower, dObjData.knockBackDelay);
+                    dObjData.hitNum++;
                     damagable?.GetHit(dObjData.damage, dObjData.hitNum);
                     GameManager.Instance.onPlayerAttackSuccess.Invoke();
                 }
