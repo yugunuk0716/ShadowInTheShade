@@ -103,6 +103,11 @@ public class GameManager : MonoBehaviour
 
         foreach (PoolableMono p in poollingList.list)
         {
+            if(p == null)
+            {
+                print("ºñ¾ù´«µ¥¿ë");
+                continue;
+            }
             PoolManager.Instance.CreatePool(p, null, p.count);
         }
 

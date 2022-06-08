@@ -70,7 +70,7 @@ public class Slime_Shadow : Enemy, ITacklable
         int randX = StageManager.Instance.currentRoom.transform.position.x > transform.position.x ? 1 : -1;
         int randY = StageManager.Instance.currentRoom.transform.position.y > transform.position.y ? 1 : -1;
 
-        randValue.Set(Random.Range(3f, 3.5f) * randX + playerTrm.x, Random.Range(3f, 3.5f) * randY + playerTrm.y);
+        randValue.Set(Random.Range(2f, 3f) * randX + playerTrm.x, Random.Range(2f, 3f) * randY + playerTrm.y);
 
         Sr.DOFade(0, 1f).OnComplete(() => 
         {
