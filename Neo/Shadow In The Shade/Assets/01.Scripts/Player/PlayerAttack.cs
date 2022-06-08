@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private bool attackStack;
     private float lastAttackTime = 0f;
     private float attackStackHoldingTime = .8f;
+    private Vector3 mousePos;
+    private List<Collider2D> colliderList = new List<Collider2D>();
 
     private AudioClip attackAudioClip;
 
@@ -34,6 +36,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 Attack();
                 playerInput.isAttack = false;
+               
             }
             else
             {
@@ -44,12 +47,38 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
         }
+        else if(playerInput.isUseSkill && !GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
+        {
+            Skill();
+            playerInput.isUseSkill = false;
+        }
+        print(playerInput.isUseSkill);
         if (Time.time > lastAttackTime + attackStackHoldingTime)
         {
             attackStack = false;
         }
 
     }
+
+    private void Skill()
+    {
+        print("?");
+        if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
+        {
+            BerserkerSkill();
+        }
+
+        colliderList = colliderList.Distinct().ToList();
+
+
+        foreach (Collider2D item in colliderList)
+        {
+            playerWeapon.DisposeDamage(item);
+        }
+        colliderList.Clear();
+        lastAttackTime = Time.time;
+    }
+
 
     private void Attack()
     {
@@ -66,85 +95,17 @@ public class PlayerAttack : MonoBehaviour
         // tramsform.position + vector3.right || transform.position + vector3.up      UpAttack1
         // tramsform.position + vector3.left  || transform.position + vector3.up      UpAttack2
 
-        Vector3 mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+        mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
-        List<Collider2D> colliderList = new List<Collider2D>();
+      
 
         if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Default))
         {
-            Vector3 dir = Vector3.zero;
-            if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
-            {
-                if (mousePos.x < 0)
-                {
-                    dir = Vector3.left;
-                }
-                else
-                {
-                    dir = Vector3.right;
-                }
-            }
-            else
-            {
-                if (mousePos.y < 0)
-                {
-                    dir = Vector3.down;
-                }
-                else
-                {
-                    dir = Vector3.up;
-                }
-            }
-
-            Vector3 atkSize = attackStack ? new Vector2(1f, 3f) : new Vector2(3f, 1.5f);
-
-            Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + dir, atkSize , 0f, LayerMask.GetMask("Enemy"));
-
-            foreach (Collider2D collider in c1)
-            {
-                colliderList.Add(collider);
-            }
+            DefaultAttack();
         }
         else if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
         {
-            Vector3 overlapXBox = Vector3.zero;
-            Vector3 overlapYBox = Vector3.zero;
-
-            if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
-            {
-                if (mousePos.x < 0)
-                {
-                    overlapXBox = Vector3.left;
-                    overlapYBox = attackStack ? Vector3.up : Vector3.down;
-                }
-                else
-                {
-                    overlapXBox = Vector3.right;
-                    overlapYBox = attackStack ? Vector3.down : Vector3.up;
-                }
-            }
-            else
-            {
-                if (mousePos.y < 0)
-                {
-                    overlapXBox = attackStack ? Vector3.left : Vector3.right;
-                    overlapYBox = Vector3.down;
-                }
-                else
-                {
-                    overlapXBox = attackStack ? Vector3.right : Vector3.left;
-                    overlapYBox = Vector3.up;
-                }
-            }
-
-
-            colliderList = Physics2D.OverlapBoxAll(transform.position + overlapXBox, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
-            Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + overlapYBox, new Vector2(2f, 1f) * 3, 0f, LayerMask.GetMask("Enemy"));
-
-            foreach (Collider2D collider in c1)
-            {
-                colliderList.Add(collider);
-            }
+            BerserkerAttack();
         }
 
         colliderList = colliderList.Distinct().ToList();
@@ -154,11 +115,11 @@ public class PlayerAttack : MonoBehaviour
         {
             playerWeapon.DisposeDamage(item);
         }
-
+        colliderList.Clear();
         lastAttackTime = Time.time;
 
         SoundManager.Instance.GetAudioSource(attackAudioClip, false, SoundManager.Instance.BaseVolume).Play();
-        GameManager.Instance.onPlayerAttack.Invoke(attackStack ?  0 : 1);
+        GameManager.Instance.onPlayerAttack.Invoke(attackStack ? 0 : 1);
     }
 
     public void EnemyAttackHeal()
@@ -172,41 +133,101 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
+    public void DefaultAttack()
+    {
+        Vector3 dir = Vector3.zero;
+        if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        {
+            if (mousePos.x < 0)
+            {
+                dir = Vector3.left;
+            }
+            else
+            {
+                dir = Vector3.right;
+            }
+        }
+        else
+        {
+            if (mousePos.y < 0)
+            {
+                dir = Vector3.down;
+            }
+            else
+            {
+                dir = Vector3.up;
+            }
+        }
+
+        Vector3 atkSize = attackStack ? new Vector2(1f, 3f) : new Vector2(3f, 1.5f);
+
+        Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + dir, atkSize, 0f, LayerMask.GetMask("Enemy"));
+
+        foreach (Collider2D collider in c1)
+        {
+            colliderList.Add(collider);
+        }
+    }
+
+    public void BerserkerAttack()
+    {
+
+        Vector3 overlapXBox = Vector3.zero;
+        Vector3 overlapYBox = Vector3.zero;
+
+        if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        {
+            if (mousePos.x < 0)
+            {
+                overlapXBox = Vector3.left;
+                overlapYBox = attackStack ? Vector3.up : Vector3.down;
+            }
+            else
+            {
+                overlapXBox = Vector3.right;
+                overlapYBox = attackStack ? Vector3.down : Vector3.up;
+            }
+        }
+        else
+        {
+            if (mousePos.y < 0)
+            {
+                overlapXBox = attackStack ? Vector3.left : Vector3.right;
+                overlapYBox = Vector3.down;
+            }
+            else
+            {
+                overlapXBox = attackStack ? Vector3.right : Vector3.left;
+                overlapYBox = Vector3.up;
+            }
+        }
+
+
+        colliderList = Physics2D.OverlapBoxAll(transform.position + overlapXBox, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
+        Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + overlapYBox, new Vector2(2f, 1f) * 3, 0f, LayerMask.GetMask("Enemy"));
+
+        foreach (Collider2D collider in c1)
+        {
+            colliderList.Add(collider);
+        }
+    }
+
+    public void BerserkerSkill()
+    {
+        print("?2");
+        colliderList = Physics2D.OverlapCircleAll(transform.position, 2f, LayerMask.GetMask("Enemy")).ToList();
+
+        GameManager.Instance.onPlayerSkill.Invoke();
+        
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, .3f);
-            Gizmos.color = Color.red;
-            Vector3 mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-            Vector3 dir = Vector3.zero;
-            if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
-            {
-                if (mousePos.x < 0)
-                {
-                    dir = Vector3.left;
-                }
-                else
-                {
-                    dir = Vector3.right;
-                }
-            }
-            else
-            {
-                if (mousePos.y < 0)
-                {
-                    dir = Vector3.down;
-                }
-                else
-                {
-                    dir = Vector3.up;
-                }
-            }
-            Gizmos.DrawWireCube(transform.position + dir, new Vector2(1f, 3f));
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(transform.position + dir, new Vector2(3f, 1f));
+            Gizmos.DrawWireSphere(transform.position, 2f);
             Gizmos.color = Color.white;
 
         }

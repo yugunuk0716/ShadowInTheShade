@@ -586,6 +586,9 @@ MonoBehaviour:
   onPlayerAttack:
     m_PersistentCalls:
       m_Calls: []
+  onPlayerSkill:
+    m_PersistentCalls:
+      m_Calls: []
   onPlayerTypeChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7335,7 +7338,7 @@ Animator:
   m_GameObject: {fileID: 1571949942}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ebe60e10924f9154faad4300e72c436c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 371f65094ba0a0a4eae2756ba2a89928, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8390,6 +8393,7 @@ MonoBehaviour:
   isChangePlayerType: 0
   isHit: 0
   isDie: 0
+  isUseSkill: 0
 --- !u!50 &1789509720
 Rigidbody2D:
   serializedVersion: 4
