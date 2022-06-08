@@ -46,6 +46,11 @@ public class PlayerAnimation : MonoBehaviour
             weapon.dObjData.hitNum += stack + 2;
             StartCoroutine(PlayerAttackAnimation(stack)); 
         });
+        GameManager.Instance.onPlayerSkill.AddListener(() => 
+        {
+            weapon.dObjData.hitNum += 10;
+            StartCoroutine(PlayerSkillAnimation()); 
+        });
         GameManager.Instance.onPlayerDash.AddListener(() => 
         {
             if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
@@ -138,10 +143,28 @@ public class PlayerAnimation : MonoBehaviour
         EndAttack();
     }
 
+    public IEnumerator PlayerSkillAnimation() 
+    {
+        if (isAttacking)
+            yield break;
+
+        float originAnimSpeed = playerAnimator.speed;
+
+        playerAnimator.SetBool("IsSkill", true);
+        playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD;
+
+        isAttacking = true;
+        yield return new WaitUntil(() => !isAttacking);
+
+        playerAnimator.SetBool("IsSkill", false);
+        GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
+        playerAnimator.speed = originAnimSpeed;
+    }
+
 
     public IEnumerator PlayerAttackAnimation(int attackStack)
     {
-        if (isAttacking)
+        if (isAttacking || playerInput.isUseSkill)
             yield break;
 
         float originAnimSpeed = playerAnimator.speed;
