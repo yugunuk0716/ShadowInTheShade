@@ -84,6 +84,9 @@ public class GameManager : MonoBehaviour
         playerSO.ectStats.LEV = 0;
         playerSO.ectStats.EXP = 0;
         playerSO.ectStats.PMH = 400f;
+        playerSO.ectStats.APH = 0;
+        playerSO.ectStats.DPD = 0;
+        playerSO.ectStats.EVC = 0;
 
         playerSO.mainStats.STR = 0f;
         playerSO.mainStats.DEX = 0f;
@@ -91,11 +94,14 @@ public class GameManager : MonoBehaviour
         playerSO.mainStats.SPL = 0f;
 
         playerSO.attackStats.ATK = 100f;
-        playerSO.moveStats.SPD = 7f;
         playerSO.attackStats.ASD = 2f;
         playerSO.attackStats.CTP = 0f;
         playerSO.attackStats.CTD = 200f;
+        playerSO.attackStats.KAP = 0f;
+        playerSO.attackStats.SCD = 0f;
 
+        playerSO.moveStats.SPD = 7f;
+        playerSO.moveStats.HSP = 0f;
 
         foreach (PoolableMono p in poollingList.list)
         {
