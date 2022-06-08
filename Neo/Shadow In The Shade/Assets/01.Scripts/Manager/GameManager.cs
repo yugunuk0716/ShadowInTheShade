@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<SpriteRenderer>().sprite = playerSO.playerSprite;
         playerSO.playerStates = PlayerStates.Shadow;
         playerSO.playerDashState = PlayerDashState.Default;
+        playerSO.playerJobState = PlayerJobState.Default;
         playerSO.playerInputState = PlayerInputState.Idle;
         playerSO.canChangePlayerType = true;
 
@@ -96,6 +97,11 @@ public class GameManager : MonoBehaviour
 
         foreach (PoolableMono p in poollingList.list)
         {
+            if(p == null)
+            {
+                print("ºñ¾ù´«µ¥¿ë");
+                continue;
+            }
             PoolManager.Instance.CreatePool(p, null, p.count);
         }
 

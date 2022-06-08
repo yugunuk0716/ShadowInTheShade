@@ -68,43 +68,83 @@ public class PlayerAttack : MonoBehaviour
 
         Vector3 mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
 
-        Vector3 overlapXBox = Vector3.zero;
-        Vector3 overlapYBox = Vector3.zero;
+        List<Collider2D> colliderList = new List<Collider2D>();
 
-        if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Default))
         {
-            if (mousePos.x < 0)
+            Vector3 dir = Vector3.zero;
+            if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
             {
-                overlapXBox = Vector3.left;
-                overlapYBox = attackStack ? Vector3.up : Vector3.down;
+                if (mousePos.x < 0)
+                {
+                    dir = Vector3.left;
+                }
+                else
+                {
+                    dir = Vector3.right;
+                }
             }
             else
             {
-                overlapXBox = Vector3.right;
-                overlapYBox = attackStack ? Vector3.down : Vector3.up;
+                if (mousePos.y < 0)
+                {
+                    dir = Vector3.down;
+                }
+                else
+                {
+                    dir = Vector3.up;
+                }
+            }
+
+            Vector3 atkSize = attackStack ? new Vector2(1f, 3f) : new Vector2(3f, 1.5f);
+
+            Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + dir, atkSize , 0f, LayerMask.GetMask("Enemy"));
+
+            foreach (Collider2D collider in c1)
+            {
+                colliderList.Add(collider);
             }
         }
-        else
+        else if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
         {
-            if (mousePos.y < 0)
+            Vector3 overlapXBox = Vector3.zero;
+            Vector3 overlapYBox = Vector3.zero;
+
+            if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
             {
-                overlapXBox = attackStack ? Vector3.left : Vector3.right;
-                overlapYBox = Vector3.down;
+                if (mousePos.x < 0)
+                {
+                    overlapXBox = Vector3.left;
+                    overlapYBox = attackStack ? Vector3.up : Vector3.down;
+                }
+                else
+                {
+                    overlapXBox = Vector3.right;
+                    overlapYBox = attackStack ? Vector3.down : Vector3.up;
+                }
             }
             else
             {
-                overlapXBox = attackStack ? Vector3.right : Vector3.left;
-                overlapYBox = Vector3.up;
+                if (mousePos.y < 0)
+                {
+                    overlapXBox = attackStack ? Vector3.left : Vector3.right;
+                    overlapYBox = Vector3.down;
+                }
+                else
+                {
+                    overlapXBox = attackStack ? Vector3.right : Vector3.left;
+                    overlapYBox = Vector3.up;
+                }
             }
-        }
 
 
-        List<Collider2D> colliderList = Physics2D.OverlapBoxAll(transform.position + overlapXBox , new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
-        Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + overlapYBox, new Vector2(2f, 1f) * 3, 0f, LayerMask.GetMask("Enemy"));
+            colliderList = Physics2D.OverlapBoxAll(transform.position + overlapXBox, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
+            Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + overlapYBox, new Vector2(2f, 1f) * 3, 0f, LayerMask.GetMask("Enemy"));
 
-        foreach (Collider2D collider in c1)
-        {
-            colliderList.Add(collider);
+            foreach (Collider2D collider in c1)
+            {
+                colliderList.Add(collider);
+            }
         }
 
         colliderList = colliderList.Distinct().ToList();
@@ -141,39 +181,32 @@ public class PlayerAttack : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, .3f);
             Gizmos.color = Color.red;
             Vector3 mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-
-            Vector3 overlapXBox = Vector3.zero;
-            Vector3 overlapYBox = Vector3.zero;
-
+            Vector3 dir = Vector3.zero;
             if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
             {
                 if (mousePos.x < 0)
                 {
-                    overlapXBox = Vector3.left;
-                    overlapYBox = attackStack ? Vector3.up : Vector3.down;
+                    dir = Vector3.left;
                 }
                 else
                 {
-                    overlapXBox = Vector3.right;
-                    overlapYBox = attackStack ? Vector3.down : Vector3.up;
+                    dir = Vector3.right;
                 }
             }
             else
             {
                 if (mousePos.y < 0)
                 {
-                    overlapXBox = attackStack ? Vector3.left : Vector3.right;
-                    overlapYBox = Vector3.down;
+                    dir = Vector3.down;
                 }
                 else
                 {
-                    overlapXBox = attackStack ? Vector3.right : Vector3.left;
-                    overlapYBox = Vector3.up;
+                    dir = Vector3.up;
                 }
             }
-            Gizmos.DrawWireCube(transform.position + overlapXBox, new Vector2(1f, 2f) * 3);
+            Gizmos.DrawWireCube(transform.position + dir, new Vector2(1f, 3f));
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireCube(transform.position + overlapYBox, new Vector2(2f, 1f) * 3);
+            Gizmos.DrawWireCube(transform.position + dir, new Vector2(3f, 1f));
             Gizmos.color = Color.white;
 
         }
