@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] 
-    private EnemyListSO enemyList;
+    public EnemyListSO enemyList;
     
 
 

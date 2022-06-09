@@ -27,6 +27,7 @@ public class EnemySpawnPoint : MonoBehaviour
     private SpriteRenderer sr;
 
     public EnemyDataSO data;
+    private List<EnemyDataSO> canEliteList = new List<EnemyDataSO>();
     private Enemy enemy;
 
     public bool isSpawned = false;
@@ -36,6 +37,18 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
     }
+
+    private void Start()
+    {
+        foreach (EnemyDataSO enemyDataSO in GameManager.Instance.enemyList.enemyList)
+        {
+            if (enemyDataSO.canChangeElite)
+            {
+                canEliteList.Add(enemyDataSO);
+            }
+        }
+    }
+
 
     public void Spawn()
     {
@@ -51,13 +64,16 @@ public class EnemySpawnPoint : MonoBehaviour
 
     public void StartSpawn()
     {
-        enemy = PoolManager.Instance.Pop(data.enemyName) as Enemy;
+        
         if (isElite)
         {
+            
+            enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count)].enemyName) as Enemy;
             enemy.SetElite();
         }
         else
         {
+            enemy = PoolManager.Instance.Pop(data.enemyName) as Enemy;
             enemy.SetNomal();
         }
 
