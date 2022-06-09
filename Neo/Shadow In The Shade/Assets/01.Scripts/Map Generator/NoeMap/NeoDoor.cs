@@ -18,12 +18,22 @@ public class NeoDoor : Interactable
     public NeoDoor pairDoor;
     public SpriteRenderer sr;
 
+    public bool isOpened;
 
     private DoorSO curDoorData;
 
     private new void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        StageManager.Instance.onBattleEnd.AddListener(() =>
+        {
+            isOpened = true;
+            sr.sprite = curDoorData.openedDoor;
+        });
     }
 
     private void Update()
@@ -51,12 +61,12 @@ public class NeoDoor : Interactable
     public void SetDoor(RoomType rt)
     {
         curDoorData = Resources.Load<DoorSO>($"Door/{rt}");
-        sr.sprite = curDoorData.openedDoor;
+        sr.sprite = curDoorData.closedDoor;
     }
 
     public override void Use(GameObject target)
     {
-        if (used)
+        if (used || !isOpened)
         {
             print("¿ÀÇÂ ½ÇÆÐ");
             return;

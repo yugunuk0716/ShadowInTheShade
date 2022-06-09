@@ -7074,6 +7074,7 @@ MonoBehaviour:
   <Height>k__BackingField: 25
   <X>k__BackingField: 0
   <Y>k__BackingField: 0
+  roomType: 0
   phaseCount: 0
   doorList: []
   leftSpawnPoint: {x: 1.6, y: 0}
@@ -19462,6 +19463,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1942740908425528666}
     m_Modifications:
+    - target: {fileID: 9079640363485816280, guid: 01d0be20d5da442479187420641a9058, type: 3}
+      propertyPath: isOpened
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9079640363485816281, guid: 01d0be20d5da442479187420641a9058, type: 3}
       propertyPath: m_Name
       value: Maybe Door
@@ -19469,6 +19474,14 @@ PrefabInstance:
     - target: {fileID: 9079640363485816286, guid: 01d0be20d5da442479187420641a9058, type: 3}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079640363485816286, guid: 01d0be20d5da442479187420641a9058, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079640363485816286, guid: 01d0be20d5da442479187420641a9058, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9079640363485816286, guid: 01d0be20d5da442479187420641a9058, type: 3}
       propertyPath: m_LocalPosition.x
