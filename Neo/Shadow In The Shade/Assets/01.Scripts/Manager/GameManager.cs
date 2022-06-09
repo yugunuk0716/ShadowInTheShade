@@ -57,11 +57,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private PoolingListSO poollingList;
 
-    
 
     [SerializeField] 
-    private EnemyListSO enemyList;
+    public EnemyListSO enemyList;
+    
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (playerSO.playerJobState.Equals(PlayerJobState.Berserker))
+            {
+                playerSO.playerJobState = PlayerJobState.Default;
+            }
+            else if(playerSO.playerJobState.Equals(PlayerJobState.Default))
+            {
+                playerSO.playerJobState = PlayerJobState.Berserker;
+            }
+        }
+    }
 
     public void Init()
     {
@@ -140,7 +155,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-
+        //¿Ã∞≈ «œ∞Ì πˆ∆∞ ≤®¡‡æﬂ«‘
     }
     public void InitMainStatPoint(int statsIndex)
     {

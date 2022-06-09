@@ -15,6 +15,8 @@ MonoBehaviour:
   enemyName: Spirit Fire Slime
   prefab: {fileID: 58532375646334013, guid: 2a8aff9ac353af446b2a209cbcb6a274, type: 3}
   poolPrefab: {fileID: 58532375646334016, guid: 2a8aff9ac353af446b2a209cbcb6a274, type: 3}
+  hitNum: 0
+  canChangeElite: 0
   <maxHealth>k__BackingField: 200
   <damage>k__BackingField: 150
   <exprencepoint>k__BackingField: 40

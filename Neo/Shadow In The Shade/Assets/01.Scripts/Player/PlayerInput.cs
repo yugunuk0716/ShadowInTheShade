@@ -27,7 +27,6 @@ public class PlayerInput : MonoBehaviour
     {
         if (GameManager.Instance.timeScale <= 0 || isDie)
         {
-            print("??");
             moveDir = Vector2.zero;
             isDash = false;
             isAttack = false;

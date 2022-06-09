@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6904049158481044053}
   - component: {fileID: -3948727171499783734}
   m_Layer: 0
-  m_Name: Beaker Spawner
+  m_Name: Elite Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -47,10 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phaseCount: 0
-  isElite: 0
+  isElite: 1
   anima: {fileID: 0}
   data: {fileID: 11400000, guid: a391eaaa9299497488efb37e5f44759a, type: 2}
-  canEliteList: []
   isSpawned: 0
 --- !u!212 &-5591033382368312580
 SpriteRenderer:
@@ -71,7 +70,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0e2235b144f068748891a83dfe4f7043, type: 2}
+  - {fileID: 2100000, guid: 844cdbeaed223c544b1aa2a859fbaec2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
