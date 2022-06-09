@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996b4cc2d42633c4fba560e5866b6ea0, type: 3}
+  m_Name: ItemEasy
+  m_EditorClassIdentifier: 
+  openedDoor: {fileID: 2128723596861942225, guid: dc98025e46aafc84d9832611a792a16a, type: 3}
+  closedDoor: {fileID: 2128723596861942225, guid: dc98025e46aafc84d9832611a792a16a, type: 3}

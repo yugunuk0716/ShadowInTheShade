@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 9079640363485816281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.6098378, y: -0.84947574, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 2
   pairDoor: {fileID: 0}
-  roomType: 0
+  sr: {fileID: 0}
 --- !u!61 &9079640363485816285
 BoxCollider2D:
   m_ObjectHideFlags: 0
