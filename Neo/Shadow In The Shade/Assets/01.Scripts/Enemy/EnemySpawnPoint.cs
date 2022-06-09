@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemySpawnPoint : MonoBehaviour
 {
     public int phaseCount = 0;
+    public bool isElite = false;
+
 
     public Animator anima;
     private Animator Anim
@@ -50,6 +52,15 @@ public class EnemySpawnPoint : MonoBehaviour
     public void StartSpawn()
     {
         enemy = PoolManager.Instance.Pop(data.enemyName) as Enemy;
+        if (isElite)
+        {
+            enemy.SetElite();
+        }
+        else
+        {
+            enemy.SetNomal();
+        }
+
         StageManager.Instance.curStageEnemys.Add(enemy);
 
         Anim.SetTrigger("spawn");

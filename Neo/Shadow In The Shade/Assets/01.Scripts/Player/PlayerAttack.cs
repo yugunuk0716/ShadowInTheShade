@@ -52,7 +52,6 @@ public class PlayerAttack : MonoBehaviour
             Skill();
             playerInput.isUseSkill = false;
         }
-        print(playerInput.isUseSkill);
         if (Time.time > lastAttackTime + attackStackHoldingTime)
         {
             attackStack = false;
@@ -62,7 +61,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void Skill()
     {
-        print("?");
         if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
         {
             BerserkerSkill();
@@ -214,7 +212,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void BerserkerSkill()
     {
-        print("?2");
         colliderList = Physics2D.OverlapCircleAll(transform.position, 2f, LayerMask.GetMask("Enemy")).ToList();
 
         GameManager.Instance.onPlayerSkill.Invoke();
