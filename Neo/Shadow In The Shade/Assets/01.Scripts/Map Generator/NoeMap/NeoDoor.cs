@@ -36,14 +36,6 @@ public class NeoDoor : Interactable
         });
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            SetDoor((RoomType)Random.Range(0, 7));
-        }
-    }
-
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

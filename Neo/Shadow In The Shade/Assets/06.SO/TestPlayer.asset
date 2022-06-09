@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: TestPlayer
   m_EditorClassIdentifier: 
   playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
+  playerClassAnimator: []
   canChangePlayerType: 1
   playerStates: 0
-  playerJobState: 1
+  playerJobState: 0
   playerDashState: 0
   playerInputState: 0
   mainStats:
@@ -27,7 +28,7 @@ MonoBehaviour:
     SPD: 7
     DSP: 100
     DRT: 0.2
-    DCT: 3
+    DCT: 0
     HSP: 0
   attackStats:
     ATK: 100
@@ -42,4 +43,4 @@ MonoBehaviour:
     LEV: 0
     APH: 0
     EVC: 0
-    DPD: 0.05
+    DPD: 0

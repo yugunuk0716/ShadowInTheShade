@@ -281,13 +281,16 @@ public class UIManager : MonoBehaviour
 
         float startTime = Time.time;
 
+        
         coolTime += 2;
+        
         while (true)
         {
             a -= coolTime / (coolTime * (coolTime/2f) * 100f);
             dashCoolImage.fillAmount = a;
             if (a < 0)
             {
+                print(Time.time - startTime);
                 PlayerNewDash.usedDash = false;
                 break;
             }

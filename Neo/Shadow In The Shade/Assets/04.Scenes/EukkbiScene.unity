@@ -7376,7 +7376,6 @@ MonoBehaviour:
   lastMoveDir: {x: 0, y: 0}
   playerMove: {fileID: 0}
   playerTypeChangeEffcetAnimator: {fileID: 0}
-  mousePos: {x: 0, y: 0, z: 0}
 --- !u!95 &1571949945
 Animator:
   serializedVersion: 3
@@ -7387,7 +7386,7 @@ Animator:
   m_GameObject: {fileID: 1571949942}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 371f65094ba0a0a4eae2756ba2a89928, type: 2}
+  m_Controller: {fileID: 9100000, guid: ebe60e10924f9154faad4300e72c436c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -8436,6 +8435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDir: {x: 0, y: 0}
   mouseDir: {x: 0, y: 0}
+  mousePos: {x: 0, y: 0, z: 0}
   isDash: 0
   isAttack: 0
   isUse: 0
