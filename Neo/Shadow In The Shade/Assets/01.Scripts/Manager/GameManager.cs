@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-
+        //이거 하고 버튼 꺼줘야함
     }
     public void InitMainStatPoint(int statsIndex)
     {
