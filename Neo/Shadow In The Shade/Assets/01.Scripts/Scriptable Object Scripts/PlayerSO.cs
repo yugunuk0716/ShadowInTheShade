@@ -125,6 +125,11 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어 스프라이트")]
     public Sprite playerSprite;
 
+
+    [Header("플레이어 직업별 애니메이터")]
+    public List<Animator> playerClassAnimator;
+
+
     [Header("플레이어 현제 상태")]
     public bool canChangePlayerType;
     public PlayerStates playerStates;

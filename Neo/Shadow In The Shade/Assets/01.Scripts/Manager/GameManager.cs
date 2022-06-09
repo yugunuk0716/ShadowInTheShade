@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlayerGetItem;  
     public UnityEvent onPlayerGetSameItem;
     public UnityEvent onPlayerGetShadowOrb;
+    public UnityEvent onPlayerStatUp;
 
     public UnityEvent onEnemyHit;
 
@@ -120,6 +122,24 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ApplyClassChange()
+    {
+        switch (playerSO.playerJobState)
+        {
+            case PlayerJobState.Default:
+                break;
+            case PlayerJobState.Berserker:
+                break;
+            case PlayerJobState.Archer:
+                break;
+            case PlayerJobState.Greedy:
+                break;
+            case PlayerJobState.Devilish:
+                break;
+        }
+
+
+    }
     public void InitMainStatPoint(int statsIndex)
     {
         switch(statsIndex)
