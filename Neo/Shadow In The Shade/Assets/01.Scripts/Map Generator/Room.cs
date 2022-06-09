@@ -15,6 +15,8 @@ public class Room : PoolableMono
     public int Y { get; set; }
 
 
+    public RoomType roomType;
+
     public int phaseCount = 0;
 
     public List<Door> doorList = new List<Door>();

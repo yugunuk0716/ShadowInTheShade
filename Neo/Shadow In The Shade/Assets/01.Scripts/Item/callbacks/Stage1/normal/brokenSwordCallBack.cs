@@ -11,6 +11,7 @@ public class brokenSwordCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
+        //GameManager.Instance.playerSO.attackStats.ATK += 20f;
         GameManager.Instance.playerSO.attackStats.ATK += 20f;
     }
 

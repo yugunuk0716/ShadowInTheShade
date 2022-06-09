@@ -1,31 +1,40 @@
 fileFormatVersion: 2
-guid: 70a5f2c9a3d444947a764972d5d5c922
+guid: 48a63200070bbb8469ef04bf62ad4919
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8046598456405858996
-    second: human_portal_stage1_boss_v2_0
+      213: -1487381070950221361
+    second: reverse_portal_0
   - first:
-      213: 8422899655342868773
-    second: human_portal_stage1_boss_v2_1
+      213: -2603397507151255701
+    second: reverse_portal_1
   - first:
-      213: 2543826708507147919
-    second: human_portal_stage1_boss_v2_2
+      213: 7869568759064258957
+    second: reverse_portal_2
   - first:
-      213: 5058770476253935508
-    second: human_portal_stage1_boss_v2_3
+      213: -9041930125305733821
+    second: reverse_portal_3
   - first:
-      213: 2845189275021548091
-    second: human_portal_stage1_boss_v2_4
+      213: 440937156187413400
+    second: reverse_portal_4
   - first:
-      213: 4254535504496120734
-    second: human_portal_stage1_boss_v2_5
+      213: 1727559504991041302
+    second: reverse_portal_5
   - first:
-      213: -926057734727941399
-    second: human_portal_stage1_boss_v2_6
+      213: -6844369026870781634
+    second: reverse_portal_6
   - first:
-      213: -4309842434409809951
-    second: human_portal_stage1_boss_v2_7
+      213: -8336247069007144711
+    second: reverse_portal_7
+  - first:
+      213: -2177598561720630834
+    second: reverse_portal_8
+  - first:
+      213: 5676314759078471285
+    second: reverse_portal_9
+  - first:
+      213: 2309233471079009610
+    second: reverse_portal_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -70,7 +79,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 96
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,97 +148,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c45e8bb265db45090800000000000000
-      internalID: -8046598456405858996
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 529c87f2c9624e470800000000000000
-      internalID: 8422899655342868773
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8e38b2e9ec7d4320800000000000000
-      internalID: 2543826708507147919
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 497795512fc543640800000000000000
-      internalID: 5058770476253935508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_4
+      name: reverse_portal_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,41 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3a196832942c7720800000000000000
-      internalID: 2845189275021548091
+      spriteID: fc93f54ebc2cb5be0800000000000000
+      internalID: -1487381070950221361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9357c5ff752b0b30800000000000000
-      internalID: 4254535504496120734
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_6
+      name: reverse_portal_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,20 +183,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e2c900956bf523f0800000000000000
-      internalID: -926057734727941399
+      spriteID: b67ac19b2cfdedbd0800000000000000
+      internalID: -2603397507151255701
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: human_portal_stage1_boss_v2_7
+      name: reverse_portal_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,8 +204,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e73913f32d5034c0800000000000000
-      internalID: -4309842434409809951
+      spriteID: d8969837713563d60800000000000000
+      internalID: 7869568759064258957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34d9f3d057c948280800000000000000
+      internalID: -9041930125305733821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b52d2e1068e1600800000000000000
+      internalID: 440937156187413400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 617375f773689f710800000000000000
+      internalID: 1727559504991041302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e395ea112aae301a0800000000000000
+      internalID: -6844369026870781634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f810f34573bf4c80800000000000000
+      internalID: -8336247069007144711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec18d3145ad97c1e0800000000000000
+      internalID: -2177598561720630834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 576ed20f23256ce40800000000000000
+      internalID: 5676314759078471285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverse_portal_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4d4b1b6b9b0c0020800000000000000
+      internalID: 2309233471079009610
       vertices: []
       indices: 
       edges: []

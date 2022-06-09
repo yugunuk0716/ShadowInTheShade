@@ -17,7 +17,7 @@ public class CursorChange : MonoBehaviour
 
 	void cursorSet(Texture2D tex)
 	{
-		CursorMode mode = CursorMode.Auto;
+		CursorMode mode = CursorMode.ForceSoftware;
 		float xspot = tex.width / 2;
 		float yspot = tex.height / 2;
 		Vector2 hotSpot = new Vector2(xspot, yspot);

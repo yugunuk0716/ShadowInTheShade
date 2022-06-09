@@ -43,7 +43,7 @@ public class NeoRoomManager : MonoBehaviour
         LoadNextRoom("Start");
     }
 
-    public void LoadNextRoom(string s)
+    public RoomType LoadNextRoom(string s)
     {
         if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
         {
@@ -57,7 +57,7 @@ public class NeoRoomManager : MonoBehaviour
         UIManager.Instance.StartFadeOut();
         StageManager.Instance.currentRoom = room;
         StageManager.Instance.EnterRoom();
-        
+        return room.roomType;
       
     }
 
@@ -93,10 +93,10 @@ public class NeoRoomManager : MonoBehaviour
         nDoor2.pairDoor = nDoor;
     }
 
-    public void LoadNextRoom()
+    public RoomType LoadNextRoom()
     {
         int idx = Random.Range(0, spawnableRoomData.roomList.Count);
-        LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
+        return LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
     }
 
     public void LoadShop()
