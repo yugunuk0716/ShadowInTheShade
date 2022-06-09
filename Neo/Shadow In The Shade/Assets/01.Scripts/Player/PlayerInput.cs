@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
     public bool isChangePlayerType;
     public bool isHit;
     public bool isDie;
-
+    public bool isUseSkill;
 
     private Camera mainCam;
 
@@ -35,6 +35,12 @@ public class PlayerInput : MonoBehaviour
             isUse = false;
             return;
         }
+
+        if (Input.GetButtonDown("Change"))
+        {
+            print("입력");
+        }
+
 
         switch (GameManager.Instance.playerSO.playerStates) // 플레이어 타입 상태
         {
@@ -87,6 +93,7 @@ public class PlayerInput : MonoBehaviour
                     case PlayerInputState.Change:
                         if (!GameManager.Instance.playerSO.playerInputState.Equals(PlayerInputState.Attack))
                         {
+                            isUseSkill = Input.GetButtonDown("Change");
                             isAttack = Input.GetButtonDown("Attack");
                             moveDir.x = Input.GetAxisRaw("Horizontal");
                             moveDir.y = Input.GetAxisRaw("Vertical");
