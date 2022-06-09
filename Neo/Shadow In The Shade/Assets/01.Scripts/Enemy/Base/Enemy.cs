@@ -62,7 +62,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected float lastAttackTime = 0f;
     protected float attackCool = 1f;
-
+  
     private bool isHit = false;
     public bool IsHit
     {
@@ -137,6 +137,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
     private readonly WaitForSeconds colorWait = new WaitForSeconds(0.1f);
     private Coroutine kockbackRoutine;
+
+    private bool isElite = false;
 
     private DamageEffect effect;
 
@@ -400,5 +402,26 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         isAttack = false;
         //myRend.enabled = true;
 
+    }
+
+    public void SetElite()
+    {
+        //체력 10배 공격력 1.5배
+        CurrHP *= 10f;
+        isElite = true;
+        enemyData.damage *= 1.5f;
+        transform.localScale *= 1.5f;
+    }
+
+    public void SetNomal()
+    {
+        if (isElite)
+        {
+            //체력 10배 공격력 1.5배
+            CurrHP /= 10f;
+            isElite = false;
+            enemyData.damage /= 1.5f;
+            transform.localScale /= 1.5f;
+        }
     }
 }
