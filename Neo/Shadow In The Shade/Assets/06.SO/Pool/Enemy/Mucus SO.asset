@@ -15,6 +15,8 @@ MonoBehaviour:
   enemyName: Mucus Slime
   prefab: {fileID: 3081107059394197388, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
   poolPrefab: {fileID: 3081107059394197383, guid: b565c4fd9bbfd174c88f486899f803a0, type: 3}
+  hitNum: 0
+  canChangeElite: 0
   <maxHealth>k__BackingField: 150
   <damage>k__BackingField: 0
   <exprencepoint>k__BackingField: 30

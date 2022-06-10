@@ -19,6 +19,7 @@ public class PlayerNewDash : MonoBehaviour
     private Vector3 mousePos;
 
     internal bool isDash;
+    internal bool isTypeChanged;
     private SpriteRenderer sr;
     private float dashTime = 0.15f;
 
@@ -35,27 +36,30 @@ public class PlayerNewDash : MonoBehaviour
         chargeEffect.Stop();
         chargeEffect.gameObject.transform.position = transform.position;
         isCharging = false;
+        isTypeChanged = false;
         effectRunTime = 0f;
         spd = GameManager.Instance.playerSO.moveStats.SPD;
         playerAnimation = GetComponentInChildren<PlayerAnimation>();
         dashCollider = GetComponentInChildren<PlayerDashCollider>();
         //cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         sr = GetComponentInChildren<SpriteRenderer>();
+
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
+        {
+            if (isCharging)
+            {
+                isTypeChanged = true;
+               
+            }
+        });
+
     }
 
-/*    public void LateUpdate()
-    {
-        
-    }
-*/
+
 
     public void Update()
     {
-        /*    if(playerInput.moveDir.normalized != Vector2.zero)
-            {
-                lateDir = playerInput.moveDir.normalized;
-            }
-    */
+       
 
         if (Input.GetButton("Dash"))
         {
@@ -63,11 +67,25 @@ public class PlayerNewDash : MonoBehaviour
             if (usedDash)
                 return;
 
+            if (isTypeChanged)
+            {
+                chargeEffect.gameObject.SetActive(false);
+                chargeEffect.GetComponent<ParticleSystem>().Stop();
+                effectRunTime = 0f;
+                ResetCharging();
+                GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
+                gameObject.layer = 3;
+                GameManager.Instance.playerSO.moveStats.SPD = 7f;
+                dashCollider.isDashing = false;
+                GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
+                rigd.velocity = Vector2.zero;
+                return;
+            }
+
             GameManager.Instance.playerSO.moveStats.SPD = 
                 Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD -= Time.deltaTime * timeSlowSpeed, 1f, 7f);
             
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            playerInput.mouseDir = mousePos;
             if (isCharging == false)
             {
                 isCharging = true;
@@ -79,10 +97,17 @@ public class PlayerNewDash : MonoBehaviour
             {
                 effectRunTime += Time.deltaTime;
             }
+
         }
 
         if (Input.GetButtonUp("Dash"))
         {
+
+            if (isTypeChanged)
+            {
+                isTypeChanged = false;
+            }
+
 
             chargeEffect.gameObject.SetActive(false);
             chargeEffect.GetComponent<ParticleSystem>().Stop();
@@ -140,7 +165,7 @@ public class PlayerNewDash : MonoBehaviour
     {
         isCharging = false;
     }
-
+   
     public IEnumerator Dashing(float dashPower)
     {
         yield return new WaitForEndOfFrame();

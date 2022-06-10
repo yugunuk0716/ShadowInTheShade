@@ -13,6 +13,7 @@ public class EnemyDataSO : ScriptableObject
     public PoolableMono poolPrefab;
 
     public int hitNum;
+    public bool canChangeElite = true;
     
     [field: SerializeField, Header("적의 최대 체력")]
     public int maxHealth { get; set; } = 3;

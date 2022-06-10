@@ -9,6 +9,15 @@ public enum PlayerStates // 플레이어 상태
     Shadow
 }
 
+public enum PlayerJobState // 플레이어 직업
+{
+    Default,
+    Berserker,
+    Archer,
+    Greedy,
+    Devilish
+}
+
 public enum PlayerInputState // 플레이어 인풋 상태
 {
     Idle,
@@ -116,9 +125,15 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어 스프라이트")]
     public Sprite playerSprite;
 
+
+    [Header("플레이어 직업별 애니메이터")]
+    public List<Animator> playerClassAnimator;
+
+
     [Header("플레이어 현제 상태")]
     public bool canChangePlayerType;
     public PlayerStates playerStates;
+    public PlayerJobState playerJobState;
     public PlayerDashState playerDashState;
     public PlayerInputState playerInputState;
 

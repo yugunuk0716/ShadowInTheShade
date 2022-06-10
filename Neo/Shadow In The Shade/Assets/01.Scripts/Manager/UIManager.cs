@@ -62,6 +62,8 @@ public class UIManager : MonoBehaviour
 
     private bool isShowing = false;
 
+    private Coroutine dashCoolRoutine;
+
     private void Awake()
     {
         instance = this;
@@ -94,8 +96,22 @@ public class UIManager : MonoBehaviour
 
         GameManager.Instance.onPlayerDash.AddListener(() => 
         {
-            StartCoroutine(SetDashCool(GameManager.Instance.playerSO.moveStats.DCT)); 
+            if (dashCoolRoutine != null)
+            {
+                StopCoroutine(dashCoolRoutine);
+            }
+            dashCoolRoutine = StartCoroutine(SetDashCool(GameManager.Instance.playerSO.moveStats.DCT)); 
         }); // 1+ 0.5 * 4ÀÎµí
+
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
+        {
+            if (dashCoolRoutine != null)
+            {
+                StopCoroutine(dashCoolRoutine);
+            }
+            dashCoolImage.fillAmount = 0f;
+            PlayerNewDash.usedDash = false;
+        });
 
     }
 
@@ -265,13 +281,16 @@ public class UIManager : MonoBehaviour
 
         float startTime = Time.time;
 
+        
         coolTime += 2;
+        
         while (true)
         {
             a -= coolTime / (coolTime * (coolTime/2f) * 100f);
             dashCoolImage.fillAmount = a;
             if (a < 0)
             {
+                print(Time.time - startTime);
                 PlayerNewDash.usedDash = false;
                 break;
             }

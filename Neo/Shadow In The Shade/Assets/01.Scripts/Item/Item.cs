@@ -68,7 +68,7 @@ public class Item : Interactable
 
         //여기서 상점 갔던 여부 확인하고 안갔다면 2번을 상점으로 설정하고 생성 해주면 되고 다른 방은 랜덤으로 굴리는데 이제 Boss방이 뜰수 있나 없나 이정도로
 
-        NeoRoomManager.instance.SpawnDoor();
+      
         ItemManager.Instance.AddingItem(itemSO);
         PoolManager.Instance.Push(this);
     }

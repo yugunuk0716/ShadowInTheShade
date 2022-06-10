@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phaseCount: 0
+  isElite: 0
   anima: {fileID: 0}
   data: {fileID: 11400000, guid: a391eaaa9299497488efb37e5f44759a, type: 2}
+  canEliteList: []
   isSpawned: 0
 --- !u!212 &-5591033382368312580
 SpriteRenderer:
