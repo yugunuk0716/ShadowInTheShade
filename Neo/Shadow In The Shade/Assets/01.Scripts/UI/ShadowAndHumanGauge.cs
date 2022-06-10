@@ -31,6 +31,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
     public float shadowGaugeAmount = 0;
     public float humanGaugeAmount = 0;
 
+
+
     void Start()
     {
         /*        GaugeChangeSeq = DOTween.Sequence();
@@ -85,6 +87,12 @@ public class ShadowAndHumanGauge : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            shadowGaugeAmount += 0.1f;
+            humanGaugeAmount -= 0.1f;
+        }
 
         if (gaugeState.Equals(GaugeState.Shadow))
         {

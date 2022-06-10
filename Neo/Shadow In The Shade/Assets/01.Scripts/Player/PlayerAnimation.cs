@@ -163,27 +163,57 @@ public class PlayerAnimation : MonoBehaviour
         mousePos = (playerInput.mousePos - transform.position).normalized;
 
 
-        if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        //if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        //{
+        //    if (mousePos.x < 0)
+        //    {
+        //        mousePos = Vector3.left;
+        //    }
+        //    else
+        //    {
+        //        mousePos = Vector3.right;
+        //    }
+        //}
+        //else
+        //{
+        //    if (mousePos.y < 0)
+        //    {
+        //        mousePos = Vector3.down;
+        //    }
+        //    else
+        //    {
+        //        mousePos = Vector3.up;
+        //    }
+        //}
+
+        float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
+        Vector2 deV = Vector2.zero;
+        print(thetha);
+
+
+        for (int i = 0; i < 8; i++)
         {
-            if (mousePos.x < 0)
+            float under = playerInput.degrees[i] - 22.5f;
+            float over = 0f;
+
+            over = playerInput.degrees[i] + 22.5f;
+
+            if (under <= 0)
             {
-                mousePos = Vector3.left;
+                under += 360f;
+                (under, over) = (over, under);
             }
-            else
+
+
+
+            if (under <= thetha && thetha < over)
             {
-                mousePos = Vector3.right;
+                deV = playerInput.vectors[i];
+                break;
             }
-        }
-        else
-        {
-            if (mousePos.y < 0)
-            {
-                mousePos = Vector3.down;
-            }
-            else
-            {
-                mousePos = Vector3.up;
-            }
+
+            if (thetha < 45f)
+                deV = playerInput.vectors[2];
         }
 
 
@@ -198,17 +228,17 @@ public class PlayerAnimation : MonoBehaviour
 
         isAttacking = true;
 
-        playerAnimator.SetFloat("AnimLastMoveX", mousePos.x);
-        playerAnimator.SetFloat("AnimLastMoveY", mousePos.y);
+        playerAnimator.SetFloat("AnimLastMoveX", deV.x);
+        playerAnimator.SetFloat("AnimLastMoveY", deV.y);
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
 
         playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD;
-        playerMove.OnMove(mousePos, 10f);
+        playerMove.OnMove(deV, 10f);
 
         yield return new WaitForSeconds(.15f);
 
-        playerMove.OnMove(mousePos, 0f);
+        playerMove.OnMove(deV, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
         yield return new WaitUntil(() => !isAttacking);
 
