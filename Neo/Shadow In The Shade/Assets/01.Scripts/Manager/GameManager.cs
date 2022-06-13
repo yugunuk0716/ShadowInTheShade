@@ -120,6 +120,8 @@ public class GameManager : MonoBehaviour
         playerSO.moveStats.SPD = 7f;
         playerSO.moveStats.HSP = 0f;
 
+        playerSO.moveStats.DCT = 0f;
+
         foreach (PoolableMono p in poollingList.list)
         {
             if(p == null)

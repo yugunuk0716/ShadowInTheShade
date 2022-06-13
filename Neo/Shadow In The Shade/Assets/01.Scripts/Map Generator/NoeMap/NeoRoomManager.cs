@@ -52,15 +52,15 @@ public class NeoRoomManager : MonoBehaviour
             
         }
        
-
+        
         Room room = PoolManager.Instance.Pop($"{currentStageNames[stageIndex]} {s}") as Room;
         //room.gameObject.SetActive(false);
         room.transform.position = Vector3.zero;
         GameManager.Instance.player.position = room.spawnPointTrm.position;
         UIManager.Instance.StartFadeOut();
-        AstarPath.active.Scan();
         StageManager.Instance.currentRoom = room;
         StageManager.Instance.EnterRoom();
+        AstarPath.active.Scan();
         
         return room.roomType;
       

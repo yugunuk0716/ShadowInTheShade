@@ -244,7 +244,7 @@ public class Room : PoolableMono
         }
         //StageManager.Instance.curEnemySPList.Clear();
         phaseCount = 0;
-
+        isClear = false;
     }
 
 #if UNITY_EDITOR

@@ -203,7 +203,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        colliderList = Physics2D.OverlapBoxAll(transform.position + overlapXBox, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
+        colliderList = Physics2D.OverlapBoxAll(transform.position, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
         Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + overlapYBox, new Vector2(2f, 1f) * 3, 0f, LayerMask.GetMask("Enemy"));
 
         foreach (Collider2D collider in c1)
