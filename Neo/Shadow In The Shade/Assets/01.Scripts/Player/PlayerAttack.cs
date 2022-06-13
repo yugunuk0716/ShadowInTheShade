@@ -125,8 +125,6 @@ public class PlayerAttack : MonoBehaviour
         if(GameManager.Instance.playerSO.ectStats.APH != 0)
         {
             GameManager.Instance.player.GetComponent<Player>().CurrHP += GameManager.Instance.playerSO.ectStats.APH;
-            UIManager.Instance.SetBar(
-                GameManager.Instance.player.GetComponent<Player>().CurrHP / GameManager.Instance.playerSO.ectStats.PMH);
         }
     }
 

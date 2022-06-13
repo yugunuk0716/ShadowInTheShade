@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 
         playerSO.ectStats.LEV = 0;
         playerSO.ectStats.EXP = 0;
-        playerSO.ectStats.PMH = 400f;
+        playerSO.ectStats.PMH = 1000f;
         playerSO.ectStats.APH = 0;
         playerSO.ectStats.DPD = 0;
         playerSO.ectStats.EVC = 0;
