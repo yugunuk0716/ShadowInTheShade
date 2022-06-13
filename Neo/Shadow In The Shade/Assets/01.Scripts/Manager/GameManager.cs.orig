@@ -122,10 +122,14 @@ public class GameManager : MonoBehaviour
         playerSO.moveStats.SPD = 7f;
         playerSO.moveStats.HSP = 0f;
 
-       playerSO.moveStats.DCT = 0f;
+<<<<<<< HEAD
+
         playerSO.PercentagePointStats.ATP = 0f;
         playerSO.PercentagePointStats.SPP = 0f;
         playerSO.PercentagePointStats.STP = 0f;
+=======
+        playerSO.moveStats.DCT = 0f;
+>>>>>>> origin/main
 
         foreach (PoolableMono p in poollingList.list)
         {
