@@ -55,6 +55,9 @@ public struct PlayerMoveStats
 
     [Header("채력 부족시 추가 이동속도")]
     public float HSP;
+
+    [Header("효과 추가 이동속도")]
+    public float BSP;
 }
 
 
@@ -119,6 +122,25 @@ public struct PlayerMainStats
 }
 
 
+
+[System.Serializable]
+public struct PlayerPercentagePoint
+{
+    [Header("공격력 %")]
+    public float ATP;
+
+    [Header("스탯 추가 %")]
+    public float STP;
+
+    [Header("공격속도 %")]
+    public float AGI;
+
+    [Header("정신")]
+    public float SPL;
+}
+
+
+
 [CreateAssetMenu(menuName = "SO/Player/PlayerSO")]
 public class PlayerSO : ScriptableObject
 {
@@ -151,6 +173,10 @@ public class PlayerSO : ScriptableObject
 
     [Header("플레이어의 기타스탯")]
     public PlayerECTStats ectStats;
+
+
+
+
 
 
 /*
