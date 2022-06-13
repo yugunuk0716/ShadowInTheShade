@@ -12,6 +12,7 @@ public class PoinredbranchCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
+        base.ItemActiveCallBack();
 
     }
 

@@ -14,6 +14,7 @@ public class AdrenalineCallBack : ItemCallBack
         //GameManager.Instance.playerSO.attackStats.ASD += 0.05f;
         playerSO.PercentagePointStats.SPP += 1;
         ActiveStats();
+        base.ItemActiveCallBack();
     }
 
     public override void ItemSpecialCallBack()

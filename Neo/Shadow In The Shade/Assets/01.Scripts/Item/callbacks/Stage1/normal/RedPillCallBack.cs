@@ -13,6 +13,7 @@ public class RedPillCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.ectStats.PMH += 20f;
+        base.ItemActiveCallBack();
     }
 
 
@@ -22,6 +23,7 @@ public class RedPillCallBack : ItemCallBack
         GameManager.Instance.player.GetComponent<Player>().CurrHP += 10f;
         UIManager.Instance.SetBar(
             GameManager.Instance.player.GetComponent<Player>().CurrHP / GameManager.Instance.playerSO.ectStats.PMH);
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

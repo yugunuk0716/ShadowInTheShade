@@ -15,6 +15,7 @@ public class TorncloakCallBack : ItemCallBack
         // GameManager.Instance.playerSO.ectStats.EVC += 3f;
         playerSO.PercentagePointStats.STP += 40;
         ActiveStatPoint();
+        base.ItemActiveCallBack();
         //회피 확률 3% 증가
     }
 
