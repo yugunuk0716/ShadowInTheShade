@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
 
                 playerSO.attackStats.ATK += 20f + 20f * playerSO.PercentagePointStats.ATP / 100;
 
-                playerSO.attackStats.ATK += 20f * playerSO.PercentagePointStats.ATP / 100;
+                playerSO.attackStats.ATK += 20f * playerSO.PercentagePointStats.STP / 100;
                 break;
             case 2:
 
@@ -179,8 +179,8 @@ public class GameManager : MonoBehaviour
 
                 playerSO.attackStats.ASD += 0.1f * playerSO.PercentagePointStats.SPP /100;
 
-                playerSO.moveStats.SPD += .2f * playerSO.PercentagePointStats.ATP / 100;
-                playerSO.attackStats.ASD += 0.1f * playerSO.PercentagePointStats.ATP / 100;
+                playerSO.moveStats.SPD += .2f * playerSO.PercentagePointStats.STP / 100;
+                playerSO.attackStats.ASD += 0.1f * playerSO.PercentagePointStats.STP / 100;
                 break;
             case 3:
 
@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
                 playerSO.attackStats.CTP += 10;
 
 
-                playerSO.attackStats.CTP += 10 * playerSO.PercentagePointStats.ATP / 100;
+                playerSO.attackStats.CTP += 10 * playerSO.PercentagePointStats.STP / 100;
                 break;
             case 4:
 
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
                 playerSO.ectStats.PMH += 50f;
 
 
-                playerSO.ectStats.PMH += 50f * playerSO.PercentagePointStats.ATP / 100;
+                playerSO.ectStats.PMH += 50f * playerSO.PercentagePointStats.STP / 100;
                 break;
 
         }
