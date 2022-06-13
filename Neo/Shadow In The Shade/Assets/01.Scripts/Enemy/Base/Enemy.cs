@@ -209,7 +209,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         if (GameManager.Instance != null)
         {
             isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
-            MyRend.enabled = !isShadow;
+            //MyRend.enabled = !isShadow;
         }
         currHP = enemyData.maxHealth;
         MyRend.color = originColor;

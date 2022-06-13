@@ -52,7 +52,7 @@ public class ItemImage : PoolableMono, IPointerEnterHandler, IPointerExitHandler
     {
         if (itemSO != null)
         {
-            UIManager.Instance.ShowToolTip($"{itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
+            UIManager.Instance.ShowToolTip($"<b>{itemSO.itemName}</b> \n <size=5>     </size> \n {itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
         }
     }
 

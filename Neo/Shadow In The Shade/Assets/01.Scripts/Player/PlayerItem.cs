@@ -86,6 +86,7 @@ public class PlayerItem : MonoBehaviour
 
     public void Addingitem(Transform parant,ItemSO item)
     {
+        print(item.itemCallBack.name);
         GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
         itemObj.SetActive(true);
         itemObj.transform.SetParent(parant);

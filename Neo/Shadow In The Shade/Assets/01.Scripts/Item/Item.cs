@@ -80,7 +80,7 @@ public class Item : Interactable
             //UI Ãâ·Â
             if(itemSO != null)
             {
-                UIManager.Instance.ShowToolTip($"{itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
+                UIManager.Instance.ShowToolTip($"\n <b>{itemSO.itemName}</b> \n  \n {itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
             }
         }
     }

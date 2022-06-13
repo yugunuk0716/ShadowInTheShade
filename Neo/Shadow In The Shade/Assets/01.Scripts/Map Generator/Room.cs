@@ -122,6 +122,7 @@ public class Room : PoolableMono
                 esp.StartSpawn();
             }
         }
+        UIManager.Instance.enemiesCountText.text = $"³²Àº Àû: {StageManager.Instance.curStageEnemys.Count}";
     }
 
     public Vector2 GetSpawnPoint(DirType dir)
@@ -236,11 +237,11 @@ public class Room : PoolableMono
 
     public override void Reset()
     {
-        //foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
-        //{
-        //    esp.isSpawned = false;
+        foreach (EnemySpawnPoint esp in currentESPList)
+        {
+            esp.isSpawned = false;
 
-        //}
+        }
         //StageManager.Instance.curEnemySPList.Clear();
         phaseCount = 0;
 

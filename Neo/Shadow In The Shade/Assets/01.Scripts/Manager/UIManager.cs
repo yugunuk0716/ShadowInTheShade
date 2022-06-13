@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
     public Image fadeImage;
     #endregion
 
+
+    public Text enemiesCountText;
+
     public Text tooltipText;
     public Image tooltipIcon;
     public Image tooltipBG;
