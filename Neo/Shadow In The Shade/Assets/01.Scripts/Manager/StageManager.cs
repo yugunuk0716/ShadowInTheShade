@@ -123,7 +123,7 @@ public class StageManager : MonoBehaviour
         if (CurEnemySPList.Find(esp => !esp.isSpawned) != null)
         {
             currentRoom.phaseCount++;
-            if (currentRoom.phaseCount >= 2 && NeoRoomManager.instance.stageIndex <= 2)
+            if (currentRoom.phaseCount >= 2 && NeoRoomManager.instance.experiencedRoomCount <= 2)
             {
                 curStageEnemys.Clear();
                 StageClear();

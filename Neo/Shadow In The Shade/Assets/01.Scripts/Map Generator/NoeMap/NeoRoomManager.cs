@@ -29,7 +29,7 @@ public class NeoRoomManager : MonoBehaviour
 
     public int stageIndex = 0;
     
-    private int experiencedRoomCount = 0;
+    public int experiencedRoomCount = 0;
     private bool isExperiencedShop = false;
 
     private void Awake()
