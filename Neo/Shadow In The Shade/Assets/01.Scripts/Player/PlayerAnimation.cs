@@ -270,6 +270,7 @@ public class PlayerAnimation : MonoBehaviour
             
             if (!playerDashEffcetAnimator.GetBool("isDash"))
             {
+                mousePos = (playerInput.mousePos - transform.position).normalized;
                 playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
                
                 float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
