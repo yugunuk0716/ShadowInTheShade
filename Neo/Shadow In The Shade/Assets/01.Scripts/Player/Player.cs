@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH * 2));
+            UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH));
         }
     }
 
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 2;
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
        // playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
         

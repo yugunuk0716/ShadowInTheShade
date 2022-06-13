@@ -33,6 +33,7 @@ public class Item : Interactable
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
+        used = false;
         base.Awake();
 
         colorDic.Add(Rarity.Normal, Color.white);
