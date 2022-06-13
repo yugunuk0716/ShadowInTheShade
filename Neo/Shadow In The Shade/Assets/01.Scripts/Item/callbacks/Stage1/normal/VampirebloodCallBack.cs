@@ -11,7 +11,7 @@ public class VampireBloodCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-        GameManager.Instance.playerSO.ectStats.APH += 20f;
+        GameManager.Instance.playerSO.ectStats.APH += 10f;
         base.ItemActiveCallBack();
     }
 
@@ -22,7 +22,7 @@ public class VampireBloodCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.ectStats.APH += 10f;
+        GameManager.Instance.playerSO.ectStats.APH += 5f;
         base.ItemNestingCallBack();
 
     }

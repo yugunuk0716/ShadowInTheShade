@@ -290,6 +290,7 @@ public class UIManager : MonoBehaviour
         while (true)
         {
             a -= coolTime / (coolTime * (coolTime/2f) * 100f);
+            Mathf.Clamp(a, 0.001f, 99999f);
             dashCoolImage.fillAmount = a;
             if (a < 0)
             {
