@@ -2382,9 +2382,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7df350654137d34880e49f813d2fe11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _freezeTimeDelay: 0
-  _unFreezeTimeDelay: 0.1
-  _timeFreezeValue: 0.3
+  _freezeTimeDelay: 0.05
+  _unFreezeTimeDelay: 0.2
+  _timeFreezeValue: 0.2
 --- !u!1001 &563534412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5594,8 +5594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineCamObj: {fileID: 910672786}
-  shakeDuration: 1
-  shakePower: 1
+  shakeDuration: 0.2
+  shakePower: 2.5
 --- !u!1 &1145662430
 GameObject:
   m_ObjectHideFlags: 0
