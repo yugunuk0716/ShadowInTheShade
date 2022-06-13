@@ -159,7 +159,7 @@ public class PlayerAttack : MonoBehaviour
 
         Vector3 atkSize = attackStack ? new Vector2(1f, 3f) : new Vector2(3f, 1.5f);
 
-        colliderList = Physics2D.OverlapCircleAll(transform.position, .5f, LayerMask.GetMask("Enemy")).ToList();
+        colliderList = Physics2D.OverlapBoxAll(transform.position, Vector2.one , LayerMask.GetMask("Enemy")).ToList();
 
         Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + dir, atkSize, 0f, LayerMask.GetMask("Enemy"));
 
@@ -203,7 +203,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
 
-        colliderList = Physics2D.OverlapBoxAll(transform.position, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
+        colliderList = Physics2D.OverlapBoxAll(transform.position + overlapXBox, new Vector2(1f, 3f) * 2, 0f, LayerMask.GetMask("Enemy")).ToList();
         Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + overlapYBox, new Vector2(2f, 1f) * 3, 0f, LayerMask.GetMask("Enemy"));
 
         foreach (Collider2D collider in c1)
@@ -225,8 +225,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if (UnityEditor.Selection.activeObject == gameObject)
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, .5f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position, Vector3.one);
             Gizmos.color = Color.white;
 
         }
