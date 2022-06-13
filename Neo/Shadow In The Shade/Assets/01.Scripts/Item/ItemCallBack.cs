@@ -4,8 +4,10 @@ using UnityEngine;
 
 public abstract class ItemCallBack : PoolableMono
 {
+    public PlayerSO playerSO;
     public virtual void Start()
     {
+        playerSO = GameManager.Instance.playerSO;
         GameManager.Instance.onPlayerGetItem.AddListener(() => {
             ItemSpecialCallBack();
             ItemActiveCallBack();
