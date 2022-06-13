@@ -15,6 +15,8 @@ MonoBehaviour:
   enemyName: Dice Mk3 Slime
   prefab: {fileID: 5607765946309617178, guid: 323001c7248d70a46bab602d2aa343e7, type: 3}
   poolPrefab: {fileID: 9128100228763155140, guid: 323001c7248d70a46bab602d2aa343e7, type: 3}
+  hitNum: 0
+  canChangeElite: 0
   <maxHealth>k__BackingField: 2500
   <damage>k__BackingField: 40
   <exprencepoint>k__BackingField: 40
