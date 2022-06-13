@@ -40,84 +40,83 @@ public enum PlayerDashState // 플레이어 대쉬 상태
 [System.Serializable]
 public struct PlayerMoveStats
 {
-    [Header("이동 속도")]
-
+    [Header("이동 속도"), Tooltip("이동 속도")]
     public float SPD;
 
-    [Header("대쉬 속도")]
+    [Header("대쉬 속도"), Tooltip("대쉬 속도")]
     public float DSP;
 
-    [Header("대쉬 지속 시간")]
+    [Header("대쉬 지속 시간"), Tooltip("대쉬 지속 시간")]
     public float DRT;
 
-    [Header("대쉬 쿨타임")]
+    [Header("대쉬 쿨타임"), Tooltip("대쉬 쿨타임")]
     public float DCT;
 
-    [Header("채력 부족시 추가 이동속도")]
+    [Header("채력 부족시 추가 이동속도"), Tooltip("채력 부족시 추가 이동속도")]
     public float HSP;
-
-    [Header("효과 추가 이동속도")]
-    public float BSP;
 }
 
 
     [System.Serializable]
 public struct PlayerAttackStats
 {
-    [Header("공격력")]
+    [Header("공격력"), Tooltip("공격력")]
     public float ATK;
 
-    [Header("공격속도")]
+    [Header("공격속도"), Tooltip("공격속도")]
     public float ASD;
 
-    [Header("크리티컬 확률")]
+    [Header("크리티컬 확률"), Tooltip("크리티컬 확률")]
     public float CTP;
     
-    [Header("크리티컬 데미지")]
+    [Header("크리티컬 데미지"), Tooltip("크리티컬 데미지")]
     public float CTD;
 
-    [Header("스킬 쿨타임")]
+    [Header("스킬 쿨타임"), Tooltip("스킬 쿨타임")]
     public float SCD;
 
-    [Header("적 처치시 추가 공격력")]
+    [Header("적 처치시 추가 공격력"), Tooltip("적 처치시 추가 공격력")]
     public float KAP;
+
+    [Header("효과 추가 공격속도"), Tooltip("효과 추가 공격속도")]
+    public float BSP;
 }
 
 [System.Serializable]
 public struct PlayerECTStats
 {
-    [Header("플레이어 경험치")]
+    [Header("플레이어 경험치"), Tooltip("플레이어 경험치")]
     public float EXP;
 
-    [Header("플레이어 체력")]
+    [Header("플레이어 체력"), Tooltip("플레이어 체력")]
     public float PMH;
 
-    [Header("플레이어 레벨")]
+    [Header("플레이어 레벨"), Tooltip("플레이어 레벨")]
     public float LEV;
 
-    [Header("타격시 회복량")]
+    [Header("타격시 회복량"), Tooltip("타격시 회복량")]
     public float APH;
 
-    [Header("플레이어 회피 확률")]
+    [Header("플레이어 회피 확률"), Tooltip("플레이어 회피 확률")]
     public float EVC;
 
-    [Header("대쉬 추가 피해")]
+    [Header("대쉬 추가 피해"), Tooltip("대쉬 추가 피해")]
     public float DPD;
 }
 
 [System.Serializable]
 public struct PlayerMainStats
 {
-    [Header("힘")]
+    [Header("힘"), Tooltip("힘")]
     public float STR;
 
-    [Header("민첩")]
+    [Header("민첩"), Tooltip("민첩")]
     public float DEX;
 
-    [Header("욕망")]
+    [Header("욕망"), Tooltip("욕망")]
     public float AGI;
 
-    [Header("정신")]
+    [Header("정신"), Tooltip("정신")]
     public float SPL;
 }
 
@@ -126,17 +125,14 @@ public struct PlayerMainStats
 [System.Serializable]
 public struct PlayerPercentagePoint
 {
-    [Header("공격력 %")]
+    [Header("공격력 %"), Tooltip("공격력 %")]
     public float ATP;
 
-    [Header("스탯 추가 %")]
+    [Header("스탯 추가 %"), Tooltip("스탯 추가 %")]
     public float STP;
 
-    [Header("공격속도 %")]
-    public float AGI;
-
-    [Header("정신")]
-    public float SPL;
+    [Header("공격속도 %"), Tooltip("공격속도 %")]
+    public float SPP;
 }
 
 
@@ -174,12 +170,13 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어의 기타스탯")]
     public PlayerECTStats ectStats;
 
+    [Header("플레이어의 %스탯")]
+    public PlayerPercentagePoint PercentagePointStats;
 
 
 
 
-
-/*
-    [Header("플레이어의 아이템 효과 확인 Bool")]
-    public bool playerHasFranticherb = false;*/
+    /*
+        [Header("플레이어의 아이템 효과 확인 Bool")]
+        public bool playerHasFranticherb = false;*/
 }

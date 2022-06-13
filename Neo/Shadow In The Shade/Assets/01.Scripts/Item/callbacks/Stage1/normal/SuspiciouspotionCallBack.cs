@@ -13,6 +13,7 @@ public class SuspiciouspotionCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         //디버프 지속시간 10% 감소
+        playerSO.attackStats.BSP += 2f;
     }
 
     public override void ItemSpecialCallBack()
@@ -23,6 +24,7 @@ public class SuspiciouspotionCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         //디버프 지속시간 5% 감소
+        playerSO.attackStats.BSP += 2f;
         base.ItemNestingCallBack();
 
     }

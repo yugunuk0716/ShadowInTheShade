@@ -162,37 +162,43 @@ public class GameManager : MonoBehaviour
         switch(statsIndex)
         {
             case 1:
-                float tempSTR = playerSO.mainStats.STR - 1;
 
-                playerSO.attackStats.ATK -= tempSTR * 20f;
+                playerSO.mainStats.STR++;
 
-                playerSO.attackStats.ATK += playerSO.mainStats.STR * 20f;
+                playerSO.attackStats.ATK += 20f + 20f * playerSO.PercentagePointStats.ATP / 100;
+
+                playerSO.attackStats.ATK += 20f * playerSO.PercentagePointStats.ATP / 100;
                 break;
             case 2:
-                float tempDEX = playerSO.mainStats.DEX - 1;
 
-                playerSO.moveStats.SPD -= tempDEX * .2f;
-                playerSO.attackStats.ASD -= tempDEX * 0.15f;
+                playerSO.mainStats.DEX++;
 
-                playerSO.moveStats.SPD += playerSO.mainStats.DEX * .2f;
-                playerSO.attackStats.ASD += playerSO.mainStats.DEX * 0.1f;
+                playerSO.moveStats.SPD += .2f;
+                playerSO.attackStats.ASD += 0.1f;
+
+
+                playerSO.attackStats.ASD += 0.1f * playerSO.PercentagePointStats.SPP /100;
+
+                playerSO.moveStats.SPD += .2f * playerSO.PercentagePointStats.ATP / 100;
+                playerSO.attackStats.ASD += 0.1f * playerSO.PercentagePointStats.ATP / 100;
                 break;
             case 3:
-                float tempAGI = playerSO.mainStats.AGI - 1;
 
-                playerSO.attackStats.CTP -= tempAGI * 10;
+                playerSO.mainStats.AGI++;
 
-                playerSO.attackStats.CTP += playerSO.mainStats.AGI * 10;
+                playerSO.attackStats.CTP += 10;
 
 
+                playerSO.attackStats.CTP += 10 * playerSO.PercentagePointStats.ATP / 100;
                 break;
             case 4:
-                float tempSPL = playerSO.mainStats.SPL - 1;
 
-                playerSO.ectStats.PMH -= tempSPL * 50f;
+                playerSO.mainStats.SPL++;
 
-                playerSO.ectStats.PMH += playerSO.mainStats.SPL * 50f;
+                playerSO.ectStats.PMH += 50f;
 
+
+                playerSO.ectStats.PMH += 50f * playerSO.PercentagePointStats.ATP / 100;
                 break;
 
         }

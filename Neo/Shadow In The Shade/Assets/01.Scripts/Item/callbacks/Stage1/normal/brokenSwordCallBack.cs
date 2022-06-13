@@ -11,8 +11,9 @@ public class brokenSwordCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-        //GameManager.Instance.playerSO.attackStats.ATK += 20f;
-        GameManager.Instance.playerSO.attackStats.ATK += 20f;
+       // GameManager.Instance.playerSO.attackStats.ATK += 20f;
+        GameManager.Instance.playerSO.PercentagePointStats.ATP += 20f;
+        ActiveATP();
     }
 
     public override void ItemSpecialCallBack()
@@ -22,7 +23,8 @@ public class brokenSwordCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ATK += 10f;
+        // GameManager.Instance.playerSO.attackStats.ATK += 10f;
+        GameManager.Instance.playerSO.PercentagePointStats.ATP += 20f;
         base.ItemNestingCallBack();
 
 
@@ -31,5 +33,12 @@ public class brokenSwordCallBack : ItemCallBack
     public override void Reset()
     {
        // throw new System.NotImplementedException();
+    }
+
+    public void ActiveATP()
+    {
+        PlayerSO pso = GameManager.Instance.playerSO;
+
+        pso.attackStats.ATK += pso.attackStats.ATK * pso.PercentagePointStats.ATP / 100;
     }
 }
