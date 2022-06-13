@@ -58,6 +58,7 @@ public class NeoRoomManager : MonoBehaviour
         room.transform.position = Vector3.zero;
         GameManager.Instance.player.position = room.spawnPointTrm.position;
         UIManager.Instance.StartFadeOut();
+        AstarPath.active.Scan();
         StageManager.Instance.currentRoom = room;
         StageManager.Instance.EnterRoom();
         
