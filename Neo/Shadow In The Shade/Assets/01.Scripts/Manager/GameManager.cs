@@ -116,9 +116,16 @@ public class GameManager : MonoBehaviour
         playerSO.attackStats.CTD = 200f;
         playerSO.attackStats.KAP = 0f;
         playerSO.attackStats.SCD = 0f;
+        playerSO.attackStats.BSP = 0f;
+
 
         playerSO.moveStats.SPD = 7f;
         playerSO.moveStats.HSP = 0f;
+
+
+        playerSO.PercentagePointStats.ATP = 0f;
+        playerSO.PercentagePointStats.SPP = 0f;
+        playerSO.PercentagePointStats.STP = 0f;
 
         foreach (PoolableMono p in poollingList.list)
         {
