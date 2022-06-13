@@ -54,11 +54,7 @@ public class PlayerItem : MonoBehaviour
     {
         if (playerHasItems.Count == 0)
         {
-            GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
-            itemObj.transform.SetParent(itemUIObjs[0].transform);
-            itemObj.name = item.name + "CallBackObj";
-            playerHasItems.Add(item);
-            item.isActived = true;
+            Addingitem(itemUIObjs[0].transform, item);
             StartCoroutine(CallGetItem());
             return;
         }
@@ -72,12 +68,7 @@ public class PlayerItem : MonoBehaviour
                     if (item.itemCallBack != null)
                     {
                         print("안비었는데용");
-                        GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
-                        itemObj.SetActive(true);
-                        itemObj.transform.SetParent(itemUIObjs[itemUIObjs.Count -1].transform);
-                        itemObj.name = item.name + "CallBackObj";
-                        playerHasItems.Add(item);
-                        item.isActived = true;
+                        Addingitem(itemUIObjs[itemUIObjs.Count - 1].transform, item);
                         StartCoroutine(CallGetItem());
                         return;
                     }
@@ -95,17 +86,24 @@ public class PlayerItem : MonoBehaviour
             {
                 if (item.name.Equals(playerHasItems[i].name))
                 {
-                    GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
-                    itemObj.transform.SetParent(itemUIObjs[i].transform);
-                    itemObj.name = item.name + "CallBackObj";
-                    itemObj.GetComponent<ItemCallBack>().CallNesting();
-                    item.isActived = true;
+                    Addingitem(itemUIObjs[i].transform, item);
                     GameManager.Instance.onPlayerGetSameItem?.Invoke();
-                    playerHasItems.Add(item);
                     return;
                 }
             }
         }
+    }
+
+
+
+    public void Addingitem(Transform parant,ItemSO item)
+    {
+        GameObject itemObj = PoolManager.Instance.Pop(item.itemCallBack.name).gameObject;
+        itemObj.SetActive(true);
+        itemObj.transform.SetParent(parant);
+        itemObj.name = item.name + "CallBackObj";
+        playerHasItems.Add(item);
+        item.isActived = true;
     }
 
     public IEnumerator CallGetItem()

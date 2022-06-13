@@ -11,8 +11,9 @@ public class brokenSwordCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-        //GameManager.Instance.playerSO.attackStats.ATK += 20f;
-        GameManager.Instance.playerSO.attackStats.ATK += 20f;
+       // GameManager.Instance.playerSO.attackStats.ATK += 20f;
+        GameManager.Instance.playerSO.PercentagePointStats.ATP += 20f;
+
     }
 
     public override void ItemSpecialCallBack()
@@ -22,7 +23,8 @@ public class brokenSwordCallBack : ItemCallBack
 
     public override void ItemNestingCallBack()
     {
-        GameManager.Instance.playerSO.attackStats.ATK += 10f;
+        // GameManager.Instance.playerSO.attackStats.ATK += 10f;
+        GameManager.Instance.playerSO.PercentagePointStats.ATP += 20f;
         base.ItemNestingCallBack();
 
 

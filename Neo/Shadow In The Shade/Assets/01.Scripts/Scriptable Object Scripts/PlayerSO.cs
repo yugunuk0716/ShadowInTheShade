@@ -133,10 +133,7 @@ public struct PlayerPercentagePoint
     public float STP;
 
     [Header("공격속도 %")]
-    public float AGI;
-
-    [Header("정신")]
-    public float SPL;
+    public float SPP;
 }
 
 
@@ -174,12 +171,13 @@ public class PlayerSO : ScriptableObject
     [Header("플레이어의 기타스탯")]
     public PlayerECTStats ectStats;
 
+    [Header("플레이어의 %스탯")]
+    public PlayerPercentagePoint PercentagePointStats;
 
 
 
 
-
-/*
-    [Header("플레이어의 아이템 효과 확인 Bool")]
-    public bool playerHasFranticherb = false;*/
+    /*
+        [Header("플레이어의 아이템 효과 확인 Bool")]
+        public bool playerHasFranticherb = false;*/
 }

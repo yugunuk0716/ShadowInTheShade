@@ -12,6 +12,7 @@ public class GoblinBatCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.attackStats.CTP += 20;
+       // GameManager.Instance.playerSO.attackStats.CTP += 5;
     }
 
     public override void ItemSpecialCallBack()
@@ -21,6 +22,7 @@ public class GoblinBatCallBack : ItemCallBack
     public override void ItemNestingCallBack()
     {
         GameManager.Instance.playerSO.attackStats.CTP += 20;
+       //GameManager.Instance.playerSO.attackStats.CTP += 5;
         base.ItemNestingCallBack();
 
     }
