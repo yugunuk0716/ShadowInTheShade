@@ -75,10 +75,10 @@ public class NeoRoomManager : MonoBehaviour
     public void SpawnDoor(RoomType rt)
     {
         NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 2;
+        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 1.5f;
         nDoor.SetDoor(rt);
         NeoDoor nDoor2 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 2;
+        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 1.5f;
         nDoor2.SetDoor(rt);
         if (!isExperiencedShop) 
         {

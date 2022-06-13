@@ -223,7 +223,7 @@ public class Player : MonoBehaviour, IDamagable
         CheckHp();
 
         OnHit?.Invoke(damage);
-        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+        EffectManager.Instance.BloodEffect(EffectType.BLOOD, 0.5f, 1f, 0.7f);
 
         IsHit = false;
 

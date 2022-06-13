@@ -188,7 +188,6 @@ public class PlayerAnimation : MonoBehaviour
 
         float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
         Vector2 deV = Vector2.zero;
-        print(thetha);
 
 
         for (int i = 0; i < 8; i++)
