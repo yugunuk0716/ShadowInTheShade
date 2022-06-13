@@ -65,6 +65,12 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
+
+            if(currHP >= GameManager.Instance.playerSO.ectStats.PMH)
+            {
+                currHP = GameManager.Instance.playerSO.ectStats.PMH;
+            }
+
             UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH));
         }
     }
