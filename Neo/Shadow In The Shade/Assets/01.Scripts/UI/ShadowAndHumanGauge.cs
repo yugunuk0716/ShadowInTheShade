@@ -140,8 +140,8 @@ public class ShadowAndHumanGauge : MonoBehaviour
     {
         if (state.Equals(GaugeState.Shadow))
         {
-            shadowGaugeAmount -= 0.01f;
-            humanGaugeAmount += 0.01f;
+            shadowGaugeAmount -= 0.005f;
+            humanGaugeAmount += 0.005f;
         }
         //else if (state.Equals(GaugeState.Human))
         //{
