@@ -12,6 +12,7 @@ public class VampireBloodCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.ectStats.APH += 2f;
+        base.ItemActiveCallBack();
     }
 
     public override void ItemSpecialCallBack()

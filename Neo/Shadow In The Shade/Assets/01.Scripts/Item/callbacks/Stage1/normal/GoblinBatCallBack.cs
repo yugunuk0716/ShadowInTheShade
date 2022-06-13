@@ -12,6 +12,7 @@ public class GoblinBatCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         playerSO.attackStats.CTP += 20;
+        base.ItemActiveCallBack();
        // GameManager.Instance.playerSO.attackStats.CTP += 5;
     }
 

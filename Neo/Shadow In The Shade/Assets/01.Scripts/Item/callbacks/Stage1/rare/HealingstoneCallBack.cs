@@ -11,6 +11,7 @@ public class HealingstoneCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

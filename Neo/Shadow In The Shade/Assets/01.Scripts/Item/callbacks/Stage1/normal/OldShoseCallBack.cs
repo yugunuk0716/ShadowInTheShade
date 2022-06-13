@@ -13,6 +13,7 @@ public class OldShoseCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.moveStats.SPD += .4f;
+        base.ItemActiveCallBack();
     }
 
     public override void ItemSpecialCallBack()
