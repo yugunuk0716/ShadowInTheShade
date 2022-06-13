@@ -8486,6 +8486,8 @@ MonoBehaviour:
       m_Calls: []
   currHP: 0
   move: {fileID: 1789509718}
+  isInvincibility: 0
+  isAttack: 0
 --- !u!114 &1789509722
 MonoBehaviour:
   m_ObjectHideFlags: 0

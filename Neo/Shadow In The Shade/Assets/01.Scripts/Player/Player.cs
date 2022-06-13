@@ -121,6 +121,7 @@ public class Player : MonoBehaviour, IDamagable
     public int LastHitObjNumber { get; set; } = 0;
 
     public bool isInvincibility = false;
+    public bool isAttack = false;
 
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
@@ -198,9 +199,9 @@ public class Player : MonoBehaviour, IDamagable
         if (damage > GameManager.Instance.playerSO.ectStats.PMH)
         {
             return;
-        }   
+        }
 
-        if (IsDie  || isInvincibility)
+        if (IsDie || isInvincibility || isAttack)
             return;
 
 
@@ -247,7 +248,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (IsDie || isInvincibility )
+        if (IsDie || isInvincibility || isAttack )
             return;
         if (move == null) { }
       

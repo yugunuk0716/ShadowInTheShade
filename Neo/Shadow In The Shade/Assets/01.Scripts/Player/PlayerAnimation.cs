@@ -26,7 +26,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         lastMoveDir = Vector2.zero;
         playerAnimator = GetComponent<Animator>();
-        player = GetComponent<Player>();
+        player = GameManager.Instance.player.GetComponent<Player>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerMove = GameManager.Instance.player.GetComponent<PlayerMove>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
@@ -217,7 +217,6 @@ public class PlayerAnimation : MonoBehaviour
                 deV = playerInput.vectors[2];
         }
 
-        player.isInvincibility = true;
 
         if (Mathf.Abs(mousePos.x) + Mathf.Abs(mousePos.y) == 2)
         {
@@ -226,6 +225,7 @@ public class PlayerAnimation : MonoBehaviour
             yield break;
         }
      
+        player.isAttack = true;
 
         isAttacking = true;
 
@@ -244,7 +244,7 @@ public class PlayerAnimation : MonoBehaviour
         yield return new WaitUntil(() => !isAttacking);
 
         playerAnimator.SetBool("IsAttack", false);
-        player.isInvincibility = false;
+        player.isAttack = false;
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
         playerAnimator.speed = originAnimSpeed;
     }
