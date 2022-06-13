@@ -120,7 +120,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public int LastHitObjNumber { get; set; } = 0;
 
-    private bool isInvincibility = false;
+    public bool isInvincibility = false;
 
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
@@ -133,6 +133,7 @@ public class Player : MonoBehaviour, IDamagable
         CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 2;
        // playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
+        
         so = GameManager.Instance.playerSO;
     }
 
