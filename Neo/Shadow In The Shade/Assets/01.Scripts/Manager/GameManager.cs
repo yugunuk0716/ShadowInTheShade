@@ -121,8 +121,9 @@ public class GameManager : MonoBehaviour
 
         playerSO.moveStats.SPD = 7f;
         playerSO.moveStats.HSP = 0f;
+        playerSO.moveStats.DCT = 0f;
 
-       playerSO.moveStats.DCT = 0f;
+
         playerSO.PercentagePointStats.ATP = 0f;
         playerSO.PercentagePointStats.SPP = 0f;
         playerSO.PercentagePointStats.STP = 0f;
