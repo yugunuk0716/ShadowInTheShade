@@ -164,57 +164,61 @@ public class PlayerAnimation : MonoBehaviour
 
         mousePos = (playerInput.mousePos - transform.position).normalized;
 
-
-        //if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
-        //{
-        //    if (mousePos.x < 0)
-        //    {
-        //        mousePos = Vector3.left;
-        //    }
-        //    else
-        //    {
-        //        mousePos = Vector3.right;
-        //    }
-        //}
-        //else
-        //{
-        //    if (mousePos.y < 0)
-        //    {
-        //        mousePos = Vector3.down;
-        //    }
-        //    else
-        //    {
-        //        mousePos = Vector3.up;
-        //    }
-        //}
-
-        float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
         Vector2 deV = Vector2.zero;
-
-
-        for (int i = 0; i < 8; i++)
+        if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
         {
-            float under = playerInput.degrees[i] - 22.5f;
-            float over = 0f;
-
-            over = playerInput.degrees[i] + 22.5f;
-
-            if (under <= 0)
+            if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
             {
-                under += 360f;
-                (under, over) = (over, under);
+                if (mousePos.x < 0)
+                {
+                    deV = Vector3.left;
+                }
+                else
+                {
+                    deV = Vector3.right;
+                }
             }
-
-
-
-            if (under <= thetha && thetha < over)
+            else
             {
-                deV = playerInput.vectors[i];
-                break;
+                if (mousePos.y < 0)
+                {
+                    deV = Vector3.down;
+                }
+                else
+                {
+                    deV = Vector3.up;
+                }
             }
+        }
+        if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Default))
+        {
+            float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
 
-            if (thetha < 45f)
-                deV = playerInput.vectors[2];
+
+            for (int i = 0; i < 8; i++)
+            {
+                float under = playerInput.degrees[i] - 22.5f;
+                float over = 0f;
+
+                over = playerInput.degrees[i] + 22.5f;
+
+                if (under <= 0)
+                {
+                    under += 360f;
+                    (under, over) = (over, under);
+                }
+
+
+
+                if (under <= thetha && thetha < over)
+                {
+                    deV = playerInput.vectors[i];
+                    break;
+                }
+
+                if (thetha < 45f)
+                    deV = playerInput.vectors[2];
+            }
         }
 
 
@@ -228,6 +232,8 @@ public class PlayerAnimation : MonoBehaviour
         player.isAttack = true;
 
         isAttacking = true;
+
+        print(deV);
 
         playerAnimator.SetFloat("AnimLastMoveX", deV.x);
         playerAnimator.SetFloat("AnimLastMoveY", deV.y);
@@ -274,35 +280,37 @@ public class PlayerAnimation : MonoBehaviour
             {
                 mousePos = (playerInput.mousePos - transform.position).normalized;
                 playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
-               
-                float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
                 Vector2 deV = Vector2.zero;
-                print(thetha);
-
-
-                for (int i = 0; i < 8; i++)
+                if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
                 {
-                    float under = playerInput.degrees[i] - 22.5f;
-                    float over = 0f;
+                    float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
+                    print(thetha);
 
-                    over = playerInput.degrees[i] + 22.5f;
 
-                    if(under <= 0)
+                    for (int i = 0; i < 8; i++)
                     {
-                        under += 360f;
-                        (under, over) = (over, under);
+                        float under = playerInput.degrees[i] - 22.5f;
+                        float over = 0f;
+
+                        over = playerInput.degrees[i] + 22.5f;
+
+                        if (under <= 0)
+                        {
+                            under += 360f;
+                            (under, over) = (over, under);
+                        }
+
+
+
+                        if (under <= thetha && thetha < over)
+                        {
+                            deV = playerInput.vectors[i];
+                            break;
+                        }
+
+                        if (thetha < 45f)
+                            deV = playerInput.vectors[2];
                     }
-
-
-
-                    if (under <= thetha && thetha < over)
-                    {
-                        deV = playerInput.vectors[i];
-                        break;
-                    }
-
-                    if (thetha < 45f)
-                        deV = playerInput.vectors[2];
                 }
 
                 print($"{deV.x},{deV.y}");
