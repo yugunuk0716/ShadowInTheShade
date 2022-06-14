@@ -15,6 +15,7 @@ public class BluePillCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.ectStats.DPD += 1.1f;
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

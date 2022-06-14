@@ -17,6 +17,7 @@ public class PlayerNewDash : MonoBehaviour
     private PlayerDashCollider dashCollider;
     private Camera cam;
     private Vector3 mousePos;
+    private IEnumerator co;
 
     internal bool isDash;
     internal bool isTypeChanged;
@@ -25,11 +26,13 @@ public class PlayerNewDash : MonoBehaviour
 
     
     public static bool usedDash = false;
+    
 
 
     public void Start()
     {
-       // lateDir = Vector2.zero;
+        // lateDir = Vector2.zero;
+        co = DashAttackSpeedIncrese();
         rigd = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         chargeEffect.gameObject.SetActive(false);
@@ -86,7 +89,6 @@ public class PlayerNewDash : MonoBehaviour
                 Mathf.Clamp(GameManager.Instance.playerSO.moveStats.SPD -= Time.deltaTime * timeSlowSpeed, 1f, 7f);
             
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            playerInput.mouseDir = mousePos;
             if (isCharging == false)
             {
                 isCharging = true;
@@ -120,6 +122,11 @@ public class PlayerNewDash : MonoBehaviour
                     usedDash = true;
                     StartCoroutine(Dashing(2.5f));
                     GameManager.Instance.playerSO.playerDashState = PlayerDashState.Power3;
+                    if(GameManager.Instance.playerSO.attackStats.BSP != 0)
+                    {
+                        StopCoroutine(co);
+                        StartCoroutine(co);
+                    }
                     Debug.Log("DashMax");
                 }
                 else if(effectRunTime > .4f)
@@ -161,6 +168,14 @@ public class PlayerNewDash : MonoBehaviour
             // Debug.Log((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).no);
         }
     }
+
+    public IEnumerator DashAttackSpeedIncrese()
+    {
+        GameManager.Instance.playerSO.attackStats.ASD += GameManager.Instance.playerSO.attackStats.BSP;
+        yield return new WaitForSeconds(2f);
+        GameManager.Instance.playerSO.attackStats.ASD = GameManager.Instance.playerSO.attackStats.BSP;
+    }
+
 
     public void ResetCharging()
     {

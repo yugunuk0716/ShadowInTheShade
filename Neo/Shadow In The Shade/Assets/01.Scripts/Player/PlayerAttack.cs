@@ -125,8 +125,6 @@ public class PlayerAttack : MonoBehaviour
         if(GameManager.Instance.playerSO.ectStats.APH != 0)
         {
             GameManager.Instance.player.GetComponent<Player>().CurrHP += GameManager.Instance.playerSO.ectStats.APH;
-            UIManager.Instance.SetBar(
-                GameManager.Instance.player.GetComponent<Player>().CurrHP / GameManager.Instance.playerSO.ectStats.PMH);
         }
     }
 
@@ -159,7 +157,9 @@ public class PlayerAttack : MonoBehaviour
 
         Vector3 atkSize = attackStack ? new Vector2(1f, 3f) : new Vector2(3f, 1.5f);
 
-        Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + dir, atkSize, 0f, LayerMask.GetMask("Enemy"));
+        colliderList = Physics2D.OverlapBoxAll(transform.position, Vector2.one , LayerMask.GetMask("Enemy")).ToList();
+
+        Collider2D[] c1 = Physics2D.OverlapBoxAll(transform.position + dir, atkSize * 2f, 0f, LayerMask.GetMask("Enemy"));
 
         foreach (Collider2D collider in c1)
         {
@@ -223,8 +223,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if (UnityEditor.Selection.activeObject == gameObject)
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, 2f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position, Vector3.one);
             Gizmos.color = Color.white;
 
         }

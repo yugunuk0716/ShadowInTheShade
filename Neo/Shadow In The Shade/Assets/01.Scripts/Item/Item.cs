@@ -33,6 +33,7 @@ public class Item : Interactable
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
+        used = false;
         base.Awake();
 
         colorDic.Add(Rarity.Normal, Color.white);
@@ -68,7 +69,7 @@ public class Item : Interactable
 
         //여기서 상점 갔던 여부 확인하고 안갔다면 2번을 상점으로 설정하고 생성 해주면 되고 다른 방은 랜덤으로 굴리는데 이제 Boss방이 뜰수 있나 없나 이정도로
 
-        NeoRoomManager.instance.SpawnDoor();
+      
         ItemManager.Instance.AddingItem(itemSO);
         PoolManager.Instance.Push(this);
     }
@@ -80,7 +81,7 @@ public class Item : Interactable
             //UI 출력
             if(itemSO != null)
             {
-                UIManager.Instance.ShowToolTip($"{itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
+                UIManager.Instance.ShowToolTip($"\n <b>{itemSO.itemName}</b> \n  \n {itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
             }
         }
     }

@@ -13,6 +13,7 @@ public class DicepuddingCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.moveStats.DCT -= 1f;
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

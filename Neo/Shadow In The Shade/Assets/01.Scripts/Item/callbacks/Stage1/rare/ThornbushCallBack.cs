@@ -13,7 +13,7 @@ public class ThornbushCallBack : ItemCallBack
 
     public override void ItemActiveCallBack()
     {
-       
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

@@ -163,7 +163,7 @@ public class RoomManager : MonoBehaviour
 
             //float xValue = StageManager.Instance.currentRoom.Width;
             //float yValue = StageManager.Instance.currentRoom.Height;
-            AstarPath.active.Scan();
+            
 
             //GameObject g = Instantiate(Resources.Load<GameObject>("A_"));
             //g.transform.position = new Vector2(higherX / 2f * xValue, higherY / 2f * yValue);

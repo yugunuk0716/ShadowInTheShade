@@ -4,19 +4,22 @@ using UnityEngine;
 
 public abstract class ItemCallBack : PoolableMono
 {
+    public PlayerSO playerSO;
     public virtual void Start()
     {
-        GameManager.Instance.onPlayerGetItem.AddListener(() => {
-            ItemSpecialCallBack();
-            ItemActiveCallBack();
-        });
+        playerSO = GameManager.Instance.playerSO;
+        GameManager.Instance.onPlayerGetItem.AddListener(ItemActiveCallBack);
+        GameManager.Instance.onPlayerGetItem.AddListener(ItemSpecialCallBack);
     }
     public virtual void CallNesting()
     {
         GameManager.Instance.onPlayerGetSameItem.AddListener(ItemNestingCallBack);
     }
 
-    public abstract void ItemActiveCallBack();
+    public virtual void ItemActiveCallBack()
+    {
+        GameManager.Instance.onPlayerGetItem.RemoveListener(ItemActiveCallBack);
+    }
     public abstract void ItemSpecialCallBack();
     public virtual void ItemNestingCallBack()
     {

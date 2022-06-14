@@ -7,10 +7,12 @@ public class PlayerAnimation : MonoBehaviour
     public Vector2 lastMoveDir;
     public PlayerMove playerMove;
     public Animator playerTypeChangeEffcetAnimator;
-    public Vector3 mousePos;
+    
     private PlayerInput playerInput;
     private Vector2 moveDir;
+    private Vector3 mousePos;
     private Animator playerAnimator;
+    private Player player;
     private PlayerWeapon weapon;
     //public Animator playerDashEffcetAnimator;
     private GameObject playerSprite;
@@ -19,22 +21,12 @@ public class PlayerAnimation : MonoBehaviour
     private float deX;
     private float deY;
     
-    private readonly float[] degrees = new float[] { 270f, 315f, 360f, 45f, 90f, 135f, 180f, 225f };
-    private readonly Vector2[] vectors = new Vector2[]
-    {
-        new Vector2(1f, 0f),
-        new Vector2(1f, 1f),
-        new Vector2(0f, 1f),
-        new Vector2(-1f, 1f),
-        new Vector2(-1f, 0f),
-        new Vector2(-1f, -1f),
-        new Vector2(0f, -1f),
-        new Vector2(1f, -1f)
-    };
+
     private void Start()
     {
         lastMoveDir = Vector2.zero;
         playerAnimator = GetComponent<Animator>();
+        player = GameManager.Instance.player.GetComponent<Player>();
         playerInput = GameManager.Instance.player.GetComponent<PlayerInput>();
         playerMove = GameManager.Instance.player.GetComponent<PlayerMove>();
         playerTypeChangeEffcetAnimator = GameObject.Find("PlayerTypeChangeEffectObj").GetComponent<Animator>();
@@ -170,34 +162,60 @@ public class PlayerAnimation : MonoBehaviour
         float originAnimSpeed = playerAnimator.speed;
 
 
-
-        mousePos =(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-
+        mousePos = (playerInput.mousePos - transform.position).normalized;
 
 
-        if(Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        //if (Mathf.Abs(mousePos.x) > Mathf.Abs(mousePos.y))
+        //{
+        //    if (mousePos.x < 0)
+        //    {
+        //        mousePos = Vector3.left;
+        //    }
+        //    else
+        //    {
+        //        mousePos = Vector3.right;
+        //    }
+        //}
+        //else
+        //{
+        //    if (mousePos.y < 0)
+        //    {
+        //        mousePos = Vector3.down;
+        //    }
+        //    else
+        //    {
+        //        mousePos = Vector3.up;
+        //    }
+        //}
+
+        float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
+        Vector2 deV = Vector2.zero;
+
+
+        for (int i = 0; i < 8; i++)
         {
-            if (mousePos.x < 0)
-            {
-                mousePos = Vector3.left;
-            }
-            else
-            {
-                mousePos = Vector3.right;
-            }
-        }
-        else
-        {
-            if (mousePos.y < 0)
-            {
-                mousePos = Vector3.down;
-            }
-            else
-            {
-                mousePos = Vector3.up;
-            }
-        }
+            float under = playerInput.degrees[i] - 22.5f;
+            float over = 0f;
 
+            over = playerInput.degrees[i] + 22.5f;
+
+            if (under <= 0)
+            {
+                under += 360f;
+                (under, over) = (over, under);
+            }
+
+
+
+            if (under <= thetha && thetha < over)
+            {
+                deV = playerInput.vectors[i];
+                break;
+            }
+
+            if (thetha < 45f)
+                deV = playerInput.vectors[2];
+        }
 
 
         if (Mathf.Abs(mousePos.x) + Mathf.Abs(mousePos.y) == 2)
@@ -207,24 +225,26 @@ public class PlayerAnimation : MonoBehaviour
             yield break;
         }
      
+        player.isAttack = true;
 
         isAttacking = true;
 
-        playerAnimator.SetFloat("AnimLastMoveX", mousePos.x);
-        playerAnimator.SetFloat("AnimLastMoveY", mousePos.y);
+        playerAnimator.SetFloat("AnimLastMoveX", deV.x);
+        playerAnimator.SetFloat("AnimLastMoveY", deV.y);
         playerAnimator.SetBool("IsAttack", true);
         playerAnimator.SetInteger("AttackCount", attackStack);
 
         playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD;
-        playerMove.OnMove(mousePos, 10f);
+        playerMove.OnMove(deV, 10f);
 
         yield return new WaitForSeconds(.15f);
 
-        playerMove.OnMove(mousePos, 0f);
+        playerMove.OnMove(deV, 0f);
         //yield return new WaitForSeconds((700 - GameManager.Instance.playerSO.attackStats.ASD) / 1000);
         yield return new WaitUntil(() => !isAttacking);
 
         playerAnimator.SetBool("IsAttack", false);
+        player.isAttack = false;
         GameManager.Instance.playerSO.playerInputState = PlayerInputState.Idle;
         playerAnimator.speed = originAnimSpeed;
     }
@@ -252,8 +272,8 @@ public class PlayerAnimation : MonoBehaviour
             
             if (!playerDashEffcetAnimator.GetBool("isDash"))
             {
+                mousePos = (playerInput.mousePos - transform.position).normalized;
                 playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
-                mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
                
                 float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
                 Vector2 deV = Vector2.zero;
@@ -262,10 +282,10 @@ public class PlayerAnimation : MonoBehaviour
 
                 for (int i = 0; i < 8; i++)
                 {
-                    float under = degrees[i] - 22.5f;
+                    float under = playerInput.degrees[i] - 22.5f;
                     float over = 0f;
 
-                    over = degrees[i] + 22.5f;
+                    over = playerInput.degrees[i] + 22.5f;
 
                     if(under <= 0)
                     {
@@ -277,12 +297,12 @@ public class PlayerAnimation : MonoBehaviour
 
                     if (under <= thetha && thetha < over)
                     {
-                        deV = vectors[i];
+                        deV = playerInput.vectors[i];
                         break;
                     }
 
                     if (thetha < 45f)
-                        deV = vectors[2];
+                        deV = playerInput.vectors[2];
                 }
 
                 print($"{deV.x},{deV.y}");

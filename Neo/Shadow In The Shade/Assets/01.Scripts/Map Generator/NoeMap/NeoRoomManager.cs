@@ -29,7 +29,7 @@ public class NeoRoomManager : MonoBehaviour
 
     public int stageIndex = 0;
     
-    private int experiencedRoomCount = 0;
+    public int experiencedRoomCount = 0;
     private bool isExperiencedShop = false;
 
     private void Awake()
@@ -49,14 +49,19 @@ public class NeoRoomManager : MonoBehaviour
         {
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
             experiencedRoomCount++;
+            
         }
-
+       
+        
         Room room = PoolManager.Instance.Pop($"{currentStageNames[stageIndex]} {s}") as Room;
+        //room.gameObject.SetActive(false);
         room.transform.position = Vector3.zero;
         GameManager.Instance.player.position = room.spawnPointTrm.position;
         UIManager.Instance.StartFadeOut();
         StageManager.Instance.currentRoom = room;
         StageManager.Instance.EnterRoom();
+        AstarPath.active.Scan();
+        
         return room.roomType;
       
     }
@@ -67,13 +72,14 @@ public class NeoRoomManager : MonoBehaviour
         isExperiencedShop = false;
     }
 
-    public void SpawnDoor()
+    public void SpawnDoor(RoomType rt)
     {
         NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left;
-
+        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 1.5f;
+        nDoor.SetDoor(rt);
         NeoDoor nDoor2 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right;
+        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 1.5f;
+        nDoor2.SetDoor(rt);
         if (!isExperiencedShop) 
         {
             //맨 위에서 상점방 넣고
@@ -96,7 +102,9 @@ public class NeoRoomManager : MonoBehaviour
     public RoomType LoadNextRoom()
     {
         int idx = Random.Range(0, spawnableRoomData.roomList.Count);
-        return LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
+        RoomType rt = LoadNextRoom(spawnableRoomData.roomList[idx].name.Substring(currentStageName.Length + 1));
+        SpawnDoor(rt);
+        return rt;
     }
 
     public void LoadShop()

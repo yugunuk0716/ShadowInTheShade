@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
 {
     public Vector2 moveDir;
     public Vector2 mouseDir;
+    public Vector3 mousePos;
     public bool isDash;
     public bool isAttack;
     public bool isUse;
@@ -16,6 +17,18 @@ public class PlayerInput : MonoBehaviour
     public bool isUseSkill;
 
     private Camera mainCam;
+    public readonly float[] degrees = new float[] { 270f, 315f, 360f, 45f, 90f, 135f, 180f, 225f };
+    public readonly Vector2[] vectors = new Vector2[]
+    {
+        new Vector2(1f, 0f),
+        new Vector2(1f, 1f),
+        new Vector2(0f, 1f),
+        new Vector2(-1f, 1f),
+        new Vector2(-1f, 0f),
+        new Vector2(-1f, -1f),
+        new Vector2(0f, -1f),
+        new Vector2(1f, -1f)
+    };
 
     private void Start()
     {
@@ -39,7 +52,7 @@ public class PlayerInput : MonoBehaviour
         {
             print("입력");
         }
-
+        mousePos = (Camera.main.ScreenToWorldPoint(Input.mousePosition));//.normalized;
 
         switch (GameManager.Instance.playerSO.playerStates) // 플레이어 타입 상태
         {

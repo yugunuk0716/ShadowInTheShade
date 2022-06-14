@@ -18,6 +18,7 @@ public class NeoDoor : Interactable
     public NeoDoor pairDoor;
     public SpriteRenderer sr;
 
+    public bool isOpened;
 
     private DoorSO curDoorData;
 
@@ -26,12 +27,26 @@ public class NeoDoor : Interactable
         sr = GetComponent<SpriteRenderer>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        StageManager.Instance.onBattleEnd.AddListener(() =>
         {
-            SetDoor((RoomType)Random.Range(0, 7));
-        }
+            isOpened = true;
+            sr.sprite = curDoorData.openedDoor;
+        });
+
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
+        {
+            if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
+            {
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.4f);
+            }
+            else
+            {
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+            }
+        });
+
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -51,12 +66,12 @@ public class NeoDoor : Interactable
     public void SetDoor(RoomType rt)
     {
         curDoorData = Resources.Load<DoorSO>($"Door/{rt}");
-        sr.sprite = curDoorData.openedDoor;
+        sr.sprite = curDoorData.closedDoor;
     }
 
     public override void Use(GameObject target)
     {
-        if (used)
+        if (used || !isOpened)
         {
             print("¿ÀÇÂ ½ÇÆÐ");
             return;
@@ -73,5 +88,7 @@ public class NeoDoor : Interactable
     public override void Reset()
     {
         used = false;
+        transform.localScale = new Vector3(3.5f, 4f);
+        pairDoor = null;
     }
 }
