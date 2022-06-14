@@ -233,8 +233,6 @@ public class PlayerAnimation : MonoBehaviour
 
         isAttacking = true;
 
-        print(deV);
-
         playerAnimator.SetFloat("AnimLastMoveX", deV.x);
         playerAnimator.SetFloat("AnimLastMoveY", deV.y);
         playerAnimator.SetBool("IsAttack", true);
