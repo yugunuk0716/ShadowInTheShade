@@ -24,6 +24,7 @@ public class VampireBloodCallBack : ItemCallBack
     {
         GameManager.Instance.playerSO.ectStats.APH += 5f;
         base.ItemNestingCallBack();
+
     }
 
     public override void Reset()
