@@ -272,6 +272,10 @@ public class PlayerNewDash : MonoBehaviour
         GameManager.Instance.playerSO.moveStats.SPD = 7f;
         dashCollider.isDashing = false;
         GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
+
+        gameObject.layer = 7;
+        yield return new WaitForSeconds(.3f);
+        gameObject.layer = 3;
     }
 
 

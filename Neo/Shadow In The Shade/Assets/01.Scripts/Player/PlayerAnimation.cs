@@ -279,7 +279,7 @@ public class PlayerAnimation : MonoBehaviour
                 mousePos = (playerInput.mousePos - transform.position).normalized;
                 playerDashEffcetAnimator.transform.position = GameManager.Instance.player.position;
                 Vector2 deV = Vector2.zero;
-                if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Berserker))
+                if (GameManager.Instance.playerSO.playerJobState.Equals(PlayerJobState.Default))
                 {
                     float thetha = Quaternion.FromToRotation(Vector3.up, mousePos).eulerAngles.z;
                     print(thetha);
