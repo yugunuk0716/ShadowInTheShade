@@ -6,6 +6,7 @@ public class DashEffectScript : PoolableMono
 {
 
     public List<GameObject> bases = new List<GameObject> ();
+    private Animator animator;
 
     public override void Reset()
     {
@@ -15,6 +16,10 @@ public class DashEffectScript : PoolableMono
         }
     }
 
+    private void Awake()
+    {
+        animator = GetComponent<Animator> ();
+    }
 
     void Start()
     {
@@ -26,6 +31,50 @@ public class DashEffectScript : PoolableMono
                 PoolManager.Instance.Push(this);
             }
         });
+    }
+
+    public void SetClass(PlayerJobState job)
+    {
+        switch (job)
+        {
+            case PlayerJobState.Default:
+                animator.SetBool("isDefault", true);
+                animator.SetBool("isBerserker", false);
+                animator.SetBool("isArcher", false);
+                animator.SetBool("isGreedy", false);
+                animator.SetBool("isDev", false);
+                break;
+            case PlayerJobState.Berserker:
+                animator.SetBool("isDefault", false);
+                animator.SetBool("isBerserker", true);
+                animator.SetBool("isArcher", false);
+                animator.SetBool("isGreedy", false);
+                animator.SetBool("isDev", false);
+                break;
+            case PlayerJobState.Archer:
+                animator.SetBool("isDefault", false);
+                animator.SetBool("isBerserker", false);
+                animator.SetBool("isArcher", true);
+                animator.SetBool("isGreedy", false);
+                animator.SetBool("isDev", false);
+                break;
+            case PlayerJobState.Greedy:
+                animator.SetBool("isDefault", false);
+                animator.SetBool("isBerserker", false);
+                animator.SetBool("isArcher", false);
+                animator.SetBool("isGreedy", true);
+                animator.SetBool("isDev", false);
+                break;
+            case PlayerJobState.Devilish:
+                animator.SetBool("isDefault", false);
+                animator.SetBool("isBerserker", false);
+                animator.SetBool("isArcher", false);
+                animator.SetBool("isGreedy", false);
+                animator.SetBool("isDev", true);
+                break;
+        }
+
+    
     }
 
  
