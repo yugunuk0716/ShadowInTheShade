@@ -15,7 +15,7 @@ public class Attack_Tackle : MonoBehaviour, IState
    // readonly int targetLayer = 9;
 
     private Collider2D coll;
-    AttackArea atkArea;
+    //AttackArea atkArea;
 
     Coroutine tackleRoutine;
  
@@ -97,14 +97,14 @@ public class Attack_Tackle : MonoBehaviour, IState
         {
             tacklable.SetTackle(true);
             Vector3 vec = GameManager.Instance.player.position - transform.position;
-            atkArea = PoolManager.Instance.Pop("AttackArea") as AttackArea;
-            atkArea.transform.position = transform.position;
-            atkArea.Lr.SetPosition(0, Vector3.zero);
+            //atkArea = PoolManager.Instance.Pop("AttackArea") as AttackArea;
+            //atkArea.transform.position = transform.position;
+            //atkArea.Lr.SetPosition(0, Vector3.zero);
             float a = 0;
             while (a <= 4)
             {
                 a += 0.02f;
-                atkArea.Lr.SetPosition(1, vec.normalized * a);
+                //atkArea.Lr.SetPosition(1, vec.normalized * a);
                 yield return new WaitForSeconds(0.001f);
                 if (!canAttack)
                     yield break;
@@ -113,7 +113,7 @@ public class Attack_Tackle : MonoBehaviour, IState
          
 
             yield return new WaitForSeconds(.1f);
-            PoolManager.Instance.Push(atkArea);
+            //PoolManager.Instance.Push(atkArea);
             enemy.Anim.SetFloat("MoveX", vec.x); // Mathf.Clamp(vec.x, -1f, 1f));
             enemy.Anim.SetFloat("MoveY", vec.y); //Mathf.Clamp(vec.y, -1f, 1f));
             enemy.Move.OnMove(vec.normalized, 10f);
@@ -138,7 +138,7 @@ public class Attack_Tackle : MonoBehaviour, IState
             enemy.Anim.SetFloat("MoveY", 0);
          
             //enemy.gameObject.layer = originLayer;
-            PoolManager.Instance.Push(atkArea);
+            //PoolManager.Instance.Push(atkArea);
         }
     }
 

@@ -65,7 +65,13 @@ public class Player : MonoBehaviour, IDamagable
         set 
         {
             currHP = value;
-            UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH * 2));
+
+            if(currHP >= GameManager.Instance.playerSO.ectStats.PMH)
+            {
+                currHP = GameManager.Instance.playerSO.ectStats.PMH;
+            }
+
+            UIManager.Instance.SetBar(currHP / (GameManager.Instance.playerSO.ectStats.PMH));
         }
     }
 
@@ -120,7 +126,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public int LastHitObjNumber { get; set; } = 0;
 
-    private bool isInvincibility = false;
+    public bool isInvincibility = false;
+    public bool isAttack = false;
 
 
     private readonly Color color_Trans = new Color(1f, 1f, 1f, 0.3f);
@@ -130,9 +137,10 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Start()
     {
-        CurrHP = GameManager.Instance.playerSO.ectStats.PMH * 2;
+        CurrHP = GameManager.Instance.playerSO.ectStats.PMH;
        // playerDash = GetComponent<PlayerDash>();
         OnHit.AddListener(GameManager.Instance.onPlayerHit.Invoke);
+        
         so = GameManager.Instance.playerSO;
     }
 
@@ -197,9 +205,9 @@ public class Player : MonoBehaviour, IDamagable
         if (damage > GameManager.Instance.playerSO.ectStats.PMH)
         {
             return;
-        }   
+        }
 
-        if (IsDie  || isInvincibility)
+        if (IsDie || isInvincibility || isAttack)
             return;
 
 
@@ -223,7 +231,7 @@ public class Player : MonoBehaviour, IDamagable
         CheckHp();
 
         OnHit?.Invoke(damage);
-        EffectManager.Instance.BloodEffect(EffectType.SLIME, 0.5f, 1f, 0.7f);
+        EffectManager.Instance.BloodEffect(EffectType.BLOOD, 0.5f, 1f, 0.7f);
 
         IsHit = false;
 
@@ -246,7 +254,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void KnockBack(Vector2 direction, float power, float duration)
     {
-        if (IsDie || isInvincibility )
+        if (IsDie || isInvincibility || isAttack )
             return;
         if (move == null) { }
       

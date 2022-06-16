@@ -34,6 +34,19 @@ public class NeoDoor : Interactable
             isOpened = true;
             sr.sprite = curDoorData.openedDoor;
         });
+
+        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
+        {
+            if (PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates))
+            {
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.4f);
+            }
+            else
+            {
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+            }
+        });
+
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -75,5 +88,7 @@ public class NeoDoor : Interactable
     public override void Reset()
     {
         used = false;
+        transform.localScale = new Vector3(3.5f, 4f);
+        pairDoor = null;
     }
 }

@@ -12,6 +12,7 @@ public class FranticherbsCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.attackStats.KAP += 5f;
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

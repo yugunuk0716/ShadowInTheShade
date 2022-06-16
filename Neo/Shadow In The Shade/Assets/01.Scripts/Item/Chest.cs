@@ -20,17 +20,20 @@ public class Chest : Interactable
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
+        canUse = true;
         base.Awake();
     }
 
    
- 
+    
 
     public override void Use(GameObject target)
     {
         if (!canUse || used)
         {
             print("¿ÀÇÂ ½ÇÆÐ");
+            print(!canUse);
+            print(used);
             return; 
         }
 

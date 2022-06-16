@@ -29,7 +29,7 @@ public class NeoRoomManager : MonoBehaviour
 
     public int stageIndex = 0;
     
-    private int experiencedRoomCount = 0;
+    public int experiencedRoomCount = 0;
     private bool isExperiencedShop = false;
 
     private void Awake()
@@ -52,7 +52,7 @@ public class NeoRoomManager : MonoBehaviour
             
         }
        
-
+        
         Room room = PoolManager.Instance.Pop($"{currentStageNames[stageIndex]} {s}") as Room;
         //room.gameObject.SetActive(false);
         room.transform.position = Vector3.zero;
@@ -60,6 +60,7 @@ public class NeoRoomManager : MonoBehaviour
         UIManager.Instance.StartFadeOut();
         StageManager.Instance.currentRoom = room;
         StageManager.Instance.EnterRoom();
+        AstarPath.active.Scan();
         
         return room.roomType;
       
@@ -74,10 +75,10 @@ public class NeoRoomManager : MonoBehaviour
     public void SpawnDoor(RoomType rt)
     {
         NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 2;
+        nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 1.5f;
         nDoor.SetDoor(rt);
         NeoDoor nDoor2 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 2;
+        nDoor2.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 1.5f;
         nDoor2.SetDoor(rt);
         if (!isExperiencedShop) 
         {

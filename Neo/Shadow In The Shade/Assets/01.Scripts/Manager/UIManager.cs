@@ -51,6 +51,9 @@ public class UIManager : MonoBehaviour
     public Image fadeImage;
     #endregion
 
+
+    public Text enemiesCountText;
+
     public Text tooltipText;
     public Image tooltipIcon;
     public Image tooltipBG;
@@ -287,6 +290,7 @@ public class UIManager : MonoBehaviour
         while (true)
         {
             a -= coolTime / (coolTime * (coolTime/2f) * 100f);
+            Mathf.Clamp(a, 0.001f, 99999f);
             dashCoolImage.fillAmount = a;
             if (a < 0)
             {

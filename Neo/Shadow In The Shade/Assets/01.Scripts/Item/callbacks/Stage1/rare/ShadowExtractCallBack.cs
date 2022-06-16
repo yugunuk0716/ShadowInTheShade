@@ -12,6 +12,7 @@ public class ShadowExtractCallBack : ItemCallBack
     public override void ItemActiveCallBack()
     {
         GameManager.Instance.playerSO.moveStats.HSP += .5f;
+        base.ItemActiveCallBack();
     }
 
     public override void ItemNestingCallBack()

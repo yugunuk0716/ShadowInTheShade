@@ -114,6 +114,7 @@ public class StageManager : MonoBehaviour
 
     public void ClearCheck()
     {
+        UIManager.Instance.enemiesCountText.text = $"³²Àº Àû: {curStageEnemys.Count}";
         if (curStageEnemys.Count > 0)
         {
             return;
@@ -122,8 +123,15 @@ public class StageManager : MonoBehaviour
         if (CurEnemySPList.Find(esp => !esp.isSpawned) != null)
         {
             currentRoom.phaseCount++;
+            if (currentRoom.phaseCount >= 2 && NeoRoomManager.instance.experiencedRoomCount <= 2)
+            {
+                curStageEnemys.Clear();
+                StageClear();
+                return;
+            }
             currentRoom.SpawnEnemies();
             return;
+           
         }
         StageClear();
     }

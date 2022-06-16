@@ -33,6 +33,7 @@ public class Item : Interactable
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
+        used = false;
         base.Awake();
 
         colorDic.Add(Rarity.Normal, Color.white);
@@ -80,7 +81,7 @@ public class Item : Interactable
             //UI Ãâ·Â
             if(itemSO != null)
             {
-                UIManager.Instance.ShowToolTip($"{itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
+                UIManager.Instance.ShowToolTip($"\n <b>{itemSO.itemName}</b> \n  \n {itemSO.itemAbility} \n {itemSO.itemComment}", itemSO.itemSprite);
             }
         }
     }

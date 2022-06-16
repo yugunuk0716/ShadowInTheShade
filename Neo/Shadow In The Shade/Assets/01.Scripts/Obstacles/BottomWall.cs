@@ -19,18 +19,22 @@ public class BottomWall : MonoBehaviour
     private readonly float a = 0.5f;
 
 
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if ((1 << collision.gameObject.layer & LayerMask.GetMask("Player")) > 0)
         {
             Tile.color = new Color(Tile.color.r, Tile.color.g, Tile.color.b, a);
         }
-        else
+       
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (Tile.color.a != 1)
         {
-            if(Tile.color.a != 1)
-            {
-                Tile.color = new Color(Tile.color.r, Tile.color.g, Tile.color.b, 1);
-            }
+            Tile.color = new Color(Tile.color.r, Tile.color.g, Tile.color.b, 1);
         }
     }
+
 }
