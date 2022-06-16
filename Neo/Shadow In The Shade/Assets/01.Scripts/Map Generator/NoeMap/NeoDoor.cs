@@ -19,6 +19,7 @@ public class NeoDoor : Interactable
     public SpriteRenderer sr;
 
     public bool isOpened;
+    public bool isTutorial;
 
     private DoorSO curDoorData;
 
@@ -76,7 +77,14 @@ public class NeoDoor : Interactable
             print("¿ÀÇÂ ½ÇÆÐ");
             return;
         }
-        SetDoor(NeoRoomManager.instance.LoadNextRoom());
+        if (isTutorial)
+        {
+            SetDoor(NeoRoomManager.instance.LoadNextRoom("Tutorial"));
+        }
+        else
+        {
+            SetDoor(NeoRoomManager.instance.LoadNextRoom());
+        }
         PoolManager.Instance.Push(this);
         if(pairDoor != null)
         {
