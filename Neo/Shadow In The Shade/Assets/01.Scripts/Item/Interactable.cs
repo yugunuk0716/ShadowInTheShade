@@ -9,7 +9,7 @@ public abstract class Interactable : PoolableMono
     public abstract void Use(GameObject target);
     private Camera main;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         main = Camera.main;
     }
@@ -18,13 +18,15 @@ public abstract class Interactable : PoolableMono
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (used) return;
+        print(UIManager.Instance == null);
+        print(Camera.main == null);
 
-        //UIManager.Instance.ShowInteractableGuideImage(main.WorldToScreenPoint(transform.position) + main.transform.position);
+        UIManager.Instance.ShowInteractableGuideImage(Camera.main.WorldToScreenPoint(GameManager.Instance.player.position) + new Vector3(0f, 0.5f, 0f));
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        //UIManager.Instance.CloseInteractableGuideImage();
+        UIManager.Instance.CloseInteractableGuideImage();
     }
 
     public virtual void PushChestInPool()

@@ -14,14 +14,14 @@ public class Chest : Interactable
 
     private bool canUse = false;
 
-    protected override void Awake()
+    protected void Awake()
     {
         anim = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
         canUse = true;
-        base.Awake();
+      
     }
 
    

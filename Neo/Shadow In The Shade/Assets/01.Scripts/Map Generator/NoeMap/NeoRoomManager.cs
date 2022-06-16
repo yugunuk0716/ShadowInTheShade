@@ -29,6 +29,7 @@ public class NeoRoomManager : MonoBehaviour
 
     public int stageIndex = 0;
     public int tutoIndex = 0;
+    public const int tutoMaxIndex = 3;
     
     public int experiencedRoomCount = 0;
     private bool isExperiencedShop = false;
@@ -59,6 +60,10 @@ public class NeoRoomManager : MonoBehaviour
         {
             tutoIndex++;
             roomName = $"{currentStageNames[stageIndex]} {s} {tutoIndex}";
+            if(tutoIndex > tutoMaxIndex)
+            {
+                roomName = $"{currentStageNames[stageIndex]} Start";
+            }
         }
 
         print(roomName);
