@@ -28,6 +28,7 @@ public class NeoRoomManager : MonoBehaviour
     public RoomListSO spawnableRoomData;
 
     public int stageIndex = 0;
+    public int tutoIndex = 0;
     
     public int experiencedRoomCount = 0;
     private bool isExperiencedShop = false;
@@ -45,15 +46,24 @@ public class NeoRoomManager : MonoBehaviour
 
     public RoomType LoadNextRoom(string s)
     {
-        if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
+        if (StageManager.Instance.currentRoom != null && !s.Contains("Start") && !s.Contains("Tutorial"))
         {
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
             experiencedRoomCount++;
             
         }
-       
-        
-        Room room = PoolManager.Instance.Pop($"{currentStageNames[stageIndex]} {s}") as Room;
+        s.Contains("Tutorial");
+        string roomName = $"{currentStageNames[stageIndex]} {s}";
+
+        if (s.Contains("Tutorial"))
+        {
+            tutoIndex++;
+            roomName = $"{currentStageNames[stageIndex]} {s} {tutoIndex}";
+        }
+
+        print(roomName);
+
+        Room room = PoolManager.Instance.Pop(roomName) as Room;
         //room.gameObject.SetActive(false);
         room.transform.position = Vector3.zero;
         GameManager.Instance.player.position = room.spawnPointTrm.position;
