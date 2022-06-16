@@ -23,12 +23,12 @@ public class NeoDoor : Interactable
 
     private DoorSO curDoorData;
 
-    private new void Awake()
+    private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    protected override void Start()
     {
         StageManager.Instance.onBattleEnd.AddListener(() =>
         {
