@@ -261,8 +261,14 @@ public class UIManager : MonoBehaviour
             return;
         //켜져 있는지 확인 하던중
 
+        StartCoroutine(ShowInteractableRoutine());
+    }
+
+    IEnumerator ShowInteractableRoutine()
+    {
+        yield return null;
         isShowing = true;
-        guideImage.rectTransform.position = worldPos;// + new Vector3(100f, 100f, 0);
+        guideImage.rectTransform.position = Camera.main.WorldToScreenPoint(GameManager.Instance.player.position - new Vector3(0.25f, 0f, 0f));// + new Vector3(100f, 100f, 0);
 
         CanvasGroup cg = guideCG;
         DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f);
