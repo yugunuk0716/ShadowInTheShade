@@ -1,7 +1,67 @@
 fileFormatVersion: 2
 guid: 9ece29c7f42130f45bda936f483e66cd
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -99726562837459120
+    second: Title_background_512x300_sheet_0
+  - first:
+      213: -3779810575487224921
+    second: Title_background_512x300_sheet_1
+  - first:
+      213: -3989042300719937624
+    second: Title_background_512x300_sheet_2
+  - first:
+      213: -777572203815337045
+    second: Title_background_512x300_sheet_3
+  - first:
+      213: 145150718697762296
+    second: Title_background_512x300_sheet_4
+  - first:
+      213: -505382738624502290
+    second: Title_background_512x300_sheet_5
+  - first:
+      213: -3384765399189924321
+    second: Title_background_512x300_sheet_6
+  - first:
+      213: -8147827949491204890
+    second: Title_background_512x300_sheet_7
+  - first:
+      213: -4077152325708754952
+    second: Title_background_512x300_sheet_8
+  - first:
+      213: -4263610818867249609
+    second: Title_background_512x300_sheet_9
+  - first:
+      213: 1328416436067621274
+    second: Title_background_512x300_sheet_10
+  - first:
+      213: -367198420389513576
+    second: Title_background_512x300_sheet_11
+  - first:
+      213: -6662883963420657255
+    second: Title_background_512x300_sheet_12
+  - first:
+      213: 6160751216551751683
+    second: Title_background_512x300_sheet_13
+  - first:
+      213: 5038103705006471914
+    second: Title_background_512x300_sheet_14
+  - first:
+      213: -5522777260986383988
+    second: Title_background_512x300_sheet_15
+  - first:
+      213: 3247840351816867676
+    second: Title_background_512x300_sheet_16
+  - first:
+      213: -7445559318361339757
+    second: Title_background_512x300_sheet_17
+  - first:
+      213: 2474305631168477349
+    second: Title_background_512x300_sheet_18
+  - first:
+      213: 5467159593132216389
+    second: Title_background_512x300_sheet_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +101,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -68,7 +128,43 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +173,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 900
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f076f2833bd9ef0800000000000000
+      internalID: -99726562837459120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 900
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a3b1d1de4a6b8bc0800000000000000
+      internalID: -3779810575487224921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 900
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a7c49f892314a8c0800000000000000
+      internalID: -3989042300719937624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 900
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba38e5c43328535f0800000000000000
+      internalID: -777572203815337045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 900
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd6fd24fcda30200800000000000000
+      internalID: 145150718697762296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee52caca3158cf8f0800000000000000
+      internalID: -505382738624502290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 600
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f16504d7dc5e601d0800000000000000
+      internalID: -3384765399189924321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 600
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ecc39326a91dee80800000000000000
+      internalID: -8147827949491204890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 600
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ffc8fabf8b0b67c0800000000000000
+      internalID: -4077152325708754952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 600
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73eb7e0cc8c94d4c0800000000000000
+      internalID: -4263610818867249609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a99d999d5bb7f6210800000000000000
+      internalID: 1328416436067621274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 300
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 896399e6bf277eaf0800000000000000
+      internalID: -367198420389513576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 300
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9993aa4365ea883a0800000000000000
+      internalID: -6662883963420657255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 300
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3007f1427926f7550800000000000000
+      internalID: 6160751216551751683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 300
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea7d7e60a0fae540800000000000000
+      internalID: 5038103705006471914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c814d4197572b53b0800000000000000
+      internalID: -5522777260986383988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5f59399795a21d20800000000000000
+      internalID: 3247840351816867676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39809fa8f3f0ca890800000000000000
+      internalID: -7445559318361339757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a8bb83bcdf765220800000000000000
+      internalID: 2474305631168477349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Title_background_512x300_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540d3070fa04fdb40800000000000000
+      internalID: 5467159593132216389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
