@@ -838,7 +838,7 @@ GameObject:
   - component: {fileID: 1916464689075119822}
   - component: {fileID: 1916464689075119821}
   m_Layer: 0
-  m_Name: Dungeon -
+  m_Name: Dungeon 5
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -934,7 +934,7 @@ MonoBehaviour:
   <Height>k__BackingField: 25
   <X>k__BackingField: 0
   <Y>k__BackingField: 0
-  roomType: 0
+  roomType: 2
   phaseCount: 0
   doorList: []
   leftSpawnPoint: {x: 0, y: 0}
@@ -946,6 +946,7 @@ MonoBehaviour:
   chestPointTrm: {fileID: 7720543483995229432}
   camBound: {fileID: 1916464690610262170}
   miniPlayerSprite: {fileID: 5817788179110280199}
+  obstacles: {fileID: 3355822737959700885}
   shadowMap: {fileID: 1916464690227487731}
   defaultMap: {fileID: 1916464689338718978}
   isClear: 0
@@ -18200,7 +18201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2912733591415447006
 Transform:
   m_ObjectHideFlags: 0
@@ -18241,7 +18242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &494541291683431390
 Transform:
   m_ObjectHideFlags: 0

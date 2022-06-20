@@ -18,8 +18,6 @@ public abstract class Interactable : PoolableMono
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (used) return;
-        print(UIManager.Instance == null);
-        print(Camera.main == null);
 
         UIManager.Instance.ShowInteractableGuideImage(Camera.main.WorldToScreenPoint(GameManager.Instance.player.position) + new Vector3(0f, 0.5f, 0f));
     }

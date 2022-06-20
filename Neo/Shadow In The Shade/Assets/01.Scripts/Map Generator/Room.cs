@@ -33,6 +33,7 @@ public class Room : PoolableMono
     public Collider2D camBound;
 
     public GameObject miniPlayerSprite;
+    public GameObject obstacles;
 
     public GameObject shadowMap;
     public GameObject defaultMap;
@@ -245,6 +246,10 @@ public class Room : PoolableMono
         //StageManager.Instance.curEnemySPList.Clear();
         phaseCount = 0;
         isClear = false;
+        if(obstacles != null)
+        {
+            obstacles.SetActive(true);
+        }
     }
 
 #if UNITY_EDITOR
