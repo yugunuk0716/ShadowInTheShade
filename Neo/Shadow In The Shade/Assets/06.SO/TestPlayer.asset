@@ -16,7 +16,7 @@ MonoBehaviour:
   playerClassAnimator: []
   canChangePlayerType: 1
   playerStates: 1
-  playerJobState: 0
+  playerJobState: 1
   playerDashState: 0
   playerInputState: 0
   mainStats:
@@ -29,7 +29,7 @@ MonoBehaviour:
     DSP: 100
     DRT: 0.2
     DCT: 0
-    HSP: 0
+    HSP: 0.5
   attackStats:
     ATK: 100
     ASD: 2

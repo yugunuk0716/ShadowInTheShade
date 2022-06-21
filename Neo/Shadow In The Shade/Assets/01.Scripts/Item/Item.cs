@@ -27,14 +27,14 @@ public class Item : Interactable
     }
 
     //989898   0069A3   6E2F8E   FFCD28
-    protected override void Awake()
+    protected void Awake()
     {
         anim = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
         used = false;
-        base.Awake();
+    
 
         colorDic.Add(Rarity.Normal, Color.white);
         colorDic.Add(Rarity.Rare, new Color(0f, 105f, 163f));

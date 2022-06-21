@@ -113,7 +113,7 @@ public class UIManager : MonoBehaviour
                 StopCoroutine(dashCoolRoutine);
             }
             dashCoolImage.fillAmount = 0f;
-            PlayerNewDash.usedDash = false;
+            PlayerDash.usedDash = false;
         });
 
     }
@@ -259,22 +259,30 @@ public class UIManager : MonoBehaviour
     {
         if (isShowing)
             return;
+        isShowing = true;
         //켜져 있는지 확인 하던중
 
-        isShowing = true;
-        guideImage.rectTransform.position = worldPos;// + new Vector3(100f, 100f, 0);
+        StartCoroutine(ShowInteractableRoutine());
+    }
 
+    IEnumerator ShowInteractableRoutine()
+    {
+        yield return null;
+        guideImage.rectTransform.position = Camera.main.WorldToScreenPoint(GameManager.Instance.player.position - new Vector3(0.25f, 0f, 0f));// + new Vector3(100f, 100f, 0);
+        DOTween.Clear();
         CanvasGroup cg = guideCG;
         DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f);
     }
 
     public void CloseInteractableGuideImage()
     {
+        if (!isShowing)
+            return;
 
-        isShowing = false;
+        
         DOTween.Clear();
         CanvasGroup cg = guideCG;
-        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f).OnComplete(() => isShowing = false);
     }
 
 
@@ -295,7 +303,7 @@ public class UIManager : MonoBehaviour
             if (a < 0)
             {
                 print(Time.time - startTime);
-                PlayerNewDash.usedDash = false;
+                PlayerDash.usedDash = false;
                 break;
             }
 

@@ -14,40 +14,55 @@ public class Chest : Interactable
 
     private bool canUse = false;
 
-    protected override void Awake()
+    protected void Awake()
     {
         anim = GetComponent<Animator>();
         boxCol = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
         canUse = true;
-        base.Awake();
+      
     }
 
-   
-    
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            base.OnTriggerEnter2D(collision);
+        }
+    }
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
+    }
+
+
 
     public override void Use(GameObject target)
     {
         if (!canUse || used)
         {
-            print("오픈 실패");
             print(!canUse);
             print(used);
             return; 
         }
 
-        print("오픈");
         used = true;
         anim.SetTrigger("open");
         boxCol.enabled = false;
         //여기서 아이템 받아와서 드랍
         Item item = PoolManager.Instance.Pop("Item Temp") as Item;
+        if (StageManager.Instance.currentRoom.obstacles != null)
+        {
+            StageManager.Instance.currentRoom.obstacles.SetActive(false);
+        }
+        NeoRoomManager.instance.doorList.ForEach(door => { door.gameObject.SetActive(true); door.SetDoor(true); });
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
         item.transform.DOMove(transform.position - new Vector3(1, 1), 1f);
         item.canUse = true;
         item.Init(rarity);
-        Invoke(nameof(PushChestInPool), 3f);
+        Invoke(nameof(PushChestInPool), 1f);
     }
 
 
