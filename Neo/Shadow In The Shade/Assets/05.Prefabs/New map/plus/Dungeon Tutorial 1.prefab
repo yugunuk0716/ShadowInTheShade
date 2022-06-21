@@ -388,22 +388,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 0
-  <Width>k__BackingField: 37
-  <Height>k__BackingField: 25
-  <X>k__BackingField: 0
-  <Y>k__BackingField: 0
-  roomType: 0
+  roomType: 7
   phaseCount: 0
-  doorList: []
-  leftSpawnPoint: {x: 0, y: 0}
-  rightSpawnPoint: {x: 0, y: 0}
-  topSpawnPoint: {x: 0, y: 0}
-  bottomSpawnPoint: {x: 0, y: 0}
   spawnPointTrm: {fileID: 7419714409864620834}
   endPointTrm: {fileID: 2339233882310038789}
   chestPointTrm: {fileID: 7720543483995229432}
   camBound: {fileID: 1916464690610262170}
   miniPlayerSprite: {fileID: 5817788179110280199}
+  obstacles: {fileID: 0}
   shadowMap: {fileID: 1916464690227487731}
   defaultMap: {fileID: 1916464689338718978}
   isClear: 0

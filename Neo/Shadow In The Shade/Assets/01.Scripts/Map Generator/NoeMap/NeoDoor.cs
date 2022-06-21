@@ -11,6 +11,7 @@ public enum RoomType
     Chest,//상자방 - 도전 과제 깨면 상자 받을 수 있는 방 혹은 중간보스방이 될 예정
     Boss,//보스 - 가장 마지막
     Rebirth,//환생방 - 들가면 바로 환생
+    Turorial,//튜토리얼 때만 쓰는 방
 }
 
 public class NeoDoor : Interactable
@@ -60,7 +61,6 @@ public class NeoDoor : Interactable
         {
             if (!isOpened)
                 return;
-            print(used);
             base.OnTriggerEnter2D(collision);
         }
     }
@@ -134,5 +134,6 @@ public class NeoDoor : Interactable
         transform.localScale = new Vector3(3.5f, 4f);
         pairDoor = null;
         curDoorData = null;
+        isTutorial = false;
     }
 }
