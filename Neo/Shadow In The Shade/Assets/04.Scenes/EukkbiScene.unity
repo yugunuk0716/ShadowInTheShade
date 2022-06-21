@@ -1745,6 +1745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: New Bone Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 2582680548563717361, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
 --- !u!1 &457028632
