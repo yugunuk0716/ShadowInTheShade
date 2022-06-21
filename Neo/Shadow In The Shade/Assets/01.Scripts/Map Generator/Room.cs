@@ -29,11 +29,11 @@ public class Room : PoolableMono
 
     private void Start()
     {
-        GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
-        {
-            shadowMap.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
-            defaultMap.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
-        });
+        //GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
+        //{
+        //    shadowMap.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+        //    defaultMap.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
+        //});
 
     }
 
