@@ -24,8 +24,20 @@ public class Chest : Interactable
       
     }
 
-   
-    
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            base.OnTriggerEnter2D(collision);
+        }
+    }
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
+    }
+
+
 
     public override void Use(GameObject target)
     {

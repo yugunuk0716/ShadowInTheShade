@@ -259,7 +259,6 @@ public class UIManager : MonoBehaviour
     {
         if (isShowing)
             return;
-        print("open");
         isShowing = true;
         //켜져 있는지 확인 하던중
 
@@ -269,7 +268,6 @@ public class UIManager : MonoBehaviour
     IEnumerator ShowInteractableRoutine()
     {
         yield return null;
-        print("open2");
         guideImage.rectTransform.position = Camera.main.WorldToScreenPoint(GameManager.Instance.player.position - new Vector3(0.25f, 0f, 0f));// + new Vector3(100f, 100f, 0);
         DOTween.Clear();
         CanvasGroup cg = guideCG;
@@ -280,7 +278,6 @@ public class UIManager : MonoBehaviour
     {
         if (!isShowing)
             return;
-        print("close");
 
         
         DOTween.Clear();

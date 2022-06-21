@@ -67,7 +67,8 @@ public class NeoRoomManager : MonoBehaviour
         int third = Random.Range(0, 3);
         int fourth = 0;
         int fiveth = 0;
-        if (!isExperiencedShop)
+        //if (!isExperiencedShop)
+        if (false)
         {
             fourth = 3;
             if (experiencedRoomCount == 10)
@@ -78,7 +79,7 @@ public class NeoRoomManager : MonoBehaviour
             else if (experiencedRoomCount == 5)
             {
                 //상자방
-                fiveth = 4;
+                //fiveth = 4;
             }
         }
         else
@@ -91,7 +92,7 @@ public class NeoRoomManager : MonoBehaviour
             else if (experiencedRoomCount == 5)
             {
                 //상자방
-                fourth = 4;
+                //fourth = 4;
             }
         }
 
@@ -174,6 +175,7 @@ public class NeoRoomManager : MonoBehaviour
             if (!s.Contains("Tutorial"))
             {
                 experiencedRoomCount++;
+                print(experiencedRoomCount);
                 SpawnDoor();
             }
             
