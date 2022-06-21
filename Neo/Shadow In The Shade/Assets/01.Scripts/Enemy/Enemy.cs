@@ -88,6 +88,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     public int LastHitObjNumber { get; set; } = 0;
 
+
+    public EnemyDataSO enemyData;
     public float maxHp;
     public float currentHp;
     public float experencePoint;
@@ -105,10 +107,12 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
 
     protected Color originColor;
+    protected Dictionary<EnemyBehaviorState, IState> dicBehaviorState = new Dictionary<EnemyBehaviorState, IState>();
+    protected Dictionary<EnemyConditionState, IState> dicConditionState = new Dictionary<EnemyConditionState, IState>();
 
-    
 
-    public void Awake()
+
+    protected virtual void Awake()
     {
         OnDie.AddListener(Dead);
         originColor = MyRend.color;
@@ -119,9 +123,9 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
 
 
-    public void GetHit(float damage, int objNum)
+    public virtual void GetHit(float damage, int objNum)
     {
-        if (objNum == LastHitObjNumber || isDie)
+        /*if (objNum == LastHitObjNumber || isDie)
         {
             return;
         }
@@ -165,7 +169,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         dPopup.gameObject.SetActive(true);
         dPopup?.SetText(damage, transform.position + new Vector3(0, 0.5f, 0f), isCritical);
 
-
+*/
     }
     protected virtual void CheckHP()
     {
@@ -197,12 +201,16 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void SetBehaviorState(EnemyBehaviorState state)
     {
+        dicBehaviorState[enemyBehaviorState].OnEnd();
         enemyBehaviorState = state;
+        dicBehaviorState[enemyBehaviorState].OnEnter();
     }
 
     protected virtual void SetConditionState(EnemyConditionState state)
     {
+        dicConditionState[enemyConditionState].OnEnd();
         enemyConditionState = state;
+        dicConditionState[enemyConditionState].OnEnter();
     }
 
 
