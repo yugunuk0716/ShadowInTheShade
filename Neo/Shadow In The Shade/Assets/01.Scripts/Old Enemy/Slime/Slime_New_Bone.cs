@@ -36,20 +36,26 @@ public class Slime_New_Bone : Enemy, ITacklable
         base.Awake();
     }
 
- /*   protected override void Start()
+    public void OnEnable()
     {
-        base.Start();
+        SetBehaviorState(EnemyBehaviorState.Idle);
+        StartCoroutine(LifeTime());
     }
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-    }
-*/
-/*    public void SetTackle(bool on)
-    {
-        isAttack = on;
-    }*/
+    /*   protected override void Start()
+       {
+           base.Start();
+       }
+
+       protected override void OnEnable()
+       {
+           base.OnEnable();
+       }
+   */
+    /*    public void SetTackle(bool on)
+        {
+            isAttack = on;
+        }*/
 
     public void SetAttack()
     {
@@ -73,7 +79,7 @@ public class Slime_New_Bone : Enemy, ITacklable
         base.PlayState(state);
     }*/
 
- /*   protected override IEnumerator LifeTime()
+    protected override IEnumerator LifeTime()
     {
         yield return null;
         while (true)
@@ -89,23 +95,23 @@ public class Slime_New_Bone : Enemy, ITacklable
             {
                 if (dist < chaseDistance)
                 {
-                    if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
+                    if (dist < attackDistance/* && attackCool + lastAttackTime < Time.time*/)
                     {
-                        lastAttackTime = Time.time;
+                        /*lastAttackTime = Time.time;
                         SetState(OldEnemyState.Attack);
                         attack.canAttack = true;
                         chase.canTrace = false;
-                        idle.canMove = false;
+                        idle.canMove = false;*/
                     }
                     else if (dist < chaseDistance)
                     {
                         chase.canTrace = true;
-                        SetState(OldEnemyState.Move);
+                        SetBehaviorState(EnemyBehaviorState.Chase);
                     }
                 }
                 else
                 {
-                    SetState(OldEnemyState.Default);
+                    SetBehaviorState(EnemyBehaviorState.Idle);
                     idle.canMove = true;
                 }
             }
@@ -114,7 +120,7 @@ public class Slime_New_Bone : Enemy, ITacklable
             yield return base.LifeTime();
         }
     }
-*/
+
     public override void GetHit(float damage, int objNum)
     {
         hitCount++;
