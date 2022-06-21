@@ -900,17 +900,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 0
-  <Width>k__BackingField: 37
-  <Height>k__BackingField: 25
-  <X>k__BackingField: 0
-  <Y>k__BackingField: 0
   roomType: 0
   phaseCount: 0
-  doorList: []
-  leftSpawnPoint: {x: 0, y: 0}
-  rightSpawnPoint: {x: 0, y: 0}
-  topSpawnPoint: {x: 0, y: 0}
-  bottomSpawnPoint: {x: 0, y: 0}
   spawnPointTrm: {fileID: 3987165553531402669}
   endPointTrm: {fileID: 4990595057313528702}
   chestPointTrm: {fileID: 7753666332066645392}
@@ -16805,7 +16796,6 @@ GameObject:
   - component: {fileID: 5346310645741569539}
   - component: {fileID: 4944995749538007639}
   - component: {fileID: 9211168592603523202}
-  - component: {fileID: 9002399868903405230}
   m_Layer: 0
   m_Name: T
   m_TagString: Door
@@ -16908,24 +16898,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.3, y: 1}
   m_EdgeRadius: 0
---- !u!114 &9002399868903405230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2238591449091441901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18450a9b89f2d0489fa72bf06afb06f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjacentRoom: {fileID: 0}
-  doorType: 2
-  openedDoor: {fileID: 4845625035074053611}
-  closedDoor: {fileID: 1174436123010027717}
-  shadowDoor: {fileID: 2958196045961213685}
-  normalDoor: {fileID: 3695954466758435711}
 --- !u!1 &2498603007432180266
 GameObject:
   m_ObjectHideFlags: 0
@@ -17353,7 +17325,6 @@ GameObject:
   - component: {fileID: 6437393980396758829}
   - component: {fileID: 2739936343587847658}
   - component: {fileID: 1968370760732696098}
-  - component: {fileID: 4427017561222396099}
   m_Layer: 0
   m_Name: L
   m_TagString: Door
@@ -17456,24 +17427,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.2962475, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4427017561222396099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3183051358519042850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18450a9b89f2d0489fa72bf06afb06f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjacentRoom: {fileID: 0}
-  doorType: 0
-  openedDoor: {fileID: 7506680020736976865}
-  closedDoor: {fileID: 8063654989108304569}
-  shadowDoor: {fileID: 7823615904376588186}
-  normalDoor: {fileID: 3263341244636929402}
 --- !u!1 &3263341244636929402
 GameObject:
   m_ObjectHideFlags: 0
@@ -17995,7 +17948,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5696464513670625024}
   - component: {fileID: 2118863951537876141}
-  - component: {fileID: 525336543072192830}
   m_Layer: 0
   m_Name: B
   m_TagString: Door
@@ -18047,24 +17999,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.3, y: 1}
   m_EdgeRadius: 0
---- !u!114 &525336543072192830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5567219765858752043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18450a9b89f2d0489fa72bf06afb06f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjacentRoom: {fileID: 0}
-  doorType: 3
-  openedDoor: {fileID: 2498603007432180266}
-  closedDoor: {fileID: 643993872641090654}
-  shadowDoor: {fileID: 2626789280842247579}
-  normalDoor: {fileID: 6074435201233577708}
 --- !u!1 &5817788179110280199
 GameObject:
   m_ObjectHideFlags: 0
@@ -19417,7 +19351,6 @@ GameObject:
   - component: {fileID: 8490383672093803459}
   - component: {fileID: 1841466409781212130}
   - component: {fileID: 2283921579310991760}
-  - component: {fileID: 3763304142545298758}
   m_Layer: 0
   m_Name: R
   m_TagString: Door
@@ -19520,24 +19453,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.96416, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3763304142545298758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8348229276554056508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18450a9b89f2d0489fa72bf06afb06f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjacentRoom: {fileID: 0}
-  doorType: 1
-  openedDoor: {fileID: 42099774375850881}
-  closedDoor: {fileID: 7873448917205924222}
-  shadowDoor: {fileID: 2139616713123411673}
-  normalDoor: {fileID: 5227804870764915249}
 --- !u!1 &8780087940612765821
 GameObject:
   m_ObjectHideFlags: 0

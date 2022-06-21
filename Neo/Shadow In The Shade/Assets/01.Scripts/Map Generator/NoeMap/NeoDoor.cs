@@ -58,6 +58,9 @@ public class NeoDoor : Interactable
     {
         if (collision.CompareTag("Player"))
         {
+            if (!isOpened)
+                return;
+            print(used);
             base.OnTriggerEnter2D(collision);
         }
     }
@@ -92,6 +95,23 @@ public class NeoDoor : Interactable
             print("¿ÀÇÂ ½ÇÆÐ");
             return;
         }
+
+        UIManager.Instance.CloseInteractableGuideImage();
+
+
+        if (NeoRoomManager.instance.doorList.Count > 0)
+        {
+            NeoRoomManager.instance.doorList.ForEach(door => PoolManager.Instance.Push(door));
+        }
+        else
+        {
+            PoolManager.Instance.Push(this);
+            if (pairDoor != null)
+            {
+                PoolManager.Instance.Push(pairDoor);
+            }
+        }
+
         if (isTutorial)
         {
             NeoRoomManager.instance.LoadRoom("Tutorial");
@@ -101,15 +121,10 @@ public class NeoDoor : Interactable
             NeoRoomManager.instance.LoadRoom(curRoomType);
 
         }
-        //PoolManager.Instance.Push(this);
-        if (NeoRoomManager.instance.doorList.Count > 0)
-        {
-            NeoRoomManager.instance.doorList.ForEach(door => PoolManager.Instance.Push(door));
-        }
-       // if(pairDoor != null)
-       // {
-         //   PoolManager.Instance.Push(pairDoor); 
-       // }
+
+        StageManager.Instance.UseDoor();
+        
+     
         used = true;
     }
 

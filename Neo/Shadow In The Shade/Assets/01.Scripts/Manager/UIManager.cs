@@ -259,6 +259,8 @@ public class UIManager : MonoBehaviour
     {
         if (isShowing)
             return;
+        print("open");
+        isShowing = true;
         //켜져 있는지 확인 하던중
 
         StartCoroutine(ShowInteractableRoutine());
@@ -267,20 +269,23 @@ public class UIManager : MonoBehaviour
     IEnumerator ShowInteractableRoutine()
     {
         yield return null;
-        isShowing = true;
+        print("open2");
         guideImage.rectTransform.position = Camera.main.WorldToScreenPoint(GameManager.Instance.player.position - new Vector3(0.25f, 0f, 0f));// + new Vector3(100f, 100f, 0);
-
+        DOTween.Clear();
         CanvasGroup cg = guideCG;
         DOTween.To(() => cg.alpha, value => cg.alpha = value, 1, 0.8f);
     }
 
     public void CloseInteractableGuideImage()
     {
+        if (!isShowing)
+            return;
+        print("close");
 
-        isShowing = false;
+        
         DOTween.Clear();
         CanvasGroup cg = guideCG;
-        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f);
+        DOTween.To(() => cg.alpha, value => cg.alpha = value, 0, 0.8f).OnComplete(() => isShowing = false);
     }
 
 

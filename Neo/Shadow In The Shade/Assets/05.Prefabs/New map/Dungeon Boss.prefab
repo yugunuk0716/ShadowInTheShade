@@ -6112,21 +6112,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 1
-  <Width>k__BackingField: 37
-  <Height>k__BackingField: 25
-  <X>k__BackingField: 0
-  <Y>k__BackingField: 0
+  roomType: 0
   phaseCount: 0
-  doorList: []
-  leftSpawnPoint: {x: 1.6, y: 0}
-  rightSpawnPoint: {x: -1.6, y: 0}
-  topSpawnPoint: {x: 0, y: -0.9}
-  bottomSpawnPoint: {x: 0, y: 0.9}
   spawnPointTrm: {fileID: 6288496570410862092}
   endPointTrm: {fileID: 1013827879625104061}
   chestPointTrm: {fileID: 5985499208862691613}
   camBound: {fileID: 1942740908114628269}
   miniPlayerSprite: {fileID: 1942740908008944495}
+  obstacles: {fileID: 0}
   shadowMap: {fileID: 1942740909387496826}
   defaultMap: {fileID: 1942740908125677696}
   isClear: 0
@@ -16441,7 +16434,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8460941248655034790}
-  - component: {fileID: 5388521984696164329}
   - component: {fileID: 2674910849097353602}
   m_Layer: 0
   m_Name: BossDoor
@@ -16466,24 +16458,6 @@ Transform:
   m_Father: {fileID: 1942740909079194276}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5388521984696164329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6726127437709300688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a18450a9b89f2d0489fa72bf06afb06f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjacentRoom: {fileID: 0}
-  doorType: 4
-  openedDoor: {fileID: 7465491971007929121}
-  closedDoor: {fileID: 6932450455079158617}
-  shadowDoor: {fileID: 5304625796919098730}
-  normalDoor: {fileID: 4862454976274365272}
 --- !u!61 &2674910849097353602
 BoxCollider2D:
   m_ObjectHideFlags: 0

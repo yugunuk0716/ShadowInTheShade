@@ -41,7 +41,10 @@ public class Chest : Interactable
         boxCol.enabled = false;
         //여기서 아이템 받아와서 드랍
         Item item = PoolManager.Instance.Pop("Item Temp") as Item;
-        StageManager.Instance.currentRoom.obstacles.SetActive(false);
+        if (StageManager.Instance.currentRoom.obstacles != null)
+        {
+            StageManager.Instance.currentRoom.obstacles.SetActive(false);
+        }
         NeoRoomManager.instance.doorList.ForEach(door => { door.gameObject.SetActive(true); door.SetDoor(true); });
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
         item.transform.DOMove(transform.position - new Vector3(1, 1), 1f);

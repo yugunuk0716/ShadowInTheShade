@@ -168,11 +168,15 @@ public class NeoRoomManager : MonoBehaviour
 
     public void LoadRoom(string s)
     {
-        if (StageManager.Instance.currentRoom != null && !s.Contains("Start") && !s.Contains("Tutorial"))
+        if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
         {
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
-            experiencedRoomCount++;
-            SpawnDoor();
+            if (!s.Contains("Tutorial"))
+            {
+                experiencedRoomCount++;
+                SpawnDoor();
+            }
+            
         }
 
         string roomName = $"{currentStageNames[stageIndex]} {s}";
