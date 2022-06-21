@@ -29,6 +29,8 @@ public class StageManager : MonoBehaviour
     public bool isBattle = false;
     public UnityEvent onBattleEnd = new UnityEvent();
 
+    public int rebirthCount = 0;
+
     private Color shadowColor = new Color(60 / 255f, 60 / 255f, 60 / 255f);
 
     public List<OldEnemy> curStageEnemys = new List<OldEnemy>();
