@@ -167,7 +167,7 @@ SpriteRenderer:
   m_SortingLayerID: -96285203
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3152543628767108381, guid: 602c1a4359046aa48a61d3d14bc5d2a2, type: 3}
+  m_Sprite: {fileID: -3116275498442637609, guid: 602c1a4359046aa48a61d3d14bc5d2a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 7321862642869109752}
   - component: {fileID: 407683604930831200}
   m_Layer: 10
-  m_Name: Wall
+  m_Name: Wall 8
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,7 +266,7 @@ SpriteRenderer:
   m_SortingLayerID: -96285203
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3152543628767108381, guid: 602c1a4359046aa48a61d3d14bc5d2a2, type: 3}
+  m_Sprite: {fileID: 4485841359611304586, guid: 3aa579f3fd89bbb47be45bbd94d9f605, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -294,7 +294,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.0625}
+    oldSize: {x: 4, y: 8}
     newSize: {x: 3.42, y: 3.42}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
