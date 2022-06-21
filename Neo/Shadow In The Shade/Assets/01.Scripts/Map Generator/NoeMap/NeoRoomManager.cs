@@ -60,13 +60,12 @@ public class NeoRoomManager : MonoBehaviour
         LoadRoom("Start");
     }
 
-    public (int, int, int, int, int) CalcDoorTypes()
+    public (int, int, int, int) CalcDoorTypes()
     {
         int first = Random.Range(0, 3);
         int second = Random.Range(0, 3);
         int third = Random.Range(0, 3);
         int fourth = 0;
-        int fiveth = 0;
         //if (!isExperiencedShop)
         if (false)
         {
@@ -74,7 +73,7 @@ public class NeoRoomManager : MonoBehaviour
             if (experiencedRoomCount == 10)
             {
                 //보스방
-                fiveth = 5;
+                //fiveth = 5;
             }
             else if (experiencedRoomCount == 5)
             {
@@ -96,15 +95,15 @@ public class NeoRoomManager : MonoBehaviour
             }
         }
 
-        return (first, second, third, fourth, fiveth);
+        return (first, second, third, fourth);
     }
 
 
     public void SpawnDoor()
     {
        
-        (int a, int b, int c, int d, int e) = CalcDoorTypes();
-        print($"{a}, {b}, {c}, {d}, {e}");
+        (int a, int b, int c, int d) = CalcDoorTypes();
+        print($"{a}, {b}, {c}, {d}");
         NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
         nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position;
         nDoor.SetDoor((RoomType)a);
@@ -128,11 +127,11 @@ public class NeoRoomManager : MonoBehaviour
             doorList.Add(nDoor4);
             nDoor4.gameObject.SetActive(false);
 
-            if (e != 0)
+            //if () //환생문 등장 조건 만족시
             {
                 NeoDoor nDoor5 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
                 nDoor5.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 5f;
-                nDoor5.SetDoor((RoomType)d);
+                nDoor5.SetDoor(RoomType.Rebirth);
                 doorList.Add(nDoor5);
                 nDoor5.gameObject.SetActive(false);
             }

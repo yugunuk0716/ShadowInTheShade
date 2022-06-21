@@ -19,7 +19,7 @@ public class NeoDoor : Interactable
     public NeoDoor pairDoor;
     public SpriteRenderer sr;
 
-    private RoomType curRoomType;
+    public RoomType curRoomType;
     public bool isOpened;
     public bool isTutorial;
 
@@ -98,6 +98,27 @@ public class NeoDoor : Interactable
 
         UIManager.Instance.CloseInteractableGuideImage();
 
+        if (curRoomType.Equals(RoomType.Rebirth))
+        {
+            Rebirth();
+            used = true;
+
+            if (NeoRoomManager.instance.doorList.Count > 0)
+            {
+                NeoRoomManager.instance.doorList.ForEach(door => PoolManager.Instance.Push(door));
+            }
+            else
+            {
+                PoolManager.Instance.Push(this);
+                if (pairDoor != null)
+                {
+                    PoolManager.Instance.Push(pairDoor);
+                }
+            }
+            StageManager.Instance.UseDoor();
+            return;
+        }
+
 
         if (NeoRoomManager.instance.doorList.Count > 0)
         {
@@ -126,6 +147,82 @@ public class NeoDoor : Interactable
         
      
         used = true;
+    }
+
+    public void Rebirth()
+    {
+        //레벨 별로 레벨 깎고 스탯 분배 안한 상태로 돌리고 현재 레벨 만큼 스탯 포인트 다시 준다
+        //레벨에 따라 상자 드랍
+
+        NeoRoomManager.instance.LoadRoom("Start");
+        NeoRoomManager.instance.experiencedRoomCount = 0;
+
+        Rarity rarity = Rarity.Normal;
+        switch (GameManager.Instance.playerSO.ectStats.LEV)
+        {
+            case 10:
+            case 11:
+            case 12:
+                GameManager.Instance.playerSO.ectStats.LEV -= 9;
+                rarity = SpawnItem(100, 0, 0, 0);
+                break;
+            case 13:
+            case 14:
+            case 15:
+                GameManager.Instance.playerSO.ectStats.LEV -= 11;
+                rarity = SpawnItem(60, 40, 0, 0);
+                break;
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+                GameManager.Instance.playerSO.ectStats.LEV -= 12;
+                rarity = SpawnItem(50, 47, 3, 0);
+                break;
+            case 20:
+                GameManager.Instance.playerSO.ectStats.LEV -= 15;
+                rarity = SpawnItem(10, 70, 5, 15);
+                break;
+
+        }
+
+      
+        if((int)rarity > 1) 
+        {
+            rarity = Rarity.Rare;
+        }
+
+
+       
+        Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
+        c.Popup(StageManager.Instance.currentRoom.chestPointTrm.position);
+        
+    }
+
+
+    private Rarity SpawnItem(int Normal, int rare, int epic, int legendary)
+    {
+        int idx = Random.Range(0, 100);
+        Rarity result = Rarity.Normal;
+
+        if (idx <= Normal)
+        {
+            result = Rarity.Normal;
+        }
+        else if (Normal < idx && idx <= Normal + rare)
+        {
+            result = Rarity.Rare;
+        }
+        else if (epic != 0 &&  Normal + rare < idx && idx < Normal + rare + epic)
+        {
+            result = Rarity.Unique;
+        }
+        else if(legendary != 0)
+        {
+            result = Rarity.Legendary;
+        }
+
+        return result;
     }
 
     public override void Reset()

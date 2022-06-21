@@ -31,6 +31,15 @@ public class ExpSlider : MonoBehaviour
         });
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            GameManager.Instance.playerSO.ectStats.EXP += 1000f;
+            CheckExp();
+        }
+    }
+
     public void ResetSlider()
     {
         expSlider.value = GameManager.Instance.playerSO.ectStats.EXP / needExpPointPerLever[(int)GameManager.Instance.playerSO.ectStats.LEV];
