@@ -113,7 +113,7 @@ public class UIManager : MonoBehaviour
                 StopCoroutine(dashCoolRoutine);
             }
             dashCoolImage.fillAmount = 0f;
-            PlayerNewDash.usedDash = false;
+            PlayerDash.usedDash = false;
         });
 
     }
@@ -301,7 +301,7 @@ public class UIManager : MonoBehaviour
             if (a < 0)
             {
                 print(Time.time - startTime);
-                PlayerNewDash.usedDash = false;
+                PlayerDash.usedDash = false;
                 break;
             }
 

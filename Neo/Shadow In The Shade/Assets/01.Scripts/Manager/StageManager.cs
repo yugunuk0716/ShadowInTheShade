@@ -98,7 +98,6 @@ public class StageManager : MonoBehaviour
 
     public void EnterRoom()
     {
-        print("¿¿øπ");
         CurEnemySPList.Clear();
         currentRoom.currentESPList = currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
         currentRoom.EnterRoom();

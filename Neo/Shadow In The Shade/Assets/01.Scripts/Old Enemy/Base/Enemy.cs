@@ -215,7 +215,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         MyRend.color = originColor;
         isDie = false;
         lastAttackTime -= attackCool;
-        EnemyManager.Instance.enemyList.Add(this);
 
         SetDefaultState(EnemyState.Default);
         lifeTime = StartCoroutine(LifeTime());
@@ -396,7 +395,6 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         currHP = enemyData.maxHealth;
         Anim.ResetTrigger("isDie");
         Anim.Rebind();
-        EnemyManager.Instance.enemyList.Remove(this);
         currentState = EnemyState.Default;
         isDie = false;
         isAttack = false;

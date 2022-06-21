@@ -31,13 +31,11 @@ public class Chest : Interactable
     {
         if (!canUse || used)
         {
-            print("¿ÀÇÂ ½ÇÆÐ");
             print(!canUse);
             print(used);
             return; 
         }
 
-        print("¿ÀÇÂ");
         used = true;
         anim.SetTrigger("open");
         boxCol.enabled = false;
