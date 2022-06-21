@@ -26,7 +26,7 @@ public class DamagableEnemy : DamagableObject
     private void OnEnable()
     {
         //print(dObjData.damage);
-        dObjData.damage = Enemy.enemyData.damage;
+       // dObjData.damage = Enemy.enemyData.damage;
     }
 
 
@@ -55,7 +55,7 @@ public class DamagableEnemy : DamagableObject
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-
+/*
         if (Enemy.isAttack)
         {
             if ((1 << collision.gameObject.layer & whatIsTarget) > 0)
@@ -92,6 +92,6 @@ public class DamagableEnemy : DamagableObject
                 //base.OnTriggerEnter2D(collision);
             }
         }
-
+*/
     }
 }

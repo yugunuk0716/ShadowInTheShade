@@ -93,6 +93,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     public float maxHp;
     public float currentHp;
     public float experencePoint;
+    public bool isAttack = false;
 
     public AIDestinationSetter destinationSetter;
 
@@ -114,7 +115,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
 
     protected virtual void Awake()
     {
-        OnDie.AddListener(Dead);
+       // OnDie.AddListener(Dead);
         originColor = MyRend.color;
         destinationSetter = GetComponent<AIDestinationSetter>();
         seeker = GetComponent<Seeker>();
@@ -179,6 +180,11 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isDie = true;
             OnDie?.Invoke();
         }
+    }
+
+    protected virtual IEnumerator LifeTime()
+    {
+        yield return null;
     }
 
     private void Dead()
