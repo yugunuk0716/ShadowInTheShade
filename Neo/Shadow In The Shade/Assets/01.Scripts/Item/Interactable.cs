@@ -6,7 +6,7 @@ public abstract class Interactable : PoolableMono
 {
     protected bool used = false;
 
-    public abstract void Use(GameObject target);
+   
     private Camera main;
 
     protected virtual void Start()
@@ -14,6 +14,14 @@ public abstract class Interactable : PoolableMono
         main = Camera.main;
     }
 
+    public virtual void Use(GameObject target)
+    {
+        if (used)
+            return;
+
+        used = true;
+        UIManager.Instance.CloseInteractableGuideImage();
+    }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
