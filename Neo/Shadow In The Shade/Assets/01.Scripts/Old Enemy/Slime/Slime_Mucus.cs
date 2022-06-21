@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime_Mucus : Enemy
+public class Slime_Mucus : OldEnemy
 {
     private SpriteRenderer sr;
 
@@ -20,7 +20,7 @@ public class Slime_Mucus : Enemy
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[OldEnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
         sr = GetComponentInChildren<SpriteRenderer>();
 
@@ -29,15 +29,15 @@ public class Slime_Mucus : Enemy
         chase.speed = 2f;
 
 
-        dicState[EnemyState.Move] = chase;
+        dicState[OldEnemyState.Move] = chase;
 
         // °ø°Ý
         attack = gameObject.AddComponent<Attack_Mucus>();
 
-        dicState[EnemyState.Attack] = attack;
+        dicState[OldEnemyState.Attack] = attack;
 
         // Á×À½
-        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[OldEnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         originColor = sr.color;
         attachedColor = new Color(originColor.r, originColor.g, originColor.b, spriteAlpha);
@@ -60,17 +60,17 @@ public class Slime_Mucus : Enemy
         isAttack = on;
     }
 
-    protected override void SetDefaultState(EnemyState state)
+    protected override void SetDefaultState(OldEnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(EnemyState state)
+    protected override void SetState(OldEnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(EnemyState state)
+    protected override void PlayState(OldEnemyState state)
     {
         base.PlayState(state);
     }
@@ -92,18 +92,18 @@ public class Slime_Mucus : Enemy
             {
                 if (dist > attackDistance)
                 {
-                    SetState(EnemyState.Move);
+                    SetState(OldEnemyState.Move);
                 }
 
 
                 if (dist < attackDistance && !isAttack && !GameManager.Instance.isInvincible)
                 {
-                    SetState(EnemyState.Attack);
+                    SetState(OldEnemyState.Attack);
                 }
             }
             else if(!attack.isStateEnter)
             {
-                SetState(EnemyState.Default);
+                SetState(OldEnemyState.Default);
             }
 
             yield return base.LifeTime();

@@ -11,7 +11,7 @@ public class PhaseInfo
     public float hp;
 }
 
-public enum EnemyState
+public enum OldEnemyState
 {
     Default,    // 아무것도 없는 상태
     Move,       // 움직일 때
@@ -19,7 +19,7 @@ public enum EnemyState
     Die         // 죽을 때
 }
 
-public class Enemy : PoolableMono, IAgent, IDamagable
+public class OldEnemy : PoolableMono, IAgent, IDamagable
 {
     
 
@@ -143,8 +143,8 @@ public class Enemy : PoolableMono, IAgent, IDamagable
     private DamageEffect effect;
 
     [SerializeField]
-    protected EnemyState currentState = EnemyState.Default;
-    protected Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
+    protected OldEnemyState currentState = OldEnemyState.Default;
+    protected Dictionary<OldEnemyState, IState> dicState = new Dictionary<OldEnemyState, IState>();
 
     protected Coroutine lifeTime = null;
 
@@ -216,25 +216,25 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         isDie = false;
         lastAttackTime -= attackCool;
 
-        SetDefaultState(EnemyState.Default);
+        SetDefaultState(OldEnemyState.Default);
         lifeTime = StartCoroutine(LifeTime());
         //PoolManager.Instance.enemies.Add(this);
     }
     
-    protected virtual void SetDefaultState(EnemyState state)     // 초기 행동 설정
+    protected virtual void SetDefaultState(OldEnemyState state)     // 초기 행동 설정
     {
         currentState = state;
         dicState[currentState].OnEnter();
     }
 
-    protected virtual void SetState(EnemyState state)
+    protected virtual void SetState(OldEnemyState state)
     {
         dicState[currentState].OnEnd();
         currentState = state;
         dicState[currentState].OnEnter();
     }
 
-    protected virtual void PlayState(EnemyState state)
+    protected virtual void PlayState(OldEnemyState state)
     {
         dicState[state].OnEnter();
     }
@@ -268,7 +268,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         if (currHP <= 0)
         {
             StopCoroutine(lifeTime);
-            SetState(EnemyState.Die);
+            SetState(OldEnemyState.Die);
             StageManager.Instance.curStageEnemys.Remove(this);
             isDie = true;
             StartCoroutine(Dead());
@@ -310,7 +310,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
             isCritical = true;
         }
 
-        if (currentState.Equals(EnemyState.Die)) return;
+        if (currentState.Equals(OldEnemyState.Die)) return;
 
 
         effect = PoolManager.Instance.Pop("DamageEffect") as DamageEffect;
@@ -395,7 +395,7 @@ public class Enemy : PoolableMono, IAgent, IDamagable
         currHP = enemyData.maxHealth;
         Anim.ResetTrigger("isDie");
         Anim.Rebind();
-        currentState = EnemyState.Default;
+        currentState = OldEnemyState.Default;
         isDie = false;
         isAttack = false;
         //myRend.enabled = true;

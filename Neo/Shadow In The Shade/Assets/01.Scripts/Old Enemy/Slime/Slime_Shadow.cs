@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Slime_Shadow : Enemy, ITacklable
+public class Slime_Shadow : OldEnemy, ITacklable
 {
     private SpriteRenderer sr;
     public SpriteRenderer Sr
@@ -28,19 +28,19 @@ public class Slime_Shadow : Enemy, ITacklable
     protected override void Awake()
     {
         idle = gameObject.AddComponent<Idle_Patrol>();
-        dicState[EnemyState.Default] = idle;
+        dicState[OldEnemyState.Default] = idle;
 
 
         chase = gameObject.AddComponent<Move_Chase>();
         speed = 2f;
 
-        dicState[EnemyState.Move] = chase;
+        dicState[OldEnemyState.Move] = chase;
 
         attack = gameObject.GetComponentInChildren<Attack_Tackle>();
 
-        dicState[EnemyState.Attack] = attack;
+        dicState[OldEnemyState.Attack] = attack;
 
-        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[OldEnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         base.Awake();
     }
@@ -87,17 +87,17 @@ public class Slime_Shadow : Enemy, ITacklable
 
 
 
-    protected override void SetDefaultState(EnemyState state)
+    protected override void SetDefaultState(OldEnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(EnemyState state)
+    protected override void SetState(OldEnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(EnemyState state)
+    protected override void PlayState(OldEnemyState state)
     {
         base.PlayState(state);
     }
@@ -121,7 +121,7 @@ public class Slime_Shadow : Enemy, ITacklable
                     if (dist < attackDistance && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
-                        SetState(EnemyState.Attack);
+                        SetState(OldEnemyState.Attack);
                         attack.canAttack = true;
                         chase.canTrace = false;
                         idle.canMove = false;
@@ -129,12 +129,12 @@ public class Slime_Shadow : Enemy, ITacklable
                     else if (dist < chaseDistance)
                     {
                         chase.canTrace = true;
-                        SetState(EnemyState.Move);
+                        SetState(OldEnemyState.Move);
                     }
                 }
                 else
                 {
-                    SetState(EnemyState.Default);
+                    SetState(OldEnemyState.Default);
                     idle.canMove = true;
                 }
             }

@@ -31,7 +31,7 @@ public class StageManager : MonoBehaviour
 
     private Color shadowColor = new Color(60 / 255f, 60 / 255f, 60 / 255f);
 
-    public List<Enemy> curStageEnemys = new List<Enemy>();
+    public List<OldEnemy> curStageEnemys = new List<OldEnemy>();
     public List<EnemySpawnPoint> CurEnemySPList
     {
         get

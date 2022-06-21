@@ -105,7 +105,7 @@ public class RoomManager : MonoBehaviour
             {
                 foreach (Room room in loadedRooms)
                 {
-                    room.RemoveUnconnectedDoors();
+                    //.RemoveUnconnectedDoors();
                 }
               
                 updatedRooms = true;
@@ -335,11 +335,11 @@ public class RoomManager : MonoBehaviour
         if (room.name.Contains("End"))
         {
             room.isClear = true;
-            room.RemoveUnconnectedDoors();
-            foreach (Room r in loadedRooms)
-            {
-                r.ConnectRoom();
-            }
+         //   room.RemoveUnconnectedDoors();
+        //    foreach (Room r in loadedRooms)
+        //    {
+        //        r.ConnectRoom();
+         //   }
         }
         else if (!room.name.Contains($"Start") && room.name.Contains(currentStageName))
         {

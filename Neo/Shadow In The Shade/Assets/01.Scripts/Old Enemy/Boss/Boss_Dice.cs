@@ -10,7 +10,7 @@ public enum DiceType
     Mk3,
 }
 
-public class Boss_Dice : Enemy
+public class Boss_Dice : OldEnemy
 {
 
     public bool isAttacking = false;
@@ -36,21 +36,21 @@ public class Boss_Dice : Enemy
 
         if(diceType == DiceType.Mk3)
         {
-            dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice_Mk3>();
+            dicState[OldEnemyState.Default] = gameObject.AddComponent<Idle_Dice_Mk3>();
         }
         else
         {
-            dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
+            dicState[OldEnemyState.Default] = gameObject.AddComponent<Idle_Dice>();
         }
 
         moveDice = gameObject.AddComponent<Move_Dice>();
-        dicState[EnemyState.Move] = moveDice;
+        dicState[OldEnemyState.Move] = moveDice;
 
 
         attack = gameObject.AddComponent<Attack_Dice>();
-        dicState[EnemyState.Attack] = attack;
+        dicState[OldEnemyState.Attack] = attack;
 
-        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Dice>();
+        dicState[OldEnemyState.Die] = gameObject.AddComponent<Die_Dice>();
         base.Awake();
     }
 
@@ -87,19 +87,19 @@ public class Boss_Dice : Enemy
                     if ( !isMoving && (GameManager.Instance.player.position - transform.position).sqrMagnitude < Mathf.Pow(attackDistance, 2f) && attackCool + lastAttackTime < Time.time)
                     {
                         lastAttackTime = Time.time;
-                        SetState(EnemyState.Attack);
+                        SetState(OldEnemyState.Attack);
                     }
 
                     else if(!isAttacking && moveCool + lastMoveTime < Time.time)
                     {
                         //lastAttackTime = Time.time;
                         lastMoveTime = Time.time;
-                        SetState(EnemyState.Move);
+                        SetState(OldEnemyState.Move);
                     }
 
                     else if(!isAttacking && !isMoving)
                     {
-                        SetState(EnemyState.Default);
+                        SetState(OldEnemyState.Default);
                     }
                 }
 
@@ -140,7 +140,7 @@ public class Boss_Dice : Enemy
 
     public override void PushInPool()
     {
-        SetState(EnemyState.Die);
+        SetState(OldEnemyState.Die);
         isAttacking = false;
         isMoving = false;
         attack.OnEnd();

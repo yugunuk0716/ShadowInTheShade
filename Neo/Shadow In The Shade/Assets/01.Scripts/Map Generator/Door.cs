@@ -126,15 +126,15 @@ public class Door : MonoBehaviour
                 break;
         }
 
-        collision.gameObject.transform.localPosition = adjacentRoom.GetSpawnPoint(doorType) + offset;
+        //collision.gameObject.transform.localPosition = adjacentRoom.GetSpawnPoint(doorType) + offset;
         Sequence playerMove = DOTween.Sequence();
 
         EffectManager.Instance.SetCamBound(adjacentRoom.camBound);
         playerMove.Append(playerSprite.DOColor(Color.white, 1.5f)).OnComplete(() => { agentMove.rigid.velocity = Vector2.zero; collision.GetComponent<Rigidbody2D>().velocity = agentMove.rigid.velocity; });
-        playerMove.Join(collision.transform.DOLocalMove(adjacentRoom.GetSpawnPoint(doorType), .1f)).OnComplete(() => 
-        {
-            EffectManager.Instance.minimapCamObj.transform.position = adjacentRoom.transform.position + new Vector3(0f, 0f, -10f);
-        });
+       // playerMove.Join(collision.transform.DOLocalMove(adjacentRoom.GetSpawnPoint(doorType), .1f)).OnComplete(() => 
+       // {
+       //     EffectManager.Instance.minimapCamObj.transform.position = adjacentRoom.transform.position + new Vector3(0f, 0f, -10f);
+       // });
         playerMove.Insert(1f, playerSprite.DOFade(1, 1f));
 
         
@@ -169,10 +169,10 @@ public class Door : MonoBehaviour
         
         EffectManager.Instance.SetCamBound(bossRoom.camBound);
         playerMove.Append(playerSprite.DOColor(Color.white, 1.5f)).OnComplete(() => { agentMove.rigid.velocity = Vector2.zero; collision.GetComponent<Rigidbody2D>().velocity = agentMove.rigid.velocity; });
-        playerMove.Join(collision.transform.DOLocalMove(bossRoom.GetSpawnPoint(doorType), .1f)).OnComplete(() =>
-        {
-            EffectManager.Instance.minimapCamObj.transform.position = bossRoom.transform.position + new Vector3(0f, 0f, -10f);
-        });
+      //  playerMove.Join(collision.transform.DOLocalMove(bossRoom.GetSpawnPoint(doorType), .1f)).OnComplete(() =>
+       // {
+       //     EffectManager.Instance.minimapCamObj.transform.position = bossRoom.transform.position + new Vector3(0f, 0f, -10f);
+       // });
         playerMove.Insert(1f, playerSprite.DOFade(1, 1f));
 
 

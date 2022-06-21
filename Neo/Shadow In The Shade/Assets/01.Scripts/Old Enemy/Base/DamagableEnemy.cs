@@ -9,14 +9,14 @@ public class DamagableEnemy : DamagableObject
     private float lastAttackTime = 0f;
     private float atkCool = .5f;
 
-    private Enemy enemy;
-    public Enemy Enemy
+    private OldEnemy enemy;
+    public OldEnemy Enemy
     {
         get
         {
             if (enemy == null)
             {
-                enemy = GetComponentInParent<Enemy>();
+                enemy = GetComponentInParent<OldEnemy>();
                 
             }
             return enemy;

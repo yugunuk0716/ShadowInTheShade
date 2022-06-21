@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime_Moss : Enemy
+public class Slime_Moss : OldEnemy
 {
     private readonly float chaseDistance = 5f;
 
@@ -10,16 +10,16 @@ public class Slime_Moss : Enemy
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[OldEnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
 
         // °ø°Ý
         attack = gameObject.AddComponent<Attack_Moss>();
 
-        dicState[EnemyState.Attack] = attack;
+        dicState[OldEnemyState.Attack] = attack;
 
         // Á×À½
-        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[OldEnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         base.Awake();
 
@@ -33,17 +33,17 @@ public class Slime_Moss : Enemy
         base.OnEnable();
     }
 
-    protected override void SetDefaultState(EnemyState state)
+    protected override void SetDefaultState(OldEnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(EnemyState state)
+    protected override void SetState(OldEnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(EnemyState state)
+    protected override void PlayState(OldEnemyState state)
     {
         base.PlayState(state);
     }
@@ -54,8 +54,8 @@ public class Slime_Moss : Enemy
         {
             yield return null;
             
-            SetState(EnemyState.Attack);
-            SetState(EnemyState.Default);
+            SetState(OldEnemyState.Attack);
+            SetState(OldEnemyState.Default);
 
             yield return base.LifeTime();
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime_Fire : Enemy, IDamagable
+public class Slime_Fire : OldEnemy, IDamagable
 {
     private readonly float chaseDistance = 5f;
     private readonly float attackDistance = 1f;
@@ -12,18 +12,18 @@ public class Slime_Fire : Enemy, IDamagable
 
     protected override void Awake()
     {
-        dicState[EnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
+        dicState[OldEnemyState.Default] = gameObject.AddComponent<Idle_Patrol>();
 
 
         chase = gameObject.AddComponent<Move_Chase>();
 
-        dicState[EnemyState.Move] = chase;
+        dicState[OldEnemyState.Move] = chase;
 
         attack = gameObject.AddComponent<Attack_Fire>();
 
-        dicState[EnemyState.Attack] = attack;
+        dicState[OldEnemyState.Attack] = attack;
 
-        dicState[EnemyState.Die] = gameObject.AddComponent<Die_Default>();
+        dicState[OldEnemyState.Die] = gameObject.AddComponent<Die_Default>();
 
         base.Awake();
     }
@@ -37,17 +37,17 @@ public class Slime_Fire : Enemy, IDamagable
         base.OnEnable();
     }
 
-    protected override void SetDefaultState(EnemyState state)
+    protected override void SetDefaultState(OldEnemyState state)
     {
         base.SetDefaultState(state);
     }
 
-    protected override void SetState(EnemyState state)
+    protected override void SetState(OldEnemyState state)
     {
         base.SetState(state);
     }
 
-    protected override void PlayState(EnemyState state)
+    protected override void PlayState(OldEnemyState state)
     {
         base.PlayState(state);
     }
@@ -70,19 +70,19 @@ public class Slime_Fire : Enemy, IDamagable
             if(dist < chaseDistance)
             {
                 
-                SetState(EnemyState.Move);
+                SetState(OldEnemyState.Move);
                 
 
                 if(dist < attackDistance)
                 {
-                    SetState(EnemyState.Attack);
+                    SetState(OldEnemyState.Attack);
                 }
 
                 
             }
             else
             {
-                SetState(EnemyState.Default);
+                SetState(OldEnemyState.Default);
             }
 
             

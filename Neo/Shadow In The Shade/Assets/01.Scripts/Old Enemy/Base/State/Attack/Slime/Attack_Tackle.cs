@@ -8,7 +8,7 @@ public class Attack_Tackle : MonoBehaviour, IState
 {
     public bool canAttack;
 
-    Enemy enemy;
+    OldEnemy enemy;
     ITacklable tacklable;
 
     //int originLayer;
@@ -29,7 +29,7 @@ public class Attack_Tackle : MonoBehaviour, IState
     {
         if (enemy == null)
         {
-            enemy = GetComponentInParent<Enemy>();
+            enemy = GetComponentInParent<OldEnemy>();
             enemy.OnReset.AddListener(AttackReset);
         }
 

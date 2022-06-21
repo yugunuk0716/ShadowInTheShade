@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack_Fire : MonoBehaviour, IState
 {
-    Enemy enemy;
+    OldEnemy enemy;
     //private GameObject dieParticle;
     FireParticle obj;
 
@@ -17,7 +17,7 @@ public class Attack_Fire : MonoBehaviour, IState
 
         if (enemy == null)
         {
-            enemy = GetComponentInParent<Enemy>();
+            enemy = GetComponentInParent<OldEnemy>();
         }
 
        

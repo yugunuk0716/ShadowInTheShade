@@ -28,7 +28,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
     public EnemyDataSO data;
     private List<EnemyDataSO> canEliteList = new List<EnemyDataSO>();
-    private Enemy enemy;
+    private OldEnemy enemy;
 
     public bool isSpawned = false;
 
@@ -68,12 +68,12 @@ public class EnemySpawnPoint : MonoBehaviour
         if (isElite)
         {
             
-            enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count)].enemyName) as Enemy;
+            enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count)].enemyName) as OldEnemy;
             enemy.SetElite();
         }
         else
         {
-            enemy = PoolManager.Instance.Pop(data.enemyName) as Enemy;
+            enemy = PoolManager.Instance.Pop(data.enemyName) as OldEnemy;
             enemy.SetNomal();
         }
 
