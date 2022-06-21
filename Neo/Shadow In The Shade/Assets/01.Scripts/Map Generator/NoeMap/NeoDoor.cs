@@ -8,9 +8,10 @@ public enum RoomType
     ItemNormal,//아이템방 - 가장 기본적인 방, 몹의 수가 적당함
     ItemHard,//아이템방 - 가장 기본적인 방, 몹의 수가 많음
     Shop,//상점 - 상점 방(한번 이용하면 닫힘)
-    Rebirth,//환생방 - 들가면 바로 환생
     Chest,//상자방 - 도전 과제 깨면 상자 받을 수 있는 방 혹은 중간보스방이 될 예정
     Boss,//보스 - 가장 마지막
+    Rebirth,//환생방 - 들가면 바로 환생
+    Turorial,//튜토리얼 때만 쓰는 방
 }
 
 public class NeoDoor : Interactable
@@ -18,6 +19,7 @@ public class NeoDoor : Interactable
     public NeoDoor pairDoor;
     public SpriteRenderer sr;
 
+    private RoomType curRoomType;
     public bool isOpened;
     public bool isTutorial;
 
@@ -33,7 +35,10 @@ public class NeoDoor : Interactable
         StageManager.Instance.onBattleEnd.AddListener(() =>
         {
             isOpened = true;
-            sr.sprite = curDoorData.openedDoor;
+            if (curDoorData != null) 
+            {
+                sr.sprite = curDoorData.openedDoor;
+            }
         });
 
         GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
@@ -54,6 +59,8 @@ public class NeoDoor : Interactable
     {
         if (collision.CompareTag("Player"))
         {
+            if (!isOpened)
+                return;
             base.OnTriggerEnter2D(collision);
         }
     }
@@ -66,8 +73,19 @@ public class NeoDoor : Interactable
 
     public void SetDoor(RoomType rt)
     {
-        curDoorData = Resources.Load<DoorSO>($"Door/{rt}");
-        sr.sprite = curDoorData.closedDoor;
+        if (curDoorData == null)
+        {
+            curDoorData = Resources.Load<DoorSO>($"Door/{rt}");
+        }
+        sr.sprite = isOpened ? curDoorData.openedDoor : curDoorData.closedDoor;
+        curRoomType = rt;
+
+    }
+
+    public void SetDoor(bool isClear)
+    {
+        isOpened = isClear;
+        SetDoor(curRoomType);
     }
 
     public override void Use(GameObject target)
@@ -77,19 +95,36 @@ public class NeoDoor : Interactable
             print("오픈 실패");
             return;
         }
-        if (isTutorial)
+
+        UIManager.Instance.CloseInteractableGuideImage();
+
+
+        if (NeoRoomManager.instance.doorList.Count > 0)
         {
-            SetDoor(NeoRoomManager.instance.LoadNextRoom("Tutorial"));
+            NeoRoomManager.instance.doorList.ForEach(door => PoolManager.Instance.Push(door));
         }
         else
         {
-            SetDoor(NeoRoomManager.instance.LoadNextRoom());
+            PoolManager.Instance.Push(this);
+            if (pairDoor != null)
+            {
+                PoolManager.Instance.Push(pairDoor);
+            }
         }
-        PoolManager.Instance.Push(this);
-        if(pairDoor != null)
+
+        if (isTutorial)
         {
-            PoolManager.Instance.Push(pairDoor); 
+            NeoRoomManager.instance.LoadRoom("Tutorial");
         }
+        else
+        {
+            NeoRoomManager.instance.LoadRoom(curRoomType);
+
+        }
+
+        StageManager.Instance.UseDoor();
+        
+     
         used = true;
     }
 
@@ -98,5 +133,7 @@ public class NeoDoor : Interactable
         used = false;
         transform.localScale = new Vector3(3.5f, 4f);
         pairDoor = null;
+        curDoorData = null;
+        isTutorial = false;
     }
 }
