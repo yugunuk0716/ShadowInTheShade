@@ -13,6 +13,8 @@ public struct ItemTable
     public float epicPercentage;
     public float legendaryPercentage;
 
+    public Dictionary<Rarity, float> percentDictionary;
+
     public ItemTable(Rarity rarity, float nonePercentage,  float normalPercentage, float rarePercentage, float epicPercentage, float legendaryPercentage)
     {
         this.rarity = rarity;
@@ -21,6 +23,11 @@ public struct ItemTable
         this.rarePercentage = rarePercentage;
         this.epicPercentage = epicPercentage;
         this.legendaryPercentage = legendaryPercentage;
+        percentDictionary = new Dictionary<Rarity, float>();
+        percentDictionary.Add(Rarity.Normal, normalPercentage);
+        percentDictionary.Add(Rarity.Rare, rarePercentage);
+        percentDictionary.Add(Rarity.Unique, epicPercentage);
+        percentDictionary.Add(Rarity.Legendary, legendaryPercentage);
     }
 
 }
@@ -47,6 +54,8 @@ public class Chest : Interactable
     private ItemTable rareBox = new ItemTable(Rarity.Rare, 20f, 25f, 55f, 0f, 0f);
     private ItemTable epicBox = new ItemTable(Rarity.Unique, 9f, 5f, 15f, 70f, 1f);
     private ItemTable legendaryBox = new ItemTable(Rarity.Legendary, 0f, 20f, 40f, 25f, 15f);
+
+    //수식 = chestPercentageDictionary[rarity].percentDictionary[(int)i] i는 이제 포문으로 노말부터 레전더리까지 확률 체크해 주는게 맞을듯?
 
     private Dictionary<Rarity, ItemTable> chestPercentageDictionary = new Dictionary<Rarity, ItemTable>();
 
@@ -100,6 +109,9 @@ public class Chest : Interactable
         boxCol.enabled = false;
         //여기서 아이템 받아와서 드랍
         Item item = PoolManager.Instance.Pop("Item Temp") as Item;
+
+        int randIdx = Random.Range(0, 100);
+
         if (StageManager.Instance.currentRoom.obstacles != null)
         {
             StageManager.Instance.currentRoom.obstacles.SetActive(false);
@@ -108,8 +120,42 @@ public class Chest : Interactable
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
         item.transform.DOMove(transform.position - new Vector3(1, 1), 1f);
         item.canUse = true;
-        item.Init(rarity);
-        Invoke(nameof(PushChestInPool), 1f);
+       
+
+        if (randIdx <= chestPercentageDictionary[rarity].nonePercentage) 
+        {
+            //템 드랍 X
+            PoolManager.Instance.Push(item);
+            print("No");
+        }
+        else if (chestPercentageDictionary[rarity].nonePercentage < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Normal])
+        {
+            //노말 아이템 드랍
+            item.Init(Rarity.Normal);
+            print("노");
+        }
+        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Normal] < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Rare])
+        {
+            //레어 아이템 드랍
+            item.Init(Rarity.Rare);
+            print("레");
+        }
+        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Rare] < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Unique])
+        {
+            //유니크 아이템 드랍
+            item.Init(Rarity.Unique);
+            print("유");
+        }
+        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Unique] < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Legendary])
+        {
+            //레전더리 아이템 드랍
+            item.Init(Rarity.Legendary);
+            print("레게노");
+        }
+
+
+       
+        Invoke(nameof(PushChestInPool), .5f);
     }
 
 
