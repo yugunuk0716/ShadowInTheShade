@@ -15,19 +15,52 @@ public struct ItemTable
 
     public Dictionary<Rarity, float> percentDictionary;
 
-    public ItemTable(Rarity rarity, float nonePercentage,  float normalPercentage, float rarePercentage, float epicPercentage, float legendaryPercentage)
+    private Dictionary<Rarity, float> correctionNumberDictionary;
+
+
+    public float GetPercent(Rarity rarity)
     {
-        this.rarity = rarity;
-        this.nonePercentage = nonePercentage;
-        this.normalPercentage = normalPercentage;
-        this.rarePercentage = rarePercentage;
-        this.epicPercentage = epicPercentage;
-        this.legendaryPercentage = legendaryPercentage;
+        if (rarity.Equals(Rarity.None))
+        {
+            return nonePercentage;
+        }
+        return percentDictionary[rarity];// + StageManager.Instance.rebirthCount * correctionNumberDictionary[rarity];
+    }
+    
+
+    public ItemTable(Rarity rarity,  float normalPercentage, float rarePercentage, float epicPercentage, float legendaryPercentage)
+    {
         percentDictionary = new Dictionary<Rarity, float>();
-        percentDictionary.Add(Rarity.Normal, normalPercentage);
-        percentDictionary.Add(Rarity.Rare, rarePercentage);
-        percentDictionary.Add(Rarity.Unique, epicPercentage);
-        percentDictionary.Add(Rarity.Legendary, legendaryPercentage);
+        correctionNumberDictionary = new Dictionary<Rarity, float>();
+
+        correctionNumberDictionary.Add(Rarity.Normal, 0f);
+        correctionNumberDictionary.Add(Rarity.Rare, -5f);
+        correctionNumberDictionary.Add(Rarity.Unique, 0f);
+        correctionNumberDictionary.Add(Rarity.Legendary, 0.3f);
+
+        float normal = normalPercentage + StageManager.Instance.rebirthCount * correctionNumberDictionary[Rarity.Normal];
+        float rare = rarePercentage + StageManager.Instance.rebirthCount * correctionNumberDictionary[Rarity.Rare];
+        float epic = epicPercentage + StageManager.Instance.rebirthCount * correctionNumberDictionary[Rarity.Unique];
+        float legendary = legendaryPercentage + StageManager.Instance.rebirthCount * correctionNumberDictionary[Rarity.Legendary];
+
+        this.rarity = rarity;
+        nonePercentage = 100f - (normal + rare + epic + legendary);
+        //Debug.Log(nonePercentage);
+        this.normalPercentage = nonePercentage + normal;
+        //Debug.Log(this.normalPercentage);
+        this.rarePercentage = this.normalPercentage + rare;
+        //Debug.Log(this.rarePercentage);
+        this.epicPercentage = this.rarePercentage + epic;
+        //Debug.Log($"{this.epicPercentage }            {epicPercentage}");
+        this.legendaryPercentage = this.epicPercentage + legendary;
+        //Debug.Log(this.legendaryPercentage);
+
+
+        percentDictionary.Add(Rarity.Normal, this.normalPercentage);
+        percentDictionary.Add(Rarity.Rare, this.rarePercentage);
+        percentDictionary.Add(Rarity.Unique, this.epicPercentage);
+        percentDictionary.Add(Rarity.Legendary, this.legendaryPercentage);
+
     }
 
 }
@@ -48,12 +81,12 @@ public class Chest : Interactable
     //환생 보정치
     //기본 확률 테이블
 
-    private Dictionary<Rarity, float> correctionNumberDictionary = new Dictionary<Rarity, float>();
-    
-    private ItemTable normalBox = new ItemTable(Rarity.Normal, 30f, 50f, 20f, 0f, 0f);
-    private ItemTable rareBox = new ItemTable(Rarity.Rare, 20f, 25f, 55f, 0f, 0f);
-    private ItemTable epicBox = new ItemTable(Rarity.Unique, 9f, 5f, 15f, 70f, 1f);
-    private ItemTable legendaryBox = new ItemTable(Rarity.Legendary, 0f, 20f, 40f, 25f, 15f);
+
+    private ItemTable normalBox;
+    private ItemTable rareBox;
+    private ItemTable epicBox;
+    private ItemTable legendaryBox;
+
 
     //수식 = chestPercentageDictionary[rarity].percentDictionary[(int)i] i는 이제 포문으로 노말부터 레전더리까지 확률 체크해 주는게 맞을듯?
 
@@ -66,13 +99,16 @@ public class Chest : Interactable
         rigid = GetComponent<Rigidbody2D>();
         canUse = false;
         canUse = true;
+    }
 
-        correctionNumberDictionary.Add(Rarity.Normal, 0f);
-        correctionNumberDictionary.Add(Rarity.Rare, -5f);
-        correctionNumberDictionary.Add(Rarity.Unique, 0f);
-        correctionNumberDictionary.Add(Rarity.Legendary, 0.3f);
-
-
+    protected void OnEnable()
+    {
+        base.Start();
+        normalBox = new ItemTable(Rarity.Normal, 50f, 20f, 0f, 0f);
+        rareBox = new ItemTable(Rarity.Rare, 25f, 55f, 0f, 0f);
+        epicBox = new ItemTable(Rarity.Unique, 5f, 15f, 70f, 1f);
+        legendaryBox = new ItemTable(Rarity.Legendary, 20f, 40f, 25f, 15f);
+        chestPercentageDictionary.Clear();
         chestPercentageDictionary.Add(Rarity.Normal, normalBox);
         chestPercentageDictionary.Add(Rarity.Rare, rareBox);
         chestPercentageDictionary.Add(Rarity.Unique, epicBox);
@@ -120,33 +156,42 @@ public class Chest : Interactable
         item.transform.position = transform.position - new Vector3(.1f, 0, 0);
         item.transform.DOMove(transform.position - new Vector3(1, 1), 1f);
         item.canUse = true;
-       
 
-        if (randIdx <= chestPercentageDictionary[rarity].nonePercentage) 
+
+
+        print(randIdx);
+        print(rarity);
+        print(chestPercentageDictionary[rarity].GetPercent(Rarity.None));
+        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Normal));
+        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Rare));
+        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Unique));
+        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Legendary));
+
+        if (randIdx < chestPercentageDictionary[rarity].GetPercent(Rarity.None)) 
         {
             //템 드랍 X
             PoolManager.Instance.Push(item);
             print("No");
         }
-        else if (chestPercentageDictionary[rarity].nonePercentage < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Normal])
+        else if (chestPercentageDictionary[rarity].GetPercent(Rarity.None) <= randIdx && randIdx < chestPercentageDictionary[rarity].GetPercent(Rarity.Rare))
         {
             //노말 아이템 드랍
             item.Init(Rarity.Normal);
             print("노");
         }
-        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Normal] < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Rare])
+        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Normal] <= randIdx && randIdx < chestPercentageDictionary[rarity].GetPercent(Rarity.Unique))
         {
             //레어 아이템 드랍
             item.Init(Rarity.Rare);
             print("레");
         }
-        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Rare] < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Unique])
+        else if (chestPercentageDictionary[rarity].GetPercent(Rarity.Rare) <= randIdx && randIdx < chestPercentageDictionary[rarity].GetPercent(Rarity.Legendary))
         {
             //유니크 아이템 드랍
             item.Init(Rarity.Unique);
             print("유");
         }
-        else if (chestPercentageDictionary[rarity].percentDictionary[Rarity.Unique] < randIdx && randIdx <= chestPercentageDictionary[rarity].percentDictionary[Rarity.Legendary])
+        else //if (chestPercentageDictionary[rarity].GetPercent(Rarity.Unique) <= randIdx && randIdx < chestPercentageDictionary[rarity].GetPercent(Rarity.Legendary))
         {
             //레전더리 아이템 드랍
             item.Init(Rarity.Legendary);

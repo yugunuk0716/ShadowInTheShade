@@ -192,7 +192,7 @@ public class NeoDoor : Interactable
             rarity = Rarity.Rare;
         }
 
-
+        StageManager.Instance.rebirthCount++;
        
         Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
         c.Popup(StageManager.Instance.currentRoom.chestPointTrm.position);
