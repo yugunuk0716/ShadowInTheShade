@@ -181,7 +181,7 @@ public class PlayerDash : MonoBehaviour
     {
         isCharging = false;
     }
-   
+
     public IEnumerator Dashing(float dashPower)
     {
         yield return new WaitForEndOfFrame();
@@ -203,7 +203,7 @@ public class PlayerDash : MonoBehaviour
         {
             ast = 1.5f;
         }
-        else if(dist > 13.3f)
+        else if (dist > 13.3f)
         {
             ast = 2.5f;
         }
@@ -219,7 +219,7 @@ public class PlayerDash : MonoBehaviour
         {
             ast = 7f;
         }
-        else if(dist > 13f)
+        else if (dist > 13f)
         {
             ast = 10f;
         }
@@ -227,7 +227,7 @@ public class PlayerDash : MonoBehaviour
 
         GameManager.Instance.onPlayerDash?.Invoke();
 
-        rigd.AddForce((mousePos - transform.position).normalized *  GameManager.Instance.playerSO.moveStats.DSP * dashPower * ast, ForceMode2D.Impulse);
+        rigd.AddForce((mousePos - transform.position).normalized * GameManager.Instance.playerSO.moveStats.DSP * dashPower * ast, ForceMode2D.Impulse);
         playerAnimation.CallShadowDashAnime(dashPower >= 2.5 ? 2 : dashPower >= 1.5f ? 1 : 0);
 
 
@@ -240,6 +240,38 @@ public class PlayerDash : MonoBehaviour
         dashCollider.isDashing = false;
         GameManager.Instance.playerSO.playerDashState = PlayerDashState.Default;
 
+        if (GameManager.Instance.playerSO.playerStates.Equals(PlayerStates.Human))
+        {
+            //  SoundManager.Instance.GetAudioSource(dashAudioClip, false, SoundManager.Instance.BaseVolume).Play();
+            float time = 0;
+            float afterTime = 0;
+            float targetTime = Random.Range(0.02f, 0.06f);
+
+            while (isDash)
+            {
+                time += Time.deltaTime;
+                afterTime += Time.deltaTime;
+
+                if (afterTime >= targetTime)
+                {
+                    //AfterImage ai = PoolManager.Instance.Pop("AfterImage") as AfterImage;
+                    //if (ai != null && sr != null)
+                    //{
+                    //    ai.SetSprite(sr.sprite, transform.position);
+                    //}
+
+                    targetTime = Random.Range(0.02f, 0.06f);
+                    afterTime = 0;
+                }
+
+
+                if (time >= dashTime)
+                {
+                    isDash = false;
+                }
+                yield return null;
+            }
+        }
         gameObject.layer = 7;
         yield return new WaitForSeconds(.3f);
         gameObject.layer = 3;
