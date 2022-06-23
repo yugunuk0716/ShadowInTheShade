@@ -68,7 +68,7 @@ public class EnemySpawnPoint : MonoBehaviour
         if (isElite)
         {
             
-            enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count)].enemyName) as OldEnemy;
+            enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count-1)].enemyName) as OldEnemy;
             enemy.SetElite();
         }
         else
@@ -81,7 +81,7 @@ public class EnemySpawnPoint : MonoBehaviour
         }
 
         StageManager.Instance.curStageEnemys.Add(enemy);
-        StageManager.Instance.ClearCheck();
+        //StageManager.Instance.ClearCheck();
 
         Anim.SetTrigger("spawn");
     }

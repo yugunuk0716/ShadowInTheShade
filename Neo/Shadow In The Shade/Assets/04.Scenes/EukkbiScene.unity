@@ -1690,67 +1690,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450827740}
   m_CullTransparentMesh: 1
---- !u!1001 &453508026
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.51
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717324, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717361, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_Name
-      value: New Bone Slime
-      objectReference: {fileID: 0}
-    - target: {fileID: 2582680548563717361, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ce2a09192247cfe48b86620c86003d3d, type: 3}
 --- !u!1 &457028632
 GameObject:
   m_ObjectHideFlags: 0
@@ -7530,7 +7469,7 @@ Animator:
   m_GameObject: {fileID: 1571949942}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 371f65094ba0a0a4eae2756ba2a89928, type: 2}
+  m_Controller: {fileID: 9100000, guid: ebe60e10924f9154faad4300e72c436c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

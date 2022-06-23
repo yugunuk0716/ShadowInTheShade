@@ -90,7 +90,7 @@ public class NeoDoor : Interactable
 
     public override void Use(GameObject target)
     {
-        if (used || !isOpened)
+        if (!isOpened)
         {
             print("¿ÀÇÂ ½ÇÆÐ");
             return;
@@ -101,7 +101,6 @@ public class NeoDoor : Interactable
         if (curRoomType.Equals(RoomType.Rebirth))
         {
             Rebirth();
-            used = true;
 
             if (NeoRoomManager.instance.doorList.Count > 0)
             {

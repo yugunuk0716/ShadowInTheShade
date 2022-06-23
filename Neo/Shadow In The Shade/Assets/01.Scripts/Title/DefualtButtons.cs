@@ -11,6 +11,8 @@ public class DefualtButtons : MonoBehaviour
     private List<Button> buttons = new List<Button>();
     public List<Vector3> originPos = new List<Vector3>();
 
+    public Text text;
+
     private void Start()
     {
         buttons = GetComponentsInChildren<Button>().ToList();
@@ -22,7 +24,19 @@ public class DefualtButtons : MonoBehaviour
         }
 
         StartCoroutine(SettingButtons());
+
+        text.DOFade(0f, 1.5f).SetLoops(-1, LoopType.Yoyo);
     }
+
+
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            LoadInGameScene();
+        }
+    }
+
 
     public IEnumerator SettingButtons()
     {
