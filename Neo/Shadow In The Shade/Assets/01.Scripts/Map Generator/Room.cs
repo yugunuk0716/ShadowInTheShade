@@ -55,7 +55,7 @@ public class Room : PoolableMono
 
     public void SpawnEnemies()
     {
-         
+
         foreach (EnemySpawnPoint esp in StageManager.Instance.CurEnemySPList)
         {
             if(!esp.isSpawned && esp.phaseCount == phaseCount)

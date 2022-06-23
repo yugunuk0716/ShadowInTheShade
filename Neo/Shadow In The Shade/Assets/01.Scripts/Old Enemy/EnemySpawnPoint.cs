@@ -74,10 +74,14 @@ public class EnemySpawnPoint : MonoBehaviour
         else
         {
             enemy = PoolManager.Instance.Pop(data.enemyName) as OldEnemy;
+            enemy.transform.SetParent(this.transform);
+            enemy.transform.position = Vector3.zero;
+            enemy.enemyData = data;
             enemy.SetNomal();
         }
 
         StageManager.Instance.curStageEnemys.Add(enemy);
+        StageManager.Instance.ClearCheck();
 
         Anim.SetTrigger("spawn");
     }

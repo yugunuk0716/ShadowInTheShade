@@ -9,7 +9,8 @@ public enum Rarity
     Normal,
     Rare,
     Unique,
-    Legendary
+    Legendary,
+    None
 }
 
 public class ItemManager : MonoBehaviour
