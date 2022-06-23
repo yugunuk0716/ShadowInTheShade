@@ -1,7 +1,34 @@
 fileFormatVersion: 2
-guid: 2da772b7723e8b645a761fc89ac6e506
+guid: ba16d63b848612242b508349bb8ab4ce
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3135257055133867169
+    second: human_mapTiles_stage1_v3_1
+  - first:
+      213: 4700825242475271193
+    second: human_mapTiles_stage1_v3_2
+  - first:
+      213: 4475703722084166790
+    second: human_mapTiles_stage1_v3_4
+  - first:
+      213: -4049582339660861358
+    second: human_mapTiles_stage1_v3_5
+  - first:
+      213: -5141085102108977203
+    second: human_mapTiles_stage1_v3_6
+  - first:
+      213: 9101067727644326933
+    second: human_mapTiles_stage1_v3_7
+  - first:
+      213: -7944458492760779195
+    second: human_mapTiles_stage1_v3_8
+  - first:
+      213: 4486469102811288627
+    second: human_mapTiles_stage1_v3_10
+  - first:
+      213: -3821964622571546121
+    second: human_mapTiles_stage1_v3_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +59,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -41,12 +68,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -68,7 +95,31 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -77,7 +128,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 176
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d2ed7b868eddc200800000000000000
+      internalID: 202062227748807381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_3
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 176
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ffd281f9d493a790800000000000000
+      internalID: -7520003288997896207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_4
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 133
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c68ba62d4ec1e30800000000000000
+      internalID: 4475703722084166790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_5
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 133
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 250b1d3515efcc7c0800000000000000
+      internalID: -4049582339660861358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_6
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 133
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc7ddb8965237a8b0800000000000000
+      internalID: -5141085102108977203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_7
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 133
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51cf207f0ec7d4e70800000000000000
+      internalID: 9101067727644326933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_8
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 133
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5469826a71d9fb190800000000000000
+      internalID: -7944458492760779195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_10
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33415d0f0e3234e30800000000000000
+      internalID: 4486469102811288627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: human_mapTiles_stage1_v3_11
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f95387ec67a5fac0800000000000000
+      internalID: -3821964622571546121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
