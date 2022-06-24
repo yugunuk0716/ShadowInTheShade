@@ -68,8 +68,8 @@ public class EnemySpawnPoint : MonoBehaviour
         if (isElite)
         {
             
-            enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count-1)].enemyName) as OldEnemy;
-            enemy.SetElite();
+            //enemy = PoolManager.Instance.Pop(canEliteList[Random.Range(0, canEliteList.Count-1)].enemyName) as OldEnemy;
+            //enemy.SetElite();
         }
         else
         {

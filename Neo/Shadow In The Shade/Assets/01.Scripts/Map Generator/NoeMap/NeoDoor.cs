@@ -138,7 +138,7 @@ public class NeoDoor : Interactable
         }
         else
         {
-            NeoRoomManager.instance.LoadRoom(curRoomType);
+            NeoRoomManager.instance.LoadRoom(RoomType.ItemHard);
 
         }
 

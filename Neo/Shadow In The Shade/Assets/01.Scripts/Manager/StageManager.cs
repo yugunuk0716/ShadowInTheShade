@@ -31,6 +31,8 @@ public class StageManager : MonoBehaviour
 
     public int rebirthCount = 2;
 
+    private Chest chest;
+
     private Color shadowColor = new Color(60 / 255f, 60 / 255f, 60 / 255f);
 
     public List<OldEnemy> curStageEnemys = new List<OldEnemy>();
@@ -73,7 +75,12 @@ public class StageManager : MonoBehaviour
     public void EnterRoom()
     {
         print("ø£≈Õ∑Î");
+        if(chest != null)
+        {
+            PoolManager.Instance.Push(chest);
+        }
         CurEnemySPList.Clear();
+        EffectManager.Instance.SetCamBound(currentRoom.camBound);
         currentRoom.currentESPList = currentRoom.GetComponentsInChildren<EnemySpawnPoint>().ToList();
         currentRoom.EnterRoom();
         if (!currentRoom.isClear)
@@ -147,8 +154,8 @@ public class StageManager : MonoBehaviour
 
             if (canDrop)
             {
-                Chest c = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
-                c.Popup(currentRoom.chestPointTrm.position);
+                chest = PoolManager.Instance.Pop($"{rarity} Chest") as Chest;
+                chest.Popup(currentRoom.chestPointTrm.position);
             }
         }
         isBattle = false;
