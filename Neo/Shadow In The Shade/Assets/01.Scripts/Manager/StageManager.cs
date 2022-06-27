@@ -74,7 +74,7 @@ public class StageManager : MonoBehaviour
 
     public void EnterRoom()
     {
-        print("ø£≈Õ∑Î");
+        //print("ø£≈Õ∑Î");
         if(chest != null)
         {
             PoolManager.Instance.Push(chest);

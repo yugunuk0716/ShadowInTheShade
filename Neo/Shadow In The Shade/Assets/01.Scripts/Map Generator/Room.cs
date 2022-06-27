@@ -29,10 +29,10 @@ public class Room : PoolableMono
 
     private void Start()
     {
-        GameManager.Instance.onPlayerTypeChanged.AddListener(() =>
+        GameManager.Instance.onPlayerChangeType.AddListener(() =>
         {
+            defaultMap.SetActive(PlayerStates.Human.Equals(GameManager.Instance.playerSO.playerStates));
             shadowMap.SetActive(PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
-            defaultMap.SetActive(!PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates));
         });
 
     }
@@ -76,7 +76,10 @@ public class Room : PoolableMono
         }
         //StageManager.Instance.curEnemySPList.Clear();
         phaseCount = 0;
-        isClear = false;
+        if (!gameObject.name.Contains("Start"))
+        {
+            isClear = false;
+        }
         if(obstacles != null)
         {
             obstacles.SetActive(true);

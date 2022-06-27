@@ -6228,7 +6228,7 @@ MonoBehaviour:
   obstacles: {fileID: 0}
   shadowMap: {fileID: 1942740909387496826}
   defaultMap: {fileID: 1942740908125677696}
-  isClear: 0
+  isClear: 1
   currentESPList: []
 --- !u!1 &1942740908445760236
 GameObject:
@@ -16843,6 +16843,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2163692980875939944}
     - target: {fileID: 9079640363485816280, guid: 01d0be20d5da442479187420641a9058, type: 3}
+      propertyPath: isNotPool
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079640363485816280, guid: 01d0be20d5da442479187420641a9058, type: 3}
       propertyPath: isTutorial
       value: 1
       objectReference: {fileID: 0}
@@ -16939,6 +16943,10 @@ PrefabInstance:
       propertyPath: pairDoor
       value: 
       objectReference: {fileID: 3266564775492174342}
+    - target: {fileID: 9079640363485816280, guid: 01d0be20d5da442479187420641a9058, type: 3}
+      propertyPath: isNotPool
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9079640363485816281, guid: 01d0be20d5da442479187420641a9058, type: 3}
       propertyPath: m_Name
       value: Maybe Door
