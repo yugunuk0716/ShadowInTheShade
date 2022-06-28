@@ -188,7 +188,7 @@ public class OldEnemy : PoolableMono, IAgent, IDamagable
         GameManager.Instance.onPlayerTypeChanged.AddListener(() => 
         {
             isShadow = PlayerStates.Shadow.Equals(GameManager.Instance.playerSO.playerStates);
-            //MyRend.enabled = !isShadow;
+            MyRend.enabled = !isShadow;
             Anim.SetBool("isShadow", isShadow);
             gameObject.layer = 6;
         });

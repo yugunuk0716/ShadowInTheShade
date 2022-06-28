@@ -159,13 +159,13 @@ public class Chest : Interactable
 
 
 
-        print(randIdx);
-        print(rarity);
-        print(chestPercentageDictionary[rarity].GetPercent(Rarity.None));
-        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Normal));
-        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Rare));
-        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Unique));
-        print(chestPercentageDictionary[rarity].GetPercent(Rarity.Legendary));
+        //print(randIdx);
+        //print(rarity);
+        //print(chestPercentageDictionary[rarity].GetPercent(Rarity.None));
+        //print(chestPercentageDictionary[rarity].GetPercent(Rarity.Normal));
+        //print(chestPercentageDictionary[rarity].GetPercent(Rarity.Rare));
+        //print(chestPercentageDictionary[rarity].GetPercent(Rarity.Unique));
+        //print(chestPercentageDictionary[rarity].GetPercent(Rarity.Legendary));
 
         if (randIdx < chestPercentageDictionary[rarity].GetPercent(Rarity.None)) 
         {
@@ -199,6 +199,7 @@ public class Chest : Interactable
         }
 
 
+        
        
         Invoke(nameof(PushChestInPool), .5f);
     }

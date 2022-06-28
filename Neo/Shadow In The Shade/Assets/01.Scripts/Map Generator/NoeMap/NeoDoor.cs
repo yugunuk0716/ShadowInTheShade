@@ -22,6 +22,7 @@ public class NeoDoor : Interactable
     public RoomType curRoomType;
     public bool isOpened;
     public bool isTutorial;
+    public bool isNotPool;
 
     private DoorSO curDoorData;
 
@@ -90,7 +91,7 @@ public class NeoDoor : Interactable
 
     public override void Use(GameObject target)
     {
-        if (used || !isOpened)
+        if (!isOpened)
         {
             print("¿ÀÇÂ ½ÇÆÐ");
             return;
@@ -100,16 +101,26 @@ public class NeoDoor : Interactable
 
         if (curRoomType.Equals(RoomType.Rebirth))
         {
+            NeoRoomManager.instance.isRebirth = true;
             Rebirth();
-            used = true;
 
             if (NeoRoomManager.instance.doorList.Count > 0)
             {
-                NeoRoomManager.instance.doorList.ForEach(door => PoolManager.Instance.Push(door));
+                NeoRoomManager.instance.doorList.ForEach(door => 
+                { 
+                    if (!door.isNotPool) 
+                    { 
+                        PoolManager.Instance.Push(door);
+                    } 
+                });
+                NeoRoomManager.instance.doorList.Clear();
             }
             else
             {
-                PoolManager.Instance.Push(this);
+                if (!isNotPool)
+                {
+                    PoolManager.Instance.Push(this);
+                }
                 if (pairDoor != null)
                 {
                     PoolManager.Instance.Push(pairDoor);
@@ -126,10 +137,17 @@ public class NeoDoor : Interactable
         }
         else
         {
-            PoolManager.Instance.Push(this);
+            if (!isNotPool)
+            {
+                PoolManager.Instance.Push(this);
+            }
+
             if (pairDoor != null)
             {
-                PoolManager.Instance.Push(pairDoor);
+                if (!pairDoor.isNotPool)
+                {
+                    PoolManager.Instance.Push(pairDoor);
+                }
             }
         }
 
@@ -139,7 +157,7 @@ public class NeoDoor : Interactable
         }
         else
         {
-            NeoRoomManager.instance.LoadRoom(curRoomType);
+            NeoRoomManager.instance.LoadRoom(RoomType.ItemHard);
 
         }
 

@@ -37,6 +37,9 @@ public class NeoRoomManager : MonoBehaviour
     public int experiencedRoomCount = 0;
     private bool isExperiencedShop = false;
 
+    public bool isRebirth = false;
+    public bool isExperiencedStart = false;
+
     private void Awake()
     {
         instance = this;
@@ -67,33 +70,17 @@ public class NeoRoomManager : MonoBehaviour
         int third = Random.Range(0, 3);
         int fourth = 0;
         //if (!isExperiencedShop)
-        if (false)
+        if (GameManager.Instance.playerSO.ectStats.LEV >= 10 && !isRebirth)
         {
-            fourth = 3;
-            if (experiencedRoomCount == 10)
-            {
-                //보스방
-                //fiveth = 5;
-            }
-            else if (experiencedRoomCount == 5)
-            {
-                //상자방
-                //fiveth = 4;
-            }
+            fourth = 6;
+
         }
         else
         {
-            if (experiencedRoomCount == 10)
-            {
-                //보스방
-                fourth = 5;
-            }
-            else if (experiencedRoomCount == 5)
-            {
-                //상자방
-                //fourth = 4;
-            }
+            print("/>");
+            fourth = 0;
         }
+       
 
         return (first, second, third, fourth);
     }
@@ -101,8 +88,13 @@ public class NeoRoomManager : MonoBehaviour
 
     public void SpawnDoor()
     {
-       
+
         (int a, int b, int c, int d) = CalcDoorTypes();
+        if (isRebirth)
+        {
+            print("//.");
+            isRebirth = false;
+        }
         print($"{a}, {b}, {c}, {d}");
         NeoDoor nDoor = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
         nDoor.transform.position = StageManager.Instance.currentRoom.endPointTrm.position;
@@ -121,20 +113,19 @@ public class NeoRoomManager : MonoBehaviour
         nDoor3.gameObject.SetActive(false);
         if (d != 0)
         {
-            NeoDoor nDoor4 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-            nDoor4.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 5f;
-            nDoor4.SetDoor((RoomType)d);
-            doorList.Add(nDoor4);
-            nDoor4.gameObject.SetActive(false);
-
-            //if () //환생문 등장 조건 만족시
+            int idx = Random.Range(0, 2);
+            print(idx);
+            if (idx == 0)
             {
-                NeoDoor nDoor5 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
-                nDoor5.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.right * 5f;
-                nDoor5.SetDoor(RoomType.Rebirth);
-                doorList.Add(nDoor5);
-                nDoor5.gameObject.SetActive(false);
+                
+                NeoDoor nDoor4 = PoolManager.Instance.Pop("Maybe Door") as NeoDoor;
+                nDoor4.transform.position = StageManager.Instance.currentRoom.endPointTrm.position + Vector3.left * 5f;
+                nDoor4.SetDoor((RoomType)d);
+                doorList.Add(nDoor4);
+                nDoor4.gameObject.SetActive(false);
+
             }
+
         }
 
         doorList.ForEach(d => d.SetDoor(false));
@@ -168,16 +159,20 @@ public class NeoRoomManager : MonoBehaviour
 
     public void LoadRoom(string s)
     {
-        if (StageManager.Instance.currentRoom != null && !s.Contains("Start"))
+        if (StageManager.Instance.currentRoom != null && (!s.Contains("Start") || isExperiencedStart))
         {
             PoolManager.Instance.Push(StageManager.Instance.currentRoom);
             if (!s.Contains("Tutorial"))
             {
                 experiencedRoomCount++;
-                print(experiencedRoomCount);
+                //print(experiencedRoomCount);
                 SpawnDoor();
             }
-            
+
+        }
+        else
+        {
+            isExperiencedStart = true;
         }
 
         string roomName = $"{currentStageNames[stageIndex]} {s}";
