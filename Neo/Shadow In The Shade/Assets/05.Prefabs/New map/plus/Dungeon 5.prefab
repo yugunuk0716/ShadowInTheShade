@@ -113,7 +113,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916464689075119820}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.86, y: 0, z: 20.870775}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
@@ -8585,6 +8585,7 @@ GameObject:
   - component: {fileID: 1916464690040278145}
   - component: {fileID: 1916464690040278147}
   - component: {fileID: 1916464690040278146}
+  - component: {fileID: 3764900195142359187}
   m_Layer: 0
   m_Name: WallBottom
   m_TagString: Untagged
@@ -9638,6 +9639,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &3764900195142359187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916464690040278144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1916464690467344353
 GameObject:
   m_ObjectHideFlags: 0
@@ -19488,7 +19501,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21564,7 +21577,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21800,6 +21813,7 @@ GameObject:
   - component: {fileID: 4878480326421333589}
   - component: {fileID: 1670315564285218676}
   - component: {fileID: 3253968096190771360}
+  - component: {fileID: 4153187002269471294}
   m_Layer: 0
   m_Name: WallBottom
   m_TagString: Untagged
@@ -23196,7 +23210,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23225,6 +23239,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &4153187002269471294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049864772525731075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703b9636920f0dd4a87d2093b7867291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5615605188398556806
 GameObject:
   m_ObjectHideFlags: 0

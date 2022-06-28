@@ -82,6 +82,12 @@ public class Slime_Tuto : OldEnemy
     //    base.SetDisable();
     //}
 
+
+    public override void KnockBack(Vector2 direction, float power, float duration)
+    {
+        //base.KnockBack(direction, power, duration);
+    }
+
     public override IEnumerator Dead()
     {
         return base.Dead();

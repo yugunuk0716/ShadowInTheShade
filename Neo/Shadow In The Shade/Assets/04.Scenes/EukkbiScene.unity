@@ -2357,8 +2357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7df350654137d34880e49f813d2fe11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _freezeTimeDelay: 0.05
-  _unFreezeTimeDelay: 0.15
+  _freezeTimeDelay: 0.01
+  _unFreezeTimeDelay: 0.1
   _timeFreezeValue: 0.2
 --- !u!1001 &563534412
 PrefabInstance:
@@ -8207,6 +8207,8 @@ MonoBehaviour:
   stageIndex: 0
   tutoIndex: 0
   experiencedRoomCount: 0
+  isRebirth: 0
+  isExperiencedStart: 0
 --- !u!4 &1740095503
 Transform:
   m_ObjectHideFlags: 0
