@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     #region UI Popup
     public Transform popupParent;
     public OptionPopup optionPopupPrefab;
+    public MenuPopup menuPopupPrefab;
 
     public bool _isPopuped = false;
 
@@ -95,6 +96,7 @@ public class UIManager : MonoBehaviour
 
 
         popupDic.Add("option", Instantiate(optionPopupPrefab, popupParent));
+        popupDic.Add("menu", Instantiate(menuPopupPrefab, popupParent));
 
 
         GameManager.Instance.onPlayerDash.AddListener(() => 
@@ -120,9 +122,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        getTab = Input.GetKey(KeyCode.Tab);
 
-        DrawMiniMap(getTab);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -132,19 +132,11 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                OpenPopup("option");
+                OpenPopup("menu");
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            StartCoroutine(SetDashCool(3f));
-        }
-
-        //if (Input.GetKeyDown(KeyCode.J))
-        //{
-        //    StartFadeOut();
-        //}
+   
 
     }
 

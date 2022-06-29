@@ -88,11 +88,7 @@ public class ShadowAndHumanGauge : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            shadowGaugeAmount += 0.1f;
-            humanGaugeAmount -= 0.1f;
-        }
+     
 
         if (gaugeState.Equals(GaugeState.Shadow))
         {

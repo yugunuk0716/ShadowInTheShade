@@ -149,10 +149,7 @@ public class Player : MonoBehaviour, IDamagable
     {
         currentT = Time.time;
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            StageManager.Instance.StageClear();
-        }
+     
 
         if(currentT - lastHitT >= hitCool)
         {

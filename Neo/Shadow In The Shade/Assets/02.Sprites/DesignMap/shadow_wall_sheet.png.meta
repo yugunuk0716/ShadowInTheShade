@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: df910cc8b66969b4d940906368c79f08
+guid: 06a2a3c49d7d6bf4f826df1c82e772b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2680925685049582742
-    second: archer_wing_sheet_64x64_0
+      213: 2586643560614251491
+    second: shadow_wall_sheet_0
   - first:
-      213: -3288063729937491521
-    second: archer_wing_sheet_64x64_1
+      213: 5532294757028158628
+    second: shadow_wall_sheet_1
   - first:
-      213: -3285933195583319358
-    second: archer_wing_sheet_64x64_2
+      213: 9198534427705445835
+    second: shadow_wall_sheet_2
+  - first:
+      213: -8595202695184093017
+    second: shadow_wall_sheet_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -77,7 +80,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -89,19 +92,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +104,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,64 +127,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: archer_wing_sheet_64x64_0
+      name: shadow_wall_sheet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
+        x: 48
+        y: 176
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 694e996d4bf843520800000000000000
-      internalID: 2680925685049582742
+      spriteID: 3ebc6fe1d9a95e320800000000000000
+      internalID: 2586643560614251491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: archer_wing_sheet_64x64_1
+      name: shadow_wall_sheet_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
+        x: 153
+        y: 145
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb9da3265737e52d0800000000000000
-      internalID: -3288063729937491521
+      spriteID: 4ac5b6925c8a6cc40800000000000000
+      internalID: 5532294757028158628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: archer_wing_sheet_64x64_2
+      name: shadow_wall_sheet_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
+        x: 71
+        y: 176
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c297911b250662d0800000000000000
-      internalID: -3285933195583319358
+      spriteID: bcd85997352c7af70800000000000000
+      internalID: 9198534427705445835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: shadow_wall_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a0721520b4b7b880800000000000000
+      internalID: -8595202695184093017
       vertices: []
       indices: 
       edges: []

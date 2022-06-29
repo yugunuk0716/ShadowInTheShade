@@ -17,14 +17,7 @@ public class Shadow_Mode_Effect : PoolableMono
         PoolManager.Instance.Push(this);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            anim.Rebind();
-        }
-    }
-
+  
     public override void Reset()
     {
         anim.Rebind();

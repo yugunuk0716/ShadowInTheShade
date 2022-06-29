@@ -15,8 +15,8 @@ MonoBehaviour:
   playerSprite: {fileID: -3128122009483429638, guid: c062ea4dc4039864eb92a46ceb6e4ddd, type: 3}
   playerClassAnimator: []
   canChangePlayerType: 1
-  playerStates: 0
-  playerJobState: 0
+  playerStates: 1
+  playerJobState: 1
   playerDashState: 0
   playerInputState: 0
   mainStats:
@@ -39,7 +39,7 @@ MonoBehaviour:
     KAP: 0
     BSP: 0
   ectStats:
-    EXP: 0
+    EXP: 80
     PMH: 1000
     LEV: 0
     APH: 0

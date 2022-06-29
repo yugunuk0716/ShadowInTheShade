@@ -239,7 +239,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnimator.SetInteger("AttackCount", attackStack);
 
         playerAnimator.speed = GameManager.Instance.playerSO.attackStats.ASD;
-        playerMove.OnMove(deV, 10f);
+        playerMove.OnMove(deV, 7f);
 
         yield return new WaitForSeconds(.15f);
 

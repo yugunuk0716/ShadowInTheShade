@@ -63,20 +63,7 @@ public class GameManager : MonoBehaviour
     
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (playerSO.playerJobState.Equals(PlayerJobState.Berserker))
-            {
-                playerSO.playerJobState = PlayerJobState.Default;
-            }
-            else if(playerSO.playerJobState.Equals(PlayerJobState.Default))
-            {
-                playerSO.playerJobState = PlayerJobState.Berserker;
-            }
-        }
-    }
+
 
     public void Init()
     {
