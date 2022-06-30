@@ -88,8 +88,6 @@ public class ShadowAndHumanGauge : MonoBehaviour
     void Update()
     {
 
-     
-
         if (gaugeState.Equals(GaugeState.Shadow))
         {
 
